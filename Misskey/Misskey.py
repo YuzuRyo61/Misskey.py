@@ -21,7 +21,7 @@ class Misskey:
         * : Required
         - instanceAddress : Instance Address
         - appSecret : Application Secret Key
-        - accessToken : usertoken key
+        - accessToken : accessToken key from authorized api
         - apiToken : sha256 hashed from appSecret and accessToken (If If this is set, we will preferentially use this.)
         """
         self.instanceAddress = instanceAddress
