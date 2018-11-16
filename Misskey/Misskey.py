@@ -4,14 +4,16 @@ from Misskey.Exceptions import MisskeyInitException, MisskeyResponseException
 
 import requests
 import json
-from urllib.parse import urlparse
 import pprint
+import hashlib
+
+from urllib.parse import urlparse
 
 class Misskey:
     """
     MISSKEY API LIBRARY
     """
-    def __init__(self, instanceAddress='https://misskey.xyz', appSecret=None, userToken=None, apiToken=None):
+    def __init__(self, instanceAddress='https://misskey.xyz', appSecret=None, accessToken=None, apiToken=None):
         """
         INITIALIZE LIBRARY
 
@@ -19,14 +21,18 @@ class Misskey:
         * : Required
         - instanceAddress : Instance Address
         - appSecret : Application Secret Key
-        - userToken : usertoken key
-        - apiToken : sha256 hashed from appSecret and userToken (If If this is set, we will preferentially use this.)
+        - accessToken : usertoken key
+        - apiToken : sha256 hashed from appSecret and accessToken (If If this is set, we will preferentially use this.)
         """
         self.instanceAddress = instanceAddress
         self.appSecret = appSecret
-        self.userToken = userToken
+        self.accessToken = accessToken
         self.apiToken = apiToken
         self.metaDic = None
+
+        if self.apiToken == None and self.appSecret != None and self.accessToken != None:
+            tokenraw = self.accessToken + self.appSecret
+            self.apiToken = hashlib.sha256(tokenraw.encode('utf-8')).hexdigest()
 
         ParseRes = urlparse(self.instanceAddress)
         if ParseRes.scheme == '':
