@@ -17,7 +17,7 @@ from Misskey import Misskey
 misskey = Misskey("misskey.xyz") # Input instance address (If leaved no attribute, it sets "misskey.xyz")
 ```
 
-#### use session key
+#### use token key
 ```python
 from Misskey import Misskey
 

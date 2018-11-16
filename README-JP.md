@@ -14,7 +14,7 @@ from Misskey import Misskey
 misskey = Misskey("misskey.xyz") # インスタンスアドレスを入力、未入力の場合は"misskey.xyz"を指定します。
 ```
 
-#### use session key
+#### トークンキーを使用する
 ```python
 from Misskey import Misskey
 
@@ -22,7 +22,7 @@ from Misskey import Misskey
 misskey = Misskey("misskey.xyz", appSecret="abcdef123...", accessToken="abcdef123...")
 ```
 
-**or**
+**もしくは**
 
 ```python
 from Misskey import Misskey
