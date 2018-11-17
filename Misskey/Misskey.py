@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from Misskey.Exceptions import MisskeyInitException, MisskeyResponseException
+from Misskey.Exceptions import *
 
 import requests
 import json
@@ -22,12 +22,14 @@ class Misskey:
         - instanceAddress : Instance Address
         - appSecret : Application Secret Key
         - accessToken : accessToken key from authorized api
-        - apiToken : sha256 hashed from appSecret and accessToken (If If this is set, we will preferentially use this.)
+        - apiToken : sha256 hashed from appSecret and accessToken (If this is set, we will preferentially use this.)
         """
         self.instanceAddress = instanceAddress
         self.appSecret = appSecret
         self.accessToken = accessToken
         self.apiToken = apiToken
+        
+        self.headers = {'content-type': 'application/json'}
         self.metaDic = None
 
         if self.apiToken == None and self.appSecret != None and self.accessToken != None:
@@ -45,10 +47,13 @@ class Misskey:
 
         if meta.status_code != 200:
             raise MisskeyInitException("API Meta check failed: Server returned HTTP {}\nHave you entered an address that is not a Misskey instance?".format(meta.status_code))
-
+        
         self.metaDic = json.loads(meta.text)
 
     def meta(self,useCache=False):
+        """
+        LOAD INSTANCE META INFORMATION
+        """
         if useCache == True and self.metaDic != None:
             return self.metaDic
         
@@ -69,6 +74,9 @@ class Misskey:
         - description * : Application's Description
         - permission * : Application's Permission (See "Available Permissions" Section)
         - callbackUrl : Application's Callback URL
+
+        Return:
+        - Responce (type dict)
 
         Avaliable Permissions:
         - account-read
@@ -93,4 +101,85 @@ class Misskey:
         - vote-read
         - vote-write
         """
-        pass
+        headers = {'content-type': 'application/json'}
+
+        ParseRes = urlparse(instanceAddress)
+        if ParseRes.scheme == '':
+            ParseRes = urlparse("https://{}".format(instanceAddress))
+        PRscheme = ParseRes.scheme
+        instanceAddressUrl = "{0}://{1}".format(PRscheme, ParseRes.netloc)
+        instanceAddressApiUrl = instanceAddressUrl + "/api"
+
+        payload = {'name': appName, 'description': description, 'permission': permission, 'callbackUrl': callbackUrl}
+
+        app = requests.post(instanceAddressApiUrl + "/app/create", data=json.dumps(payload), headers=headers)
+        appjson = json.loads(app.text)
+
+        if app.status_code != 200:
+            if app.status_code == 400:
+                raise MisskeyBadRequestException("Server returned HTTP 400: code: {0}, param: {1}, reason: {2}".format(appjson['error']['code'], appjson['error']['param'], appjson['error']['reason']))
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}\nHave you entered an address that is not a Misskey instance?".format(app.status_code))
+        
+        return appjson
+    
+    @staticmethod
+    def auth_session_generate(instanceAddress, appSecret):
+        """
+        AUTHORIZE APPLICATION
+
+        Attribute: 
+        - instanceAddress * : Instance Address
+        - appSecret * : Application Secret Key
+        """
+        headers = {'content-type': 'application/json'}
+
+        ParseRes = urlparse(instanceAddress)
+        if ParseRes.scheme == '':
+            ParseRes = urlparse("https://{}".format(instanceAddress))
+        PRscheme = ParseRes.scheme
+        instanceAddressUrl = "{0}://{1}".format(PRscheme, ParseRes.netloc)
+        instanceAddressApiUrl = instanceAddressUrl + "/api"
+
+        payload = {'appSecret': appSecret}
+
+        auth = requests.post(instanceAddressApiUrl + "/auth/session/generate", data=json.dumps(payload), headers=headers)
+        authjson = json.loads(auth.text)
+
+        if auth.status_code != 200:
+            if auth.status_code == 400:
+                raise MisskeyBadRequestException("Server returned HTTP 400: {}".format(authjson['error']))
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}\nHave you entered an address that is not a Misskey instance?".format(auth.status_code))
+        
+        return authjson
+
+    @staticmethod
+    def auth_session_userkey(instanceAddress, appSecret, token):
+        """
+        CHECK AUTHORIZED TOKEN
+
+        Attribute:
+        - instanceAddress * : Instance Address
+        - appSecret * : Application Secret Key
+        - token * : authorize token
+        """
+        headers = {'content-type': 'application/json'}
+        ParseRes = urlparse(instanceAddress)
+        if ParseRes.scheme == '':
+            ParseRes = urlparse("https://{}".format(instanceAddress))
+        PRscheme = ParseRes.scheme
+        instanceAddressUrl = "{0}://{1}".format(PRscheme, ParseRes.netloc)
+        instanceAddressApiUrl = instanceAddressUrl + "/api"
+
+        payload = {'appSecret': appSecret, 'token': token}
+
+        authorize = requests.post(instanceAddressApiUrl + "/auth/session/userkey", data=json.dumps(payload), headers=headers)
+        authorizejson = json.loads(authorize.text)
+        if authorize.status_code != 200:
+            if authorize.status_code == 400:
+                raise MisskeyBadRequestException("Server returned HTTP 400: {}".format(authorizejson['error']))
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}\nHave you entered an address that is not a Misskey instance?".format(authorize.status_code))
+        
+        return authorizejson
