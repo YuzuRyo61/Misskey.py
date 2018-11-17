@@ -202,7 +202,7 @@ class Misskey:
         
         return json.loads(self.res.text)
 
-    def note_post(self, body, cw=None, visibility='public', viaMobile=False):
+    def notes_create(self, body, cw=None, visibility='public', visibleUserIds=None, viaMobile=False, geo=None, fileIds=None, replyId=None, renoteId=None):
         """
         POST NOTE
 
@@ -212,7 +212,20 @@ class Misskey:
         - visibility : visibility
         - viaMobile : Is it mark as Mobile
         """
-        payload = {'i': self.apiToken, 'text': body, 'visibility': visibility, 'viaMobile': viaMobile}
+        payload = {'i': self.apiToken, 'text': body, 'cw': cw, 'visibility': visibility, 'viaMobile': viaMobile, 'geo': geo}
+
+        if visibleUserIds != None:
+            payload['visibleUserIds'] = visibleUserIds
+
+        if fileIds != None:
+            payload['fileIds'] = fileIds
+
+        if replyId != None:
+            payload['replyId'] = replyId
+
+        if renoteId != None:
+            payload['renoteId'] = renoteId
+
         self.res = requests.post(self.instanceAddressApiUrl + "/notes/create", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 200:
@@ -220,7 +233,22 @@ class Misskey:
         
         return json.loads(self.res.text)
 
-    def note_show(self, noteId):
+    def notes_renote(self, renoteId):
+        """
+        RENOTE FUNCTION
+
+        Attribute:
+        - renoteId : ID of will renote
+        """
+        payload = {'i': self.apiToken, 'renoteId': renoteId}
+        self.res = requests.post(self.instanceAddressApiUrl + "/notes/create", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+        
+        return json.loads(self.res.text)
+
+    def notes_show(self, noteId):
         """
         POST SHOW
         
@@ -235,12 +263,12 @@ class Misskey:
         
         return json.loads(self.res.text)
     
-    def note_delete(self, noteId):
+    def notes_delete(self, noteId):
         """
         POST SHOW
 
         Attribute:
-        noteId * : Note ID
+        - noteId * : Note ID
 
         Return:
         - [boolean] (True: success)
@@ -252,3 +280,107 @@ class Misskey:
             raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
         
         return True
+    
+    def notes_conversation(self, noteId, limit=None, offset=None):
+        """
+        POST SHOWS NOTES CONVERSATION
+
+        Attribute:
+        - noteId * : Note ID
+        - limit : recieve limit
+        - offset : pagenation
+        """
+        payload = {'noteId': noteId}
+
+        if limit != None:
+            payload['limit'] = int(limit)
+
+        if offset != None:
+            payload['offset'] = int(offset)
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/notes/conversation", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def notes_reactions(self, noteId, limit=None, offset=None):
+        """
+        POST SHOW REACTIONS
+
+        Attribute:
+        - noteId * : Note ID
+        - limit : recieve limit
+        - offset : pagenation
+        """
+        payload = {'noteId': noteId}
+
+        if limit != None:
+            payload['limit'] = int(limit)
+
+        if offset != None:
+            payload['offset'] = int(offset)
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/notes/reactions", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+        
+        return json.loads(self.res.text)
+
+    def notes_reactions_create(self, noteId, reaction='pudding'):
+        """
+        CREATE REACTION
+
+        Attribute:
+        - noteId * : Note ID
+        - reaction : to send reaction
+        """
+        payload = {'i': self.apiToken, 'noteId': noteId, 'reaction': reaction}
+        self.res = requests.post(self.instanceAddressApiUrl + "/notes/reactions/create", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 204:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+        
+        return True
+
+    def notes_reactions_delete(self, noteId):
+        """
+        CREATE REACTION
+
+        Attribute:
+        - noteId * : Note ID
+        - reaction : to send reaction
+        """
+        payload = {'i': self.apiToken, 'noteId': noteId}
+        self.res = requests.post(self.instanceAddressApiUrl + "/notes/reactions/delete", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 204:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+        
+        return True
+    
+    def local_timeline(self, withFiles=False, limit=None, offset=None):
+        """
+        READ TIMELINE
+
+        Attribute:
+        - withFiles : show only include files
+        - limit : recieve limit
+        - offset : pagenation
+        """
+        payload = {'i': self.apiToken, 'withFiles': withFiles}
+
+        if limit != None:
+            payload['limit'] = int(limit)
+
+        if offset != None:
+            payload['offset'] = int(offset)
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/notes/local-timeline", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+        
+        return json.loads(self.res.text)
