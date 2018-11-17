@@ -208,6 +208,9 @@ class Misskey:
 
         Attribute:
         - body * : Note body
+        - cw : Content Warning
+        - visibility : visibility
+        - viaMobile : Is it mark as Mobile
         """
         payload = {'i': self.apiToken, 'text': body, 'visibility': visibility, 'viaMobile': viaMobile}
         self.res = requests.post(self.instanceAddressApiUrl + "/notes/create", data=json.dumps(payload), headers=self.headers)
@@ -216,3 +219,36 @@ class Misskey:
             raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
         
         return json.loads(self.res.text)
+
+    def note_show(self, noteId):
+        """
+        POST SHOW
+        
+        Attribute:
+        noteId * : Note ID
+        """
+        payload = {'i': self.apiToken, 'noteId': noteId}
+        self.res = requests.post(self.instanceAddressApiUrl + "/notes/show", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+        
+        return json.loads(self.res.text)
+    
+    def note_delete(self, noteId):
+        """
+        POST SHOW
+
+        Attribute:
+        noteId * : Note ID
+
+        Return:
+        - [boolean] (True: success)
+        """
+        payload = {'i': self.apiToken, 'noteId': noteId}
+        self.res = requests.post(self.instanceAddressApiUrl + "/notes/delete", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 204:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+        
+        return True
