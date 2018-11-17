@@ -5,6 +5,13 @@ Misskeyインスタンス用のPythonライブラリです。
 
 ---
 
+## インストール
+
+### pipを使う (推奨)
+```bash
+pip3 install Misskey.py
+```
+
 ## 使い方
 
 ### ライブラリのインポートと初期化

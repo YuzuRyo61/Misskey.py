@@ -8,6 +8,13 @@ This script is Python library for Misskey Instance.
 
 ---
 
+## How to install
+
+### Use pip (Recommend)
+```bash
+pip3 install Misskey.py
+```
+
 ## usage
 
 ### import library (init)
