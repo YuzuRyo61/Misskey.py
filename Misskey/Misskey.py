@@ -31,6 +31,7 @@ class Misskey:
         
         self.headers = {'content-type': 'application/json'}
         self.metaDic = None
+        self.res = None
 
         if self.apiToken == None and self.appSecret != None and self.accessToken != None:
             tokenraw = self.accessToken + self.appSecret
@@ -57,11 +58,11 @@ class Misskey:
         if useCache == True and self.metaDic != None:
             return self.metaDic
         
-        meta = requests.post(self.instanceAddressApiUrl + "/meta")
-        if meta.status_code != 200:
-            raise MisskeyResponseException("Server returned HTTP {}".format(meta.status_code))
+        self.res = requests.post(self.instanceAddressApiUrl + "/meta")
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
         
-        return json.loads(meta.text)
+        return json.loads(self.res.text)
 
     @staticmethod
     def create_app(instanceAddress, appName, description, permission, callbackUrl=None):
@@ -76,7 +77,7 @@ class Misskey:
         - callbackUrl : Application's Callback URL
 
         Return:
-        - Responce (type dict)
+        - Responce (type: dict)
 
         Avaliable Permissions:
         - account-read
@@ -163,6 +164,9 @@ class Misskey:
         - instanceAddress * : Instance Address
         - appSecret * : Application Secret Key
         - token * : authorize token
+
+        Return:
+        - authorizejson (type: dict)
         """
         headers = {'content-type': 'application/json'}
         ParseRes = urlparse(instanceAddress)
@@ -183,3 +187,32 @@ class Misskey:
                 raise MisskeyResponseException("Server returned HTTP {}\nHave you entered an address that is not a Misskey instance?".format(authorize.status_code))
         
         return authorizejson
+
+    def i(self):
+        """
+        RETURNS YOUR CREDENTIAL
+
+        Return:
+        - res (type: dict)
+        """
+        self.res = requests.post(self.instanceAddressApiUrl + "/i", data=json.dumps({'i': self.apiToken}), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+        
+        return json.loads(self.res.text)
+
+    def note_post(self, body, cw=None, visibility='public', viaMobile=False):
+        """
+        POST NOTE
+
+        Attribute:
+        - body * : Note body
+        """
+        payload = {'i': self.apiToken, 'text': body, 'visibility': visibility, 'viaMobile': viaMobile}
+        self.res = requests.post(self.instanceAddressApiUrl + "/notes/create", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+        
+        return json.loads(self.res.text)

@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 setup(
     name='Misskey.py',
-    version='0.0.1',
+    version='0.2.0',
     description='The Misskey library for Python. Misskey is made by syuilo.',
     author='YuzuRyo61',
     author_mail='yuzuryo61@yuzulia.com',
