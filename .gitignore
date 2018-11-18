@@ -118,3 +118,6 @@ dmypy.json
 response*.json
 sample/key/*
 apiToken.txt
+
+# IDEA
+.idea/
