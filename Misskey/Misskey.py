@@ -468,7 +468,7 @@ class Misskey:
 
     def hybrid_timeline(self, withFiles=False, fileType=None, excludeNsfw=False, limit=None, offset=None, sinceId=None, untilId=None, sinceDate=None, untilDate=None, includeMyRenotes=True, includeRenotedMyNotes=True, includeLocalRenotes=True):
         """
-        READ TIMELINE OF GLOBAL
+        READ TIMELINE OF HYBRID(SOCIAL)
 
         Attribute:
         - withFiles : show only include files
@@ -508,7 +508,56 @@ class Misskey:
             payload['untilDate'] = int(untilDate)
 
 
-        self.res = requests.post(self.instanceAddressApiUrl + "/notes/global-timeline", data=json.dumps(payload), headers=self.headers)
+        self.res = requests.post(self.instanceAddressApiUrl + "/notes/hybrid-timeline", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def timeline(self, withFiles=False, fileType=None, excludeNsfw=False, limit=None, offset=None, sinceId=None, untilId=None, sinceDate=None, untilDate=None, includeMyRenotes=True, includeRenotedMyNotes=True, includeLocalRenotes=True):
+        """
+        READ TIMELINE OF HOME
+
+        Attribute:
+        - withFiles : show only include files
+        - fileType : fileType dict
+        - excludeNsfw : Don't show if it has NSFW flag
+        - limit : receive limit
+        - offset : pagination
+        - sinceId : Since Note Id
+        - untilId : Until Note Id
+        - sinceDate : Since Date
+        - untilDate : Until Date
+        - includeMyRenotes : include My Notes
+        - includeRenotedMyNotes : include renoted my notes
+        - includeLocalRenotes: include local renotes
+        """
+        payload = {'i': self.apiToken, 'withFiles': withFiles, 'excludeNsfw': excludeNsfw, 'includeMyRenotes': includeMyRenotes, 'includeRenotedMyNotes': includeMyRenotes, 'includeLocalRenotes': includeLocalRenotes}
+
+        if fileType != None:
+            payload['fileType'] = fileType
+
+        if limit != None:
+            payload['limit'] = int(limit)
+
+        if offset != None:
+            payload['offset'] = int(offset)
+
+        if sinceId != None:
+            payload['sinceId'] = str(sinceId)
+
+        if untilId != None:
+            payload['untilId'] = str(untilId)
+
+        if sinceDate != None:
+            payload['sinceDate'] = int(sinceDate)
+
+        if untilDate != None:
+            payload['untilDate'] = int(untilDate)
+
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/notes/timeline", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 200:
             raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))

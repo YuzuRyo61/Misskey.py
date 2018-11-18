@@ -120,4 +120,4 @@ sample/key/*
 apiToken.txt
 
 # IDEA
-.idea/
+.idea
