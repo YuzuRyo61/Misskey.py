@@ -594,8 +594,6 @@ class Misskey:
 
         return json.loads(self.res.text)
 
-    def 
-
     ##### ADMINISTRATOR FUNCTIONS
     def admin_invite(self):
         """
