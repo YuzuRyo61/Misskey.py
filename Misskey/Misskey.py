@@ -9,8 +9,9 @@ import hashlib
 
 from urllib.parse import urlparse
 
-def isAdministrator(isAdminFlag):
-    pass
+def isAdmin(isAdminFlag: bool):
+    if isAdminFlag == False:
+        raise MisskeyIsntAdminException("Using user is not Admin or Moderator!")
 
 class Misskey:
     """
@@ -34,7 +35,9 @@ class Misskey:
 
         self.headers = {'content-type': 'application/json'}
         self.metaDic = None
+        self.credentials = None
         self.res = None
+        self.i_isAdmin = False
 
         if self.apiToken == None and self.appSecret != None and self.accessToken != None:
             tokenraw = self.accessToken + self.appSecret
@@ -47,15 +50,16 @@ class Misskey:
         self.instanceAddressUrl = "{0}://{1}".format(self.PRscheme, ParseRes.netloc)
         self.instanceAddressApiUrl = self.instanceAddressUrl + "/api"
 
-        meta = requests.post(self.instanceAddressApiUrl + "/meta")
+        self.res = requests.post(self.instanceAddressApiUrl + "/meta")
 
-        if meta.status_code != 200:
-            raise MisskeyInitException("API Meta check failed: Server returned HTTP {}\nHave you entered an address that is not a Misskey instance?".format(meta.status_code))
+        if self.res.status_code != 200:
+            raise MisskeyInitException("API Meta check failed: Server returned HTTP {}\nHave you entered an address that is not a Misskey instance?".format(self.res.status_code))
 
-        self.metaDic = json.loads(meta.text)
+        self.metaDic = json.loads(self.res.text)
 
         if self.apiToken != None:
             self.credentials = self.i()
+            self.i_isAdmin = self.credentials['isAdmin']
 
     def meta(self,useCache=False):
         """
@@ -68,6 +72,7 @@ class Misskey:
         if self.res.status_code != 200:
             raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
+        self.metaDic = json.loads(self.res.text)
         return json.loads(self.res.text)
 
     @classmethod
@@ -135,7 +140,7 @@ class Misskey:
         """
         AUTHORIZE APPLICATION
 
-        Attribute: 
+        Attribute:
         - instanceAddress * : Instance Address
         - appSecret * : Application Secret Key
         """
@@ -264,7 +269,7 @@ class Misskey:
     def notes_show(self, noteId):
         """
         POST SHOW
-        
+
         Attribute:
         noteId * : Note ID
         """
@@ -563,3 +568,101 @@ class Misskey:
             raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return json.loads(self.res.text)
+
+    def users_show(self, userId=None, userIds=None, username=None, host=None):
+        """
+        SHOW USER(S)
+        """
+        payload = {}
+
+        if userId != None:
+            payload['userId'] = userId
+
+        if userIds != None:
+            payload['userIds'] = userIds
+
+        if username != None:
+            payload['username'] = username
+
+        if host != None:
+            payload['host'] = host
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/users/show", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def 
+
+    ##### ADMINISTRATOR FUNCTIONS
+    def admin_invite(self):
+        """
+        CREATE INVITE CODE
+        """
+        isAdmin(self.i_isAdmin)
+        payload = {"i": self.apiToken}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/admin/invite", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def admin_verify(self, userId):
+        """
+        MARK AS VERIFY
+        """
+        isAdmin(self.i_isAdmin)
+        payload = {"i": self.apiToken, 'userId': userId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/admin/verify-user", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 204:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return True
+
+    def admin_unverify(self, userId):
+        """
+        UNMARK AS VERIFY
+        """
+        isAdmin(self.i_isAdmin)
+        payload = {"i": self.apiToken, 'userId': userId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/admin/unverify-user", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 204:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return True
+
+    def admin_moderator_add(self, userId):
+        """
+        MARK AS MODERATOR
+        """
+        isAdmin(self.i_isAdmin)
+        payload = {"i": self.apiToken, 'userId': userId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/admin/moderators/add", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 204:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return True
+
+    def admin_moderator_remove(self, userId):
+        """
+        UNMARK AS MODERATOR
+        """
+        isAdmin(self.i_isAdmin)
+        payload = {"i": self.apiToken, 'userId': userId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/admin/moderators/remove", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 204:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return True

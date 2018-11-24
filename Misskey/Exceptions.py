@@ -6,6 +6,12 @@ class MisskeyInitException(Exception):
 class MisskeyBadRequestException(Exception):
     pass
 
+class MisskeyIsntAdminException(Exception):
+    pass
+
+class MisskeyForbiddenException(Exception):
+    pass
+
 class MisskeyResponseException(Exception):
     pass
 
