@@ -46,6 +46,6 @@ misskey = Misskey("misskey.xyz", apiToken="abcdef123...")
 ```
 
 # Other
-**Pull requests are WELCOME!**
+**Pull requests are HUGE WELCOME!**
 
 We hope you will contribute to the completion of the library by all means.
