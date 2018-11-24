@@ -637,7 +637,7 @@ class Misskey:
 
         return True
 
-    def admin_moderator_add(self, userId):
+    def admin_moderators_add(self, userId):
         """
         MARK AS MODERATOR
         """
@@ -651,7 +651,7 @@ class Misskey:
 
         return True
 
-    def admin_moderator_remove(self, userId):
+    def admin_moderators_remove(self, userId):
         """
         UNMARK AS MODERATOR
         """
