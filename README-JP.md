@@ -25,7 +25,7 @@ pip3 install Misskey.py
 ```python
 from Misskey import Misskey
 
-misskey = Misskey("misskey.xyz") # インスタンスアドレスを入力、未入力の場合は"misskey.xyz"を指定します。
+misskey = Misskey("misskey.xyz") # インスタンスアドレスを入力、未入力の場合は"misskey.xyz"が指定されます。
 ```
 
 #### トークンキーを使用する
