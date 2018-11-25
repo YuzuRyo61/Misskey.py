@@ -6,12 +6,20 @@ import requests
 import json
 import pprint
 import hashlib
+import os
 
 from urllib.parse import urlparse
 
 def isAdmin(isAdminFlag: bool):
     if isAdminFlag == False:
         raise MisskeyIsntAdminException("Using user is not Admin or Moderator!")
+
+def construction(func):
+    def _CONSTRUCTION_FUNCTION(*args, **kwargs):
+        print("Sorry, This function is under construction.")
+        return None
+    return _CONSTRUCTION_FUNCTION
+
 
 class Misskey:
     """
@@ -220,9 +228,9 @@ class Misskey:
         self.credentials = json.loads(self.res.text)
         return json.loads(self.res.text)
 
-    def notes_create(self, body, cw=None, visibility='public', visibleUserIds=None, viaMobile=False, geo=None, fileIds=None, replyId=None, renoteId=None):
+    def notes_create(self, body=None, cw=None, visibility='public', visibleUserIds=None, viaMobile=False, geo=None, fileIds=None, replyId=None, renoteId=None):
         """
-        POST NOTE
+        POST NOTE (WITH RENOTE QUOTE)
 
         Attribute:
         - body * : Note body
@@ -614,6 +622,135 @@ class Misskey:
         payload = {'i': self.apiToken, 'userId': userId}
 
         self.res = requests.post(self.instanceAddressApiUrl + "/following/delete", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def drive(self):
+        """
+        SHOW DRIVE STATUS
+        """
+        payload = {'i': self.apiToken}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/drive", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def drive_files(self, limit=None, sinceId=None, untilId=None, folderId=None, type=None):
+        """
+        SHOW DRIVE FILES
+        """
+        payload = {'i': self.apiToken, 'folderId': folderId}
+
+        if limit != None:
+            payload['limit'] = limit
+
+        if sinceId != None:
+            payload['sinceId'] = sinceId
+
+        if untilId != None:
+            payload['untilId'] = untilId
+
+        if type != None:
+            payload['type'] = type
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/drive/files", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    @construction
+    def drive_files_create(self, filePath, folderId=None, isSensitive=False, force=False):
+        """
+        UPLOAD FILE
+        """
+        fileName = os.path.basename(filePath)
+        fileBin = {'file': (fileName, open(filePath, 'rb'))}
+
+        payload = {'i': self.apiToken, 'folderId': folderId, 'isSensitive': isSensitive, 'force': force}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/drive/files/create", data=json.dumps(payload), headers=self.headers, files=fileBin)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server retured HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def drive_files_show(self, fileId):
+        """
+        SHOW DRIVE FILE
+        """
+        payload = {'i': self.apiToken, 'fileId': fileId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/drive/files/show", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def drive_files_find(self, name, folderId=None):
+        """
+        FIND DRIVE FILES
+        """
+        payload = {'i': self.apiToken, 'name': name, 'folderId': folderId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/drive/files/find", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def drive_folders(self, limit=None, sinceId=None, untilId=None, folderId=None):
+        """
+        SHOW DRIVE FILES
+        """
+        payload = {'i': self.apiToken, 'folderId': folderId}
+
+        if limit != None:
+            payload['limit'] = limit
+
+        if sinceId != None:
+            payload['sinceId'] = sinceId
+
+        if untilId != None:
+            payload['untilId'] = untilId
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/drive/folders",data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def drive_folders_find(self, name, parentId=None):
+        """
+        FIND DRIVE FOLDERS
+        """
+        payload = {'i': self.apiToken, 'name': name, 'parentId': parentId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/drive/folders/find", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def drive_folders_show(self, folderId):
+        """
+        SHOW DRIVE FOLDER
+        """
+        payload = {'i': self.apiToken, 'folderId': folderId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/drive/folders/show", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 200:
             raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))

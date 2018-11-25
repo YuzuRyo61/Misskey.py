@@ -9,6 +9,9 @@ class MisskeyBadRequestException(Exception):
 class MisskeyIsntAdminException(Exception):
     pass
 
+class MisskeyPermissionException(Exception):
+    pass
+
 class MisskeyForbiddenException(Exception):
     pass
 
