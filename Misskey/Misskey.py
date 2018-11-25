@@ -594,6 +594,32 @@ class Misskey:
 
         return json.loads(self.res.text)
 
+    def following_create(self, userId):
+        """
+        FOLLOW USER
+        """
+        payload = {'i': self.apiToken, 'userId': userId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/following/create", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def following_delete(self, userId):
+        """
+        UNFOLLOW USER
+        """
+        payload = {'i': self.apiToken, 'userId': userId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/following/delete", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
     ##### ADMINISTRATOR FUNCTIONS
     def admin_invite(self):
         """
