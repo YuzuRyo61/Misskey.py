@@ -683,6 +683,19 @@ class Misskey:
 
         return json.loads(self.res.text)
 
+    def drive_files_upload_from_url(self, url, folderId=None, isSensitive=False, force=False):
+        """
+        UPLOAD FILE FROM URL
+        """
+        payload = {'i': self.apiToken, 'url': url, 'folderId': folderId, 'isSensitive': isSensitive, 'force': force}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/drive/files/upload_from_url", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
     def drive_files_show(self, fileId):
         """
         SHOW DRIVE FILE
@@ -708,6 +721,19 @@ class Misskey:
             raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return json.loads(self.res.text)
+
+    def drive_files_delete(self, fileId):
+        """
+        DELETE DRIVE FILE
+        """
+        payload = {'i': self.apiToken, 'name': name, 'fileId': fileId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/drive/files/delete", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 204:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return True
 
     def drive_folders(self, limit=None, sinceId=None, untilId=None, folderId=None):
         """
@@ -744,6 +770,19 @@ class Misskey:
 
         return json.loads(self.res.text)
 
+    def drive_folders_create(self, name, parentId=None):
+        """
+        CREATE DRIVE FOLDER
+        """
+        payload = {'i': self.apiToken, 'name': name, 'parentId': parentId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/drive/folders/create", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
     def drive_folders_show(self, folderId):
         """
         SHOW DRIVE FOLDER
@@ -756,6 +795,84 @@ class Misskey:
             raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return json.loads(self.res.text)
+
+    def drive_folders_delete(self, folderId):
+        """
+        DELETE DRIVE FOLDER
+        """
+        payload = {'i': self.apiToken, 'folderId': folderId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/drive/folders/delete", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 204:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return True
+
+    def games_reversi_games(self, limit=None, sinceId=None, untilId=None, my=False):
+        """
+        SHOW REVERSI GAMES
+        """
+        payload = {'my': my}
+
+        if limit != None:
+            payload['limit'] = limit
+
+        if sinceId != None:
+            payload['sinceId'] = sinceId
+
+        if untilId != None:
+            payload['untildId'] = untildId
+
+        if my == True:
+            payload['i'] = self.apiToken
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/games/reversi/games", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.staus_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def games_reversi_games_show(self, gameId):
+        """
+        SHOW REVERSI GAME
+        """
+        payload = {'gameId': gameId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/games/reversi/games/show", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def games_reversi_games_surrender(self, gameId):
+        """
+        SURRENDER TO MATCHING REVERSI GAME
+        """
+        payload = {'i': self.apiToken, 'gameId': gameId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/games/reversi/games/surrender", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 204:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return True
+
+    @construction
+    def games_reversi_match(self, userId):
+        """
+
+        """
+        payload = {'i': self.apiToken, 'userId': userId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/games/reversi/match", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code !=204:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return True
 
     ##### ADMINISTRATOR FUNCTIONS
     def admin_invite(self):
