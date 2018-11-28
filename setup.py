@@ -4,7 +4,7 @@ import sys
 
 sys.path.append('./test')
 
-with open('README.md', encoding="utf-8") as df:
+with open('README.rst', encoding="utf-8") as df:
 	ld = df.read()
 
 setup(
