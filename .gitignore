@@ -121,3 +121,7 @@ apiToken.txt
 
 # IDEA
 .idea
+
+# CUSTOM
+test/websocket-test.py
+test/websocket-test_reversi.py
