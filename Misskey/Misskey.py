@@ -71,7 +71,7 @@ class Misskey:
 
     def meta(self,useCache=False):
         """
-        LOAD INSTANCE META INFORMATION
+        READ INSTANCE META INFORMATION
         """
         if useCache == True and self.metaDic != None:
             return self.metaDic
@@ -82,6 +82,18 @@ class Misskey:
 
         self.metaDic = json.loads(self.res.text)
         return json.loads(self.res.text)
+		
+	def stats(self):
+		"""
+		READ INSTANCE STATS
+		"""
+		
+		self.res = requests.post(self.instanceAddressApiUrl + "/stats")
+		
+		if self.res.status_code != 200:
+			raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+			
+		return json.loads(self.res.text)
 
     @classmethod
     def create_app(instanceAddress, appName, description, permission, callbackUrl=None):
