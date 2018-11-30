@@ -1,4 +1,7 @@
 # Misskey.py
+[![CircleCI](https://circleci.com/gh/YuzuRyo61/Misskey.py.svg?style=shield)](https://circleci.com/gh/YuzuRyo61/Misskey.py)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
 > Do you looking for English version? [Click Here](README.md)
 

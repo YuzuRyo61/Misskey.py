@@ -2,6 +2,22 @@
 Misskey.py
 ==========
 
+
+.. image:: https://circleci.com/gh/YuzuRyo61/Misskey.py.svg?style=shield
+   :target: https://circleci.com/gh/YuzuRyo61/Misskey.py
+   :alt: CircleCI
+
+
+.. image:: https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square
+   :target: http://makeapullrequest.com
+   :alt: PRs Welcome
+
+
+.. image:: http://img.shields.io/badge/license-MIT-blue.svg?style=flat
+   :target: LICENSE
+   :alt: MIT License
+
+
 ..
 
    Japanese version available. `Click Here <README-JP.md>`_.

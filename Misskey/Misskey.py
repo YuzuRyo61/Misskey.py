@@ -82,18 +82,18 @@ class Misskey:
 
         self.metaDic = json.loads(self.res.text)
         return json.loads(self.res.text)
-		
-	def stats(self):
-		"""
-		READ INSTANCE STATS
-		"""
-		
-		self.res = requests.post(self.instanceAddressApiUrl + "/stats")
-		
-		if self.res.status_code != 200:
-			raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
-			
-		return json.loads(self.res.text)
+
+    def stats(self):
+        """
+        READ INSTANCE STATS
+        """
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/stats")
+
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
 
     @classmethod
     def create_app(instanceAddress, appName, description, permission, callbackUrl=None):
@@ -885,30 +885,30 @@ class Misskey:
             raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return True
-    
+
     def messaging_messages(self, userId, limit=None, sinceId=None, untilId=None, markAsRead=None):
         """
         SHOW MESSAGES
         """
         payload = {'i': self.apiToken, 'userId': userId}
-        
+
         if limit != None:
             payload['limit'] = limit
-		
+
         if sinceId != None:
             payload['sinceId'] = sinceId
-        
+
         if untilId != None:
             payload['limit'] = untilId
-        
+
         if markAsRead != None:
             payload['limit'] = markAsRead
-		
+
         self.res = requests.post(self.instanceAddressApiUrl + "/messaging/messages", data=json.dumps(payload), headers=self.headers)
-		
+
         if self.res.status_code != 200:
             raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
-        
+
         return json.loads(self.res.text)
 
     ##### ADMINISTRATOR FUNCTIONS
