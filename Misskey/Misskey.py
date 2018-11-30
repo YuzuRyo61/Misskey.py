@@ -874,30 +874,30 @@ class Misskey:
 
         return True
     
-	def messaging_messages(self, userId, limit=None, sinceId=None, untilId=None, markAsRead=None):
-		"""
-		SHOW MESSAGES
-		"""
-		payload = {'i': self.apiToken, 'userId': userId}
+    def messaging_messages(self, userId, limit=None, sinceId=None, untilId=None, markAsRead=None):
+        """
+        SHOW MESSAGES
+        """
+        payload = {'i': self.apiToken, 'userId': userId}
+        
+        if limit != None:
+            payload['limit'] = limit
 		
-		if limit != None:
-			payload['limit'] = limit
+        if sinceId != None:
+            payload['sinceId'] = sinceId
+        
+        if untilId != None:
+            payload['limit'] = untilId
+        
+        if markAsRead != None:
+            payload['limit'] = markAsRead
 		
-		if sinceId != None:
-			payload['sinceId'] = sinceId
+        self.res = requests.post(self.instanceAddressApiUrl + "/messaging/messages", data=json.dumps(payload), headers=self.headers)
 		
-		if untilId != None:
-			payload['limit'] = untilId
-		
-		if markAsRead != None:
-			payload['limit'] = markAsRead
-		
-		self.res = requests.post(self.instanceAddressApiUrl + "/messaging/messages", data=json.dumps(payload), headers=self.headers)
-		
-		if self.res.status_code != 200:
-			raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
-			
-		return json.loads(self.res.text)
+        if self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+        
+        return json.loads(self.res.text)
 
     ##### ADMINISTRATOR FUNCTIONS
     def admin_invite(self):
