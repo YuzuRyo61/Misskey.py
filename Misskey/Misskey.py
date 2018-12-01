@@ -240,7 +240,7 @@ class Misskey:
         self.credentials = json.loads(self.res.text)
         return json.loads(self.res.text)
 
-    def notes_create(self, body=None, cw=None, visibility='public', visibleUserIds=None, viaMobile=False, geo=None, fileIds=None, replyId=None, renoteId=None):
+    def notes_create(self, body=None, cw=None, visibility='public', visibleUserIds=None, viaMobile=False, geo=None, fileIds=None, replyId=None, renoteId=None, poll=None):
         """
         POST NOTE (WITH RENOTE QUOTE)
 
@@ -258,11 +258,14 @@ class Misskey:
         if fileIds != None:
             payload['fileIds'] = fileIds
 
-        if replyId != None:
+        if replyId != None and type(replyId) == str:
             payload['replyId'] = replyId
 
-        if renoteId != None:
+        if renoteId != None and type(renoteId) == str:
             payload['renoteId'] = renoteId
+
+        if poll != None and type(poll) == list and len(poll) >= 2 and len(poll) <= 10:
+            payload['poll'] = {"choices": poll}
 
         self.res = requests.post(self.instanceAddressApiUrl + "/notes/create", data=json.dumps(payload), headers=self.headers)
 
