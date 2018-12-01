@@ -142,6 +142,18 @@ class Misskey:
         instanceAddressUrl = "{0}://{1}".format(PRscheme, ParseRes.netloc)
         instanceAddressApiUrl = instanceAddressUrl + "/api"
 
+        if type(name) != str:
+            raise MisskeyAttributeException("name attribute must bt list type! but your name attribute is {}".format(type(name)))
+
+        if type(description) != str:
+            raise MisskeyAttributeException("description attribute must bt list type! but your description attribute is {}".format(type(description)))
+
+        if type(permission) != list:
+            raise MisskeyAttributeException("permission attribute must bt list type! but your permission attribute is {}".format(type(permission)))
+
+        if type(callbackUrl) != str:
+            raise MisskeyAttributeException("callbackUrl attribute must bt list type! but your callbackUrl attribute is {}".format(type(callbackUrl)))
+
         payload = {'name': appName, 'description': description, 'permission': permission, 'callbackUrl': callbackUrl}
 
         app = requests.post(instanceAddressApiUrl + "/app/create", data=json.dumps(payload), headers=headers)
@@ -270,7 +282,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/notes/create", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 200:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'note-write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return json.loads(self.res.text)
 
@@ -285,7 +300,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/notes/create", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 200:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'note-write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return json.loads(self.res.text)
 
@@ -318,7 +336,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/notes/delete", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 204:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'note-write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return True
 
@@ -382,7 +403,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/notes/reactions/create", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 204:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'reaction-write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return True
 
@@ -398,7 +422,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/notes/reactions/delete", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 204:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'reaction-write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return True
 
@@ -626,7 +653,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/following/create", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 200:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'following-write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return json.loads(self.res.text)
 
@@ -639,7 +669,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/following/delete", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 200:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'following-write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return json.loads(self.res.text)
 
@@ -652,7 +685,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/drive", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 200:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-read'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return json.loads(self.res.text)
 
@@ -677,7 +713,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/drive/files", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 200:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-read'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return json.loads(self.res.text)
 
@@ -694,7 +733,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/drive/files/create", data=json.dumps(payload), headers=self.headers, files=fileBin)
 
         if self.res.status_code != 200:
-            raise MisskeyResponseException("Server retured HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return json.loads(self.res.text)
 
@@ -707,7 +749,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/drive/files/upload_from_url", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 200:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return json.loads(self.res.text)
 
@@ -733,7 +778,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/drive/files/find", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 200:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-read'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return json.loads(self.res.text)
 
@@ -746,7 +794,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/drive/files/delete", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 204:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return True
 
@@ -768,7 +819,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/drive/folders",data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 200:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-read'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return json.loads(self.res.text)
 
@@ -781,7 +835,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/drive/folders/find", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 200:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-read'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return json.loads(self.res.text)
 
@@ -794,7 +851,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/drive/folders/create", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 200:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return json.loads(self.res.text)
 
@@ -807,7 +867,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/drive/folders/show", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 200:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-read'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return json.loads(self.res.text)
 
@@ -820,7 +883,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/drive/folders/delete", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 204:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return True
 
@@ -828,7 +894,7 @@ class Misskey:
         """
         SHOW REVERSI GAMES
         """
-        payload = {'my': my}
+        payload = {}
 
         if limit != None:
             payload['limit'] = limit
@@ -841,6 +907,7 @@ class Misskey:
 
         if my == True:
             payload['i'] = self.apiToken
+            payload['my'] = my
 
         self.res = requests.post(self.instanceAddressApiUrl + "/games/reversi/games", data=json.dumps(payload), headers=self.headers)
 
@@ -910,7 +977,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/messaging/messages", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 200:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'messaging-read'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return json.loads(self.res.text)
 

@@ -3,6 +3,9 @@
 class MisskeyInitException(Exception):
     pass
 
+class MisskeyArgumentException(Exception):
+    pass
+
 class MisskeyBadRequestException(Exception):
     pass
 
