@@ -95,7 +95,7 @@ class Misskey:
 
         return json.loads(self.res.text)
 
-    @classmethod
+    @staticmethod
     def create_app(instanceAddress, appName, description, permission, callbackUrl=None):
         """
         CREATE APP FUNCTION
@@ -142,17 +142,14 @@ class Misskey:
         instanceAddressUrl = "{0}://{1}".format(PRscheme, ParseRes.netloc)
         instanceAddressApiUrl = instanceAddressUrl + "/api"
 
-        if type(name) != str:
-            raise MisskeyAttributeException("name attribute must bt list type! but your name attribute is {}".format(type(name)))
+        if type(appName) != str:
+            raise MisskeyArgumentException("name attribute must bt list type! but your name attribute is {}".format(type(name)))
 
         if type(description) != str:
-            raise MisskeyAttributeException("description attribute must bt list type! but your description attribute is {}".format(type(description)))
+            raise MisskeyArgumentException("description attribute must bt list type! but your description attribute is {}".format(type(description)))
 
         if type(permission) != list:
-            raise MisskeyAttributeException("permission attribute must bt list type! but your permission attribute is {}".format(type(permission)))
-
-        if type(callbackUrl) != str:
-            raise MisskeyAttributeException("callbackUrl attribute must bt list type! but your callbackUrl attribute is {}".format(type(callbackUrl)))
+            raise MisskeyArgumentException("permission attribute must bt list type! but your permission attribute is {}".format(type(permission)))
 
         payload = {'name': appName, 'description': description, 'permission': permission, 'callbackUrl': callbackUrl}
 
@@ -167,7 +164,7 @@ class Misskey:
 
         return appjson
 
-    @classmethod
+    @staticmethod
     def auth_session_generate(instanceAddress, appSecret):
         """
         AUTHORIZE APPLICATION
@@ -198,7 +195,7 @@ class Misskey:
 
         return authjson
 
-    @classmethod
+    @staticmethod
     def auth_session_userkey(instanceAddress, appSecret, token):
         """
         CHECK AUTHORIZED TOKEN
