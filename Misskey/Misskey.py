@@ -69,6 +69,18 @@ class Misskey:
             self.credentials = self.i()
             self.i_isAdmin = self.credentials['isAdmin']
 
+    def hash_apitoken(self, accessToken, appSecret, substitution=False):
+        """
+        HASH APITOKEN
+        """
+        tokenraw = self.accessToken + self.appSecret
+        apiToken = hashlib.sha256(tokenraw.encode('utf-8')).hexdigest()
+
+        if substitution == True:
+            self.apiToken = apiToken
+
+        return apiToken
+
     def meta(self,useCache=False):
         """
         READ INSTANCE META INFORMATION
