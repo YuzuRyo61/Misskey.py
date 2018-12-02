@@ -67,7 +67,8 @@ class Misskey:
 
         if self.apiToken != None:
             self.credentials = self.i()
-            self.i_isAdmin = self.credentials['isAdmin']
+            if 'isAdmin' in self.credentials:
+                self.i_isAdmin = self.credentials['isAdmin']
 
     def hash_apitoken(self, accessToken, appSecret, substitution=False):
         """
