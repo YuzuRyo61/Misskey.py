@@ -114,6 +114,8 @@ class Misskey:
                     'account-write',
                     'account/read',
                     'account/write',
+                    'note-read',
+                    'note-write',
                     'reaction-read',
                     'reaction-write',
                     'following-read',
