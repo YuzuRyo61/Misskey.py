@@ -19,10 +19,29 @@ if __name__ == "__main__":
 
     misskey = Misskey(instance, appSecret=appSecret, accessToken=userToken)
 
-    body = input("Post to Misskey: ")
+    pollchoices = []
+    pollappend = None
+
+    print("Up to 10 pieces can be added.")
+    print("Hint: Leave it blank to finish adding the choice.")
+    while pollappend == '' or len(pollchoices) < 10:
+        pollappend = input("Poll Choice(Choices) No.{}: ".format(len(pollchoices) + 1))
+        if pollappend == '':
+            if len(pollchoices) >= 2:
+                break
+            else:
+                print("You have to add two choices.")
+                continue
+        else:
+            pollchoices.append(pollappend)
+
+    print("Post in this ballot item: ")
+    for i in range(len(pollchoices)):
+        print(pollchoices[i])
+    body = input("Post to Misskey (Can be leave a blank): ")
 
     try:
-        res = misskey.notes_create(body)
+        res = misskey.notes_create(body, poll=pollchoices)
     except MisskeyBadRequestException:
         print("Failed!")
     except MisskeyResponseException:
