@@ -22,7 +22,7 @@ if __name__ == "__main__":
     body = input("Post to Misskey: ")
 
     try:
-        res = misskey.notes_post(body)
+        res = misskey.notes_create(body)
     except MisskeyBadRequestException:
         print("Failed!")
     except MisskeyResponseException:
