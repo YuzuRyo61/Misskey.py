@@ -109,7 +109,27 @@ class Misskey:
         return json.loads(self.res.text)
 
     @staticmethod
-    def create_app(instanceAddress, appName, description, permission, callbackUrl=None):
+    def create_app(instanceAddress, appName, description, permission=[
+                    'account-read',
+                    'account-write',
+                    'account/read',
+                    'account/write',
+                    'reaction-read',
+                    'reaction-write',
+                    'following-read',
+                    'following-write',
+                    'drive-read',
+                    'drive-write',
+                    'notification-read',
+                    'notification-write',
+                    'favorite-read',
+                    'favorites-read',
+                    'favorite-write',
+                    'messaging-read',
+                    'messaging-write',
+                    'vote-read',
+                    'vote-write'
+                    ], callbackUrl=None):
         """
         CREATE APP FUNCTION
 
