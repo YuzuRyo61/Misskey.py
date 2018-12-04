@@ -831,7 +831,7 @@ class Misskey:
 
     def drive_files_update(self, fileId, folderId='', name=None, isSensitive=None):
         """
-        SHOW DRIVE FILE
+        UPDATE DRIVE FILE
         """
         payload = {'i': self.apiToken, 'fileId': fileId}
 
@@ -872,7 +872,7 @@ class Misskey:
 
     def drive_folders(self, limit=None, sinceId=None, untilId=None, folderId=None):
         """
-        SHOW DRIVE FILES
+        SHOW DRIVE FOLDERS
         """
         payload = {'i': self.apiToken, 'folderId': folderId}
 
@@ -945,7 +945,7 @@ class Misskey:
 
     def drive_folders_update(self, folderId, name=None, parentId=''):
         """
-        SHOW DRIVE FILE
+        UPDATE DRIVE FOLDER
         """
         payload = {'i': self.apiToken, 'folderId': folderId}
 
@@ -1069,6 +1069,63 @@ class Misskey:
             payload['limit'] = markAsRead
 
         self.res = requests.post(self.instanceAddressApiUrl + "/messaging/messages", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'messaging-read'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def messaging_messages_create(self, userId, text=None, fileId=None):
+        """
+        SHOW MESSAGES HISTORY
+        """
+        payload = {'i': self.apiToken, 'userId': userId}
+
+        if text != None:
+            payload['text'] = text
+
+        if fileId != None:
+            payload['fileId'] = fileId
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/messaging/messages/create", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'messaging-read'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def messaging_history(self, limit=None):
+        """
+        SHOW MESSAGES HISTORY
+        """
+        payload = {'i': self.apiToken}
+
+        if limit != None:
+            payload['limit'] = limit
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/messaging/history", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'messaging-read'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def messaging_messages_read(self, messageId):
+        """
+        MESSAGE MARK AS READ
+        """
+        payload = {'i': self.apiToken, 'messageId': messageId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/messaging/messages/read", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 200:
             if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
