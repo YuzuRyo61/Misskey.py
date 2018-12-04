@@ -9,7 +9,7 @@ with open('README.rst', encoding="utf-8") as df:
 
 setup(
     name='Misskey.py',
-    version='0.5.2',
+    version='0.6.0',
     description='The Misskey library for Python. Misskey is made by syuilo.',
 	long_description=ld,
 	keywords="Misskey, API, syuilo",

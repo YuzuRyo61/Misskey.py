@@ -1127,13 +1127,13 @@ class Misskey:
 
         self.res = requests.post(self.instanceAddressApiUrl + "/messaging/messages/read", data=json.dumps(payload), headers=self.headers)
 
-        if self.res.status_code != 200:
+        if self.res.status_code != 204:
             if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
                 raise MisskeyPermissionException("Permission denied! this function needs permission 'messaging-read'!")
             else:
                 raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
-        return json.loads(self.res.text)
+        return True
 
     ##### ADMINISTRATOR FUNCTIONS
     def admin_invite(self):
