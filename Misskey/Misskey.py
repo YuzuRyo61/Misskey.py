@@ -7,6 +7,7 @@ import json
 import pprint
 import hashlib
 import os
+import mimetypes
 
 from urllib.parse import urlparse
 
@@ -752,24 +753,32 @@ class Misskey:
 
         return json.loads(self.res.text)
 
-    @construction
     def drive_files_create(self, filePath, folderId=None, isSensitive=False, force=False):
         """
         UPLOAD FILE
         """
         fileName = os.path.basename(filePath)
-        fileBin = {'file': (fileName, open(filePath, 'rb'))}
+        fileAbs = os.path.abspath(filePath)
+        fileBin = open(fileAbs, 'rb')
+        fileMime = mimetypes.guess_type(filePath)
+        filePayload = {'file': (fileName, fileBin, fileMime[0])}
 
         payload = {'i': self.apiToken, 'folderId': folderId, 'isSensitive': isSensitive, 'force': force}
 
-        self.res = requests.post(self.instanceAddressApiUrl + "/drive/files/create", data=json.dumps(payload), headers=self.headers, files=fileBin)
+        self.res = requests.post(self.instanceAddressApiUrl + "/drive/files/create", data=payload, files=filePayload)
 
         if self.res.status_code != 200:
-            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
-                raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-write'!")
-            else:
-                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            try:
+                if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                    fileBin.close()
+                    raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-write'!")
+            except json.decoder.JSONDecodeError:
+                pass
+            fileBin.close()
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
+
+        fileBin.close()
         return json.loads(self.res.text)
 
     def drive_files_upload_from_url(self, url, folderId=None, isSensitive=False, force=False):
@@ -797,7 +806,10 @@ class Misskey:
         self.res = requests.post(self.instanceAddressApiUrl + "/drive/files/show", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 200:
-            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-read'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return json.loads(self.res.text)
 
@@ -812,6 +824,31 @@ class Misskey:
         if self.res.status_code != 200:
             if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
                 raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-read'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def drive_files_update(self, fileId, folderId='', name=None, isSensitive=None):
+        """
+        SHOW DRIVE FILE
+        """
+        payload = {'i': self.apiToken, 'fileId': fileId}
+
+        if folderId != '':
+            if folderId == None:
+                payload['folderId'] = None
+            else:
+                payload['folderId'] = folderId
+
+        if isSensitive != None:
+            payload['isSensitive'] = isSensitive
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/drive/files/update", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-write'!")
             else:
                 raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
@@ -901,6 +938,31 @@ class Misskey:
         if self.res.status_code != 200:
             if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
                 raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-read'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def drive_folders_update(self, folderId, name=None, parentId=''):
+        """
+        SHOW DRIVE FILE
+        """
+        payload = {'i': self.apiToken, 'folderId': folderId}
+
+        if name != None:
+            payload['name'] = name
+
+        if parentId != '':
+            if parentId == None:
+                payload['parentId'] = None
+            else:
+                payload['parentId'] = folderId
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/drive/folders/update", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-write'!")
             else:
                 raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
