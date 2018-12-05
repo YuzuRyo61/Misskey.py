@@ -462,6 +462,43 @@ class Misskey:
 
         return True
 
+    def notes_polls_recommendation(self, limit=None, offset=None):
+        """
+        RECOMMENDATION WITHIN POLL NOTES
+        """
+        payload = {'i': self.apiToken}
+
+        if limit != None:
+            payload['limit'] = limit
+
+        if offset != None:
+            payload['offset'] = offset
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/notes/polls/vote", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'vote-write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def notes_polls_vote(self, noteId, choice):
+        """
+        VOTE TO NOTE INCLUDES POLLS
+        """
+        payload = {'i': self.apiToken, 'noteId': noteId, 'choice': choice}
+        self.res = requests.post(self.instanceAddressApiUrl + "/notes/polls/vote", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 204:
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'vote-write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return True
+
     def local_timeline(self, withFiles=False, fileType=None, excludeNsfw=False, limit=None, offset=None, sinceId=None, untilId=None, sinceDate=None, untilDate=None):
         """
         READ TIMELINE OF LOCAL
@@ -709,6 +746,120 @@ class Misskey:
 
         return json.loads(self.res.text)
 
+    def mute_list(self, limit=None, sinceId=None, untilId=None):
+        """
+        BLOCK LIST
+        """
+        payload = {'i': self.apiToken}
+
+        if limit != None:
+            payload['limit'] = limit
+
+        if sinceId != None:
+            payload['sinceId'] = sinceId
+
+        if untilId != None:
+            payload['untilId'] = untilId
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/mute/list", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'account/read'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def mute_create(self, userId):
+        """
+        MUTE USER
+        """
+        payload = {'i': self.apiToken, 'userId': userId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/mute/create", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'account/write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def mute_delete(self, userId):
+        """
+        UNMUTE USER
+        """
+        payload = {'i': self.apiToken, 'userId': userId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/mute/delete", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'account/write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def blocking_list(self, limit=None, sinceId=None, untilId=None):
+        """
+        BLOCK LIST
+        """
+        payload = {'i': self.apiToken}
+
+        if limit != None:
+            payload['limit'] = limit
+
+        if sinceId != None:
+            payload['sinceId'] = sinceId
+
+        if untilId != None:
+            payload['untilId'] = untilId
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/blocking/list", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'following-read'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def blocking_create(self, userId):
+        """
+        BLOCK USER
+        """
+        payload = {'i': self.apiToken, 'userId': userId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/blocking/create", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'following-write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
+    def blocking_delete(self, userId):
+        """
+        UNBLOCK USER
+        """
+        payload = {'i': self.apiToken, 'userId': userId}
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/blocking/delete", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'following-write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
     def drive(self):
         """
         SHOW DRIVE STATUS
@@ -766,19 +917,16 @@ class Misskey:
         payload = {'i': self.apiToken, 'folderId': folderId, 'isSensitive': isSensitive, 'force': force}
 
         self.res = requests.post(self.instanceAddressApiUrl + "/drive/files/create", data=payload, files=filePayload)
+        fileBin.close()
 
         if self.res.status_code != 200:
             try:
                 if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
-                    fileBin.close()
                     raise MisskeyPermissionException("Permission denied! this function needs permission 'drive-write'!")
             except json.decoder.JSONDecodeError:
                 pass
-            fileBin.close()
             raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
-
-        fileBin.close()
         return json.loads(self.res.text)
 
     def drive_files_upload_from_url(self, url, folderId=None, isSensitive=False, force=False):
@@ -1205,3 +1353,21 @@ class Misskey:
             raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return True
+
+    ### CUSTOM API
+    def CUSTOM_API(self, api, payload=None, includeCred=False):
+        """
+        CUSTOM MISSKEY API
+        """
+
+        if includeCred == True:
+            payload['i'] = self.apiToken
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/" + api, data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code == 204:
+            return True
+        elif self.res.status_code != 200:
+            raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
