@@ -128,6 +128,8 @@ class Misskey:
                     'favorite-read',
                     'favorites-read',
                     'favorite-write',
+                    'account/read',
+                    'account/write',
                     'messaging-read',
                     'messaging-write',
                     'vote-read',
