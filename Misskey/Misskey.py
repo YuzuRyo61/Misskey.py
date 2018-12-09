@@ -287,6 +287,61 @@ class Misskey:
         self.credentials = json.loads(self.res.text)
         return json.loads(self.res.text)
 
+    def i_update(self, name=None, description=None, lang=None, location=None, birthday=None, avatarId=None, wallpapaerId=None, isLocked=None, carefulBot=None, isBot=None, isCat=None, autoWatch=None, alwaysMarkNsfw=None):
+        """
+        UPDATE YOUR PROFILE
+        """
+        payload = {"i": self.apiToken}
+
+        if name != None:
+            payload['name'] = name
+
+        if description != None:
+            payload['description'] = description
+
+        if lang != None:
+            payload['lang'] = lang
+
+        if location != None:
+            payload['location'] = lang
+
+        if birthday != None:
+            payload['birthday'] = birthday
+
+        if avatarId != None:
+            payload['avatarId'] = avatarId
+
+        if wallpapaerId != None:
+            payload['wallpapaerId'] = wallpapaerId
+
+        if isLocked != None:
+            payload['isLocked'] = isLocked
+
+        if carefulBot != None:
+            payload['carefulBot'] = carefulBot
+
+        if isBot != None:
+            payload['isBot'] = isBot
+
+        if isCat != None:
+            payload['isCat'] = isCat
+
+        if autoWatch != None:
+            payload['autoWatch'] = autoWatch
+
+        if alwaysMarkNsfw != None:
+            payload['alwaysMarkNsfw'] = alwaysMarkNsfw
+
+        self.res = requests.post(self.instanceAddressApiUrl + "/i/update", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 200:
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'account-write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return json.loads(self.res.text)
+
     def notes_create(self, body=None, cw=None, visibility='public', visibleUserIds=None, viaMobile=False, geo=None, fileIds=None, replyId=None, renoteId=None, poll=None):
         """
         POST NOTE (WITH RENOTE QUOTE)
