@@ -21,5 +21,8 @@ class MisskeyForbiddenException(Exception):
 class MisskeyResponseException(Exception):
     pass
 
+class MisskeyWebSocketException(Exception):
+    pass
+
 class MisskeyUnknownException(Exception):
     pass

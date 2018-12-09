@@ -8,6 +8,12 @@ import pprint
 import hashlib
 import os
 import mimetypes
+import websocket
+
+try:
+    import thread
+except ImportError:
+    import _thread as thread
 
 from urllib.parse import urlparse
 
@@ -55,8 +61,9 @@ class Misskey:
         ParseRes = urlparse(self.instanceAddress)
         if ParseRes.scheme == '':
             ParseRes = urlparse("https://{}".format(self.instanceAddress))
-        self.PRscheme = ParseRes.scheme
-        self.instanceAddressUrl = "{0}://{1}".format(self.PRscheme, ParseRes.netloc)
+        self.scheme = ParseRes.scheme
+        self.instanceDomain = ParseRes.netloc
+        self.instanceAddressUrl = "{0}://{1}".format(self.scheme, ParseRes.netloc)
         self.instanceAddressApiUrl = self.instanceAddressUrl + "/api"
 
         self.res = requests.post(self.instanceAddressApiUrl + "/meta")
@@ -1339,6 +1346,37 @@ class Misskey:
                 raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
 
         return True
+
+    ##### STREAMING FUNCTIONS
+
+    # @construction
+    def __STREAMING__(self, listener, debug=False):
+        """
+        INTERNAL STREAMING FUNCTION (PLEASE DO NOT USE FOR PRODUCTION)
+        """
+
+        if self.scheme != 'https':
+            wsScheme = 'ws'
+        else:
+            wsScheme = 'wss'
+
+        if self.apiToken == None:
+            raise MisskeyForbiddenException("Your apiToken is not registered")
+
+        if debug == True:
+            websocket.enableTrace(True)
+        else:
+            websocket.enableTrace(False)
+
+        self.ws = websocket.WebSocketApp("{0}://{1}/streaming?i={2}".format(wsScheme, self.instanceDomain, self.apiToken), on_message=listener.on_message, on_error=listener.on_error, on_close=listener.on_close)
+        self.ws.on_open = listener.on_open
+        self.ws.run_forever()
+
+    def streaming(self, listener, debug=False):
+        """
+        STREAMING SCRIPT
+        """
+        return self.__STREAMING__(listener, debug=debug)
 
     ##### ADMINISTRATOR FUNCTIONS
     def admin_invite(self):
