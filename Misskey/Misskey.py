@@ -486,7 +486,7 @@ class Misskey:
 
         return json.loads(self.res.text)
 
-    def notes_reactions_create(self, noteId, reaction='pudding'):
+    def notes_reactions_create(self, noteId, reaction=0):
         """
         CREATE REACTION
 
@@ -494,7 +494,26 @@ class Misskey:
         - noteId * : Note ID
         - reaction : to send reaction
         """
-        payload = {'i': self.apiToken, 'noteId': noteId, 'reaction': reaction}
+        if type(reaction) == int:
+            react_dic = [
+                'pudding',
+                'like',
+                'love',
+                'laugh',
+                'hmm',
+                'surprise',
+                'congrats',
+                'angry',
+                'confused',
+                'rip'
+            ]
+            re = react_dic[reaction]
+        elif type(reaction) == str:
+            re = reaction
+        else:
+            raise MisskeyArgumentException("Invalid reaction")
+
+        payload = {'i': self.apiToken, 'noteId': noteId, 'reaction': re}
         self.res = requests.post(self.instanceAddressApiUrl + "/notes/reactions/create", data=json.dumps(payload), headers=self.headers)
 
         if self.res.status_code != 204:
