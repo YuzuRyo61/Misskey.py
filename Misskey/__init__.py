@@ -1,5 +1,13 @@
-from Misskey.Misskey import Misskey
-from Misskey.Exceptions import MisskeyInitException, MisskeyResponseException
-from Misskey.Websocket import MisskeyStreamListener
+# -*- coding: utf-8 -*-
+"""
+Misskey.py
 
-__all__ = ['Misskey', 'MisskeyStreamListener', 'MisskeyInitException', 'MisskeyResponseException', 'MisskeyArgumentException', 'MisskeyIsntAdminException', 'MisskeyBadRequestException', 'MisskeyPermissionException']
+:copyright: (C) 2019 YuzuRyo61.
+:license: MIT License, see LICENSE for more details.
+"""
+
+from Misskey.Misskey import Misskey
+from Misskey.Util import MisskeyUtil
+from Misskey.Exceptions import *
+
+__all__ = ['Misskey', 'MisskeyUtil', 'MisskeyAiException', 'MisskeyInitException', 'MisskeyAPIException']

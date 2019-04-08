@@ -9,7 +9,7 @@ with open('README.rst', encoding="utf-8") as df:
 
 setup(
     name='Misskey.py',
-    version='0.7.1',
+    version='1.0.0',
     description='The Misskey library for Python. Misskey is made by syuilo.',
 	long_description=ld,
 	keywords="Misskey, API, syuilo",
@@ -20,8 +20,7 @@ setup(
         'requests',
         'websocket-client'
     ],
-    packages=find_packages(exclude=('sample', 'docs', 'tests')),
-    test_suite = 'MISTEST.UNITTEST_FUNCTION',
+    packages=find_packages(exclude=('sample', 'docs')),
 	classifiers=[
 		'License :: OSI Approved :: MIT License',
 		'Natural Language :: Japanese',

@@ -125,3 +125,9 @@ apiToken.txt
 # CUSTOM
 test/websocket-test.py
 test/websocket-test_reversi.py
+
+# TEMP FOLDER
+tmp/
+
+# IGNORE OLD SCRIPT
+/Misskey/MisskeyOld.py
