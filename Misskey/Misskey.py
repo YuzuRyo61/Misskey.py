@@ -35,6 +35,9 @@ class Misskey:
                     raise MisskeyInitException('API Authorize Error: /i')
 
     def __API(self, apiName, includeI=False, expected=200, **payload):
+        """
+        This function is for internal. Normally, Please use each functions.
+        """
         if includeI:
             if self.apiToken != None:
                 payload['i'] = self.apiToken
@@ -49,6 +52,10 @@ class Misskey:
             return json.loads(res.text)
 
     def meta(self):
+        """
+        Read a instance meta information.
+        :return: dict
+        """
         return self.__API('/meta')
 
     def stats(self):
