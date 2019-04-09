@@ -8,16 +8,16 @@ import hashlib
 from urllib.parse import urlparse
 
 class Misskey:
-    def __init__(self, address='misskey.xyz', apiToken=None, skipChk=False):
+    def __init__(self, address='misskey.xyz', i=None, skipChk=False):
         """
         Initialize the library.
         
         :param address: Instance address of Misskey. If leave a blank, library will use 'misskey.xyz'.
-        :param apiToken: Known as "I". Use hashed keys or keys used on the web.
+        :param i: Use hashed keys or keys used on the web.
         :param skipChk: Skip instance valid check. It is not recommended to make it True.
         """
         self.headers = {'content-type': 'application/json'}
-        self.apiToken = apiToken
+        self.apiToken = i
 
         ParseRes = urlparse(address)
         if ParseRes.scheme == '':
@@ -29,8 +29,8 @@ class Misskey:
             res = requests.post(self.instanceAddressApiUrl + '/meta')
             if res.status_code != 200:
                 raise MisskeyInitException('API Error: /meta')
-            if apiToken != None:
-                res = requests.post(self.instanceAddressApiUrl + '/i', data=json.dumps({'i': apiToken}), headers=self.headers)
+            if i != None:
+                res = requests.post(self.instanceAddressApiUrl + '/i', data=json.dumps({'i': i}), headers=self.headers)
                 if res.status_code != 200:
                     raise MisskeyInitException('API Authorize Error: /i')
 
@@ -83,7 +83,7 @@ class Misskey:
     ):
         """
         Post a new note.
-        :return: dict
+        :rtype: dict
         """
         payload = {
             'visibility': visibility,
@@ -114,5 +114,16 @@ class Misskey:
         
         return self.__API('/notes/create', True, 200, **payload)
     
-    def notes_delete(self, postId):
-        return self.__API('/notes/delete', True, 204, postId=postId)
+    def notes_delete(self, noteId):
+        """
+        Delete a own note.
+        :rtype: bool
+        """
+        return self.__API('/notes/delete', True, 204, noteId=noteId)
+
+    def i(self):
+        """
+        Show your credential.
+        :rtype: bool
+        """
+        return self.__API('/i', True)
