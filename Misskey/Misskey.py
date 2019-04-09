@@ -4,7 +4,8 @@ from Misskey.Exceptions import MisskeyInitException, MisskeyAPIException, Misske
 
 import requests
 import json
-import hashlib
+import os
+import mimetypes
 from urllib.parse import urlparse
 
 class Misskey:
@@ -124,6 +125,27 @@ class Misskey:
     def i(self):
         """
         Show your credential.
-        :rtype: bool
+        :rtype: dict
         """
         return self.__API('/i', True)
+
+    def drive_files_create(self, filePath, folderId=None, isSensitive=False, force=False):
+        """
+        Upload a file.
+        :rtype: dict
+        """
+        fileName = os.path.basename(filePath)
+        fileAbs = os.path.abspath(filePath)
+        fileBin = open(fileAbs, 'rb')
+        fileMime = mimetypes.guess_type(fileAbs)
+
+        filePayload = {'file': (fileName, fileBin, fileMime[0])}
+        payload = {'i': self.apiToken, 'folderId': folderId, 'isSensitive': isSensitive, 'force': force}
+
+        res = requests.post(self.instanceAddressApiUrl + "/drive/files/create", data=payload, files=filePayload)
+        fileBin.close()
+
+        if res.status_code != 200:
+            raise MisskeyAPIException(f'API Error: /drive/files/create (Expected value 200, but {res.status_code} returned)\n{res.text}')
+        else:
+            return json.loads(res.text)

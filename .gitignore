@@ -105,6 +105,7 @@ venv.bak/
 
 # mkdocs documentation
 /site
+/docs-src/_build/html
 
 # mypy
 .mypy_cache/
@@ -131,3 +132,6 @@ tmp/
 
 # IGNORE OLD SCRIPT
 /Misskey/MisskeyOld.py
+
+# Editor
+.vscode
