@@ -49,7 +49,10 @@ class Misskey:
         if res.status_code != expected:
             raise MisskeyAPIException(f'API Error: {apiName} (Expected value {expected}, but {res.status_code} returned)\n{res.text}')
         else:
-            return json.loads(res.text)
+            if res.status_code == 204:
+                return True
+            else:
+                return json.loads(res.text)
 
     def meta(self):
         """
@@ -78,6 +81,10 @@ class Misskey:
         pollChoices=[],
         pollMultiple=False
     ):
+        """
+        Post a new note.
+        :return: dict
+        """
         payload = {
             'visibility': visibility,
             'text': text,
@@ -106,3 +113,6 @@ class Misskey:
             payload['poll']['multiple'] = pollMultiple
         
         return self.__API('/notes/create', True, 200, **payload)
+    
+    def notes_delete(self, postId):
+        return self.__API('/notes/delete', True, 204, postId=postId)
