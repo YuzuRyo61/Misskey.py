@@ -40,8 +40,8 @@ misskey = Misskey("misskey.xyz") # Input instance address (If leaved no attribut
 ```python
 from Misskey import Misskey
 
-# If use the apiToken (apiToken is sha256 hashed from appSecret and accessToken)
-misskey = Misskey("misskey.xyz", apiToken="abcdef123...")
+# If use the token (i is sha256 hashed from appSecret and accessToken)
+misskey = Misskey("misskey.xyz", i="abcdef123...")
 ```
 
 ## Other
