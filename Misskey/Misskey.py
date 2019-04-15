@@ -58,12 +58,23 @@ class Misskey:
     def meta(self):
         """
         Read a instance meta information.
-        :return: dict
+        :rtype: dict
         """
         return self.__API('/meta')
 
     def stats(self):
+        """
+        Read a instance stats information.
+        :rtype: dict
+        """
         return self.__API('/stats')
+
+    def i(self):
+        """
+        Show your credential.
+        :rtype: dict
+        """
+        return self.__API('/i', True)
 
     def notes_create(
         self,
@@ -122,13 +133,6 @@ class Misskey:
         """
         return self.__API('/notes/delete', True, 204, noteId=noteId)
 
-    def i(self):
-        """
-        Show your credential.
-        :rtype: dict
-        """
-        return self.__API('/i', True)
-
     def drive_files_create(self, filePath, folderId=None, isSensitive=False, force=False):
         """
         Upload a file.
@@ -149,3 +153,10 @@ class Misskey:
             raise MisskeyAPIException(f'API Error: /drive/files/create (Expected value 200, but {res.status_code} returned)\n{res.text}')
         else:
             return json.loads(res.text)
+    
+    def drive_files_delete(self, fileId):
+        """
+        Delete a file.
+        :rtype: bool
+        """
+        return self.__API('/drive/files/delete', True, 204, fileId=fileId)
