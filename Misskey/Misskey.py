@@ -132,6 +132,31 @@ class Misskey:
                 payload['poll']['expiredAfter'] = pollExpiredAfter
         
         return self.__API('notes/create', True, 200, **payload)
+
+    def notes_renote(self, noteId):
+        """
+        Support fucntion: Renote a note (If use quote renote, please use notes_create)
+        :rtype: dict
+        """
+        return self.__API('notes/create', True, renoteId=noteId)
+
+    def notes_renotes(self, noteId, limit=10, sinceId=None, untilId=None):
+        """
+        Show renote lists from note.
+        :rtype: list
+        """
+        payload = {
+            'noteId': noteId,
+            'limit': limit
+        }
+
+        if sinceId != None:
+            payload['sinceId'] = sinceId
+
+        if untilId != None:
+            payload['untilId'] = untilId
+        
+        return self.__API('notes/renotes', False, 200, **payload)
     
     def notes_delete(self, noteId):
         """
@@ -139,6 +164,13 @@ class Misskey:
         :rtype: bool
         """
         return self.__API('notes/delete', True, 204, noteId=noteId)
+
+    def notes_show(self, noteId):
+        """
+        Show a note.
+        :rtype: dict
+        """
+        return self.__API('notes/show', True, noteId=noteId)
 
     def notes_reactions_create(self, noteId, reaction):
         """
@@ -173,6 +205,42 @@ class Misskey:
         :rtype: bool
         """
         return self.__API('notes/reactions/delete', True, 204, noteId=noteId)
+
+    def users_show(self, userId=None, userIds=None, username=None, host=None):
+        """
+        Show user(s).
+        :rtype: dict
+        :rtype: list
+        """
+        payload = {}
+        
+        if userId != None:
+            payload['userId'] = userId
+        
+        if userIds != None and type(userIds) == list:
+            payload['userIds'] = userIds
+
+        if username != None:
+            payload['username'] = username
+
+        if host != None:
+            payload['host'] = host
+        
+        return self.__API('users/show', True, 200, **payload)
+
+    def following_create(self, userId):
+        """
+        Follow a user.
+        :rtype: dict
+        """
+        return self.__API('following/create', True, 200, userId=userId)
+    
+    def following_delete(self, userId):
+        """
+        Unfollow a user.
+        :rtype: dict
+        """
+        return self.__API('following/delete', True, 200, userId=userId)
 
     def drive(self):
         """

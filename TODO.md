@@ -25,7 +25,7 @@
 - [ ] users/relation
 - [ ] users/report-abuse
 - [ ] users/search
-- [ ] users/show
+- [x] users/show
 
 # account
 - [ ] blocking/list
@@ -85,11 +85,11 @@
 - [ ] notes/reactions
 - [x] notes/reactions/create
 - [x] notes/reactions/delete
-- [ ] notes/renotes
+- [x] notes/renotes
 - [ ] notes/replies
 - [ ] notes/search-by-tag
 - [ ] notes/search
-- [ ] notes/show
+- [x] notes/show
 - [ ] notes/state
 - [ ] notes/timeline
 - [ ] notes/user-list-timeline
@@ -98,8 +98,8 @@
 - [ ] users/notes
 
 # following
-- [ ] following/create
-- [ ] following/delete
+- [x] following/create
+- [x] following/delete
 - [ ] following/requests/accept
 - [ ] following/requests/cancel
 - [ ] following/requests/list
