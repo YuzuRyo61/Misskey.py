@@ -37,7 +37,7 @@
 - [ ] i/read-all-messaging-messages
 - [ ] i/read-all-unread-notes
 - [ ] i/unpin
-- [ ]i/update
+- [ ] i/update
 - [ ] mute/list
 - [ ] my/apps
 - [ ] notifications/mark-all-as-read
