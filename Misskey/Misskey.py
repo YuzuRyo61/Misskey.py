@@ -24,16 +24,16 @@ class Misskey:
         if ParseRes.scheme == '':
             ParseRes = urlparse(f"https://{address}")
         self.address = ParseRes.netloc
-        self.instanceAddressApiUrl = f"{ParseRes.scheme}://{ParseRes.netloc}/api"
+        self.instanceAddressApiUrl = f"{ParseRes.scheme}://{ParseRes.netloc}/api/"
 
         if not skipChk:
-            res = requests.post(self.instanceAddressApiUrl + '/meta')
+            res = requests.post(self.instanceAddressApiUrl + 'meta')
             if res.status_code != 200:
-                raise MisskeyInitException('API Error: /meta')
+                raise MisskeyInitException(f'API Error: meta\n{res.text}')
             if i != None:
-                res = requests.post(self.instanceAddressApiUrl + '/i', data=json.dumps({'i': i}), headers=self.headers)
+                res = requests.post(self.instanceAddressApiUrl + 'i', data=json.dumps({'i': i}), headers=self.headers)
                 if res.status_code != 200:
-                    raise MisskeyInitException('API Authorize Error: /i')
+                    raise MisskeyInitException(f'API Authorize Error: i\n{res.text}')
 
     def __API(self, apiName, includeI=False, expected=200, **payload):
         """
@@ -43,7 +43,7 @@ class Misskey:
             if self.apiToken != None:
                 payload['i'] = self.apiToken
             else:
-                raise MisskeyAiException('apiToken variable was undefined. Please set apiToken variable.')
+                raise MisskeyAiException('APIToken(I) variable was undefined. Please set "apiToken" variable.')
         
         res = requests.post(self.instanceAddressApiUrl + apiName, data=json.dumps(payload), headers=self.headers)
 
@@ -60,21 +60,21 @@ class Misskey:
         Read a instance meta information.
         :rtype: dict
         """
-        return self.__API('/meta')
+        return self.__API('meta')
 
     def stats(self):
         """
         Read a instance stats information.
         :rtype: dict
         """
-        return self.__API('/stats')
+        return self.__API('stats')
 
     def i(self):
         """
         Show your credential.
         :rtype: dict
         """
-        return self.__API('/i', True)
+        return self.__API('i', True)
 
     def notes_create(
         self,
@@ -90,8 +90,10 @@ class Misskey:
         fileIds=[],
         replyId=None,
         renoteId=None,
-        pollChoices=[],
-        pollMultiple=False
+        poll=[],
+        pollMultiple=False,
+        pollExpiresAt=None,
+        pollExpiredAfter=None
     ):
         """
         Post a new note.
@@ -120,18 +122,45 @@ class Misskey:
         if renoteId != None:
             payload['renoteId'] = renoteId
 
-        if pollChoices != []:
-            payload['poll']['choices'] = pollChoices
+        if poll != []:
+            payload['poll'] = {}
+            payload['poll']['choices'] = poll
             payload['poll']['multiple'] = pollMultiple
+            if pollExpiresAt != None:
+                payload['poll']['expiresAt'] = pollExpiresAt
+            if pollExpiredAfter != None:
+                payload['poll']['expiredAfter'] = pollExpiredAfter
         
-        return self.__API('/notes/create', True, 200, **payload)
+        return self.__API('notes/create', True, 200, **payload)
     
     def notes_delete(self, noteId):
         """
         Delete a own note.
         :rtype: bool
         """
-        return self.__API('/notes/delete', True, 204, noteId=noteId)
+        return self.__API('notes/delete', True, 204, noteId=noteId)
+
+    def drive_files(self, limit=10, sinceId=None, untilId=None, folderId=None, type=None):
+        """
+        Show a files in selected folder.
+        :rtype: list
+        """
+        payload = {
+            'limit': limit
+        }
+        if sinceId != None:
+            payload['sinceId'] = sinceId
+        
+        if untilId != None:
+            payload['untilId'] = untilId
+        
+        if folderId != None:
+            payload['folderId'] = folderId
+
+        if type != None:
+            payload['type'] = type
+
+        return self.__API('drive/files', True, 200, **payload)
 
     def drive_files_create(self, filePath, folderId=None, isSensitive=False, force=False):
         """
@@ -146,17 +175,24 @@ class Misskey:
         filePayload = {'file': (fileName, fileBin, fileMime[0])}
         payload = {'i': self.apiToken, 'folderId': folderId, 'isSensitive': isSensitive, 'force': force}
 
-        res = requests.post(self.instanceAddressApiUrl + "/drive/files/create", data=payload, files=filePayload)
+        res = requests.post(self.instanceAddressApiUrl + "drive/files/create", data=payload, files=filePayload)
         fileBin.close()
 
         if res.status_code != 200:
-            raise MisskeyAPIException(f'API Error: /drive/files/create (Expected value 200, but {res.status_code} returned)\n{res.text}')
+            raise MisskeyAPIException(f'API Error: drive/files/create (Expected value 200, but {res.status_code} returned)\n{res.text}')
         else:
             return json.loads(res.text)
+
+    def drive_files_uploadFromUrl(self, url, folderId=None, isSensitive=False, force=False):
+        """
+        Upload a file from URL.
+        :rtype: dict
+        """
+        return self.__API('drive/files/upload-from-url', True, 200, url=url, folderId=folderId, isSensitive=isSensitive, force=force)
     
     def drive_files_delete(self, fileId):
         """
         Delete a file.
         :rtype: bool
         """
-        return self.__API('/drive/files/delete', True, 204, fileId=fileId)
+        return self.__API('drive/files/delete', True, 204, fileId=fileId)
