@@ -40,8 +40,8 @@ misskey = Misskey("misskey.xyz") # インスタンスアドレスを入力、未
 ```python
 from Misskey import Misskey
 
-# apiTokenを指定する場合(apiTokenはappSecretとaccessTokenをsha256ハッシュ化したもの)
-misskey = Misskey("misskey.xyz", apiToken="abcdef123...")
+# トークンを指定する場合(iはappSecretとaccessTokenをsha256ハッシュ化したもの)
+misskey = Misskey("misskey.xyz", i="abcdef123...")
 ```
 
 ## その他
