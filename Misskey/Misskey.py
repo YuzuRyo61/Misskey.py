@@ -140,6 +140,40 @@ class Misskey:
         """
         return self.__API('notes/delete', True, 204, noteId=noteId)
 
+    def notes_reactions_create(self, noteId, reaction):
+        """
+        Give a reaction for note.
+        :rtype: bool
+        """
+        payload = {
+            'noteId': noteId
+        }
+        if type(reaction) == int and (reaction >= 0 and reaction <= 9):
+            reactionTemplate = (
+                'pudding',
+                'like',
+                'love',
+                'laugh',
+                'hmm',
+                'surprise',
+                'congrats',
+                'angry',
+                'confused',
+                'rip'
+            )
+            payload['reaction'] = reactionTemplate[reaction]
+        else:
+            payload['reaction'] = reaction
+        
+        return self.__API('notes/reactions/create', True, 204, **payload)
+    
+    def notes_reactions_delete(self, noteId):
+        """
+        Cancel a reaction for note.
+        :rtype: bool
+        """
+        return self.__API('notes/reactions/delete', True, 204, noteId=noteId)
+
     def drive(self):
         """
         Show your capacity.

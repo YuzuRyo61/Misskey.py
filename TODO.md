@@ -45,7 +45,7 @@
 - [ ] users/lists/show
 
 # drive
-- [ ] drive
+- [x] drive
 - [x] drive/files
 - [ ] drive/files/attached-notes
 - [ ] drive/files/check-existence
@@ -83,8 +83,8 @@
 - [ ] notes/polls/recommendation
 - [ ] notes/polls/vote
 - [ ] notes/reactions
-- [ ] notes/reactions/create
-- [ ] notes/reactions/delete
+- [x] notes/reactions/create
+- [x] notes/reactions/delete
 - [ ] notes/renotes
 - [ ] notes/replies
 - [ ] notes/search-by-tag
