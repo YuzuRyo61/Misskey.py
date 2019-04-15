@@ -13,27 +13,26 @@ class MisskeyUtil:
 
     @staticmethod
     def create_app(instanceAddress, appName, description, permission=[
-        'account-read',
-        'account-write',
-        'account/read',
-        'account/write',
-        'note-read',
-        'note-write',
-        'reaction-read',
-        'reaction-write',
-        'following-read',
-        'following-write',
-        'drive-read',
-        'drive-write',
-        'notification-read',
-        'notification-write',
-        'favorite-read',
-        'favorites-read',
-        'favorite-write',
-        'messaging-read',
-        'messaging-write',
-        'vote-read',
-        'vote-write'
+        'read:account',
+        'write:account',
+        'read:blocks',
+        'write:blocks'
+        'read:drive',
+        'write:drive',
+        'read:favorites',
+        'write:favorites',
+        'read:following',
+        'write:following',
+        'read:messaging',
+        'write:messaging',
+        'read:mutes',
+        'write:mutes',
+        'write:notes',
+        'read:notifications',
+        'write:notifications',
+        'read:reactions',
+        'write:reactions',
+        'write:votes'
     ], callbackUrl=None):
         res = requests.post(f"https://{instanceAddress}/api/app/create", data=json.dumps({'name': appName, 'description': description, 'permission': permission, 'callbackUrl': callbackUrl}), headers={'content-type': 'application/json'})
 
