@@ -9,7 +9,7 @@ import mimetypes
 from urllib.parse import urlparse
 
 class Misskey:
-    def __init__(self, address='misskey.xyz', i=None, skipChk=False):
+    def __init__(self, address='misskey.io', i=None, skipChk=False):
         """
         Initialize the library.
         
