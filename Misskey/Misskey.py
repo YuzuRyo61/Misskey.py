@@ -140,6 +140,13 @@ class Misskey:
         """
         return self.__API('notes/delete', True, 204, noteId=noteId)
 
+    def drive(self):
+        """
+        Show your capacity.
+        :rtype: dict
+        """
+        return self.__API('drive', True)
+
     def drive_files(self, limit=10, sinceId=None, untilId=None, folderId=None, type=None):
         """
         Show a files in selected folder.
