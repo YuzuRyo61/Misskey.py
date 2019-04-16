@@ -16,7 +16,7 @@ class MisskeyUtil:
         'read:account',
         'write:account',
         'read:blocks',
-        'write:blocks'
+        'write:blocks',
         'read:drive',
         'write:drive',
         'read:favorites',
