@@ -301,10 +301,99 @@ class Misskey:
         :rtype: dict
         """
         return self.__API('drive/files/upload-from-url', True, 200, url=url, folderId=folderId, isSensitive=isSensitive, force=force)
+
+    def drive_files_show(self, fileId=None, url=None):
+        """
+        Show a file from fileID or URL.
+        :rtype: dict
+        """
+        payload = {}
+
+        if fileId != None:
+            payload['fileId'] = fileId
+
+        if url != None:
+            payload['url'] = url
+        
+        return self.__API('drive/files/show', True, 200, **payload)
     
+    def drive_files_update(self, fileId, folderId=None, name=None, isSensitive=None):
+        """
+        Update a file.
+        :rtype: dict
+        """
+        payload = {
+            'fileId': fileId,
+            'folderId': folderId
+        }
+
+        if name != None:
+            payload['name'] = name
+
+        if isSensitive != None:
+            payload['isSensitive'] = isSensitive
+        
+        return self.__API('drive/files/update', True, 200, **payload)
+
     def drive_files_delete(self, fileId):
         """
         Delete a file.
         :rtype: bool
         """
         return self.__API('drive/files/delete', True, 204, fileId=fileId)
+    
+    def drive_folders(self, limit=10, sinceId=None, untilId=None, folderId=None):
+        """
+        List folders in specified directory.
+        :rtype: list
+        """
+        payload = {
+            'limit': limit,
+            'folderId': folderId
+        }
+        
+        if sinceId != None:
+            payload['sinceId'] = sinceId
+        
+        if untilId != None:
+            payload['untilId'] = untilId
+        
+        return self.__API('drive/folders', True, 200, **payload)
+
+    def drive_folders_create(self, name="Untitled", parentId=None):
+        """
+        Create a folder in specified directory.
+        :rtype: dict
+        """
+        return self.__API('drive/folders/create', True, 200, name=name, parentId=parentId)
+
+    def drive_folders_show(self, folderId):
+        """
+        Show a folder.
+        :rtype: dict
+        """
+        return self.__API('drive/folders/show', True, 200, folderId=folderId)
+
+    def drive_folders_update(self, folderId, name=None, parentId=None):
+        """
+        Update a folder.
+        :rtype: dict
+        """
+        payload = {
+            'folderId': folderId
+        }
+
+        if name != None:
+            payload['name'] = name
+
+        if parentId != None:
+            payload['parentId'] = parentId
+        
+        return self.__API('drive/folders/update', True, 200, **payload)
+
+    def drive_folders_delete(self, folderId):
+        """
+        Delete a folder in specified directory.
+        :rtype: bool
+        """
+        return self.__API('drive/folders/delete', True, 204, folderId=folderId)
