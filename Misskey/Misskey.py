@@ -110,30 +110,30 @@ class Misskey:
             'noExtractEmojis': noExtractEmojis
         }
 
-        if visibility == 'specified':
+        if visibility == 'specified': # pragma: no cover
             payload['visibleUserIds'] = visibleUserIds
 
-        if fileIds != []:
+        if fileIds != []: # pragma: no cover
             payload['fileIds'] = fileIds
 
-        if replyId != None:
+        if replyId != None: # pragma: no cover
             payload['replyId'] = replyId
 
-        if renoteId != None:
+        if renoteId != None: # pragma: no cover
             payload['renoteId'] = renoteId
 
-        if poll != []:
+        if poll != []: # pragma: no cover
             payload['poll'] = {}
             payload['poll']['choices'] = poll
             payload['poll']['multiple'] = pollMultiple
-            if pollExpiresAt != None:
+            if pollExpiresAt != None: # pragma: no cover
                 payload['poll']['expiresAt'] = pollExpiresAt
-            if pollExpiredAfter != None:
+            if pollExpiredAfter != None: # pragma: no cover
                 payload['poll']['expiredAfter'] = pollExpiredAfter
         
         return self.__API('notes/create', True, 200, **payload)
 
-    def notes_renote(self, noteId):
+    def notes_renote(self, noteId): # pragma: no cover
         """
         Support fucntion: Renote a note (If use quote renote, please use notes_create)
         :rtype: dict

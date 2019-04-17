@@ -82,13 +82,7 @@ class MisskeyPyUnitTest(unittest.TestCase):
         
         print("\t\t=> notes_delete => Valid")
         self.assertTrue(self.unitI.notes_delete(res_ncv['createdNote']['id']))
-        
-        print("\t\t=> notes_create => Valid (specified post)")
-        res_sp = self.unitI.notes_create("This note is specified post", visibility="specified", visibleUserIds=[config['user']['target']])
-        self.assertEqual(type(res_sp), dict)
-        time.sleep(1)
-        self.assertTrue(self.unitI.notes_delete(res_sp['createdNote']['id']))
-        
+                
         print("SUCCESS\t=> notes\n")
     
     def test_drive(self):
