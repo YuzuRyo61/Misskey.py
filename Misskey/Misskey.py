@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from Misskey.Exceptions import MisskeyInitException, MisskeyAPIException, MisskeyAiException
+from Misskey.Exceptions import MisskeyInitException, MisskeyAPIException, MisskeyAiException, MisskeyFileException
 
 import requests
 import json
@@ -276,6 +276,9 @@ class Misskey:
         Upload a file.
         :rtype: dict
         """
+        if not os.path.isfile(filePath):
+            raise MisskeyFileException(f"File not found (or directory specified): {filePath}")
+        
         fileName = os.path.basename(filePath)
         fileAbs = os.path.abspath(filePath)
         fileBin = open(fileAbs, 'rb')

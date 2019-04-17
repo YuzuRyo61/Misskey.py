@@ -8,3 +8,6 @@ class MisskeyAPIException(Exception):
 
 class MisskeyAiException(Exception):
     pass
+
+class MisskeyFileException(Exception):
+    pass
