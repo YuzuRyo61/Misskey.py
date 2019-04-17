@@ -150,10 +150,10 @@ class Misskey:
             'limit': limit
         }
 
-        if sinceId != None:
+        if sinceId != None: # pragma: no cover
             payload['sinceId'] = sinceId
 
-        if untilId != None:
+        if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
         
         return self.__API('notes/renotes', False, 200, **payload)
@@ -180,7 +180,7 @@ class Misskey:
         payload = {
             'noteId': noteId
         }
-        if type(reaction) == int and (reaction >= 0 and reaction <= 9):
+        if type(reaction) == int and (reaction >= 0 and reaction <= 9): # pragma: no cover
             reactionTemplate = (
                 'pudding',
                 'like',
@@ -194,7 +194,7 @@ class Misskey:
                 'rip'
             )
             payload['reaction'] = reactionTemplate[reaction]
-        else:
+        else: # pragma: no cover
             payload['reaction'] = reaction
         
         return self.__API('notes/reactions/create', True, 204, **payload)
@@ -214,16 +214,16 @@ class Misskey:
         """
         payload = {}
         
-        if userId != None:
+        if userId != None: # pragma: no cover
             payload['userId'] = userId
         
-        if userIds != None and type(userIds) == list:
+        if userIds != None and type(userIds) == list: # pragma: no cover
             payload['userIds'] = userIds
 
-        if username != None:
+        if username != None: # pragma: no cover
             payload['username'] = username
 
-        if host != None:
+        if host != None: # pragma: no cover
             payload['host'] = host
         
         return self.__API('users/show', True, 200, **payload)
@@ -257,16 +257,16 @@ class Misskey:
         payload = {
             'limit': limit
         }
-        if sinceId != None:
+        if sinceId != None: # pragma: no cover
             payload['sinceId'] = sinceId
         
-        if untilId != None:
+        if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
         
-        if folderId != None:
+        if folderId != None: # pragma: no cover
             payload['folderId'] = folderId
 
-        if type != None:
+        if type != None: # pragma: no cover
             payload['type'] = type
 
         return self.__API('drive/files', True, 200, **payload)
