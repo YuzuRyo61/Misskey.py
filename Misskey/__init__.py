@@ -10,4 +10,4 @@ from Misskey.Misskey import Misskey
 from Misskey.Util import MisskeyUtil
 from Misskey.Exceptions import *
 
-__all__ = ['Misskey', 'MisskeyUtil', 'MisskeyAiException', 'MisskeyInitException', 'MisskeyAPIException']
+__all__ = ['Misskey', 'MisskeyUtil', 'MisskeyAiException', 'MisskeyInitException', 'MisskeyAPIException', 'MisskeyFileException']
