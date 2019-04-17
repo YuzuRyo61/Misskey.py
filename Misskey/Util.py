@@ -33,7 +33,7 @@ class MisskeyUtil:
         'read:reactions',
         'write:reactions',
         'write:votes'
-    ], callbackUrl=None):
+    ], callbackUrl=None): # pragma: no cover
         res = requests.post(f"https://{instanceAddress}/api/app/create", data=json.dumps({'name': appName, 'description': description, 'permission': permission, 'callbackUrl': callbackUrl}), headers={'content-type': 'application/json'})
 
         if res.status_code != 200:
@@ -42,7 +42,7 @@ class MisskeyUtil:
             return json.loads(res.text)
 
     @staticmethod
-    def session_generate(instanceAddress, appSecret):
+    def session_generate(instanceAddress, appSecret): # pragma: no cover
         res = requests.post(f"https://{instanceAddress}/api/auth/session/generate", data=json.dumps({'appSecret': appSecret}), headers={'content-type': 'application/json'})
 
         if res.status_code != 200:
@@ -51,7 +51,7 @@ class MisskeyUtil:
             return json.loads(res.text)
 
     @staticmethod
-    def session_userkey(instanceAddress, appSecret, token):
+    def session_userkey(instanceAddress, appSecret, token): # pragma: no cover
         res = requests.post(f"https://{instanceAddress}/api/auth/session/userkey", data=json.dumps({'appSecret': appSecret, 'token': token}), headers={'content-type': 'application/json'})
 
         if res.status_code != 200:
