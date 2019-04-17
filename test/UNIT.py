@@ -74,17 +74,43 @@ class MisskeyPyUnitTest(unittest.TestCase):
         print("UNIT\t=> notes")
         
         print("\t\t=> notes_create")
-        
-        print("\t\t=> notes_create => Valid (Normal)")
-        res_ncv = self.unitI.notes_create("Misskey.py notes_create testing...")
+        res_ncv = self.unitI.notes_create("Misskey.py notes testing...")
         self.assertEqual(type(res_ncv), dict)
-        time.sleep(1)
         
-        print("\t\t=> notes_delete => Valid")
+        print("\t\t=> notes_show")
+        self.assertEqual(type(self.unitI.notes_show(res_ncv['createdNote']['id'])), dict)
+
+        print("\t\t=> notes_renotes")
+        self.assertEqual(type(self.unitI.notes_renotes(res_ncv['createdNote']['id'])), list)
+
+        print("\t\t=> notes_delete")
         self.assertTrue(self.unitI.notes_delete(res_ncv['createdNote']['id']))
-                
+        
+        print("\t\t=> notes_reactions_create")
+        self.assertTrue(self.unitI.notes_reactions_create(config['note']['targetReaction'], 0))
+
+        print("\t\t=> notes_reactions_delete")
+        self.assertTrue(self.unitI.notes_reactions_delete(config['note']['targetReaction']))
+
         print("SUCCESS\t=> notes\n")
     
+    def test_users(self):
+        print("UNIT\t=> users")
+
+        print("\t\t=> users_show")
+        self.assertEqual(type(self.unit.users_show(userId=config['user']['target'])), dict)
+
+        print("\t\t=> users_show (many)")
+        self.assertEqual(type(self.unit.users_show(userIds=[config['user']['target']])), list)
+
+        print("\t\t=> following_create")
+        self.assertEqual(type(self.unitI.following_create(config['user']['target'])), dict)
+
+        print("\t\t=> following_delete")
+        self.assertEqual(type(self.unitI.following_delete(config['user']['target'])), dict)
+
+        print("SUCCESS\t=> users\n")
+
     def test_drive(self):
         print("UNIT\t=> drive")
         
@@ -97,17 +123,21 @@ class MisskeyPyUnitTest(unittest.TestCase):
         print("\t\t=> drive_files_upload")
         uploadRes = self.unitI.drive_files_create(os.path.dirname(os.path.abspath(__file__)) + "/uploadTarget.png")
         self.assertEqual(type(uploadRes), dict)
-        
+
+        print("\t\t=> drive_uploadFromUrl")
+        uploadRes_url = self.unitI.drive_files_uploadFromUrl(config['drive']['targetUrl'])
+        self.assertEqual(type(uploadRes_url), dict)
+
         print("\t\t=> drive_files_delete")
         self.assertTrue(self.unitI.drive_files_delete(uploadRes['id']))
-        
-        print("\t\t=> drive_uploadFromUrl")
-        uploadRes = self.unitI.drive_files_uploadFromUrl(config['drive']['targetUrl'])
-        self.assertEqual(type(uploadRes), dict)
-        time.sleep(1)
-        self.assertTrue(self.unitI.drive_files_delete(uploadRes['id']))
+        self.assertTrue(self.unitI.drive_files_delete(uploadRes_url['id']))        
         
         print("SUCCESS\t=> drive\n")
+
+def TESTSUITE():
+    suite = unittest.TestSuite()
+    suite.addTests(unittest.makeSuite(MisskeyPyUnitTest))
+    return suite
 
 if __name__ == "__main__":
     unittest.main()

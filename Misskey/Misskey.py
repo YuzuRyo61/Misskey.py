@@ -126,9 +126,9 @@ class Misskey:
             payload['poll'] = {}
             payload['poll']['choices'] = poll
             payload['poll']['multiple'] = pollMultiple
-            if pollExpiresAt != None: # pragma: no cover
+            if pollExpiresAt != None:
                 payload['poll']['expiresAt'] = pollExpiresAt
-            if pollExpiredAfter != None: # pragma: no cover
+            if pollExpiredAfter != None:
                 payload['poll']['expiredAfter'] = pollExpiredAfter
         
         return self.__API('notes/create', True, 200, **payload)
@@ -226,7 +226,7 @@ class Misskey:
         if host != None: # pragma: no cover
             payload['host'] = host
         
-        return self.__API('users/show', True, 200, **payload)
+        return self.__API('users/show', False, 200, **payload)
 
     def following_create(self, userId):
         """
@@ -290,7 +290,7 @@ class Misskey:
         res = requests.post(self.instanceAddressApiUrl + "drive/files/create", data=payload, files=filePayload)
         fileBin.close()
 
-        if res.status_code != 200:
+        if res.status_code != 200: # pragma: no cover
             raise MisskeyAPIException(f'API Error: drive/files/create (Expected value 200, but {res.status_code} returned)\n{res.text}')
         else:
             return json.loads(res.text)

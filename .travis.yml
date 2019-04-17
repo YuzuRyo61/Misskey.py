@@ -1,0 +1,13 @@
+language: python
+
+python:
+ - 3.7
+
+install:
+ - pip3 install -r requirements.txt
+
+script:
+ - coverage run --source=Misskey setup.py test
+
+after_success:
+ - coveralls
