@@ -227,6 +227,58 @@ class Misskey:
             payload['host'] = host
         
         return self.__API('users/show', False, 200, **payload)
+    
+    def users_followers(self, userId=None, username=None, host=None, sinceId=None, untilId=None, limit=10):
+        """
+        Show followers from specified user.
+        :rtype: list
+        """
+        payload = {
+            'limit': limit
+        }
+
+        if userId != None: # pragma: no cover
+            payload['userId'] = userId
+        
+        if username != None: # pragma: no cover
+            payload['username'] = username
+
+        if host != None: # pragma: no cover
+            payload['host'] = host
+
+        if sinceId != None: # pragma: no cover
+            payload['sinceId'] = sinceId
+        
+        if untilId != None: # pragma: no cover
+            payload['untilId'] = untilId
+
+        return self.__API('users/followers', False, 200, **payload)
+    
+    def users_following(self, userId=None, username=None, host=None, sinceId=None, untilId=None, limit=10):
+        """
+        Show following from specified user.
+        :rtype: list
+        """
+        payload = {
+            'limit': limit
+        }
+
+        if userId != None: # pragma: no cover
+            payload['userId'] = userId
+        
+        if username != None: # pragma: no cover
+            payload['username'] = username
+
+        if host != None: # pragma: no cover
+            payload['host'] = host
+
+        if sinceId != None: # pragma: no cover
+            payload['sinceId'] = sinceId
+        
+        if untilId != None: # pragma: no cover
+            payload['untilId'] = untilId
+
+        return self.__API('users/following', False, 200, **payload)
 
     def following_create(self, userId):
         """
@@ -309,10 +361,10 @@ class Misskey:
         """
         payload = {}
 
-        if fileId != None:
+        if fileId != None: # pragma: no cover
             payload['fileId'] = fileId
 
-        if url != None:
+        if url != None: # pragma: no cover
             payload['url'] = url
         
         return self.__API('drive/files/show', True, 200, **payload)
@@ -327,10 +379,10 @@ class Misskey:
             'folderId': folderId
         }
 
-        if name != None:
+        if name != None: # pragma: no cover
             payload['name'] = name
 
-        if isSensitive != None:
+        if isSensitive != None: # pragma: no cover
             payload['isSensitive'] = isSensitive
         
         return self.__API('drive/files/update', True, 200, **payload)
@@ -352,10 +404,10 @@ class Misskey:
             'folderId': folderId
         }
         
-        if sinceId != None:
+        if sinceId != None: # pragma: no cover
             payload['sinceId'] = sinceId
         
-        if untilId != None:
+        if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
         
         return self.__API('drive/folders', True, 200, **payload)
@@ -383,10 +435,10 @@ class Misskey:
             'folderId': folderId
         }
 
-        if name != None:
+        if name != None: # pragma: no cover
             payload['name'] = name
 
-        if parentId != None:
+        if parentId != None: # pragma: no cover
             payload['parentId'] = parentId
         
         return self.__API('drive/folders/update', True, 200, **payload)

@@ -103,6 +103,12 @@ class MisskeyPyUnitTest(unittest.TestCase):
         print("\t\t=> users_show (many)")
         self.assertEqual(type(self.unit.users_show(userIds=[config['user']['target']])), list)
 
+        print("\t\t=> users_followers")
+        self.assertEqual(type(self.unit.users_followers(userId=config['user']['target'])), list)
+
+        print("\t\t=> users_following")
+        self.assertEqual(type(self.unit.users_following(userId=config['user']['target'])), list)
+
         print("\t\t=> following_create")
         self.assertEqual(type(self.unitI.following_create(config['user']['target'])), dict)
 
@@ -120,7 +126,7 @@ class MisskeyPyUnitTest(unittest.TestCase):
         print("\t\t=> drive_files")
         self.assertEqual(type(self.unitI.drive_files()), list)
         
-        print("\t\t=> drive_files_upload")
+        print("\t\t=> drive_files_create")
         uploadRes = self.unitI.drive_files_create(os.path.dirname(os.path.abspath(__file__)) + "/uploadTarget.png")
         self.assertEqual(type(uploadRes), dict)
 
@@ -128,10 +134,32 @@ class MisskeyPyUnitTest(unittest.TestCase):
         uploadRes_url = self.unitI.drive_files_uploadFromUrl(config['drive']['targetUrl'])
         self.assertEqual(type(uploadRes_url), dict)
 
+        print("\t\t=> drive_files_show")
+        self.assertEqual(type(self.unitI.drive_files_show(fileId=uploadRes['id'])), dict)
+
+        print("\t\t=> drive_files_update")
+        self.assertEqual(type(self.unitI.drive_files_update(uploadRes['id'], name="updatedTarget.png")), dict)
+
         print("\t\t=> drive_files_delete")
         self.assertTrue(self.unitI.drive_files_delete(uploadRes['id']))
-        self.assertTrue(self.unitI.drive_files_delete(uploadRes_url['id']))        
+        self.assertTrue(self.unitI.drive_files_delete(uploadRes_url['id']))
         
+        print("\t\t=> drive_folders")
+        self.assertEqual(type(self.unitI.drive_folders()), list)
+
+        print("\t\t=> drive_folders_create")
+        createFolder = self.unitI.drive_folders_create("testFolder")
+        self.assertEqual(type(createFolder), dict)
+        
+        print("\t\t=> drive_folders_show")
+        self.assertEqual(type(self.unitI.drive_folders_show(createFolder['id'])), dict)
+
+        print("\t\t=> drive_folders_update")
+        self.assertEqual(type(self.unitI.drive_folders_update(createFolder['id'], name="updatedTestFolder")), dict)
+
+        print("\t\t=> drive_folders_delete")
+        self.assertTrue(type(self.unitI.drive_folders_delete(createFolder['id'])))
+
         print("SUCCESS\t=> drive\n")
 
 def TESTSUITE():

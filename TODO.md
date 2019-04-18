@@ -20,8 +20,8 @@
 - [ ] mute/delete
 - [ ] username/available
 - [ ] users
-- [ ] users/followers
-- [ ] users/following
+- [x] users/followers
+- [x] users/following
 - [ ] users/get-frequently-replied-users
 - [ ] users/lists/pull
 - [ ] users/lists/push
