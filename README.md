@@ -34,7 +34,7 @@ pip3 install Misskey.py
 ```python
 from Misskey import Misskey
 
-misskey = Misskey("misskey.xyz") # Input instance address (If leaved no attribute, it sets "misskey.xyz")
+misskey = Misskey("misskey.io") # Input instance address (If leaved no attribute, it sets "misskey.io")
 ```
 
 #### Use token key
@@ -43,7 +43,7 @@ misskey = Misskey("misskey.xyz") # Input instance address (If leaved no attribut
 from Misskey import Misskey
 
 # If use the token (i is sha256 hashed from appSecret and accessToken)
-misskey = Misskey("misskey.xyz", i="abcdef123...")
+misskey = Misskey("misskey.io", i="abcdef123...")
 ```
 
 ## Other

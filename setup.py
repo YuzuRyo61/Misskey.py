@@ -14,15 +14,14 @@ setup(
     description='The Misskey library for Python. Misskey is made by syuilo.',
 	long_description=ld,
 	test_suite='UNIT.TESTSUITE',
-	keywords="Misskey, API, syuilo, Ai",
+	keywords="Misskey API syuilo",
     author='YuzuRyo61',
     url='https://github.com/YuzuRyo61/Misskey.py',
     license='MIT',
     install_requires=[
-        'requests',
-        'websocket-client'
+        'requests==2.20.1'
     ],
-    packages=find_packages(exclude=('sample', 'docs')),
+    packages=['Misskey'],
 	classifiers=[
 		'License :: OSI Approved :: MIT License',
 		'Natural Language :: Japanese',
