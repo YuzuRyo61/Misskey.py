@@ -205,6 +205,102 @@ class Misskey:
         :rtype: bool
         """
         return self.__API('notes/reactions/delete', True, 204, noteId=noteId)
+    
+    def notes_polls_vote(self, noteId, choice):
+        """
+        Vote a note.
+        :rtype: bool
+        """
+        return self.__API('notes/polls/vote', True, 204, noteId=noteId, choice=choice)
+
+    def notes_globalTimeline(self, withFiles=False, limit=10, sinceId=None, untilId=None, sinceDate=None, untilDate=None):
+        """
+        Show timeline from Global.
+        :rtype: list
+        """
+        payload = {
+            'withFiles': withFiles,
+            'limit': limit
+        }
+
+        if sinceId != None: # pragma: no cover
+            payload['sinceId'] = sinceId
+
+        if untilId != None: # pragma: no cover
+            payload['untilId'] = untilId
+        
+        if sinceDate != None: # pragma: no cover
+            payload['sinceDate'] = sinceDate
+
+        if untilDate != None: # pragma: no cover
+            payload['untilDate'] = untilDate
+        
+        return self.__API('notes/global-timeline', False, 200, **payload)
+
+    def notes_hybridTimeline(
+            self,
+            limit=10,
+            sinceId=None,
+            untilId=None,
+            sinceDate=None,
+            untilDate=None,
+            includeMyRenotes=True,
+            includeRenotedMyNotes=True,
+            includeLocalRenotes=True,
+            withFiles=False):
+        """
+        Show timeline from Hybrid(Social).
+        :rtype: list
+        """
+        payload = {
+            'limit': limit,
+            'includeMyRenotes': includeMyRenotes,
+            'includeRenotedMyNotes': includeRenotedMyNotes,
+            'includeLocalRenotes': includeLocalRenotes,
+            'withFiles': withFiles
+        }
+
+        if sinceId != None: # pragma: no cover
+            payload['sinceId'] = sinceId
+
+        if untilId != None: # pragma: no cover
+            payload['untilId'] = untilId
+        
+        if sinceDate != None: # pragma: no cover
+            payload['sinceDate'] = sinceDate
+
+        if untilDate != None: # pragma: no cover
+            payload['untilDate'] = untilDate
+
+        return self.__API('notes/hybrid-timeline', True, 200, **payload)
+
+    def notes_localTimeline(self, withFiles=False, fileType=None, excludeNsfw=False, limit=10, sinceId=None, untilId=None, sinceDate=None, untilDate=None):
+        """
+        Show timeline from Local.
+        :rtype: list
+        """
+        payload = {
+            'withFiles': withFiles,
+            'limit': limit
+        }
+
+        if fileType != None: # pragma: no cover
+            payload['fileType'] = fileType
+            payload['excludeNsfw'] = excludeNsfw
+
+        if sinceId != None: # pragma: no cover
+            payload['sinceId'] = sinceId
+
+        if untilId != None: # pragma: no cover
+            payload['untilId'] = untilId
+        
+        if sinceDate != None: # pragma: no cover
+            payload['sinceDate'] = sinceDate
+
+        if untilDate != None: # pragma: no cover
+            payload['untilDate'] = untilDate
+        
+        return self.__API('notes/local-timeline', False, 200, **payload)
 
     def users_show(self, userId=None, userIds=None, username=None, host=None):
         """
@@ -293,6 +389,37 @@ class Misskey:
         :rtype: dict
         """
         return self.__API('following/delete', True, 200, userId=userId)
+
+    def blocking_create(self, userId):
+        """
+        Block a user.
+        :rtype: bool
+        """
+        return self.__API('blocking/create', True, 200, userId=userId)
+
+    def blocking_list(self, limit=30, sinceId=None, untilId=None):
+        """
+        List blocked users.
+        :rtype: list
+        """
+        payload = {
+            'limit': limit
+        }
+
+        if sinceId != None: # pragma: no cover
+            payload['sinceId'] = sinceId
+        
+        if untilId != None: # pragma: no cover
+            payload['untilId'] = untilId
+
+        return self.__API('blocking/list', True, 200, **payload)
+
+    def blocking_delete(self, userId):
+        """
+        Unblock a user.
+        :rtype: bool
+        """
+        return self.__API('blocking/delete', True, 200, userId=userId)
 
     def drive(self):
         """

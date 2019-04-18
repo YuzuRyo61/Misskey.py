@@ -36,10 +36,10 @@ class MisskeyPyUnitTest(unittest.TestCase):
         print("\t\t=> Specified file is not found [MisskeyFileException]")
         self.assertRaises(MisskeyFileException, lambda: self.unitI.drive_files_create("hoge"))
         
-        print("SUCCESS\t=> [EXCEPTIONS]\n")
+        print("DONE\t=> [EXCEPTIONS]\n")
 
     def test_Util(self):
-        print("UNIT\t=> [UTILITIY]")
+        print("UNIT\t=> [UTILITY]")
         
         print("\t\t=> hash_apitoken")
         hashed = MisskeyUtil.hash_apitoken(config['key']['accesstoken'], config['key']['appsecret'])
@@ -50,31 +50,32 @@ class MisskeyPyUnitTest(unittest.TestCase):
         mkI = mk.i()
         self.assertEqual(type(mkI), dict)
         
-        print("SUCCESS\t=> [UTILITY]\n")
+        print("DONE\t=> [UTILITY]\n")
 
     def test_meta(self):
         print("UNIT\t=> meta")
         res = self.unit.meta()
         self.assertEqual(type(res), dict)
-        print("SUCCESS\t=> meta\n")
+        print("DONE\t=> meta\n")
 
     def test_stats(self):
         print("UNIT\t=> stats")
         res = self.unit.stats()
         self.assertEqual(type(res), dict)
-        print("SUCCESS\t=> status\n")
+        print("DONE\t=> status\n")
 
     def test_i(self):
         print("UNIT\t=> i")
         res = self.unitI.i()
         self.assertEqual(type(res), dict)
-        print("SUCCESS\t=> i\n")
+        print("DONE\t=> i\n")
 
     def test_notes(self):
         print("UNIT\t=> notes")
         
         print("\t\t=> notes_create")
         res_ncv = self.unitI.notes_create("Misskey.py notes testing...")
+        res_vote = self.unitI.notes_create("Misskey.py vote notes testing...", poll=['choice1', 'choice2'])
         self.assertEqual(type(res_ncv), dict)
         
         print("\t\t=> notes_show")
@@ -83,8 +84,12 @@ class MisskeyPyUnitTest(unittest.TestCase):
         print("\t\t=> notes_renotes")
         self.assertEqual(type(self.unitI.notes_renotes(res_ncv['createdNote']['id'])), list)
 
+        print("\t\t=> notes_polls_vote")
+        self.assertTrue(self.unitI.notes_polls_vote(res_vote['createdNote']['id'], 0))
+
         print("\t\t=> notes_delete")
         self.assertTrue(self.unitI.notes_delete(res_ncv['createdNote']['id']))
+        self.assertTrue(self.unitI.notes_delete(res_vote['createdNote']['id']))
         
         print("\t\t=> notes_reactions_create")
         self.assertTrue(self.unitI.notes_reactions_create(config['note']['targetReaction'], 0))
@@ -92,7 +97,16 @@ class MisskeyPyUnitTest(unittest.TestCase):
         print("\t\t=> notes_reactions_delete")
         self.assertTrue(self.unitI.notes_reactions_delete(config['note']['targetReaction']))
 
-        print("SUCCESS\t=> notes\n")
+        print("\t\t=> notes_globalTimeline")
+        self.assertEqual(type(self.unit.notes_globalTimeline()), list)
+
+        print("\t\t=> notes_hybridTimeline")
+        self.assertEqual(type(self.unitI.notes_hybridTimeline()), list)
+
+        print("\t\t=> notes_localTimeline")
+        self.assertEqual(type(self.unit.notes_localTimeline()), list)
+
+        print("DONE\t=> notes\n")
     
     def test_users(self):
         print("UNIT\t=> users")
@@ -115,7 +129,16 @@ class MisskeyPyUnitTest(unittest.TestCase):
         print("\t\t=> following_delete")
         self.assertEqual(type(self.unitI.following_delete(config['user']['target'])), dict)
 
-        print("SUCCESS\t=> users\n")
+        print("\t\t=> blocking_create")
+        self.assertEqual(type(self.unitI.blocking_create(config['user']['target'])), dict)
+
+        print("\t\t=> blocking_list")
+        self.assertEqual(type(self.unitI.blocking_list()), list)
+
+        print("\t\t=> blocking_delete")
+        self.assertEqual(type(self.unitI.blocking_delete(config['user']['target'])), dict)
+
+        print("DONE\t=> users\n")
 
     def test_drive(self):
         print("UNIT\t=> drive")
@@ -160,7 +183,7 @@ class MisskeyPyUnitTest(unittest.TestCase):
         print("\t\t=> drive_folders_delete")
         self.assertTrue(type(self.unitI.drive_folders_delete(createFolder['id'])))
 
-        print("SUCCESS\t=> drive\n")
+        print("DONE\t=> drive\n")
 
 def TESTSUITE():
     suite = unittest.TestSuite()

@@ -9,9 +9,9 @@
 
 ## blocking
 
-- [ ] blocking/create
-- [ ] blocking/delete
-- [ ] blocking/list
+- [x] blocking/create
+- [x] blocking/delete
+- [x] blocking/list
 
 ## users
 
@@ -35,7 +35,6 @@
 ## account
 
 - [ ] blocking/list
-- [ ] drive
 - [x] i
 - [ ] i/favorites
 - [ ] i/notifications
@@ -85,12 +84,12 @@
 - [x] notes/create
 - [x] notes/delete
 - [ ] notes/featured
-- [ ] notes/global-timeline
-- [ ] notes/hybrid-timeline
-- [ ] notes/local-timeline
+- [x] notes/global-timeline
+- [x] notes/hybrid-timeline
+- [x] notes/local-timeline
 - [ ] notes/mentions
 - [ ] notes/polls/recommendation
-- [ ] notes/polls/vote
+- [x] notes/polls/vote
 - [ ] notes/reactions
 - [x] notes/reactions/create
 - [x] notes/reactions/delete
