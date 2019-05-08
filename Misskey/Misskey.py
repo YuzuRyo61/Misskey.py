@@ -76,6 +76,23 @@ class Misskey:
         """
         return self.__API('i', True)
 
+    def i_favorites(self, limit=10, sinceId=None, untilId=None):
+        """
+        Show your favorite notes.
+        :rtype: list
+        """
+        payload = {
+            'limit': limit
+        }
+        
+        if sinceId != None: # pragma: no cover
+            payload['sinceId'] = sinceId
+        
+        if untilId != None: # pragma: no cover
+            payload['untilId'] = untilId
+        
+        return self.__API('i/favorites', True, 200, **payload)
+
     def notes_create(
         self,
         text=None,
@@ -212,6 +229,20 @@ class Misskey:
         :rtype: bool
         """
         return self.__API('notes/polls/vote', True, 204, noteId=noteId, choice=choice)
+
+    def notes_favorites_create(self, noteId):
+        """
+        Mark as favorite to note.
+        :rtype: bool
+        """
+        return self.__API('notes/favorites/create', True, 204, noteId=noteId)
+
+    def notes_favorites_delete(self, noteId):
+        """
+        Remove mark favorite to note.
+        :rtype: bool
+        """
+        return self.__API('notes/favorites/delete', True, 204, noteId=noteId)
 
     def notes_globalTimeline(self, withFiles=False, limit=10, sinceId=None, untilId=None, sinceDate=None, untilDate=None):
         """
@@ -389,6 +420,37 @@ class Misskey:
         :rtype: dict
         """
         return self.__API('following/delete', True, 200, userId=userId)
+
+    def mute_create(self, userId):
+        """
+        Mute a user.
+        :rtype: dict
+        """
+        return self.__API('mute/create', True, 204, userId=userId)
+
+    def mute_list(self, limit=30, sinceId=None, untilId=None):
+        """
+        List blocked users.
+        :rtype: list
+        """
+        payload = {
+            'limit': limit
+        }
+
+        if sinceId != None: # pragma: no cover
+            payload['sinceId'] = sinceId
+        
+        if untilId != None: # pragma: no cover
+            payload['untilId'] = untilId
+
+        return self.__API('mute/list', True, 200, **payload)
+
+    def mute_delete(self, userId):
+        """
+        Unmute a user.
+        :rtype: bool
+        """
+        return self.__API('mute/delete', True, 204, userId=userId)
 
     def blocking_create(self, userId):
         """

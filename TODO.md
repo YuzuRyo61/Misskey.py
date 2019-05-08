@@ -16,9 +16,7 @@
 ## users
 
 - [ ] hashtags/users
-- [ ] mute/create
-- [ ] mute/delete
-- [ ] username/available
+- [x] username/available
 - [ ] users
 - [x] users/followers
 - [x] users/following
@@ -34,9 +32,8 @@
 
 ## account
 
-- [ ] blocking/list
 - [x] i
-- [ ] i/favorites
+- [x] i/favorites
 - [ ] i/notifications
 - [ ] i/pin
 - [ ] i/read-all-messaging-messages
@@ -116,8 +113,8 @@
 
 ## favorites
 
-- [ ] notes/favorites/create
-- [ ] notes/favorites/delete
+- [x] notes/favorites/create
+- [x] notes/favorites/delete
 
 ## messaging
 
@@ -134,9 +131,9 @@
 
 ## mute
 
-- [ ] mute/create
-- [ ] mute/delete
-- [ ] mute/list
+- [x] mute/create
+- [x] mute/delete
+- [x] mute/list
 
 ## lists
 
@@ -147,5 +144,13 @@
 - [ ] users/lists/push
 - [ ] users/lists/show
 - [ ] users/lists/update
+
+## pages (Misskey: >=11.5.0)
+
+- [ ] i/pages
+- [ ] pages/create
+- [ ] pages/delete
+- [ ] pages/show
+- [ ] pages/update
 
 Info: **I will not implement chart and game API**

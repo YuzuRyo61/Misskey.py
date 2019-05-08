@@ -58,3 +58,12 @@ class MisskeyUtil:
             raise MisskeyAPIException(f'API Error: /auth/session/userkey (Expected value 200, but {res.status_code} returned)\n{res.text}')
         else:
             return json.loads(res.text)
+
+    @staticmethod
+    def username_available(instanceAddress, username):
+        res = requests.post(f"https://{instanceAddress}/api/username/available", data=json.dumps({'username': username,}), headers={'content-type': 'application/json'})
+
+        if res.status_code != 200:
+            raise MisskeyAPIException(f'API Error: /api/username/available (Expected value 200, but {res.status_code} returned)\n{res.text}')
+        else:
+            return json.loads(res.text)

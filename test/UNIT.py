@@ -50,6 +50,9 @@ class MisskeyPyUnitTest(unittest.TestCase):
         mkI = mk.i()
         self.assertEqual(type(mkI), dict)
         
+        print("\t\t=> username_available")
+        self.assertEqual(type(MisskeyUtil.username_available(config['instance']['address'], "hoge")), dict)
+
         print("DONE\t=> [UTILITY]\n")
 
     def test_meta(self):
@@ -62,7 +65,7 @@ class MisskeyPyUnitTest(unittest.TestCase):
         print("UNIT\t=> stats")
         res = self.unit.stats()
         self.assertEqual(type(res), dict)
-        print("DONE\t=> status\n")
+        print("DONE\t=> stats\n")
 
     def test_i(self):
         print("UNIT\t=> i")
@@ -97,6 +100,12 @@ class MisskeyPyUnitTest(unittest.TestCase):
         print("\t\t=> notes_reactions_delete")
         self.assertTrue(self.unitI.notes_reactions_delete(config['note']['targetReaction']))
 
+        print("\t\t=> notes_favorites_create")
+        self.assertTrue(self.unitI.notes_favorites_create(config['note']['targetReaction']))
+
+        print("\t\t=> notes_favorites_delete")
+        self.assertTrue(self.unitI.notes_favorites_delete(config['note']['targetReaction']))
+
         print("\t\t=> notes_globalTimeline")
         self.assertEqual(type(self.unit.notes_globalTimeline()), list)
 
@@ -128,6 +137,15 @@ class MisskeyPyUnitTest(unittest.TestCase):
 
         print("\t\t=> following_delete")
         self.assertEqual(type(self.unitI.following_delete(config['user']['target'])), dict)
+
+        print("\t\t=> mute_create")
+        self.assertTrue(self.unitI.mute_create(config['user']['target']))
+
+        print("\t\t=> mute_list")
+        self.assertEqual(type(self.unitI.mute_list()), list)
+
+        print("\t\t=> mute_delete")
+        self.assertTrue(self.unitI.mute_delete(config['user']['target']))
 
         print("\t\t=> blocking_create")
         self.assertEqual(type(self.unitI.blocking_create(config['user']['target'])), dict)
