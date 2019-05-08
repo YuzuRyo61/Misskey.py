@@ -19,7 +19,7 @@ setup(
     url='https://github.com/YuzuRyo61/Misskey.py',
     license='MIT',
     install_requires=[
-        'requests==2.20.1'
+        'requests'
     ],
     packages=['Misskey'],
 	classifiers=[
@@ -27,10 +27,11 @@ setup(
 		'Natural Language :: Japanese',
 		'Programming Language :: Python :: 3 :: Only',
 		'Programming Language :: Python :: 3',
+		'Programming Language :: Python :: 3.6',
 		'Programming Language :: Python :: 3.7',
 		'Topic :: Software Development :: Libraries :: Python Modules',
 		'Topic :: Software Development :: Libraries',
-		'Development Status :: 4 - Beta',
+		'Development Status :: 5 - Production/Stable',
 		'Topic :: Internet :: WWW/HTTP',
 		'Topic :: Internet'
 	]
