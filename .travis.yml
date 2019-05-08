@@ -3,6 +3,9 @@ language: python
 python:
  - 3.6
 
+before_install:
+ - openssl aes-256-cbc -K $encrypted_22a852c4da90_key -iv $encrypted_22a852c4da90_iv -in env.ini.enc -out env.ini -d
+
 install:
  - pip3 install -r requirements.txt
 

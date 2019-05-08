@@ -136,3 +136,6 @@ tmp/
 
 # Editor
 .vscode
+
+# Test configuration (plain file)
+/test/env.ini
