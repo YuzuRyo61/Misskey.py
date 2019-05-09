@@ -103,6 +103,9 @@ class MisskeyPyUnitTest(unittest.TestCase):
         print("\t\t=> notes_favorites_create")
         self.assertTrue(self.unitI.notes_favorites_create(config['note']['targetReaction']))
 
+        print("\t\t=> i_favorites")
+        self.assertEqual(type(self.unitI.i_favorites()), list)
+
         print("\t\t=> notes_favorites_delete")
         self.assertTrue(self.unitI.notes_favorites_delete(config['note']['targetReaction']))
 
