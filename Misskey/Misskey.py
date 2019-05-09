@@ -17,6 +17,7 @@ class Misskey:
         :param i: Use hashed keys or keys used on the web.
         :param skipChk: Skip instance valid check. It is not recommended to make it True.
         """
+
         self.headers = {'content-type': 'application/json'}
         self.apiToken = i
 
@@ -37,8 +38,11 @@ class Misskey:
 
     def __API(self, apiName, includeI=False, expected=200, **payload):
         """
+        :noindex:
+
         This function is for internal. Normally, Please use each functions.
         """
+
         if includeI:
             if self.apiToken != None:
                 payload['i'] = self.apiToken
@@ -58,13 +62,16 @@ class Misskey:
     def meta(self):
         """
         Read a instance meta information.
+        
         :rtype: dict
         """
+
         return self.__API('meta')
 
     def stats(self):
         """
         Read a instance stats information.
+
         :rtype: dict
         """
         return self.__API('stats')
@@ -79,6 +86,13 @@ class Misskey:
     def i_favorites(self, limit=10, sinceId=None, untilId=None):
         """
         Show your favorite notes.
+
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :param sinceId: Acquired from the specified ID.
+        :param untilId: Get up to the specified ID.
+        :type limit: int
+        :type sinceId: str
+        :type untilId: str
         :rtype: list
         """
         payload = {
@@ -114,6 +128,14 @@ class Misskey:
     ):
         """
         Post a new note.
+
+        :param text: It is an argument of the text.
+        :param cw: If set, this argument will be displayed in the main on the timeline.
+        :param visibility: Specify the open range.
+        :param visibleUserIds: When "specified" is specified, if the user ID is put in this argument, the user can view the post.
+        :param viaMobile: Mark it as posted as mobile if you set it to True.
+        :param localOnly: You can specify whether to post only locally.
+        :param fileIds: You can specify the file ID attached to the post.
         :rtype: dict
         """
         payload = {
@@ -152,7 +174,8 @@ class Misskey:
 
     def notes_renote(self, noteId): # pragma: no cover
         """
-        Support fucntion: Renote a note (If use quote renote, please use notes_create)
+        Support fucntion: Renote a note (If use quote renote, please use `notes_create`)
+
         :rtype: dict
         """
         return self.__API('notes/create', True, renoteId=noteId)
@@ -160,6 +183,7 @@ class Misskey:
     def notes_renotes(self, noteId, limit=10, sinceId=None, untilId=None):
         """
         Show renote lists from note.
+
         :rtype: list
         """
         payload = {
@@ -178,6 +202,7 @@ class Misskey:
     def notes_delete(self, noteId):
         """
         Delete a own note.
+
         :rtype: bool
         """
         return self.__API('notes/delete', True, 204, noteId=noteId)
@@ -185,6 +210,7 @@ class Misskey:
     def notes_show(self, noteId):
         """
         Show a note.
+
         :rtype: dict
         """
         return self.__API('notes/show', True, noteId=noteId)
@@ -192,6 +218,7 @@ class Misskey:
     def notes_reactions_create(self, noteId, reaction):
         """
         Give a reaction for note.
+
         :rtype: bool
         """
         payload = {
@@ -219,6 +246,7 @@ class Misskey:
     def notes_reactions_delete(self, noteId):
         """
         Cancel a reaction for note.
+
         :rtype: bool
         """
         return self.__API('notes/reactions/delete', True, 204, noteId=noteId)
@@ -226,6 +254,7 @@ class Misskey:
     def notes_polls_vote(self, noteId, choice):
         """
         Vote a note.
+
         :rtype: bool
         """
         return self.__API('notes/polls/vote', True, 204, noteId=noteId, choice=choice)
@@ -233,6 +262,7 @@ class Misskey:
     def notes_favorites_create(self, noteId):
         """
         Mark as favorite to note.
+
         :rtype: bool
         """
         return self.__API('notes/favorites/create', True, 204, noteId=noteId)
@@ -240,6 +270,7 @@ class Misskey:
     def notes_favorites_delete(self, noteId):
         """
         Remove mark favorite to note.
+
         :rtype: bool
         """
         return self.__API('notes/favorites/delete', True, 204, noteId=noteId)
@@ -247,6 +278,7 @@ class Misskey:
     def notes_globalTimeline(self, withFiles=False, limit=10, sinceId=None, untilId=None, sinceDate=None, untilDate=None):
         """
         Show timeline from Global.
+
         :rtype: list
         """
         payload = {
@@ -281,6 +313,7 @@ class Misskey:
             withFiles=False):
         """
         Show timeline from Hybrid(Social).
+
         :rtype: list
         """
         payload = {
@@ -308,6 +341,7 @@ class Misskey:
     def notes_localTimeline(self, withFiles=False, fileType=None, excludeNsfw=False, limit=10, sinceId=None, untilId=None, sinceDate=None, untilDate=None):
         """
         Show timeline from Local.
+
         :rtype: list
         """
         payload = {
@@ -336,8 +370,18 @@ class Misskey:
     def users_show(self, userId=None, userIds=None, username=None, host=None):
         """
         Show user(s).
-        :rtype: dict
-        :rtype: list
+        If userIds specify a username, this function will return a `list` type.
+
+        :param userId: It is an argument used when acquiring a single user. It can not be used in conjunction with userIds.
+        :param userIds: It is an argument used when acquiring multiple users. It can not be used in combination with userId.
+        :param username: It is an argument that can use the user name displayed in the instance. This is useful when you do not know the user ID.
+        :param host: Used to get the user of another instance.
+        :type userId: str or None
+        :type userIds: str or None
+        :type username: str or None
+        :type host: str or None
+        :raises MisskeyAPIException: Raised if the API returns a status code that each function does not expect.
+        :rtype: dict, list
         """
         payload = {}
         
@@ -358,6 +402,7 @@ class Misskey:
     def users_followers(self, userId=None, username=None, host=None, sinceId=None, untilId=None, limit=10):
         """
         Show followers from specified user.
+
         :rtype: list
         """
         payload = {
@@ -384,6 +429,7 @@ class Misskey:
     def users_following(self, userId=None, username=None, host=None, sinceId=None, untilId=None, limit=10):
         """
         Show following from specified user.
+
         :rtype: list
         """
         payload = {
@@ -410,6 +456,7 @@ class Misskey:
     def following_create(self, userId):
         """
         Follow a user.
+
         :rtype: dict
         """
         return self.__API('following/create', True, 200, userId=userId)
@@ -417,6 +464,7 @@ class Misskey:
     def following_delete(self, userId):
         """
         Unfollow a user.
+
         :rtype: dict
         """
         return self.__API('following/delete', True, 200, userId=userId)
@@ -424,6 +472,7 @@ class Misskey:
     def mute_create(self, userId):
         """
         Mute a user.
+
         :rtype: dict
         """
         return self.__API('mute/create', True, 204, userId=userId)
@@ -431,6 +480,7 @@ class Misskey:
     def mute_list(self, limit=30, sinceId=None, untilId=None):
         """
         List blocked users.
+
         :rtype: list
         """
         payload = {
@@ -448,6 +498,7 @@ class Misskey:
     def mute_delete(self, userId):
         """
         Unmute a user.
+
         :rtype: bool
         """
         return self.__API('mute/delete', True, 204, userId=userId)
@@ -455,6 +506,7 @@ class Misskey:
     def blocking_create(self, userId):
         """
         Block a user.
+
         :rtype: bool
         """
         return self.__API('blocking/create', True, 200, userId=userId)
@@ -462,6 +514,7 @@ class Misskey:
     def blocking_list(self, limit=30, sinceId=None, untilId=None):
         """
         List blocked users.
+
         :rtype: list
         """
         payload = {
@@ -479,6 +532,7 @@ class Misskey:
     def blocking_delete(self, userId):
         """
         Unblock a user.
+
         :rtype: bool
         """
         return self.__API('blocking/delete', True, 200, userId=userId)
@@ -493,6 +547,7 @@ class Misskey:
     def drive_files(self, limit=10, sinceId=None, untilId=None, folderId=None, type=None):
         """
         Show a files in selected folder.
+
         :rtype: list
         """
         payload = {
@@ -515,6 +570,7 @@ class Misskey:
     def drive_files_create(self, filePath, folderId=None, isSensitive=False, force=False):
         """
         Upload a file.
+
         :rtype: dict
         """
         if not os.path.isfile(filePath):
@@ -539,6 +595,7 @@ class Misskey:
     def drive_files_uploadFromUrl(self, url, folderId=None, isSensitive=False, force=False):
         """
         Upload a file from URL.
+
         :rtype: dict
         """
         return self.__API('drive/files/upload-from-url', True, 200, url=url, folderId=folderId, isSensitive=isSensitive, force=force)
@@ -546,6 +603,7 @@ class Misskey:
     def drive_files_show(self, fileId=None, url=None):
         """
         Show a file from fileID or URL.
+
         :rtype: dict
         """
         payload = {}
@@ -561,6 +619,7 @@ class Misskey:
     def drive_files_update(self, fileId, folderId=None, name=None, isSensitive=None):
         """
         Update a file.
+
         :rtype: dict
         """
         payload = {
@@ -579,6 +638,7 @@ class Misskey:
     def drive_files_delete(self, fileId):
         """
         Delete a file.
+
         :rtype: bool
         """
         return self.__API('drive/files/delete', True, 204, fileId=fileId)
@@ -586,6 +646,7 @@ class Misskey:
     def drive_folders(self, limit=10, sinceId=None, untilId=None, folderId=None):
         """
         List folders in specified directory.
+
         :rtype: list
         """
         payload = {
@@ -604,6 +665,7 @@ class Misskey:
     def drive_folders_create(self, name="Untitled", parentId=None):
         """
         Create a folder in specified directory.
+
         :rtype: dict
         """
         return self.__API('drive/folders/create', True, 200, name=name, parentId=parentId)
@@ -618,6 +680,7 @@ class Misskey:
     def drive_folders_update(self, folderId, name=None, parentId=None):
         """
         Update a folder.
+
         :rtype: dict
         """
         payload = {
@@ -635,6 +698,7 @@ class Misskey:
     def drive_folders_delete(self, folderId):
         """
         Delete a folder in specified directory.
+
         :rtype: bool
         """
         return self.__API('drive/folders/delete', True, 204, folderId=folderId)
