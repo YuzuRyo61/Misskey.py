@@ -1,4 +1,4 @@
-Misskey.Misskey module
+Misskey Main Module
 ----------------------
 
 .. automodule:: Misskey.Misskey

@@ -8,11 +8,11 @@ Misskey.py documentation
 
 .. toctree::
    :maxdepth: 4
-   :caption: Contents:
+   :caption: Module Contents:
 
-   Misskey
-   Util
-   Exceptions
+   module_Misskey
+   module_Util
+   module_Exceptions
 
 
 Indices and tables

@@ -1,4 +1,4 @@
-Misskey.Exceptions module
+Exceptions
 -------------------------
 
 .. automodule:: Misskey.Exceptions

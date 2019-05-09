@@ -13,9 +13,10 @@ class Misskey:
         """
         Initialize the library.
         
-        :param address: Instance address of Misskey. If leave a blank, library will use 'misskey.xyz'.
+        :param address: Instance address of Misskey. If leave a blank, library will use 'misskey.io'.
         :param i: Use hashed keys or keys used on the web.
         :param skipChk: Skip instance valid check. It is not recommended to make it True.
+        :raises MisskeyInitException: This exception is raised if an error occurs during class initialization. For example, it is raised if it can not connect to the specified address or if the token is invalid.
         """
 
         self.headers = {'content-type': 'application/json'}
@@ -38,9 +39,11 @@ class Misskey:
 
     def __API(self, apiName, includeI=False, expected=200, **payload):
         """
-        :noindex:
-
         This function is for internal. Normally, Please use each functions.
+
+        :noindex:
+        :raises MisskeyAPIException:
+        :raises MisskeyAiException:
         """
 
         if includeI:
@@ -135,7 +138,32 @@ class Misskey:
         :param visibleUserIds: When "specified" is specified, if the user ID is put in this argument, the user can view the post.
         :param viaMobile: Mark it as posted as mobile if you set it to True.
         :param localOnly: You can specify whether to post only locally.
+        :param noExtractMentions: Specify whether to not expand mentions from the text.
+        :param noExtractHashtags: Specifies whether to not expand the hash tag from the text.
+        :param noExtractEmojis: Specify whether to not extract custom pictograms from the text.
         :param fileIds: You can specify the file ID attached to the post.
+        :param replyId: Specify the noteID to reply.
+        :param renoteId: Specify the note ID to be Renote.
+        :param poll: Designate when voting. You can specify 2 to 10 items.
+        :param pollMultiple: Specifies whether to allow multiple votes.
+        :param pollExpiresAt: Specifies the time to expire. If pollExpiresAt and pollExpiresAfter are not specified, it will be a vote indefinitely.
+        :param pollExpiredAfter: Specify the specified period from the post. If pollExpiresAt and pollExpiresAfter are not specified, it will be a vote indefinitely.
+        :type text: str or None
+        :type cw: str or None
+        :type visibility: str
+        :type visibleUserIds: list
+        :type viaMobile: bool
+        :type localOnly: bool
+        :type noExtractMentions: bool
+        :type noExtractHashtags: bool
+        :type noExtractEmojis: bool
+        :type fileIds: list
+        :type replyId: str or None
+        :type renoteId: str or None
+        :type poll: list
+        :type pollMultiple: bool
+        :type pollExpiresAt: str or None
+        :type pollExpiredAfter: str or None
         :rtype: dict
         """
         payload = {
@@ -176,6 +204,8 @@ class Misskey:
         """
         Support fucntion: Renote a note (If use quote renote, please use `notes_create`)
 
+        :param noteId: Specify the note ID you want to Renote.
+        :type noteId: str
         :rtype: dict
         """
         return self.__API('notes/create', True, renoteId=noteId)
@@ -184,6 +214,14 @@ class Misskey:
         """
         Show renote lists from note.
 
+        :param noteId: Specify the noteID for which you want to check the details.
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :param sinceId: Acquired from the specified ID.
+        :param untilId: Get up to the specified ID.
+        :type noteId: str
+        :type limit: int
+        :type sinceId: str or None
+        :type untilId: str or None
         :rtype: list
         """
         payload = {
@@ -203,6 +241,9 @@ class Misskey:
         """
         Delete a own note.
 
+        :param noteId: Specify the note ID you want to delete.
+        :type noteId: str
+        :return: Returns `True` if the request is successful.
         :rtype: bool
         """
         return self.__API('notes/delete', True, 204, noteId=noteId)
@@ -211,6 +252,8 @@ class Misskey:
         """
         Show a note.
 
+        :param noteId: Specify the noteID to display details.
+        :type noteId: str
         :rtype: dict
         """
         return self.__API('notes/show', True, noteId=noteId)
@@ -219,6 +262,11 @@ class Misskey:
         """
         Give a reaction for note.
 
+        :param noteId: Specify the noteID to which you want a reaction.
+        :param reaction: Specify the type of reaction.
+        :type noteId: str
+        :type reaction: int or str
+        :return: Returns `True` if the request is successful.
         :rtype: bool
         """
         payload = {
@@ -247,6 +295,9 @@ class Misskey:
         """
         Cancel a reaction for note.
 
+        :param noteId: Designate note ID for removing reaction.
+        :type noteId: str
+        :return: Returns `True` if the request is successful.
         :rtype: bool
         """
         return self.__API('notes/reactions/delete', True, 204, noteId=noteId)
@@ -255,6 +306,11 @@ class Misskey:
         """
         Vote a note.
 
+        :param noteId: Specify the note ID of the vote. The specified noteID must have a voting attribute.
+        :param choice: Select the item to vote.
+        :type noteId: str
+        :type choice: int
+        :return: Returns `True` if the request is successful.
         :rtype: bool
         """
         return self.__API('notes/polls/vote', True, 204, noteId=noteId, choice=choice)
@@ -263,6 +319,9 @@ class Misskey:
         """
         Mark as favorite to note.
 
+        :param noteId: Specify the note ID to register the favorite.
+        :type noteId: str
+        :return: Returns `True` if the request is successful.
         :rtype: bool
         """
         return self.__API('notes/favorites/create', True, 204, noteId=noteId)
@@ -271,6 +330,9 @@ class Misskey:
         """
         Remove mark favorite to note.
 
+        :param noteId: Specify noteID to remove the favorite.
+        :type noteId: str
+        :return: Returns `True` if the request is successful.
         :rtype: bool
         """
         return self.__API('notes/favorites/delete', True, 204, noteId=noteId)
@@ -279,6 +341,20 @@ class Misskey:
         """
         Show timeline from Global.
 
+        :param withFiles: If True, only posts attached to the file will be displayed.
+        :param excludeNsfw: Set to True to exclude postings for reading attention.
+        :param sinceId: Acquired from the specified ID.
+        :param untilId: Get up to the specified ID.
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :param sinceDate: Get from the specified date.
+        :param untilDate: Gets until the specified date.
+        :type withFiles: bool
+        :type excludeNsfw: bool
+        :type sinceId: str or None
+        :type untilId: str or None
+        :type limit: int
+        :type sinceDate: str or None
+        :type untilDate: str or None
         :rtype: list
         """
         payload = {
@@ -314,6 +390,24 @@ class Misskey:
         """
         Show timeline from Hybrid(Social).
 
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :param sinceId: Acquired from the specified ID.
+        :param untilId: Get up to the specified ID.
+        :param sinceDate: Get from the specified date.
+        :param untilDate: Gets until the specified date.
+        :param withFiles: If True, only posts attached to the file will be displayed.
+        :param includeMyRenotes: Specify if you want to include posts that you renote
+        :param includeRenotedMyNotes: Specifies whether your post includes a Renote post
+        :param includeLocalRenotes: Specifies whether to include reposted local posts
+        :type limit: int
+        :type sinceId: str or None
+        :type untilId: str or None
+        :type sinceDate: str or None
+        :type untilDate: str or None
+        :type withFiles: bool
+        :type includeMyRenotes: bool
+        :type includeRenotedMyNotes: bool
+        :type includeLocalRenotes: bool
         :rtype: list
         """
         payload = {
@@ -342,6 +436,22 @@ class Misskey:
         """
         Show timeline from Local.
 
+        :param withFiles: If True, only posts attached to the file will be displayed.
+        :param fileType: Use when acquiring only the specified file type.
+        :param excludeNsfw: Set to True to exclude postings for reading attention.
+        :param sinceId: Acquired from the specified ID.
+        :param untilId: Get up to the specified ID.
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :param sinceDate: Get from the specified date.
+        :param untilDate: Gets until the specified date.
+        :type withFiles: bool
+        :type fileType: list or None
+        :type excludeNsfw: bool
+        :type sinceId: str or None
+        :type untilId: str or None
+        :type limit: int
+        :type sinceDate: str or None
+        :type untilDate: str or None
         :rtype: list
         """
         payload = {
@@ -380,7 +490,6 @@ class Misskey:
         :type userIds: str or None
         :type username: str or None
         :type host: str or None
-        :raises MisskeyAPIException: Raised if the API returns a status code that each function does not expect.
         :rtype: dict, list
         """
         payload = {}
@@ -403,6 +512,18 @@ class Misskey:
         """
         Show followers from specified user.
 
+        :param userId: Specify the user ID to display the follower list.
+        :param username: Specify the user name for displaying the follower list. This is useful when you do not know the user ID.
+        :param host: Used to load the user of another instance.
+        :param sinceId: Acquired from the specified ID.
+        :param untilId: Get up to the specified ID.
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :type userId: str or None
+        :type username: str or None
+        :type host: str or None
+        :type sinceId: str or None
+        :type untilId: str or None
+        :type limit: int
         :rtype: list
         """
         payload = {
@@ -430,6 +551,18 @@ class Misskey:
         """
         Show following from specified user.
 
+        :param userId: Specify the user ID for displaying the follow list.
+        :param username: Specify the user name for displaying the follow list. This is useful when you do not know the user ID.
+        :param host: Used to load the user of another instance.
+        :param sinceId: Acquired from the specified ID.
+        :param untilId: Get up to the specified ID.
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :type userId: str or None
+        :type username: str or None
+        :type host: str or None
+        :type sinceId: str or None
+        :type untilId: str or None
+        :type limit: int
         :rtype: list
         """
         payload = {
@@ -457,6 +590,8 @@ class Misskey:
         """
         Follow a user.
 
+        :param userId: Specify the user ID to follow.
+        :type userId: str
         :rtype: dict
         """
         return self.__API('following/create', True, 200, userId=userId)
@@ -465,6 +600,8 @@ class Misskey:
         """
         Unfollow a user.
 
+        :param userId: Specify the user ID to unfollow.
+        :type userId: str
         :rtype: dict
         """
         return self.__API('following/delete', True, 200, userId=userId)
@@ -473,7 +610,8 @@ class Misskey:
         """
         Mute a user.
 
-        :rtype: dict
+        :return: Returns `True` if the request is successful.
+        :rtype: bool
         """
         return self.__API('mute/create', True, 204, userId=userId)
 
@@ -481,6 +619,12 @@ class Misskey:
         """
         List blocked users.
 
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :param sinceId: Acquired from the specified ID.
+        :param untilId: Get up to the specified ID.
+        :type limit: int
+        :type sinceId: str or None
+        :type untilId: str or None
         :rtype: list
         """
         payload = {
@@ -499,6 +643,7 @@ class Misskey:
         """
         Unmute a user.
 
+        :return: Returns `True` if the request is successful.
         :rtype: bool
         """
         return self.__API('mute/delete', True, 204, userId=userId)
@@ -507,6 +652,7 @@ class Misskey:
         """
         Block a user.
 
+        :return: Returns `True` if the request is successful.
         :rtype: bool
         """
         return self.__API('blocking/create', True, 200, userId=userId)
@@ -515,6 +661,12 @@ class Misskey:
         """
         List blocked users.
 
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :param sinceId: Acquired from the specified ID.
+        :param untilId: Get up to the specified ID.
+        :type limit: int
+        :type sinceId: str or None
+        :type untilId: str or None
         :rtype: list
         """
         payload = {
@@ -533,6 +685,7 @@ class Misskey:
         """
         Unblock a user.
 
+        :return: Returns `True` if the request is successful.
         :rtype: bool
         """
         return self.__API('blocking/delete', True, 200, userId=userId)
@@ -545,10 +698,20 @@ class Misskey:
         """
         return self.__API('drive', True)
 
-    def drive_files(self, limit=10, sinceId=None, untilId=None, folderId=None, type=None):
+    def drive_files(self, limit=10, sinceId=None, untilId=None, folderId="", type=None):
         """
         Show a files in selected folder.
 
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :param sinceId: Acquired from the specified ID.
+        :param untilId: Get up to the specified ID.
+        :param folderId: You can specify a folder ID to refer to.
+        :param type: Specifies the file type.
+        :type limit: int
+        :type sinceId: str or None
+        :type untilId: str or None
+        :type folderId: str or None
+        :type type: str or None
         :rtype: list
         """
         payload = {
@@ -560,7 +723,7 @@ class Misskey:
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
         
-        if folderId != None: # pragma: no cover
+        if folderId != "": # pragma: no cover
             payload['folderId'] = folderId
 
         if type != None: # pragma: no cover
@@ -572,6 +735,14 @@ class Misskey:
         """
         Upload a file.
 
+        :param filePath: Specify the path where the file is located.
+        :param folderId: If specified, it will be uploaded to that folder.
+        :param isSensitive: Specify whether to upload as browsing notice.
+        :param force: Specify whether to force even if a file with the same hash is uploaded.
+        :type folderId: str or None
+        :type isSensitive: bool
+        :type force: bool
+        :raises MisskeyFileException: Raised if the file can not be found.
         :rtype: dict
         """
         if not os.path.isfile(filePath):
@@ -597,6 +768,14 @@ class Misskey:
         """
         Upload a file from URL.
 
+        :param url: Specify the URL to upload to the drive.
+        :param folderId: If specified, it will be uploaded to that folder.
+        :param isSensitive: Specify whether to upload as browsing notice.
+        :param force: Specify whether to force even if a file with the same hash is uploaded.
+        :type url: str
+        :type folderId: str or None
+        :type isSensitive: bool
+        :type force: bool
         :rtype: dict
         """
         return self.__API('drive/files/upload-from-url', True, 200, url=url, folderId=folderId, isSensitive=isSensitive, force=force)
@@ -605,6 +784,10 @@ class Misskey:
         """
         Show a file from fileID or URL.
 
+        :param fileId: Specify the file ID for which you want to check the details
+        :param url: Enter the URL uploaded to the drive of the instance for which you want to check the details. This is useful when you do not know the file ID.
+        :type fileId: str or None
+        :type url: str or None
         :rtype: dict
         """
         payload = {}
@@ -617,16 +800,26 @@ class Misskey:
         
         return self.__API('drive/files/show', True, 200, **payload)
     
-    def drive_files_update(self, fileId, folderId=None, name=None, isSensitive=None):
+    def drive_files_update(self, fileId, folderId="", name=None, isSensitive=None):
         """
         Update a file.
 
+        :param fileId: Specify the file ID you want to change
+        :param folderId: If specified, it will move to that folder.
+        :param name: Change to the file name entered in the argument.
+        :param isSensitive: You can change whether to set to reading attention.
+        :type fileId: str
+        :type folderId: str or None
+        :type name: str or None
+        :type isSensitive: bool or None
         :rtype: dict
         """
         payload = {
-            'fileId': fileId,
-            'folderId': folderId
+            'fileId': fileId
         }
+
+        if folderId != "": # pragma: no cover
+            payload['folderId'] = folderId
 
         if name != None: # pragma: no cover
             payload['name'] = name
@@ -640,6 +833,9 @@ class Misskey:
         """
         Delete a file.
 
+        :param fileId: Specify the file ID you want to delete.
+        :type fileId: str
+        :return: Returns `True` if the request is successful.
         :rtype: bool
         """
         return self.__API('drive/files/delete', True, 204, fileId=fileId)
@@ -648,6 +844,14 @@ class Misskey:
         """
         List folders in specified directory.
 
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :param sinceId: Acquired from the specified ID.
+        :param untilId: Get up to the specified ID.
+        :param folderId: You can specify a folder ID to refer to.
+        :type limit: int
+        :type sinceId: str or None
+        :type untilId: str or None
+        :type folderId: str or None
         :rtype: list
         """
         payload = {
@@ -667,6 +871,10 @@ class Misskey:
         """
         Create a folder in specified directory.
 
+        :param name: Enter the folder ID you want to create
+        :param parentId: Specify where to create the folder. If not specified, it will be created in the root folder.
+        :type name: str
+        :type parentId: str or None
         :rtype: dict
         """
         return self.__API('drive/folders/create', True, 200, name=name, parentId=parentId)
@@ -674,14 +882,23 @@ class Misskey:
     def drive_folders_show(self, folderId):
         """
         Show a folder.
+
+        :param folderId: Enter the folder ID for which you want to check the details
+        :type folderId: str
         :rtype: dict
         """
         return self.__API('drive/folders/show', True, 200, folderId=folderId)
 
-    def drive_folders_update(self, folderId, name=None, parentId=None):
+    def drive_folders_update(self, folderId, name=None, parentId=""):
         """
         Update a folder.
 
+        :param folderId: Enter the folder ID you want to update
+        :param name: Enter in this argument when you want to change it.
+        :param parentId: Change this argument if you want to change the parent folder.
+        :type folderId: str
+        :type name: str or None
+        :type parentId: str or None
         :rtype: dict
         """
         payload = {
@@ -691,7 +908,7 @@ class Misskey:
         if name != None: # pragma: no cover
             payload['name'] = name
 
-        if parentId != None: # pragma: no cover
+        if parentId != "": # pragma: no cover
             payload['parentId'] = parentId
         
         return self.__API('drive/folders/update', True, 200, **payload)
@@ -700,6 +917,9 @@ class Misskey:
         """
         Delete a folder in specified directory.
 
+        :param folderId: Enter the folder ID you want to delete
+        :type folderId: str
+        :return: Returns `True` if the request is successful.
         :rtype: bool
         """
         return self.__API('drive/folders/delete', True, 204, folderId=folderId)
