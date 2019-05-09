@@ -63,7 +63,7 @@ class MisskeyUtil:
     def username_available(instanceAddress, username):
         res = requests.post(f"https://{instanceAddress}/api/username/available", data=json.dumps({'username': username,}), headers={'content-type': 'application/json'})
 
-        if res.status_code != 200:
+        if res.status_code != 200: # pragma: no cover
             raise MisskeyAPIException(f'API Error: /api/username/available (Expected value 200, but {res.status_code} returned)\n{res.text}')
         else:
             return json.loads(res.text)
