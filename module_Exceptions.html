@@ -1,0 +1,124 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Exceptions &#8212; Misskey.py  documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="MisskeyUtil module" href="module_Util.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="module_Util.html" title="MisskeyUtil module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Misskey.py  documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-Misskey.Exceptions">
+<span id="exceptions"></span><h1>Exceptions<a class="headerlink" href="#module-Misskey.Exceptions" title="Permalink to this headline">¶</a></h1>
+<dl class="exception">
+<dt id="Misskey.Exceptions.MisskeyAPIException">
+<em class="property">exception </em><code class="descclassname">Misskey.Exceptions.</code><code class="descname">MisskeyAPIException</code><a class="reference internal" href="_modules/Misskey/Exceptions.html#MisskeyAPIException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Misskey.Exceptions.MisskeyAPIException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Raised if the API returns a status code that each function does not expect.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="Misskey.Exceptions.MisskeyAiException">
+<em class="property">exception </em><code class="descclassname">Misskey.Exceptions.</code><code class="descname">MisskeyAiException</code><a class="reference internal" href="_modules/Misskey/Exceptions.html#MisskeyAiException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Misskey.Exceptions.MisskeyAiException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Raised if the specified function requires a token and no token is assigned to the class.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="Misskey.Exceptions.MisskeyFileException">
+<em class="property">exception </em><code class="descclassname">Misskey.Exceptions.</code><code class="descname">MisskeyFileException</code><a class="reference internal" href="_modules/Misskey/Exceptions.html#MisskeyFileException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Misskey.Exceptions.MisskeyFileException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Raised when the specified file can not be found.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="Misskey.Exceptions.MisskeyInitException">
+<em class="property">exception </em><code class="descclassname">Misskey.Exceptions.</code><code class="descname">MisskeyInitException</code><a class="reference internal" href="_modules/Misskey/Exceptions.html#MisskeyInitException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Misskey.Exceptions.MisskeyInitException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>This exception is raised if an error occurs during class initialization. For example, it is raised if it can not connect to the specified address or if the token is invalid.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="module_Util.html"
+                        title="previous chapter">MisskeyUtil module</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/module_Exceptions.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="module_Util.html" title="MisskeyUtil module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Misskey.py  documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, YuzuRyo61.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
+    </div>
+  </body>
+</html>

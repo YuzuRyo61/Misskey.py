@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Misskey.Util &#8212; Misskey.py  documentation</title>
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Misskey.py  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for Misskey.Util</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">Misskey.Exceptions</span> <span class="k">import</span> <span class="n">MisskeyAPIException</span>
+
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+
+<div class="viewcode-block" id="MisskeyUtil"><a class="viewcode-back" href="../../module_Util.html#Misskey.Util.MisskeyUtil">[docs]</a><span class="k">class</span> <span class="nc">MisskeyUtil</span><span class="p">:</span>
+<div class="viewcode-block" id="MisskeyUtil.hash_apitoken"><a class="viewcode-back" href="../../module_Util.html#Misskey.Util.MisskeyUtil.hash_apitoken">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">hash_apitoken</span><span class="p">(</span><span class="n">accessToken</span><span class="p">,</span> <span class="n">appSecret</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The issued access token and app secret key are combined and hashed for use in API.</span>
+
+<span class="sd">        :param accessToken: Token Specify the access token issued at the time of authentication.</span>
+<span class="sd">        :param appSecret: Specify the app secret key.</span>
+<span class="sd">        :type accessToken: str</span>
+<span class="sd">        :type appSecret: str</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">tokenraw</span> <span class="o">=</span> <span class="n">accessToken</span> <span class="o">+</span> <span class="n">appSecret</span>
+        <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha256</span><span class="p">(</span><span class="n">tokenraw</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="MisskeyUtil.create_app"><a class="viewcode-back" href="../../module_Util.html#Misskey.Util.MisskeyUtil.create_app">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">create_app</span><span class="p">(</span><span class="n">instanceAddress</span><span class="p">,</span> <span class="n">appName</span><span class="p">,</span> <span class="n">description</span><span class="p">,</span> <span class="n">permission</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">&#39;read:account&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;write:account&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;read:blocks&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;write:blocks&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;read:drive&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;write:drive&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;read:favorites&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;write:favorites&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;read:following&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;write:following&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;read:messaging&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;write:messaging&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;read:mutes&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;write:mutes&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;write:notes&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;read:notifications&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;write:notifications&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;read:reactions&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;write:reactions&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;write:votes&#39;</span>
+    <span class="p">],</span> <span class="n">callbackUrl</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates an application key with the specified instance address.</span>
+
+<span class="sd">        :param instanceAddress: Specify the Misskey instance address.</span>
+<span class="sd">        :param appName: Specifies the name of the app.</span>
+<span class="sd">        :param description: Specify the app description.</span>
+<span class="sd">        :param permission: Specifies the app&#39;s permissions.</span>
+<span class="sd">        :param callbackUrl: Specify if there is a URL to call back after user authentication.</span>
+<span class="sd">        :type instanceAddress: str</span>
+<span class="sd">        :type appName: str</span>
+<span class="sd">        :type description: str</span>
+<span class="sd">        :type permission: list</span>
+<span class="sd">        :type callbackUrl: str or None</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;https://</span><span class="si">{instanceAddress}</span><span class="s2">/api/app/create&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">appName</span><span class="p">,</span> <span class="s1">&#39;description&#39;</span><span class="p">:</span> <span class="n">description</span><span class="p">,</span> <span class="s1">&#39;permission&#39;</span><span class="p">:</span> <span class="n">permission</span><span class="p">,</span> <span class="s1">&#39;callbackUrl&#39;</span><span class="p">:</span> <span class="n">callbackUrl</span><span class="p">}),</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">})</span>
+
+        <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">MisskeyAPIException</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;API Error: /app/create (Expected value 200, but </span><span class="si">{res.status_code}</span><span class="s1"> returned)</span><span class="se">\n</span><span class="si">{res.text}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MisskeyUtil.session_generate"><a class="viewcode-back" href="../../module_Util.html#Misskey.Util.MisskeyUtil.session_generate">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">session_generate</span><span class="p">(</span><span class="n">instanceAddress</span><span class="p">,</span> <span class="n">appSecret</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Issue a token to authenticate the user.</span>
+
+<span class="sd">        :param instanceAddress: Specify the Misskey instance address.</span>
+<span class="sd">        :param appSecret: Specifies the secret key.</span>
+<span class="sd">        :type instanceAddress: str</span>
+<span class="sd">        :type appSecret: str</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;https://</span><span class="si">{instanceAddress}</span><span class="s2">/api/auth/session/generate&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s1">&#39;appSecret&#39;</span><span class="p">:</span> <span class="n">appSecret</span><span class="p">}),</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">})</span>
+
+        <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">MisskeyAPIException</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;API Error: /auth/session/generate (Expected value 200 but </span><span class="si">{res.status_code}</span><span class="s1"> returned)</span><span class="se">\n</span><span class="si">{res.text}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MisskeyUtil.session_userkey"><a class="viewcode-back" href="../../module_Util.html#Misskey.Util.MisskeyUtil.session_userkey">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">session_userkey</span><span class="p">(</span><span class="n">instanceAddress</span><span class="p">,</span> <span class="n">appSecret</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span> <span class="c1"># pragma: no cover</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        It is a function to perform when the user authenticates with the browser.</span>
+
+<span class="sd">        :param instanceAddress: Specify the Misskey instance address.</span>
+<span class="sd">        :param appSecret: Specifies the secret key.</span>
+<span class="sd">        :param token: Specify the token issued before authentication.</span>
+<span class="sd">        :type instanceAddress: str</span>
+<span class="sd">        :type appSecret: str</span>
+<span class="sd">        :type token: str</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;https://</span><span class="si">{instanceAddress}</span><span class="s2">/api/auth/session/userkey&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s1">&#39;appSecret&#39;</span><span class="p">:</span> <span class="n">appSecret</span><span class="p">,</span> <span class="s1">&#39;token&#39;</span><span class="p">:</span> <span class="n">token</span><span class="p">}),</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">})</span>
+
+        <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">MisskeyAPIException</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;API Error: /auth/session/userkey (Expected value 200, but </span><span class="si">{res.status_code}</span><span class="s1"> returned)</span><span class="se">\n</span><span class="si">{res.text}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MisskeyUtil.username_available"><a class="viewcode-back" href="../../module_Util.html#Misskey.Util.MisskeyUtil.username_available">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">username_available</span><span class="p">(</span><span class="n">instanceAddress</span><span class="p">,</span> <span class="n">username</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if the specified user name can be used.</span>
+
+<span class="sd">        :param instanceAddress: Specify the Misskey instance address.</span>
+<span class="sd">        :param username: Specify the username you want to check.</span>
+<span class="sd">        :type instanceAddress: str</span>
+<span class="sd">        :type username: str</span>
+<span class="sd">        :rtype: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;https://</span><span class="si">{instanceAddress}</span><span class="s2">/api/username/available&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">({</span><span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="n">username</span><span class="p">,}),</span> <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;content-type&#39;</span><span class="p">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">})</span>
+
+        <span class="k">if</span> <span class="n">res</span><span class="o">.</span><span class="n">status_code</span> <span class="o">!=</span> <span class="mi">200</span><span class="p">:</span> <span class="c1"># pragma: no cover</span>
+            <span class="k">raise</span> <span class="n">MisskeyAPIException</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;API Error: /api/username/available (Expected value 200, but </span><span class="si">{res.status_code}</span><span class="s1"> returned)</span><span class="se">\n</span><span class="si">{res.text}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">text</span><span class="p">)</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">Misskey.py  documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2019, YuzuRyo61.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.0.1.
+    </div>
+  </body>
+</html>
