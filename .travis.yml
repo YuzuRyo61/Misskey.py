@@ -11,8 +11,6 @@ install:
 
 script:
  - coverage run --source=Misskey setup.py test
- - travis-sphinx build --source=docs
 
 after_success:
  - coveralls
- - travis-sphinx deploy
