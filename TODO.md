@@ -118,11 +118,11 @@
 
 ## messaging
 
-- [ ] messaging/history
-- [ ] messaging/messages
-- [ ] messaging/messages/create
-- [ ] messaging/messages/delete
-- [ ] messaging/messages/read
+- [x] messaging/history
+- [x] messaging/messages
+- [x] messaging/messages/create
+- [x] messaging/messages/delete
+- [x] messaging/messages/read
 
 ## meta
 

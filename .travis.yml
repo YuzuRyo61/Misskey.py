@@ -4,13 +4,15 @@ python:
  - 3.6
 
 before_install:
- - openssl aes-256-cbc -K $encrypted_22a852c4da90_key -iv $encrypted_22a852c4da90_iv -in test/env.ini.enc -out test/env.ini -d
+ - openssl aes-256-cbc -K $encrypted_6a37b794cca0_key -iv $encrypted_6a37b794cca0_iv -in env.ini.enc -out test/env.ini -d
 
 install:
  - pip3 install -r requirements.txt
 
 script:
  - coverage run --source=Misskey setup.py test
+ - travis-sphinx build --source=docs
 
 after_success:
  - coveralls
+ - travis-sphinx deploy

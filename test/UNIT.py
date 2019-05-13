@@ -206,6 +206,25 @@ class MisskeyPyUnitTest(unittest.TestCase):
 
         print("DONE\t=> drive\n")
 
+    def test_messaging(self):
+        print("UNIT\t=> messaging")
+        
+        print("\t\t=> messaging_history")
+        self.assertEqual(type(self.unitI.messaging_history()), list)
+
+        print("\t\t=> messaging_messages")
+        self.assertEqual(type(self.unitI.messaging_messages(config['user']['target'])), list)
+
+        print("\t\t=> messaging_messages_create")
+        mmc = self.unitI.messaging_messages_create(config['user']['target'], text="It works!")
+        self.assertEqual(type(mmc), dict)
+
+        print("\t\t=> messaging_messages_read")
+        self.assertTrue(self.unitI.messaging_messages_read(config['messages']['target']))
+
+        print("\t\t=> messaging_messages_delete")
+        self.assertTrue(self.unitI.messaging_messages_delete(mmc['id']))
+
 def TESTSUITE():
     suite = unittest.TestSuite()
     suite.addTests(unittest.makeSuite(MisskeyPyUnitTest))

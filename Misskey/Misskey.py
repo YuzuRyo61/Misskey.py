@@ -923,3 +923,89 @@ class Misskey:
         :rtype: bool
         """
         return self.__API('drive/folders/delete', True, 204, folderId=folderId)
+
+    def messaging_history(self, limit=10):
+        """
+        Show all messages what you received.
+
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :type limit: int
+        :rtype: list
+        """
+        return self.__API('messaging/history', True, 200, limit=limit)
+
+    def messaging_messages(self, userId, limit=10, sinceId=None, untilId=None, markAsRead=True):
+        """
+        Show messages.
+
+        :param userId: Display a message with the specified user.
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :param sinceId: Acquired from the specified ID.
+        :param untilId: Get up to the specified ID.
+        :param markAsRead: You can choose to mark unread messages as read when you call this API.
+        :type userId: str
+        :type limit: int
+        :type sinceId: str or None
+        :type untilId: str or None
+        :type markAsRead: bool
+        :rtype: list
+        """
+        payload = {
+            'userId': userId,
+            'limit': limit,
+            'markAsRead': markAsRead
+        }
+
+        if sinceId != None: # pragma: no cover
+            payload['sinceId'] = sinceId
+        
+        if untilId != None: # pragma: no cover
+            payload['untilId'] = untilId
+        
+        return self.__API('messaging/messages', True, 200, **payload)
+
+    def messaging_messages_create(self, userId, text=None, fileId=None):
+        """
+        Send a message to a specified user.
+
+        :param userId: Sends a message to the specified user.
+        :param text: Insert the text to be sent.
+        :param fileId: If you want to attach a file, enter the file ID.
+        :type userId: str
+        :type text: str or None
+        :type fileId: str or None
+        :rtype: dict
+        """
+        payload = {
+            'userId': userId
+        }
+
+        if text != None: # pragma: no cover
+            payload['text'] = text
+        
+        if fileId != None: # pragma: no cover
+            payload['fileId'] = fileId
+        
+        return self.__API('messaging/messages/create', True, 200, **payload)
+
+    def messaging_messages_delete(self, messageId):
+        """
+        Deletes the specified message.
+
+        :param messageId: Enter the unique ID of the sent message.
+        :type messageId: str
+        :return: Returns `True` if the request is successful.
+        :rtype: bool
+        """
+        return self.__API('messaging/messages/delete', True, 204, messageId=messageId)
+
+    def messaging_messages_read(self, messageId):
+        """
+        Mark the specified message as read.
+
+        :param messageId: Enter the unique ID of the sent message.
+        :type messageId: str
+        :return: Returns `True` if the request is successful.
+        :rtype: bool
+        """
+        return self.__API('messaging/messages/read', True, 204, messageId=messageId)
