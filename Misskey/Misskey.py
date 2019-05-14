@@ -9,15 +9,15 @@ import mimetypes
 from urllib.parse import urlparse
 
 class Misskey:
+    """
+    Initialize the library.
+    
+    :param address: Instance address of Misskey. If leave a blank, library will use 'misskey.io'.
+    :param i: Use hashed keys or keys used on the web.
+    :param skipChk: Skip instance valid check. It is not recommended to make it True.
+    :raises MisskeyInitException: This exception is raised if an error occurs during class initialization. For example, it is raised if it can not connect to the specified address or if the token is invalid.
+    """
     def __init__(self, address='misskey.io', i=None, skipChk=False):
-        """
-        Initialize the library.
-        
-        :param address: Instance address of Misskey. If leave a blank, library will use 'misskey.io'.
-        :param i: Use hashed keys or keys used on the web.
-        :param skipChk: Skip instance valid check. It is not recommended to make it True.
-        :raises MisskeyInitException: This exception is raised if an error occurs during class initialization. For example, it is raised if it can not connect to the specified address or if the token is invalid.
-        """
 
         self.headers = {'content-type': 'application/json'}
         self.apiToken = i
@@ -61,6 +61,17 @@ class Misskey:
                 return True
             else:
                 return json.loads(res.text)
+    
+    def __isUseCred(self): # pragma: no cover
+        """
+        This function is for internal. Normally, Please use each functions.
+
+        :noindex:
+        """
+        if self.apiToken != None:
+            return True
+        else:
+            return False
 
     def meta(self):
         """
@@ -235,7 +246,7 @@ class Misskey:
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
         
-        return self.__API('notes/renotes', False, 200, **payload)
+        return self.__API('notes/renotes', self.__isUseCred(), 200, **payload)
     
     def notes_delete(self, noteId):
         """
@@ -373,8 +384,8 @@ class Misskey:
 
         if untilDate != None: # pragma: no cover
             payload['untilDate'] = untilDate
-        
-        return self.__API('notes/global-timeline', False, 200, **payload)
+
+        return self.__API('notes/global-timeline', self.__isUseCred(), 200, **payload)
 
     def notes_hybridTimeline(
             self,
@@ -474,8 +485,8 @@ class Misskey:
 
         if untilDate != None: # pragma: no cover
             payload['untilDate'] = untilDate
-        
-        return self.__API('notes/local-timeline', False, 200, **payload)
+
+        return self.__API('notes/local-timeline', self.__isUseCred(), 200, **payload)
 
     def users_show(self, userId=None, userIds=None, username=None, host=None):
         """
@@ -506,7 +517,7 @@ class Misskey:
         if host != None: # pragma: no cover
             payload['host'] = host
         
-        return self.__API('users/show', False, 200, **payload)
+        return self.__API('users/show', self.__isUseCred(), 200, **payload)
     
     def users_followers(self, userId=None, username=None, host=None, sinceId=None, untilId=None, limit=10):
         """
@@ -545,7 +556,7 @@ class Misskey:
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
 
-        return self.__API('users/followers', False, 200, **payload)
+        return self.__API('users/followers', self.__isUseCred(), 200, **payload)
     
     def users_following(self, userId=None, username=None, host=None, sinceId=None, untilId=None, limit=10):
         """
@@ -584,7 +595,7 @@ class Misskey:
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
 
-        return self.__API('users/following', False, 200, **payload)
+        return self.__API('users/following', self.__isUseCred(), 200, **payload)
 
     def following_create(self, userId):
         """
