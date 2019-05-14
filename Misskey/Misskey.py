@@ -683,13 +683,83 @@ class Misskey:
 
         return self.__API('users/following', self.__isUseCred(), 200, **payload)
 
+    def users_lists_create(self, name):
+        """
+        Create a list.
+
+        :param name: Specifies the name of the list.
+        :type name: str
+        :rtype: dict
+        """
+        return self.__API('users/lists/create', True, 200, name=name)
+
+    def users_lists_delete(self, listId):
+        """
+        Delete a list.
+
+        :param listId: Specify the list ID you want to delete.
+        :type listId: str
+        :return: Returns `True` if the request is successful.
+        :rtype: bool
+        """
+        return self.__API('users/lists/delete', True, 204, listId=listId)
+
     def users_lists_list(self):
         """
         Show lists.
 
-        :return: list
+        :rtype: list
         """
         return self.__API('users/lists/list', True)
+
+    def users_lists_pull(self, listId, userId):
+        """
+        Remove a user from specified list.
+
+        :param listId: Specifies a list from which to remove the specified user.
+        :param userId: Specifies a user.
+        :type listId: str
+        :type userId: str
+        :return: Returns `True` if the request is successful.
+        :rtype: bool
+        """
+        return self.__API('users/lists/pull', True, 204, listId=listId, userId=userId)
+
+    def users_lists_push(self, listId, userId):
+        """
+        Add a user from specified list.
+
+        :param listId: Specifies a list from which to add the specified user.
+        :param userId: Specifies a user.
+        :type listId: str
+        :type userId: str
+        :return: Returns `True` if the request is successful.
+        :rtype: bool
+        """
+        return self.__API('users/lists/push', True, 204, listId=listId, userId=userId)
+
+    def users_lists_show(self, listId):
+        """
+        Show a list.
+
+        :param listId: Specify the list ID you want to get.
+        :type listId: str
+        :rtype: dict
+        """
+        return self.__API('users/lists/show', True, 200, listId=listId)
+
+    def users_lists_update(self, listId, name):
+        """
+        Update the specified list.
+
+        :param listId: Specifies a list from which to add the specified user.
+        :param name: Change to the specified name.
+        :type listId: str
+        :type name: str
+        :return: Returns `True` if the request is successful.
+        :rtype: bool
+        """
+        return self.__API('users/lists/update', True, 204, listId=listId, name=name)
 
     def following_create(self, userId):
         """

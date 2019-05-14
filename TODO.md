@@ -137,13 +137,13 @@
 
 ## lists
 
-- [ ] users/lists/create
-- [ ] users/lists/delete
+- [x] users/lists/create
+- [x] users/lists/delete
 - [x] users/lists/list
-- [ ] users/lists/pull
-- [ ] users/lists/push
-- [ ] users/lists/show
-- [ ] users/lists/update
+- [x] users/lists/pull
+- [x] users/lists/push
+- [x] users/lists/show
+- [x] users/lists/update
 
 ## pages (Misskey: >=11.5.0)
 

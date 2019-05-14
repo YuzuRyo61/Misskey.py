@@ -121,6 +121,9 @@ class MisskeyPyUnitTest(unittest.TestCase):
         print("\t\t=> notes_localTimeline")
         self.assertEqual(type(self.unitI.notes_localTimeline()), list)
 
+        print("\t\t=> notes_userListTimeline")
+        self.assertEqual(type(self.unitI.notes_userListTimeline(config['list']['target'])), list)
+
         print("DONE\t=> notes\n")
     
     def test_users(self):
@@ -131,6 +134,28 @@ class MisskeyPyUnitTest(unittest.TestCase):
 
         print("\t\t=> users_show (many)")
         self.assertEqual(type(self.unit.users_show(userIds=[config['user']['target']])), list)
+
+        print("\t\t=> users_lists_create")
+        ulc = self.unitI.users_lists_create("test")
+        self.assertEqual(type(ulc), dict)
+
+        print("\t\t=> users_lists_push")
+        self.assertTrue(self.unitI.users_lists_push(ulc['id'], config['user']['target']))
+
+        print("\t\t=> users_lists_show")
+        self.assertEqual(type(self.unitI.users_lists_show(ulc['id'])), dict)
+
+        print("\t\t=> users_lists_pull")
+        self.assertTrue(self.unitI.users_lists_pull(ulc['id'], config['user']['target']))
+
+        print("\t\t=> users_lists_update")
+        self.assertTrue(self.unitI.users_lists_update(ulc['id'], "test_rename"))
+
+        print("\t\t=> users_lists_delete")
+        self.assertTrue(self.unitI.users_lists_delete(ulc['id']))
+
+        print("\t\t=> users_lists_list")
+        self.assertEqual(type(self.unitI.users_lists_list()), list)
 
         print("\t\t=> users_followers")
         self.assertEqual(type(self.unit.users_followers(userId=config['user']['target'])), list)
