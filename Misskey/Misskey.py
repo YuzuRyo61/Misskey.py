@@ -52,7 +52,7 @@ class Misskey:
             else:
                 raise MisskeyAiException('APIToken(I) variable was undefined. Please set "apiToken" variable.')
         
-        res = requests.post(self.instanceAddressApiUrl + apiName, data=json.dumps(payload), headers=self.headers)
+        res = requests.post(self.instanceAddressApiUrl + apiName, data=json.dumps(payload), headers=self.headers, allow_redirects=False)
 
         if res.status_code != expected:
             raise MisskeyAPIException(f'API Error: {apiName} (Expected value {expected}, but {res.status_code} returned)\n{res.text}')
