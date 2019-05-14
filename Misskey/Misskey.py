@@ -756,10 +756,9 @@ class Misskey:
         :param name: Change to the specified name.
         :type listId: str
         :type name: str
-        :return: Returns `True` if the request is successful.
-        :rtype: bool
+        :rtype: dict
         """
-        return self.__API('users/lists/update', True, 204, listId=listId, name=name)
+        return self.__API('users/lists/update', True, 200, listId=listId, name=name)
 
     def following_create(self, userId):
         """

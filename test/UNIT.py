@@ -122,7 +122,7 @@ class MisskeyPyUnitTest(unittest.TestCase):
         self.assertEqual(type(self.unitI.notes_localTimeline()), list)
 
         print("\t\t=> notes_userListTimeline")
-        self.assertEqual(type(self.unitI.notes_userListTimeline(config['list']['target'])), list)
+        self.assertEqual(type(self.unitI.notes_userListTimeline(config['lists']['target'])), list)
 
         print("DONE\t=> notes\n")
     
@@ -149,7 +149,7 @@ class MisskeyPyUnitTest(unittest.TestCase):
         self.assertTrue(self.unitI.users_lists_pull(ulc['id'], config['user']['target']))
 
         print("\t\t=> users_lists_update")
-        self.assertTrue(self.unitI.users_lists_update(ulc['id'], "test_rename"))
+        self.assertEqual(type(self.unitI.users_lists_update(ulc['id'], "test_rename")), dict)
 
         print("\t\t=> users_lists_delete")
         self.assertTrue(self.unitI.users_lists_delete(ulc['id']))
