@@ -75,7 +75,7 @@
 
 ## notes
 
-- [ ] notes
+- [x] notes
 - [ ] notes/children
 - [ ] notes/conversation
 - [x] notes/create
@@ -97,7 +97,7 @@
 - [x] notes/show
 - [ ] notes/state
 - [ ] notes/timeline
-- [ ] notes/user-list-timeline
+- [x] notes/user-list-timeline
 - [ ] notes/watching/create
 - [ ] notes/watching/delete
 - [ ] users/notes
@@ -139,7 +139,7 @@
 
 - [ ] users/lists/create
 - [ ] users/lists/delete
-- [ ] users/lists/list
+- [x] users/lists/list
 - [ ] users/lists/pull
 - [ ] users/lists/push
 - [ ] users/lists/show

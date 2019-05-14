@@ -121,6 +121,45 @@ class Misskey:
         
         return self.__API('i/favorites', True, 200, **payload)
 
+    def notes(self, local=False, reply=False, renote=False, withFiles=False, poll=False, limit=10, sinceId=None, untilId=None):
+        """
+        Show notes.
+
+        :param local: Specifies whether to limit to local only postings.
+        :param reply: Specify if you want to limit to posts only for replies.
+        :param renote: Specify whether to limit to Renote only posts.
+        :param withFiles: Specify whether to limit to posts with attachments only.
+        :param poll: Specify if you want to limit the post to surveys only.
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :param sinceId: Acquired from the specified ID.
+        :param untilId: Get up to the specified ID.
+        :type local: bool
+        :type reply: bool
+        :type renote: bool
+        :type withFiles: bool
+        :type poll: bool
+        :type limit: int
+        :type sinceId: str
+        :type untilId: str
+        :rtype: list
+        """
+        payload = {
+            "local": local,
+            "reply": reply,
+            "renote": renote,
+            "withFiles": withFiles,
+            "poll": poll,
+            "limit": limit
+        }
+
+        if sinceId != None: # pragma: no cover
+            payload['sinceId'] = sinceId
+        
+        if untilId != None: # pragma: no cover
+            payload['untilId'] = untilId
+
+        return self.__API('notes', self.__isUseCred(), 200, **payload)
+
     def notes_create(
         self,
         text=None,
@@ -487,6 +526,53 @@ class Misskey:
             payload['untilDate'] = untilDate
 
         return self.__API('notes/local-timeline', self.__isUseCred(), 200, **payload)
+    
+    def notes_userListTimeline(self, listId, limit=10, sinceId=None, untilId=None, sinceDate=None, untilDate=None, includeMyRenotes=True, includeRenotedMyNotes=True, includeLocalRenotes=True, withFiles=False):
+        """
+        Show timeline from specified list.
+
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :param sinceId: Acquired from the specified ID.
+        :param untilId: Get up to the specified ID.
+        :param sinceDate: Get from the specified date.
+        :param untilDate: Gets until the specified date.
+        :param includeMyRenotes: Specify if you want to include posts that you renote
+        :param includeRenotedMyNotes: Specifies whether your post includes a Renote post
+        :param includeLocalRenotes: Specifies whether to include reposted local posts
+        :param withFiles: If True, only posts attached to the file will be displayed.
+        :type limit: int
+        :type sinceId: str or None
+        :type untilId: str or None
+        :type sinceDate: str or None
+        :type untilDate: str or None
+        :type includeMyRenotes: bool
+        :type includeRenotedMyNotes: bool
+        :type includeLocalRenotes: bool
+        :type withFiles: bool
+        :rtype: list
+        """
+        payload = {
+            'listId': listId,
+            'limit': limit,
+            'includeMyRenotes': includeMyRenotes,
+            'includeRenotedMyNotes': includeRenotedMyNotes,
+            'includeLocalRenotes': includeLocalRenotes,
+            'withFiles': withFiles
+        }
+
+        if sinceId != None: # pragma: no cover
+            payload['sinceId'] = sinceId
+
+        if untilId != None: # pragma: no cover
+            payload['untilId'] = untilId
+        
+        if sinceDate != None: # pragma: no cover
+            payload['sinceDate'] = sinceDate
+
+        if untilDate != None: # pragma: no cover
+            payload['untilDate'] = untilDate
+
+        return self.__API('notes/user-list-timeline', True, 200, **payload)
 
     def users_show(self, userId=None, userIds=None, username=None, host=None):
         """
@@ -596,6 +682,14 @@ class Misskey:
             payload['untilId'] = untilId
 
         return self.__API('users/following', self.__isUseCred(), 200, **payload)
+
+    def users_lists_list(self):
+        """
+        Show lists.
+
+        :return: list
+        """
+        return self.__API('users/lists/list', True)
 
     def following_create(self, userId):
         """

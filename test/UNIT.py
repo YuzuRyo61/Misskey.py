@@ -109,14 +109,17 @@ class MisskeyPyUnitTest(unittest.TestCase):
         print("\t\t=> notes_favorites_delete")
         self.assertTrue(self.unitI.notes_favorites_delete(config['note']['targetReaction']))
 
+        print("\t\t=> notes")
+        self.assertEqual(type(self.unitI.notes()), list)
+
         print("\t\t=> notes_globalTimeline")
-        self.assertEqual(type(self.unit.notes_globalTimeline()), list)
+        self.assertEqual(type(self.unitI.notes_globalTimeline()), list)
 
         print("\t\t=> notes_hybridTimeline")
         self.assertEqual(type(self.unitI.notes_hybridTimeline()), list)
 
         print("\t\t=> notes_localTimeline")
-        self.assertEqual(type(self.unit.notes_localTimeline()), list)
+        self.assertEqual(type(self.unitI.notes_localTimeline()), list)
 
         print("DONE\t=> notes\n")
     
