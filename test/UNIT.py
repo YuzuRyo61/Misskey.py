@@ -69,8 +69,28 @@ class MisskeyPyUnitTest(unittest.TestCase):
 
     def test_i(self):
         print("UNIT\t=> i")
-        res = self.unitI.i()
-        self.assertEqual(type(res), dict)
+
+        print("\t\t=> i")
+        self.assertEqual(type(self.unitI.i()), dict)
+
+        print("\t\t=> i_favorites")
+        self.assertEqual(type(self.unitI.i_favorites()), list)
+
+        print("\t\t=> i_notifications")
+        self.assertEqual(type(self.unitI.i_notifications()), list)
+
+        print("\t\t=> i_readAllMessagingMessages")
+        self.assertTrue(self.unitI.i_readAllMessagingMessages())
+
+        print("\t\t=> i_readAllUnreadNotes")
+        self.assertTrue(self.unitI.i_readAllUnreadNotes())
+
+        print("\t\t=> notifications_markAllAsRead")
+        self.assertTrue(self.unitI.notifications_markAllAsRead())
+
+        print("\t\t=> i_update")
+        self.assertEqual(type(self.unitI.i_update()), dict)
+
         print("DONE\t=> i\n")
 
     def test_notes(self):
@@ -90,6 +110,12 @@ class MisskeyPyUnitTest(unittest.TestCase):
         print("\t\t=> notes_polls_vote")
         self.assertTrue(self.unitI.notes_polls_vote(res_vote['createdNote']['id'], 0))
 
+        print("\t\t=> i_pin")
+        self.assertEqual(type(self.unitI.i_pin(res_ncv['createdNote']['id'])), dict)
+
+        print("\t\t=> i_unpin")
+        self.assertEqual(type(self.unitI.i_unpin(res_ncv['createdNote']['id'])), dict)
+
         print("\t\t=> notes_delete")
         self.assertTrue(self.unitI.notes_delete(res_ncv['createdNote']['id']))
         self.assertTrue(self.unitI.notes_delete(res_vote['createdNote']['id']))
@@ -102,9 +128,6 @@ class MisskeyPyUnitTest(unittest.TestCase):
 
         print("\t\t=> notes_favorites_create")
         self.assertTrue(self.unitI.notes_favorites_create(config['note']['targetReaction']))
-
-        print("\t\t=> i_favorites")
-        self.assertEqual(type(self.unitI.i_favorites()), list)
 
         print("\t\t=> notes_favorites_delete")
         self.assertTrue(self.unitI.notes_favorites_delete(config['note']['targetReaction']))
@@ -134,6 +157,9 @@ class MisskeyPyUnitTest(unittest.TestCase):
 
         print("\t\t=> users_show (many)")
         self.assertEqual(type(self.unit.users_show(userIds=[config['user']['target']])), list)
+
+        print("\t\t=> users_notes")
+        self.assertEqual(type(self.unitI.users_notes(config['user']['target'])), list)
 
         print("\t\t=> users_lists_create")
         ulc = self.unitI.users_lists_create("test")

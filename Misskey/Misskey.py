@@ -93,7 +93,7 @@ class Misskey:
     def i(self):
         """
         Show your credential.
-        
+
         :rtype: dict
         """
         return self.__API('i', True)
@@ -121,6 +121,182 @@ class Misskey:
             payload['untilId'] = untilId
         
         return self.__API('i/favorites', True, 200, **payload)
+    
+    def i_notifications(self, limit=10, sinceId=None, untilId=None, following=False, markAsRead=True, includeTypes=[], excludeTypes=[]):
+        """
+        Show your notifications.
+
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :param sinceId: Acquired from the specified ID.
+        :param untilId: Get up to the specified ID.
+        :param following: Display notifications only for the people you are following.
+        :param markAsRead: You can specify whether notification is read when calling this API.
+        :param includeTypes: Specify the notification type you want to get.
+        :param excludeTypes: Specify a notification type that you do not want to get.
+        :type limit: int
+        :type sinceId: str
+        :type untilId: str
+        :type following: bool
+        :type includeTypes: list
+        :type excludeTypes: list
+        :rtype: list
+        """
+        payload = {
+            "limit": limit,
+            "following": following,
+            "markAsRead": markAsRead,
+            "includeTypes": includeTypes,
+            "excludeTypes": excludeTypes
+        }
+
+        if sinceId != None: # pragma: no cover
+            payload['sinceId'] = sinceId
+        
+        if untilId != None: # pragma: no cover
+            payload['untilId'] = untilId
+        
+        return self.__API('i/notifications', True, 200, **payload)
+    
+    def i_pin(self, noteId):
+        """
+        Pin a note.
+
+        :param noteId: Specify the post ID you want to pin.
+        :type noteId: str
+        :rtype: dict
+        """
+        return self.__API('i/pin', True, 200, noteId=noteId)
+
+    def i_readAllMessagingMessages(self):
+        """
+        Mark as read to all messages.
+
+        :return: Returns `True` if the request is successful.
+        :rtype: bool
+        """
+        return self.__API('i/read-all-messaging-messages', True, 204)
+
+    def i_readAllUnreadNotes(self):
+        """
+        Mark as read to all notes.
+
+        :return: Returns `True` if the request is successful.
+        :rtype: bool
+        """
+        return self.__API('i/read-all-unread-notes', True, 204)
+
+    def i_unpin(self, noteId):
+        """
+        Unpin a note.
+
+        :param noteId: Specify the post ID you want to unpin.
+        :type noteId: str
+        :rtype: dict
+        """
+        return self.__API('i/unpin', True, 200, noteId=noteId)
+    
+    def i_update(self,
+        name="",
+        description="",
+        lang="",
+        birthday="",
+        avatarId="",
+        bannerId="",
+        isLocked=None,
+        carefulBot=None,
+        autoAcceptFollowed=None,
+        isBot=None,
+        isCat=None,
+        autoWatch=None,
+        alwaysMarkNsfw=None
+        ):
+        """
+        Update your profile.
+
+        :param name: Change to the specified name. If you specify None, the name is deleted.
+        :param description: Enter the description to be displayed on your profile. Specify None to delete it.
+        :param lang: Specifies the language. Specify None to delete it.
+        :param location: You can specify your place of residence. Specify None to delete it.
+        :param birthday: Specify your birthday. It must be in YYYY-MM-DD format. It is deleted with None.
+        :param avatarId: Specify the file ID to be an icon. It is deleted with None.
+        :param bannerId: Specify the file ID to be a banner. It is deleted with None.
+        :param isLocked: Specifies whether to require approval when being followed.
+        :param carefulBot: Specify whether the user with Bot attribute is to be approved.
+        :param autoAcceptFollowed: Specify whether to automatically approve the follow back from the user you are following.
+        :param isBot: This is mainly specified when operating as Bot.
+        :param isCat: Want to be a cat? Set this attribute to True.
+        :param autoWatch: Specify whether to automatically post posts that have a reaction, Renote, etc. in the watch list.
+        :param alwaysMarkNsfw: Specify whether to always flag the image to be posted, etc. for viewing attention.
+        :type name: str or None
+        :type description: str or None
+        :type lang: str or None
+        :type location: str or None
+        :type birthday: str or None
+        :type avatarId: str or None
+        :type bannerId: str or None
+        :type isLocked: bool or None
+        :type carefulBot: bool or None
+        :type autoAcceptFollowed: bool or None
+        :type isBot: bool or None
+        :type isCat: bool or None
+        :type autoWatch: bool or None
+        :type alwaysMarkNsfw: bool or None
+        :rtype: dict
+        """
+        payload = {}
+
+        if name != "": # pragma: no cover
+            payload['name'] = name
+        
+        if description != "": # pragma: no cover
+            payload['description'] = description
+        
+        if lang != "": # pragma: no cover
+            payload['lang'] = lang
+        
+        if location != "": # pragma: no cover
+            payload['location'] = location
+        
+        if birthday != "": # pragma: no cover
+            payload['birthday'] = birthday
+
+        if avatarId != "": # pragma: no cover
+            payload['avatarId'] = avatarId
+
+        if bannerId != "": # pragma: no cover
+            payload['bannerId'] = bannerId
+
+        if isLocked != None: # pragma: no cover
+            payload['isLocked'] = isLocked
+
+        if carefulBot != None: # pragma: no cover
+            payload['carefulBot'] = carefulBot
+
+        if autoAcceptFollowed != None: # pragma: no cover
+            payload['autoAcceptFollowed'] = autoAcceptFollowed
+
+        if isBot != None: # pragma: no cover
+            payload['isBot'] = isBot
+
+        if isCat != None: # pragma: no cover
+            payload['isCat'] = isCat
+
+        if autoWatch != None: # pragma: no cover
+            payload['autoWatch'] = autoWatch
+
+        if alwaysMarkNsfw != None: # pragma: no cover
+            payload['alwaysMarkNsfw'] = alwaysMarkNsfw
+        
+        return self.__API('i/update', True, 200, **payload)
+
+    def notifications_markAllAsRead(self):
+        """
+        Mark as read to all notifications.
+
+        :return: Returns `True` if the request is successful.
+        :rtype: bool
+        """
+        return self.__API('notifications/mark-all-as-read', True, 204)
 
     def notes(self, local=False, reply=False, renote=False, withFiles=False, poll=False, limit=10, sinceId=None, untilId=None):
         """
@@ -606,6 +782,61 @@ class Misskey:
         
         return self.__API('users/show', self.__isUseCred(), 200, **payload)
     
+    def users_notes(self, userId, includeReplies=True, limit=10, sinceId=None, untilId=None, sinceDate=None, untilDate=None, includeMyRenotes=True, includeRenotedMyNotes=True, includeLocalRenotes=True, withFiles=False, fileType=None, excludeNsfw=False):
+        """
+        Show timeline from specified user.
+
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :param sinceId: Acquired from the specified ID.
+        :param untilId: Get up to the specified ID.
+        :param sinceDate: Get from the specified date.
+        :param untilDate: Gets until the specified date.
+        :param includeMyRenotes: Specify if you want to include posts that you renote
+        :param includeRenotedMyNotes: Specifies whether your post includes a Renote post
+        :param includeLocalRenotes: Specifies whether to include reposted local posts
+        :param withFiles: If True, only posts attached to the file will be displayed.
+        :param fileType: Use when acquiring only the specified file type.
+        :param excludeNsfw: Set to True to exclude postings for reading attention.
+        :type limit: int
+        :type sinceId: str or None
+        :type untilId: str or None
+        :type sinceDate: str or None
+        :type untilDate: str or None
+        :type includeMyRenotes: bool
+        :type includeRenotedMyNotes: bool
+        :type includeLocalRenotes: bool
+        :type withFiles: bool
+        :rtype: list
+        """
+        payload = {
+            'userId': userId,
+            'includeReplies': includeReplies,
+            'limit': limit,
+            'includeMyRenotes': includeLocalRenotes,
+            'includeRenotedMyNotes': includeMyRenotes,
+            'includeLocalRenotes': includeLocalRenotes,
+            'withFiles': withFiles
+        }
+
+        if sinceId != None: # pragma: no cover
+            payload['sinceId'] = sinceId
+
+        if untilId != None: # pragma: no cover
+            payload['untilId'] = untilId
+        
+        if sinceDate != None: # pragma: no cover
+            payload['sinceDate'] = sinceDate
+
+        if untilDate != None: # pragma: no cover
+            payload['untilDate'] = untilDate
+
+        if fileType != None: # pragma: no cover
+            payload['fileType'] = fileType
+            payload['excludeNsfw'] = excludeNsfw
+
+        return self.__API('users/notes', True, 200, **payload)
+
+
     def users_followers(self, userId=None, username=None, host=None, sinceId=None, untilId=None, limit=10):
         """
         Show followers from specified user.

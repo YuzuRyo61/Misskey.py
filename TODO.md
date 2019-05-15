@@ -15,14 +15,11 @@
 
 ## users
 
-- [ ] hashtags/users
 - [x] username/available
 - [ ] users
 - [x] users/followers
 - [x] users/following
 - [ ] users/get-frequently-replied-users
-- [ ] users/lists/pull
-- [ ] users/lists/push
 - [ ] users/notes
 - [ ] users/recommendation
 - [ ] users/relation
@@ -34,17 +31,14 @@
 
 - [x] i
 - [x] i/favorites
-- [ ] i/notifications
-- [ ] i/pin
-- [ ] i/read-all-messaging-messages
-- [ ] i/read-all-unread-notes
-- [ ] i/unpin
-- [ ] i/update
-- [ ] mute/list
+- [x] i/notifications
+- [x] i/pin
+- [x] i/read-all-messaging-messages
+- [x] i/read-all-unread-notes
+- [x] i/unpin
+- [x] i/update
 - [ ] my/apps
-- [ ] notifications/mark-all-as-read
-- [ ] users/lists/list
-- [ ] users/lists/show
+- [x] notifications/mark-all-as-read
 
 ## drive
 
