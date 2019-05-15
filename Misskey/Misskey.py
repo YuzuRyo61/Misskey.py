@@ -199,6 +199,7 @@ class Misskey:
         name="",
         description="",
         lang="",
+        location="",
         birthday="",
         avatarId="",
         bannerId="",
