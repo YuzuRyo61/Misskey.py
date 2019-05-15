@@ -93,6 +93,7 @@ class Misskey:
     def i(self):
         """
         Show your credential.
+        
         :rtype: dict
         """
         return self.__API('i', True)
