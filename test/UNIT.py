@@ -228,9 +228,19 @@ class MisskeyPyUnitTest(unittest.TestCase):
         uploadRes = self.unitI.drive_files_create(os.path.dirname(os.path.abspath(__file__)) + "/uploadTarget.png")
         self.assertEqual(type(uploadRes), dict)
 
-        print("\t\t=> drive_uploadFromUrl")
+        print("\t\t=> drive_files_uploadFromUrl")
         uploadRes_url = self.unitI.drive_files_uploadFromUrl(config['drive']['targetUrl'])
         self.assertEqual(type(uploadRes_url), dict)
+
+        print("\t\t=> drive_files_attachedNotes")
+        self.assertEqual(type(self.unitI.drive_files_attachedNotes(uploadRes['id'])), list)
+
+        print("\t\t=> drive_files_checkExistence")
+        self.assertTrue(self.unitI.drive_files_checkExistence(uploadRes['md5']))
+        self.assertFalse(self.unitI.drive_files_checkExistence("hoge"))
+
+        print("\t\t=> drive_files_find")
+        self.assertEqual(type(self.unitI.drive_files_find("uploadTarget.png")), list)
 
         print("\t\t=> drive_files_show")
         self.assertEqual(type(self.unitI.drive_files_show(fileId=uploadRes['id'])), dict)
@@ -249,6 +259,9 @@ class MisskeyPyUnitTest(unittest.TestCase):
         createFolder = self.unitI.drive_folders_create("testFolder")
         self.assertEqual(type(createFolder), dict)
         
+        print("\t\t=> drive_folders_find")
+        self.assertEqual(type(self.unitI.drive_folders_find("testFolder")), list)
+
         print("\t\t=> drive_folders_show")
         self.assertEqual(type(self.unitI.drive_folders_show(createFolder['id'])), dict)
 
@@ -257,6 +270,9 @@ class MisskeyPyUnitTest(unittest.TestCase):
 
         print("\t\t=> drive_folders_delete")
         self.assertTrue(type(self.unitI.drive_folders_delete(createFolder['id'])))
+
+        print("\t\t=> drive_stream")
+        self.assertEqual(type(self.unitI.drive_stream()), list)
 
         print("DONE\t=> drive\n")
 

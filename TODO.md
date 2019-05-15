@@ -44,21 +44,21 @@
 
 - [x] drive
 - [x] drive/files
-- [ ] drive/files/attached-notes
-- [ ] drive/files/check-existence
+- [x] drive/files/attached-notes
+- [x] drive/files/check-existence
 - [x] drive/files/create
 - [x] drive/files/delete
-- [ ] drive/files/find
+- [x] drive/files/find
 - [x] drive/files/show
 - [x] drive/files/update
 - [x] drive/files/upload-from-url
 - [x] drive/folders
 - [x] drive/folders/create
 - [x] drive/folders/delete
-- [ ] drive/folders/find
+- [x] drive/folders/find
 - [x] drive/folders/show
 - [x] drive/folders/update
-- [ ] drive/stream
+- [x] drive/stream
 
 ## hashtags
 

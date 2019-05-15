@@ -1187,6 +1187,45 @@ class Misskey:
         """
         return self.__API('drive/files/upload-from-url', True, 200, url=url, folderId=folderId, isSensitive=isSensitive, force=force)
 
+    def drive_files_find(self, name, folderId=""):
+        """
+        Search for file name.
+
+        :param name: Specify the character you want to search for.
+        :param folderId: If specified, it will search in that folder.
+        :type name: str
+        :type folderId: str or None
+        :rtype: list
+        """
+        payload = {
+            'name': name
+        }
+
+        if folderId != "": # pragma: no cover
+            payload['folderId'] = folderId
+        
+        return self.__API('drive/files/find', True, 200, **payload)
+
+    def drive_files_attachedNotes(self, fileId):
+        """
+        You can check if the specified file is used for posting.
+
+        :param fileId: Check the specified file ID.
+        :type fileId: str
+        :rtype: list
+        """
+        return self.__API('drive/files/attached-notes', True, 200, fileId=fileId)
+    
+    def drive_files_checkExistence(self, md5):
+        """
+        You can check if the specified hash value exists on the drive.
+
+        :param md5: Specifies the md5 hash value.
+        :type md5: str
+        :rtype: bool
+        """
+        return self.__API('drive/files/check-existence', True, 200, md5=md5)
+
     def drive_files_show(self, fileId=None, url=None):
         """
         Show a file from fileID or URL.
@@ -1286,6 +1325,26 @@ class Misskey:
         """
         return self.__API('drive/folders/create', True, 200, name=name, parentId=parentId)
 
+    def drive_folders_find(self, name, parentId=""):
+        """
+        Search for folder name.
+
+        :param name: Specify the character you want to search for.
+        :param parentId: If specified, it will search in that folder.
+        :type name: str
+        :type parentId: str or None
+        :rtype: list
+        """
+        payload = {
+            'name': name
+        }
+
+        if parentId != "": # pragma: no cover
+            payload['parentId'] = parentId
+        
+        return self.__API('drive/folders/find', True, 200, **payload)
+
+
     def drive_folders_show(self, folderId):
         """
         Show a folder.
@@ -1330,6 +1389,37 @@ class Misskey:
         :rtype: bool
         """
         return self.__API('drive/folders/delete', True, 204, folderId=folderId)
+    
+    def drive_stream(self, limit=10, sinceId=None, untilId=None, type=None):
+        """
+        Display the file of the file uploaded so far.
+
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :param sinceId: Acquired from the specified ID.
+        :param untilId: Get up to the specified ID.
+        :param folderId: You can specify a folder ID to refer to.
+        :param type: Specifies the file type.
+        :type limit: int
+        :type sinceId: str or None
+        :type untilId: str or None
+        :type folderId: str or None
+        :type type: str or None
+        :rtype: list
+        """
+        payload = {
+            'limit': limit
+        }
+
+        if sinceId != None: # pragma: no cover
+            payload['sinceId'] = sinceId
+        
+        if untilId != None: # pragma: no cover
+            payload['untilId'] = untilId
+        
+        if type != None: # pragma: no cover
+            payload['type'] = type
+        
+        return self.__API('drive/stream', True, 200, **payload)
 
     def messaging_history(self, limit=10):
         """
