@@ -123,6 +123,9 @@ class MisskeyPyUnitTest(unittest.TestCase):
         print("\t\t=> notes_reactions_create")
         self.assertTrue(self.unitI.notes_reactions_create(config['note']['targetReaction'], 0))
 
+        print("\t\t=> notes_reactions")
+        self.assertEqual(type(self.unitI.notes_reactions(config['note']['targetReaction'])), list)
+
         print("\t\t=> notes_reactions_delete")
         self.assertTrue(self.unitI.notes_reactions_delete(config['note']['targetReaction']))
 

@@ -486,6 +486,37 @@ class Misskey:
         """
         return self.__API('notes/show', True, noteId=noteId)
 
+    def notes_reactions(self, noteId, limit=10, offset=None, sinceId=None, untilId=None):
+        """
+        Display the reaction list of the specified post.
+
+        :param noteId: Specify a post ID for which you want to specify a reaction.
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :param offset: Specifies the offset to get.
+        :param sinceId: Acquired from the specified ID.
+        :param untilId: Get up to the specified ID.
+        :type noteId: str
+        :type limit: int
+        :type offset: str or None
+        :type sinceId: str or None
+        :type untilId: str or None
+        """
+        payload = {
+            'noteId': noteId,
+            'limit': limit
+        }
+
+        if offset != None: # pragma: no cover
+            payload['offset'] = offset
+
+        if sinceId != None: # pragma: no cover
+            payload['sinceId'] = sinceId
+
+        if untilId != None: # pragma: no cover
+            payload['untilId'] = untilId
+        
+        return self.__API('notes/reations', True, 200, **payload)
+
     def notes_reactions_create(self, noteId, reaction):
         """
         Give a reaction for note.
@@ -571,16 +602,16 @@ class Misskey:
 
         :param withFiles: If True, only posts attached to the file will be displayed.
         :param excludeNsfw: Set to True to exclude postings for reading attention.
+        :param limit: Maximum number to get. You can specify from 1 to 100.
         :param sinceId: Acquired from the specified ID.
         :param untilId: Get up to the specified ID.
-        :param limit: Maximum number to get. You can specify from 1 to 100.
         :param sinceDate: Get from the specified date.
         :param untilDate: Gets until the specified date.
         :type withFiles: bool
         :type excludeNsfw: bool
+        :type limit: int
         :type sinceId: str or None
         :type untilId: str or None
-        :type limit: int
         :type sinceDate: str or None
         :type untilDate: str or None
         :rtype: list

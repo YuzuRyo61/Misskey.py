@@ -81,7 +81,7 @@
 - [ ] notes/mentions
 - [ ] notes/polls/recommendation
 - [x] notes/polls/vote
-- [ ] notes/reactions
+- [x] notes/reactions
 - [x] notes/reactions/create
 - [x] notes/reactions/delete
 - [x] notes/renotes
@@ -94,7 +94,7 @@
 - [x] notes/user-list-timeline
 - [ ] notes/watching/create
 - [ ] notes/watching/delete
-- [ ] users/notes
+- [x] users/notes
 
 ## following
 
