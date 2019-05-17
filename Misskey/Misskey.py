@@ -515,7 +515,7 @@ class Misskey:
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
         
-        return self.__API('notes/reations', True, 200, **payload)
+        return self.__API('notes/reactions', True, 200, **payload)
 
     def notes_reactions_create(self, noteId, reaction):
         """
