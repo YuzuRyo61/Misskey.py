@@ -31,11 +31,11 @@ class Misskey:
         if not skipChk:
             res = requests.post(self.instanceAddressApiUrl + 'meta')
             if res.status_code != 200:
-                raise MisskeyInitException(f'API Error: meta\n{res.text}')
+                raise MisskeyInitException('meta', '200', res.status_code, res.text)
             if i != None:
                 res = requests.post(self.instanceAddressApiUrl + 'i', data=json.dumps({'i': i}), headers=self.headers)
                 if res.status_code != 200:
-                    raise MisskeyInitException(f'API Authorize Error: i\n{res.text}')
+                    raise MisskeyInitException('i', '200', res.status_code, res.text)
 
     def __API(self, apiName, includeI=False, expected=200, **payload):
         """
@@ -50,17 +50,17 @@ class Misskey:
             if self.apiToken != None:
                 payload['i'] = self.apiToken
             else:
-                raise MisskeyAiException('APIToken(I) variable was undefined. Please set "apiToken" variable.')
+                raise MisskeyAiException()
         
         res = requests.post(self.instanceAddressApiUrl + apiName, data=json.dumps(payload), headers=self.headers, allow_redirects=False)
 
         if res.status_code != expected:
-            raise MisskeyAPIException(f'API Error: {apiName} (Expected value {expected}, but {res.status_code} returned)\n{res.text}')
+            raise MisskeyAPIException(apiName, expected, res.status_code, res.text)
         else:
             if res.status_code == 204:
                 return True
             else:
-                return json.loads(res.text)
+                return res.json()
     
     def __isUseCred(self): # pragma: no cover
         """
@@ -1184,7 +1184,7 @@ class Misskey:
         :rtype: dict
         """
         if not os.path.isfile(filePath):
-            raise MisskeyFileException(f"File not found (or directory specified): {filePath}")
+            raise MisskeyFileException(filePath)
         
         fileName = os.path.basename(filePath)
         fileAbs = os.path.abspath(filePath)
@@ -1198,9 +1198,9 @@ class Misskey:
         fileBin.close()
 
         if res.status_code != 200: # pragma: no cover
-            raise MisskeyAPIException(f'API Error: drive/files/create (Expected value 200, but {res.status_code} returned)\n{res.text}')
+            raise MisskeyAPIException('drive/files/create', 200, res.status_code, res.text)
         else:
-            return json.loads(res.text)
+            return res.json()
 
     def drive_files_uploadFromUrl(self, url, folderId=None, isSensitive=False, force=False):
         """
