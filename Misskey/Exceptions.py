@@ -2,14 +2,14 @@
 from json.decoder import JSONDecodeError
 import json
 
-class MisskeyAiException(Exception):
+class MisskeyAiException(Exception): # pragma: no cover
     """
     Raised if the specified function requires a token and no token is assigned to the class.
     """
     def __str__(self):
         return('APIToken(I) variable was undefined. Please set "self.apiToken" variable.')
 
-class MisskeyFileException(Exception):
+class MisskeyFileException(Exception): # pragma: no cover
     """
     Raised when the specified file can not be found.
     """
@@ -19,7 +19,7 @@ class MisskeyFileException(Exception):
     def __str__(self):
         return(f"File not found (or directory specified): {self.filePath}")
 
-class MisskeyAPIException(Exception):
+class MisskeyAPIException(Exception): # pragma: no cover
     """
     Raised if the API returns a status code that each function does not expect.
     """
@@ -45,7 +45,7 @@ class MisskeyAPIException(Exception):
             'response': self.response
         }
 
-class MisskeyInitException(MisskeyAPIException):
+class MisskeyInitException(MisskeyAPIException): # pragma: no cover
     """
     This exception is raised if an error occurs during class initialization. For example, it is raised if it can not connect to the specified address or if the token is invalid.
     """
