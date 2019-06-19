@@ -26,6 +26,7 @@
 - [ ] users/report-abuse
 - [ ] users/search
 - [x] users/show
+- [ ] pinned-users (Misskey: >=1.12.0)
 
 ## account
 
@@ -156,5 +157,8 @@
 - [ ] users/groups/pull
 - [ ] users/groups/push
 - [ ] users/groups/show
+- [ ] users/groups/invitations/accept (Misskey: >= 11.17.0)
+- [ ] users/groups/invitations/reject (Misskey: >= 11.17.0)
+- [ ] users/groups/invite (Misskey: >= 11.17.0)
 
 Info: **I will not implement chart and game API**

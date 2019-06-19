@@ -155,6 +155,9 @@ class MisskeyPyUnitTest(unittest.TestCase):
     def test_users(self):
         print("UNIT\t=> users")
 
+        print("\t\t=> users")
+        self.assertEqual(type(self.unit.users()), list)
+
         print("\t\t=> users_show")
         self.assertEqual(type(self.unit.users_show(userId=config['user']['target'])), dict)
 

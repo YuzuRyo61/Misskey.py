@@ -783,6 +783,36 @@ class Misskey:
 
         return self.__API('notes/user-list-timeline', True, 200, **payload)
 
+    def users(self, limit=10, offset=None, sort=None, state="all", origin="local"):
+        """
+        Show user(s).
+
+        :param limit: Maximum number to get. You can specify from 1 to 100.
+        :param offset: Specifies the offset to get.
+        :param sort: Sort by the specified type.
+        :param state: Reduce the status of the account.
+        :param origin: Display local and remote users.
+        :type limit: int
+        :type offset: int
+        :type sort: str or None
+        :type state: str
+        :type origin: str
+        :rtype: list
+        """
+        payload = {
+            'limit': limit,
+            'state': state,
+            'origin': origin
+        }
+
+        if offset != None: # pragma: no cover
+            payload['offset'] = offset
+
+        if sort != None: # pragma: no cover
+            payload['sort'] = sort
+
+        return self.__API('users', self.__isUseCred(), 200, **payload)
+
     def users_show(self, userId=None, userIds=None, username=None, host=None):
         """
         Show user(s).
