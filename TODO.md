@@ -16,7 +16,7 @@
 ## users
 
 - [x] username/available
-- [ ] users
+- [x] users
 - [x] users/followers
 - [x] users/following
 - [ ] users/get-frequently-replied-users
