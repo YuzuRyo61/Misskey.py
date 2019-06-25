@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from Misskey.Exceptions import MisskeyInitException, MisskeyAPIException, MisskeyAiException, MisskeyFileException
+from Misskey.Exceptions import MisskeyInitException, MisskeyAPIException, MisskeyAiException, MisskeyFileException, MisskeyAPITokenException
 
 import requests
 import json
@@ -17,25 +17,50 @@ class Misskey:
     :param skipChk: Skip instance valid check. It is not recommended to make it True.
     :raises MisskeyInitException: This exception is raised if an error occurs during class initialization. For example, it is raised if it can not connect to the specified address or if the token is invalid.
     """
-    def __init__(self, address='misskey.io', i=None, skipChk=False):
 
-        self.headers = {'content-type': 'application/json'}
-        self.apiToken = i
+    __apiToken = None
+    __address = 'misskey.io'
+    headers = {'content-type': 'application/json'}
+
+    def __getApiToken(self):
+        return self.__apiToken
+    
+    def __setApiToken(self, val):
+        if val != None:
+            try:
+                res = requests.post(self.__instanceAddressApiUrl + 'i', data=json.dumps({'i': val}), headers={'content-type': 'application/json'}, allow_redirects=False)
+            except: # pragma: no cover
+                raise MisskeyAPITokenException()
+            
+            if res.status_code != 200:
+                raise MisskeyAPITokenException()
+            else:
+                self.__apiToken = val
+        else:
+            self.__apiToken = None
+    
+    def __delApiToken(self):
+        self.__apiToken = None
+
+    def __getAddress(self):
+        return self.__address
+
+    apiToken = property(fget=__getApiToken, fset=__setApiToken, fdel=__delApiToken, doc="""Contains keys for operating the API. You can check if the API key is valid when changing the variable.""")
+    address = property(fget=__getAddress, doc="""This is the address of the created instance. You can not change it.""")
+
+    def __init__(self, address=__address, i=None):
 
         ParseRes = urlparse(address)
         if ParseRes.scheme == '':
             ParseRes = urlparse(f"https://{address}")
-        self.address = ParseRes.netloc
-        self.instanceAddressApiUrl = f"{ParseRes.scheme}://{ParseRes.netloc}/api/"
+        self.__address = ParseRes.netloc
+        self.__instanceAddressApiUrl = f"{ParseRes.scheme}://{ParseRes.netloc}/api/"
 
-        if not skipChk:
-            res = requests.post(self.instanceAddressApiUrl + 'meta')
-            if res.status_code != 200:
-                raise MisskeyInitException('meta', '200', res.status_code, res.text)
-            if i != None:
-                res = requests.post(self.instanceAddressApiUrl + 'i', data=json.dumps({'i': i}), headers=self.headers)
-                if res.status_code != 200:
-                    raise MisskeyInitException('i', '200', res.status_code, res.text)
+        res = requests.post(self.__instanceAddressApiUrl + 'meta', headers=self.headers, allow_redirects=False)
+        if res.status_code != 200:
+            raise MisskeyInitException('meta', '200', res.status_code, res.text)
+
+        self.apiToken = i
 
     def __API(self, apiName, includeI=False, expected=200, **payload):
         """
@@ -52,7 +77,7 @@ class Misskey:
             else:
                 raise MisskeyAiException()
         
-        res = requests.post(self.instanceAddressApiUrl + apiName, data=json.dumps(payload), headers=self.headers, allow_redirects=False)
+        res = requests.post(self.__instanceAddressApiUrl + apiName, data=json.dumps(payload), headers=self.headers, allow_redirects=False)
 
         if res.status_code != expected:
             raise MisskeyAPIException(apiName, expected, res.status_code, res.text)
@@ -1224,7 +1249,7 @@ class Misskey:
         filePayload = {'file': (fileName, fileBin, fileMime[0])}
         payload = {'i': self.apiToken, 'folderId': folderId, 'isSensitive': isSensitive, 'force': force}
 
-        res = requests.post(self.instanceAddressApiUrl + "drive/files/create", data=payload, files=filePayload)
+        res = requests.post(self.__instanceAddressApiUrl + "drive/files/create", data=payload, files=filePayload)
         fileBin.close()
 
         if res.status_code != 200: # pragma: no cover

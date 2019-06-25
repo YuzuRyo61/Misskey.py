@@ -10,7 +10,7 @@ ld = parse_from_file('README.md')
 
 setup(
     name='Misskey.py',
-    version='1.5.0',
+    version='2.0.0',
     description='The Misskey library for Python. Misskey is made by syuilo.',
 	long_description=ld,
 	test_suite='UNIT.TESTSUITE',

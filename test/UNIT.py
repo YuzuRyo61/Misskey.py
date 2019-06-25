@@ -7,7 +7,7 @@ import os
 import time
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__ + "/../")))
-from Misskey import Misskey, MisskeyUtil, MisskeyInitException, MisskeyAiException, MisskeyAPIException, MisskeyFileException
+from Misskey import Misskey, MisskeyUtil, MisskeyInitException, MisskeyAiException, MisskeyAPIException, MisskeyFileException, MisskeyAPITokenException
 
 config = configparser.ConfigParser()
 config.read(os.path.dirname(os.path.abspath(__file__)) + "/env.ini")
@@ -24,8 +24,8 @@ class MisskeyPyUnitTest(unittest.TestCase):
         print("\t\t=> Invalid Address [MisskeyInitException]")
         self.assertRaises(MisskeyInitException, lambda: Misskey('yuzulia.com'))
         
-        print("\t\t=> Invalid APIToken(i) [MisskeyInitException]")
-        self.assertRaises(MisskeyInitException, lambda: Misskey(config['instance']['address'], i="invalid"))
+        print("\t\t=> Invalid APIToken(i) [MisskeyAPITokenException]")
+        self.assertRaises(MisskeyAPITokenException, lambda: Misskey(config['instance']['address'], i="invalid"))
         
         print("\t\t=> No APIToken(i) [MisskeyAiException]")
         self.assertRaises(MisskeyAiException, lambda: self.unit.i())
@@ -54,6 +54,20 @@ class MisskeyPyUnitTest(unittest.TestCase):
         self.assertEqual(type(MisskeyUtil.username_available(config['instance']['address'], "hoge")), dict)
 
         print("DONE\t=> [UTILITY]\n")
+
+    def test_other(self):
+        print("UNIT\t=> [OTHER]")
+        
+        print("\t\t=> delete apiToken")
+        uniti_other = Misskey(config['instance']['address'], i=config['key']['i'])
+        del uniti_other.apiToken
+        self.assertEqual(uniti_other.apiToken, None)
+
+        print("\t\t=> read address")
+        self.assertEqual(uniti_other.address, config['instance']['address'])
+
+        print("DONE\t=> [OTHER]")
+
 
     def test_meta(self):
         print("UNIT\t=> meta")

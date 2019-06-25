@@ -9,6 +9,13 @@ class MisskeyAiException(Exception): # pragma: no cover
     def __str__(self):
         return('APIToken(I) variable was undefined. Please set "self.apiToken" variable.')
 
+class MisskeyAPITokenException(Exception): # pragma: no cover
+    """
+    When the API token is changed, it will be raised if it is not valid.
+    """
+    def __str__(self):
+        return('API token is not valid.')
+
 class MisskeyFileException(Exception): # pragma: no cover
     """
     Raised when the specified file can not be found.
