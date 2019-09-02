@@ -1079,6 +1079,16 @@ class Misskey:
         """
         return self.__API('users/lists/update', True, 200, listId=listId, name=name)
 
+    def users_relation(self, userId):
+        """
+        Acquires the relationship with the specified user.
+
+        :param userId: Specify a user. Multiple specification in list format is also possible.
+        :type userId: str or list
+        :rtype: dict(When userId is executed in str format) or list(When userId is executed in list format)
+        """
+        return self.__API('users/relation', True, 200, userId=userId)
+
     def following_create(self, userId):
         """
         Follow a user.
