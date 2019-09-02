@@ -276,6 +276,10 @@ class MisskeyPyUnitTest(unittest.TestCase):
     def test_9_messaging_messages_delete(self):
         self.assertTrue(self.unitI.messaging_messages_delete(self.__class__.messagingId))
 
+    def test_users_relation(self):
+        self.assertEqual(type(self.unitI.users_relation(config['user']['target'])), dict)
+        self.assertEqual(type(self.unitI.users_relation([config['user']['target']])), list)
+
 def TESTSUITE():
     suite = unittest.TestSuite()
     suite.addTests(unittest.makeSuite(MisskeyPyUnitTest))
