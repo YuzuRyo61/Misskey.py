@@ -61,7 +61,7 @@ class MisskeyUtil:
         res = requests.post(f"https://{instanceAddress}/api/app/create", data=json.dumps({'name': appName, 'description': description, 'permission': permission, 'callbackUrl': callbackUrl}), headers={'content-type': 'application/json'})
 
         if res.status_code != 200:
-            raise MisskeyAPIException(f'API Error: /app/create (Expected value 200, but {res.status_code} returned)\n{res.text}')
+            raise MisskeyAPIException('/app/create', 200, res.status_code, res.text)
         else:
             return json.loads(res.text)
 
@@ -79,7 +79,7 @@ class MisskeyUtil:
         res = requests.post(f"https://{instanceAddress}/api/auth/session/generate", data=json.dumps({'appSecret': appSecret}), headers={'content-type': 'application/json'})
 
         if res.status_code != 200:
-            raise MisskeyAPIException(f'API Error: /auth/session/generate (Expected value 200 but {res.status_code} returned)\n{res.text}')
+            raise MisskeyAPIException('/auth/session/generate', 200, res.status_code, res.text)
         else:
             return json.loads(res.text)
 
@@ -99,7 +99,7 @@ class MisskeyUtil:
         res = requests.post(f"https://{instanceAddress}/api/auth/session/userkey", data=json.dumps({'appSecret': appSecret, 'token': token}), headers={'content-type': 'application/json'})
 
         if res.status_code != 200:
-            raise MisskeyAPIException(f'API Error: /auth/session/userkey (Expected value 200, but {res.status_code} returned)\n{res.text}')
+            raise MisskeyAPIException('/auth/session/userkey', 200, res.status_code, res.text)
         else:
             return json.loads(res.text)
 
@@ -117,6 +117,6 @@ class MisskeyUtil:
         res = requests.post(f"https://{instanceAddress}/api/username/available", data=json.dumps({'username': username,}), headers={'content-type': 'application/json'})
 
         if res.status_code != 200: # pragma: no cover
-            raise MisskeyAPIException(f'API Error: /api/username/available (Expected value 200, but {res.status_code} returned)\n{res.text}')
+            raise MisskeyAPIException('/username/available', 200, res.status_code, res.text)
         else:
             return json.loads(res.text)
