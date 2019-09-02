@@ -280,6 +280,9 @@ class MisskeyPyUnitTest(unittest.TestCase):
         self.assertEqual(type(self.unitI.users_relation(config['user']['target'])), dict)
         self.assertEqual(type(self.unitI.users_relation([config['user']['target']])), list)
 
+    def test_pinnedUsers(self):
+        self.assertEqual(type(self.unit.pinnedUsers()), list)
+
 def TESTSUITE():
     suite = unittest.TestSuite()
     suite.addTests(unittest.makeSuite(MisskeyPyUnitTest))

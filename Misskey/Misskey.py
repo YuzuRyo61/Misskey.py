@@ -98,14 +98,16 @@ class Misskey:
         else:
             return False
 
-    def meta(self):
+    def meta(self, detail=True):
         """
         Read a instance meta information.
         
+        :param detail: Choose whether to show details.
+        :type detail: bool
         :rtype: dict
         """
 
-        return self.__API('meta')
+        return self.__API('meta', detail=detail)
 
     def stats(self):
         """
@@ -114,6 +116,14 @@ class Misskey:
         :rtype: dict
         """
         return self.__API('stats')
+
+    def pinnedUsers(self):
+        """
+        Show users pinned by instance.
+
+        :rtype: list
+        """
+        return self.__API('pinned-users')
 
     def i(self):
         """

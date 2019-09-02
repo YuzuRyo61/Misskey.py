@@ -20,13 +20,13 @@
 - [x] users/followers
 - [x] users/following
 - [ ] users/get-frequently-replied-users
-- [ ] users/notes
+- [x] users/notes
 - [ ] users/recommendation
-- [ ] users/relation
+- [x] users/relation
 - [ ] users/report-abuse
 - [ ] users/search
 - [x] users/show
-- [ ] pinned-users (Misskey: >=1.12.0)
+- [x] pinned-users (Misskey: >=11.12.0)
 
 ## account
 
@@ -161,4 +161,4 @@
 - [ ] users/groups/invitations/reject (Misskey: >= 11.17.0)
 - [ ] users/groups/invite (Misskey: >= 11.17.0)
 
-Info: **I will not implement chart and game API**
+Info: **I will not implement chart, room and game API**
