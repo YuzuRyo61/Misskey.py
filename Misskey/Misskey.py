@@ -463,7 +463,7 @@ class Misskey:
         
         return self.__API('notes/create', True, 200, **payload)
 
-    def notes_renote(self, noteId): # pragma: no cover
+    def notes_renote(self, noteId):
         """
         Support fucntion: Renote a note (If use quote renote, please use `notes_create`)
 
@@ -471,7 +471,7 @@ class Misskey:
         :type noteId: str
         :rtype: dict
         """
-        return self.__API('notes/create', True, renoteId=noteId)
+        return self.__API('notes/create', True, 200, renoteId=noteId)
 
     def notes_renotes(self, noteId, limit=10, sinceId=None, untilId=None):
         """
@@ -817,6 +817,16 @@ class Misskey:
             payload['untilDate'] = untilDate
 
         return self.__API('notes/user-list-timeline', True, 200, **payload)
+
+    def notes_unrenote(self, noteId):
+        """
+        Cancel Renote.
+
+        :param noteId: Specify the post ID you want to cancel Renote
+        :type noteId: str
+        :rtype: bool
+        """
+        return self.__API('notes/unrenote', True, 204, noteId=noteId)
 
     def users(self, limit=10, offset=None, sort=None, state="all", origin="local"):
         """

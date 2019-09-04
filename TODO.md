@@ -92,6 +92,7 @@
 - [x] notes/show
 - [ ] notes/state
 - [ ] notes/timeline
+- [x] notes/unrenote
 - [x] notes/user-list-timeline
 - [ ] notes/watching/create
 - [ ] notes/watching/delete

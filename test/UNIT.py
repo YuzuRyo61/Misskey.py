@@ -83,9 +83,12 @@ class MisskeyPyUnitTest(unittest.TestCase):
     def test_0_notes_create(self):
         res_ncv = self.unitI.notes_create("Misskey.py notes testing...")
         res_vote = self.unitI.notes_create("Misskey.py vote notes testing...", poll=['choice1', 'choice2'])
+        res_renote = self.unitI.notes_renote(config['note']['targetReaction'])
         self.assertEqual(type(res_ncv), dict)
+        self.assertEqual(type(res_vote), dict)
         self.__class__.noteId = res_ncv['createdNote']['id']
         self.__class__.noteId_vote = res_vote['createdNote']['id']
+        self.__class__.noteId_renote = res_renote['createdNote']['id']
     
     def test_1_notes_show(self):
         self.assertEqual(type(self.unitI.notes_show(self.__class__.noteId)), dict)
@@ -133,6 +136,9 @@ class MisskeyPyUnitTest(unittest.TestCase):
 
     def test_localTimeline(self):
         self.assertEqual(type(self.unitI.notes_localTimeline()), list)
+    
+    def test_9_notes_unrenote(self):
+        self.assertTrue(self.unitI.notes_unrenote(self.__class__.noteId_renote))
 
     def test_userListTimeline(self):
         self.assertEqual(type(self.unitI.notes_userListTimeline(config['lists']['target'])), list)
@@ -196,7 +202,7 @@ class MisskeyPyUnitTest(unittest.TestCase):
     def test_0_blocking_create(self):
         self.assertEqual(type(self.unitI.blocking_create(config['user']['target'])), dict)
 
-    def test_0_blocking_list(self):
+    def test_blocking_list(self):
         self.assertEqual(type(self.unitI.blocking_list()), list)
 
     def test_0_blocking_delete(self):
