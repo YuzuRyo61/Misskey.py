@@ -1,12 +1,23 @@
 # -*- coding: utf-8 -*-
 
-from Misskey.Exceptions import MisskeyInitException, MisskeyAPIException, MisskeyAiException, MisskeyFileException, MisskeyAPITokenException
+from Misskey.Exceptions import MisskeyInitException, MisskeyAPIException, MisskeyAiException, MisskeyFileException, MisskeyAPITokenException, MisskeyNotImplementedVersionException
 
 import requests
 import json
 import os
 import mimetypes
 from urllib.parse import urlparse
+from distutils.version import LooseVersion # pylint: disable=no-name-in-module,import-error
+
+def restrictVer(minVer): # pragma: no cover
+    def deco(function):
+        def inner(self, *args, **kwargs):
+            if LooseVersion(getattr(self, 'version')) >= LooseVersion(minVer):
+                return function(self, *args, **kwargs)
+            else: # pragma: no cover
+                raise MisskeyNotImplementedVersionException
+        return inner
+    return deco
 
 class Misskey:
     """
@@ -45,8 +56,12 @@ class Misskey:
     def __getAddress(self):
         return self.__address
 
+    def __getVersion(self):
+        return self.__version
+
     apiToken = property(fget=__getApiToken, fset=__setApiToken, fdel=__delApiToken, doc="""Contains keys for operating the API. You can check if the API key is valid when changing the variable.""")
     address = property(fget=__getAddress, doc="""This is the address of the created instance. You can not change it.""")
+    version = property(fget=__getVersion, doc="""This is the version of the created instance. You can not change it.""")
 
     def __init__(self, address=__address, i=None):
 
@@ -61,6 +76,8 @@ class Misskey:
             raise MisskeyInitException('meta', '200', res.status_code, res.text)
 
         self.apiToken = i
+
+        self.__version = self.meta()['version']
 
     def __API(self, apiName, includeI=False, expected=200, **payload):
         """

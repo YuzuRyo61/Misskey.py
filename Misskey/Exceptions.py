@@ -57,3 +57,10 @@ class MisskeyInitException(MisskeyAPIException): # pragma: no cover
     This exception is raised if an error occurs during class initialization. For example, it is raised if it can not connect to the specified address or if the token is invalid.
     """
     pass
+
+class MisskeyNotImplementedVersionException(Exception): # pragma: no cover
+    """
+    Exception displayed when trying to execute with a version that is not implemented.
+    """
+    def __str__(self):
+        return('This function can\'t run because your Misskey version is old.')
