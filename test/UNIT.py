@@ -51,6 +51,9 @@ class MisskeyPyUnitTest(unittest.TestCase):
     def test_read_address(self):
         self.assertEqual(self.unit.address, config['instance']['address'])
 
+    def test_read_version(self):
+        self.assertEqual(type(self.unit.version), str)
+
     def test_meta(self):
         res = self.unit.meta()
         self.assertEqual(type(res), dict)
