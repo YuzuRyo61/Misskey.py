@@ -14,8 +14,6 @@ Misskeyインスタンス用のPythonライブラリです。
 
 [Misskey](https://github.com/syuilo/misskey)は[syuilo](https://github.com/syuilo)氏が作成した分散型SNSソフトウェアです。
 
-⚠ **このブランチは現在破壊的変更を実施しています！そのため今までの関数は使用できなくなる恐れがあります。**
-
 ---
 
 ## インストール

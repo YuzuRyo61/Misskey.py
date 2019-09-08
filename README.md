@@ -14,8 +14,6 @@ This library is only available in Python3.
 
 [Misskey](https://github.com/syuilo/misskey) is made by [syuilo](https://github.com/syuilo).
 
-⚠ **This branch is currently undergoing destructive changes! Therefore, there is a possibility that the function until now can not be used.**
-
 ---
 
 ## How to install
