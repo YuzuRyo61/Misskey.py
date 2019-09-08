@@ -151,8 +151,8 @@
 
 ## groups (Misskey: >= 11.16.0)
 
-- [ ] users/groups/create
-- [ ] users/groups/delete
+- [x] users/groups/create
+- [x] users/groups/delete
 - [ ] users/groups/joined
 - [ ] users/groups/owned
 - [ ] users/groups/pull

@@ -9,7 +9,7 @@ import mimetypes
 from urllib.parse import urlparse
 from distutils.version import LooseVersion # pylint: disable=no-name-in-module,import-error
 
-def restrictVer(minVer): # pragma: no cover
+def restrictVer(minVer):
     def deco(function):
         def inner(self, *args, **kwargs):
             if LooseVersion(getattr(self, 'version')) >= LooseVersion(minVer):
@@ -103,7 +103,13 @@ class Misskey:
                 return True
             else:
                 return res.json()
-    
+
+    def __call__(self, apiName, includeI=False, excepted=200, **payload):
+        """
+        Call a custom API. Use APIs that are not implemented in instances or libraries with unique functions.
+        """
+        return self.__API(apiName, includeI=includeI, excepted=excepted, **payload)
+
     def __isUseCred(self): # pragma: no cover
         """
         This function is for internal. Normally, Please use each functions.
@@ -1639,3 +1645,25 @@ class Misskey:
         :rtype: bool
         """
         return self.__API('messaging/messages/read', True, 204, messageId=messageId)
+
+    @restrictVer('11.16.0')
+    def users_groups_create(self, name):
+        """
+        Create a group.
+
+        :param name: Specifies the name of the group.
+        :type name: str
+        :rtype: dict
+        """
+        return self.__API('users/groups/create', True, 200, name=name)
+
+    @restrictVer('11.16.0')
+    def users_groups_delete(self, groupId):
+        """
+        Delete a group.
+
+        :param groupId: Specify the group ID that you want to delete.
+        :type groupId: str
+        :rtype: bool
+        """
+        return self.__API('users/groups/delete', True, 204, groupId=groupId)

@@ -292,6 +292,14 @@ class MisskeyPyUnitTest(unittest.TestCase):
     def test_pinnedUsers(self):
         self.assertEqual(type(self.unit.pinnedUsers()), list)
 
+    def test_0_users_groups_create(self):
+        groupCreate = self.unitI.users_groups_create('Unit test')
+        self.assertEqual(type(groupCreate), dict)
+        self.__class__.groupId = groupCreate['id']
+    
+    def test_9_users_groups_delete(self):
+        self.assertTrue(self.unitI.users_groups_delete(self.__class__.groupId))
+
 def TESTSUITE():
     suite = unittest.TestSuite()
     suite.addTests(unittest.makeSuite(MisskeyPyUnitTest))
