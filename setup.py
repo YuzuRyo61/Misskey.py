@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from setuptools import setup, find_packages
-from m2r import parse_from_file
 import sys
 
 sys.path.append('./test')
 
-ld = parse_from_file('README.md')
+try:
+	from m2r import parse_from_file
+except ImportError:
+	ld = ":code:`Could not load m2r module.`"
+else:
+	ld = parse_from_file('README.md')
 
 setup(
     name='Misskey.py',
-    version='2.3.0',
+    version='2.3.1',
     description='The Misskey library for Python. Misskey is made by syuilo.',
 	long_description=ld,
 	test_suite='UNIT.TESTSUITE',
