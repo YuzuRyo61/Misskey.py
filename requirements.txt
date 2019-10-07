@@ -8,7 +8,7 @@ docopt==0.6.2
 docutils==0.14
 idna==2.8
 imagesize==1.1.0
-Jinja2==2.10.1
+Jinja2==2.10.3
 m2r==0.2.1
 MarkupSafe==1.1.1
 mistune==0.8.4
