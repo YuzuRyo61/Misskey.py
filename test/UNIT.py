@@ -266,7 +266,7 @@ class MisskeyPyUnitTest(unittest.TestCase):
         self.assertEqual(type(self.unitI.drive_folders_update(self.__class__.driveFolders['id'], name="updatedTestFolder")), dict)
 
     def test_9_drive_folders_delete(self):
-            self.assertTrue(type(self.unitI.drive_folders_delete(self.__class__.driveFolders['id'])))
+        self.assertTrue(type(self.unitI.drive_folders_delete(self.__class__.driveFolders['id'])))
 
     def test_drive_stream(self):
         self.assertEqual(type(self.unitI.drive_stream()), list)
@@ -302,6 +302,12 @@ class MisskeyPyUnitTest(unittest.TestCase):
     
     def test_9_users_groups_delete(self):
         self.assertTrue(self.unitI.users_groups_delete(self.__class__.groupId))
+
+    def test_0_notes_watching_create(self):
+        self.assertTrue(self.unitI.notes_watching_create(config['note']['targetReaction']))
+    
+    def test_9_users_watching_delete(self):
+        self.assertTrue(self.unitI.notes_watching_delete(config['note']['targetReaction']))
 
 def TESTSUITE():
     suite = unittest.TestSuite()

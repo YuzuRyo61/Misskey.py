@@ -94,8 +94,8 @@
 - [ ] notes/timeline
 - [x] notes/unrenote
 - [x] notes/user-list-timeline
-- [ ] notes/watching/create
-- [ ] notes/watching/delete
+- [x] notes/watching/create
+- [x] notes/watching/delete
 - [x] users/notes
 
 ## following

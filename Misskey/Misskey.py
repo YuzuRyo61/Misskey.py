@@ -10,6 +10,11 @@ from urllib.parse import urlparse
 from distutils.version import LooseVersion # pylint: disable=no-name-in-module,import-error
 
 def restrictVer(minVer):
+    """
+    Used as an internal decorator. If it is lower than the specified version, an exception is raised.
+
+    :raises MisskeyNotImplementedVersionException: Raised if lower than the specified version.
+    """
     def deco(function):
         def inner(self, *args, **kwargs):
             if LooseVersion(getattr(self, 'version')) >= LooseVersion(minVer):
@@ -847,9 +852,32 @@ class Misskey:
 
         :param noteId: Specify the post ID you want to cancel Renote
         :type noteId: str
+        :return: Returns `True` if the request is successful.
         :rtype: bool
         """
         return self.__API('notes/unrenote', True, 204, noteId=noteId)
+
+    def notes_watching_create(self, noteId):
+        """
+        Monitor specified posts.
+
+        ::param noteId: Specify the post ID you want to watch a note
+        :type noteId: str
+        :return: Returns `True` if the request is successful.
+        :rtype: bool 
+        """
+        return self.__API('notes/watching/create', True, 204, noteId=noteId)
+
+    def notes_watching_delete(self, noteId):
+        """
+        Unmonitor the specified post.
+
+        ::param noteId: Specify the post ID you want to unwatch a note
+        :type noteId: str
+        :return: Returns `True` if the request is successful.
+        :rtype: bool 
+        """
+        return self.__API('notes/watching/delete', True, 204, noteId=noteId)
 
     def users(self, limit=10, offset=None, sort=None, state="all", origin="local"):
         """
