@@ -6,7 +6,7 @@ before_install:
   -in test/env.ini.enc -out test/env.ini -d
 - pip3 install pipenv --upgrade-strategy=only-if-needed
 install:
-- pipenv instal --dev
+- pipenv install --dev
 script:
 - coverage run --source=Misskey setup.py test
 after_success:
