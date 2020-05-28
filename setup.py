@@ -14,7 +14,7 @@ else:
 
 setup(
     name='Misskey.py',
-    version='2.4.0',
+    version='2.4.1',
     description='The Misskey library for Python. Misskey is made by syuilo.',
 	long_description=ld,
 	keywords="Misskey API syuilo",
