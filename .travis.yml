@@ -1,17 +1,17 @@
 language: python
 python:
-- 3.6
+- 3.7
 before_install:
 - openssl aes-256-cbc -K $encrypted_4a1a76f876b7_key -iv $encrypted_4a1a76f876b7_iv
   -in test/env.ini.enc -out test/env.ini -d
 - pip3 install pipenv --upgrade-strategy=only-if-needed
 install:
+- pipenv --python 3
 - pipenv install --dev
-- pipenv shell
 script:
-- coverage run --source=Misskey setup.py test
+- pipenv run test
 after_success:
-- coveralls
+- pipenv run reporttest
 deploy:
   provider: pypi
   user: __token__

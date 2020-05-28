@@ -17,3 +17,7 @@ requests = "*"
 
 [requires]
 python_version = "3"
+
+[scripts]
+test = "coverage run --source=Misskey setup.py test"
+reporttest = "coveralls"
