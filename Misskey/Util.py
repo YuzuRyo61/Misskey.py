@@ -7,7 +7,7 @@ import requests
 
 class MisskeyUtil:
     @staticmethod
-    def hash_apitoken(accessToken, appSecret):
+    def hash_apitoken(accessToken, appSecret): # pragma: no cover
         """
         The issued access token and app secret key are combined and hashed for use in API.
 
