@@ -8,6 +8,7 @@ pylint = "*"
 coveralls = "*"
 coverage = "*"
 toml = "*"
+tox = "*"
 
 [packages]
 m2r = "*"
@@ -19,5 +20,5 @@ requests = "*"
 python_version = "3"
 
 [scripts]
-test = "coverage run --source=Misskey setup.py test"
+test = "tox"
 reporttest = "coveralls"

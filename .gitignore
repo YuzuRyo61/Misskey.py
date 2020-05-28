@@ -140,3 +140,4 @@ tmp/
 # Test configuration (plain file)
 *.ini
 !env.sample.ini
+!tox.ini
