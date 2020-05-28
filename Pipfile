@@ -9,6 +9,8 @@ coveralls = "*"
 coverage = "*"
 toml = "*"
 tox = "*"
+pyyaml = "*"
+pytest = "*"
 
 [packages]
 m2r = "*"

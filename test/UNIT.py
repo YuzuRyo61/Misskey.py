@@ -6,10 +6,21 @@ import os
 import time
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__ + "/../")))
-from Misskey import Misskey, MisskeyUtil, MisskeyInitException, MisskeyAiException, MisskeyAPIException, MisskeyFileException, MisskeyAPITokenException
+from Misskey import ( # pylint: disable=import-error
+    Misskey,
+    MisskeyUtil,
+    MisskeyInitException,
+    MisskeyAiException,
+    MisskeyAPIException,
+    MisskeyFileException,
+    MisskeyAPITokenException
+)
 
-config = configparser.ConfigParser()
-config.read(os.path.dirname(os.path.abspath(__file__)) + "/env.ini")
+if os.path.isfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "env.ini")):
+    config = configparser.ConfigParser()
+    config.read(os.path.join(os.path.dirname(os.path.abspath(__file__)), "env.ini"))
+else:
+    raise OSError("env.ini not found!")
 
 class MisskeyPyUnitTest(unittest.TestCase):
     @classmethod
@@ -35,14 +46,6 @@ class MisskeyPyUnitTest(unittest.TestCase):
 
     def test_exception_file(self):
         self.assertRaises(MisskeyFileException, lambda: self.unitI.drive_files_create("hoge"))
-        
-    def test_Util_hashapitoken(self):
-        hashed = MisskeyUtil.hash_apitoken(config['key']['accesstoken'], config['key']['appsecret'])
-        self.assertEqual(config['key']['i_app_access'], hashed)
-        
-        mk = Misskey(config['instance']['address'], i=hashed)
-        mkI = mk.i()
-        self.assertEqual(type(mkI), dict)
         
     def test_Util_usernameavaliable(self):
         self.assertEqual(type(MisskeyUtil.username_available(config['instance']['address'], "hoge")), dict)
