@@ -19,6 +19,7 @@ class MisskeyPyUnitTest(unittest.TestCase):
 
     def test_call(self):
         self.assertEqual(type(self.unit('meta')), dict)
+        self.assertEqual(type(self.unit('meta', expected=200)), dict)
 
     def test_exception_init(self):
         self.assertRaises(MisskeyInitException, lambda: Misskey('yuzulia.com'))

@@ -82,9 +82,9 @@ class Misskey:
 
         self.apiToken = i
 
-        self.__version = self.meta()['version']
+        self.__version = res.json()['version']
 
-    def __API(self, apiName, includeI=False, expected=200, **payload):
+    def __API(self, apiName, includeI=False, expected=(200, 204), **payload):
         """
         This function is for internal. Normally, Please use each functions.
 
@@ -92,6 +92,9 @@ class Misskey:
         :raises MisskeyAPIException:
         :raises MisskeyAiException:
         """
+
+        if type(expected) == int:
+            expected = (expected, )
 
         if includeI:
             if self.apiToken != None:
@@ -101,19 +104,23 @@ class Misskey:
         
         res = requests.post(self.__instanceAddressApiUrl + apiName, data=json.dumps(payload), headers=self.headers, allow_redirects=False)
 
-        if res.status_code != expected:
-            raise MisskeyAPIException(apiName, expected, res.status_code, res.text)
-        else:
+        if res.status_code in expected:
             if res.status_code == 204:
                 return True
             else:
                 return res.json()
+        else:
+            raise MisskeyAPIException(apiName, expected, res.status_code, res.text)
 
-    def __call__(self, apiName, includeI=False, excepted=200, **payload):
+    def __call__(self, apiName, includeI=None, expected=(200, 204), **payload):
         """
         Call a custom API. Use APIs that are not implemented in instances or libraries with unique functions.
         """
-        return self.__API(apiName, includeI=includeI, excepted=excepted, **payload)
+
+        if includeI == None: # pragma: no cover
+            includeI = self.__isUseCred()
+
+        return self.__API(apiName, includeI=includeI, expected=expected, **payload)
 
     def __isUseCred(self): # pragma: no cover
         """
