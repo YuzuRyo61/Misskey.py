@@ -7,7 +7,7 @@ before_install:
 - pip3 install pipenv --upgrade-strategy=only-if-needed
 install:
 - pipenv --python 3
-- pipenv install --dev
+- pipenv install --dev --skip-lock
 script:
 - pipenv run test
 after_success:
