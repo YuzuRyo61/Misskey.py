@@ -6,7 +6,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/YuzuRyo61/Misskey.py/badge.svg?branch=v1)](https://coveralls.io/github/YuzuRyo61/Misskey.py?branch=v1)
 [![Documentation Status](https://readthedocs.org/projects/misskeypy/badge/?version=latest)](https://misskeypy.readthedocs.io/en/latest/?badge=latest)
 
-> Japanese version available. [Click Here](https://github.com/YuzuRyo61/Misskey.py/blob/v1/README-JP.md).
+> Japanese version available. [Click Here](https://github.com/YuzuRyo61/Misskey.py/blob/master/README-JP.md).
 
 This script is Python library for Misskey Instance.
 
@@ -41,8 +41,23 @@ misskey = Misskey("misskey.io") # Input instance address (If leaved no attribute
 ```python
 from Misskey import Misskey
 
-# If use the token (i is sha256 hashed from appSecret and accessToken)
+# If use the token
 misskey = Misskey("misskey.io", i="abcdef123...")
+```
+
+### Create token
+
+```python
+from Misskey import Misskey
+from Misskey.Util import MiAuth
+
+auth = MiAuth("misskey.io", name="Misskey.py")
+# Get Authentication URL, then send to client browser
+url = auth.getUrl()
+# After permission granted, run this function
+token = auth.check()
+# To use Misskey.py with created token, please below
+misskey = Misskey("misskey.io", i=token["token"]) # or: misskey = Misskey("misskey.io", i=auth.token)
 ```
 
 ## Other

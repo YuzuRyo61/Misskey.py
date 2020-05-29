@@ -41,8 +41,23 @@ misskey = Misskey("misskey.io") # インスタンスアドレスを入力、未�
 ```python
 from Misskey import Misskey
 
-# トークンを指定する場合(iはappSecretとaccessTokenをsha256ハッシュ化したもの)
+# トークンを指定する場合
 misskey = Misskey("misskey.io", i="abcdef123...")
+```
+
+### トークンを作成する
+
+```python
+from Misskey import Misskey
+from Misskey.Util import MiAuth
+
+auth = MiAuth("misskey.io", name="Misskey.py")
+# 認証URLを取得し、クライアントのブラウザでこれを開きます。
+url = auth.getUrl()
+# 認証許可後、この関数を実行します。
+token = auth.check()
+# トークンを使ってMisskey.pyを使う場合は以下のようにします。
+misskey = Misskey("misskey.io", i=token["token"]) # または: misskey = Misskey("misskey.io", i=auth.token)
 ```
 
 ## その他
