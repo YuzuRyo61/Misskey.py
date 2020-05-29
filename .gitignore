@@ -141,3 +141,4 @@ tmp/
 *.ini
 !env.sample.ini
 !tox.ini
+requirements.tmp.txt

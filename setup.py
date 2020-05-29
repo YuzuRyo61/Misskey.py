@@ -3,8 +3,6 @@
 from setuptools import setup, find_packages
 import sys
 
-sys.path.append('./test')
-
 try:
 	from m2r import parse_from_file
 except ImportError:
@@ -12,9 +10,11 @@ except ImportError:
 else:
 	ld = parse_from_file('README.md')
 
+from Misskey import __version__ as MKVER
+
 setup(
     name='Misskey.py',
-    version='2.4.1',
+    version=MKVER,
     description='The Misskey library for Python. Misskey is made by syuilo.',
 	long_description=ld,
 	keywords="Misskey API syuilo",

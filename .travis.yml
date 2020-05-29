@@ -6,9 +6,10 @@ before_install:
   -in test/env.ini.enc -out test/env.ini -d
 - pip3 install pipenv --upgrade-strategy=only-if-needed
 install:
-- pip3 install m2r
 - pipenv --python 3
 - pipenv install --dev --skip-lock
+- pipenv run pip freeze > requirements.tmp.txt
+- pip install -r requirements.tmp.txt
 script:
 - pipenv run test
 after_success:

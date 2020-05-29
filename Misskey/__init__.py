@@ -7,7 +7,16 @@ Misskey.py
 """
 
 from Misskey.Misskey import Misskey
-from Misskey.Util import MisskeyUtil
 from Misskey.Exceptions import *
 
-__all__ = ['Misskey', 'MisskeyUtil', 'MisskeyAiException', 'MisskeyInitException', 'MisskeyAPIException', 'MisskeyFileException', 'MisskeyAPITokenException', 'MisskeyNotImplementedVersionException']
+__all__ = [
+    'Misskey',
+    'MisskeyAiException',
+    'MisskeyInitException',
+    'MisskeyAPIException',
+    'MisskeyFileException',
+    'MisskeyAPITokenException',
+    'MisskeyNotImplementedVersionException'
+]
+
+__version__ = "2.4.1"
