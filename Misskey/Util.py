@@ -4,11 +4,29 @@ from Misskey.Exceptions import MisskeyAPIException
 import hashlib
 import json
 import requests
+import warnings
+import functools
+
+def deprecated(func): # pragma: no cover
+    """This is a decorator which can be used to mark functions
+    as deprecated. It will result in a warning being emitted
+    when the function is used."""
+    @functools.wraps(func)
+    def new_func(*args, **kwargs):
+        warnings.simplefilter('always', DeprecationWarning)  # turn off filter
+        warnings.warn("Call to deprecated function {}.".format(func.__name__),
+                      category=DeprecationWarning,
+                      stacklevel=2)
+        warnings.simplefilter('default', DeprecationWarning)  # reset filter
+        return func(*args, **kwargs)
+    return new_func
 
 class MisskeyUtil:
     @staticmethod
+    @deprecated
     def hash_apitoken(accessToken, appSecret): # pragma: no cover
         """
+        **Deprecated**
         The issued access token and app secret key are combined and hashed for use in API.
 
         :param accessToken: Token Specify the access token issued at the time of authentication.
@@ -21,6 +39,7 @@ class MisskeyUtil:
         return hashlib.sha256(tokenraw.encode('utf-8')).hexdigest()
 
     @staticmethod
+    @deprecated
     def create_app(instanceAddress, appName, description, permission=[
         'read:account',
         'write:account',
@@ -44,6 +63,7 @@ class MisskeyUtil:
         'write:votes'
     ], callbackUrl=None): # pragma: no cover
         """
+        **Deprecated**
         Creates an application key with the specified instance address.
 
         :param instanceAddress: Specify the Misskey instance address.
@@ -66,8 +86,10 @@ class MisskeyUtil:
             return json.loads(res.text)
 
     @staticmethod
+    @deprecated
     def session_generate(instanceAddress, appSecret): # pragma: no cover
         """
+        **Deprecated**
         Issue a token to authenticate the user.
 
         :param instanceAddress: Specify the Misskey instance address.
@@ -84,8 +106,10 @@ class MisskeyUtil:
             return json.loads(res.text)
 
     @staticmethod
+    @deprecated
     def session_userkey(instanceAddress, appSecret, token): # pragma: no cover
         """
+        **Deprecated**
         It is a function to perform when the user authenticates with the browser.
 
         :param instanceAddress: Specify the Misskey instance address.
