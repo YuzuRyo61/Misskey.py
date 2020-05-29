@@ -7,7 +7,7 @@ import uuid
 
 from urllib.parse import urlparse, urlencode
 
-from Misskey.Exceptions import MisskeyAPIException, MisskeyInitException
+from Misskey.Exceptions import MisskeyAPIException, MisskeyInitException, MisskeyNotImplementedVersionException
 from Misskey import __version__
 
 def deprecated(func): # pragma: no cover
@@ -203,11 +203,14 @@ class MiAuth: # pragma: no cover
         if ParseRes.scheme == '':
             ParseRes = urlparse(f"https://{self.__instanceAddress}")
         self.__address = ParseRes.netloc
-        self.__instanceAddressApiUrl = f"{ParseRes.scheme}://{ParseRes.netloc}/miauth/"
+        self.__instanceAddressUrl = f"{ParseRes.scheme}://{ParseRes.netloc}"
 
         res = requests.post(f"{ParseRes.scheme}://{ParseRes.netloc}/api/meta", headers=self.headers, allow_redirects=False)
         if res.status_code != 200:
             raise MisskeyInitException('meta', '200', res.status_code, res.text)
+        else:
+            if not res.json()["features"].get("miauth", False):
+                raise MisskeyNotImplementedVersionException()
 
     @property
     def instanceAddress(self):
@@ -253,12 +256,20 @@ class MiAuth: # pragma: no cover
         if self.__callback != None:
             payload["callback"] == self.__callback
 
-        return f"{self.__instanceAddressApiUrl}{self.__sessionId}?{urlencode(payload)}"
+        return f"{self.__instanceAddressUrl}{self.__sessionId}?{urlencode(payload)}"
 
     def check(self):
-        res = requests.post(f"{self.__instanceAddressApiUrl}{self.__sessionId}/check")
+        res = requests.post(f"{self.__instanceAddressUrl}/miauth/{self.__sessionId}/check")
         if res.status_code != 200: # pragma: no cover
-            raise MisskeyAPIException(f'{self.__instanceAddressApiUrl}{self.__sessionId}/check', 200, res.status_code, res.text)
+            # for old Misskey API instead
+            res = requests.post(f"{self.__instanceAddressUrl}/api/miauth/{self.__sessionId}/check")
+            if res.status_code != 200: # pragma: no cover
+                raise MisskeyAPIException(f'{self.__instanceAddressUrl}/api/miauth/{self.__sessionId}/check', 200, res.status_code, res.text)
+            else:
+                resj = res.json()
+                self.__token = resj["token"]
+                self.__user = resj["user"]
+                return resj
         else:
             resj = res.json()
             self.__token = resj["token"]

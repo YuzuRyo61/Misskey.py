@@ -63,4 +63,4 @@ class MisskeyNotImplementedVersionException(Exception): # pragma: no cover
     Exception displayed when trying to execute with a version that is not implemented.
     """
     def __str__(self):
-        return('This function can\'t run because your Misskey version is old.')
+        return('This function (or class) can\'t run because your Misskey version is old.')
