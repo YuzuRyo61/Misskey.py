@@ -8,13 +8,13 @@ import time
 sys.path.append(os.path.dirname(os.path.abspath(__file__ + "/../")))
 from Misskey import ( # pylint: disable=import-error
     Misskey,
-    MisskeyUtil,
     MisskeyInitException,
     MisskeyAiException,
     MisskeyAPIException,
     MisskeyFileException,
     MisskeyAPITokenException
 )
+from Misskey.Util import username_available # pylint: disable=import-error
 
 if os.path.isfile(os.path.join(os.path.dirname(os.path.abspath(__file__)), "env.ini")):
     config = configparser.ConfigParser()
@@ -48,7 +48,7 @@ class MisskeyPyUnitTest(unittest.TestCase):
         self.assertRaises(MisskeyFileException, lambda: self.unitI.drive_files_create("hoge"))
         
     def test_Util_usernameavaliable(self):
-        self.assertEqual(type(MisskeyUtil.username_available(config['instance']['address'], "hoge")), dict)
+        self.assertEqual(type(username_available(config['instance']['address'], "hoge")), dict)
 
     def test_deletable_apiToken(self):
         uniti_other = Misskey(config['instance']['address'], i=config['key']['i'])
