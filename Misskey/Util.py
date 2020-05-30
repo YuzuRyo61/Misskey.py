@@ -256,20 +256,12 @@ class MiAuth: # pragma: no cover
         if self.__callback != None:
             payload["callback"] == self.__callback
 
-        return f"{self.__instanceAddressUrl}{self.__sessionId}?{urlencode(payload)}"
+        return f"{self.__instanceAddressUrl}/miauth/{self.__sessionId}?{urlencode(payload)}"
 
     def check(self):
-        res = requests.post(f"{self.__instanceAddressUrl}/miauth/{self.__sessionId}/check")
+        res = requests.post(f"{self.__instanceAddressUrl}/api/miauth/{self.__sessionId}/check")
         if res.status_code != 200: # pragma: no cover
-            # for old Misskey API instead
-            res = requests.post(f"{self.__instanceAddressUrl}/api/miauth/{self.__sessionId}/check")
-            if res.status_code != 200: # pragma: no cover
-                raise MisskeyAPIException(f'{self.__instanceAddressUrl}/api/miauth/{self.__sessionId}/check', 200, res.status_code, res.text)
-            else:
-                resj = res.json()
-                self.__token = resj["token"]
-                self.__user = resj["user"]
-                return resj
+            raise MisskeyAPIException(f'{self.__instanceAddressUrl}/api/miauth/{self.__sessionId}/check', 200, res.status_code, res.text)
         else:
             resj = res.json()
             self.__token = resj["token"]
