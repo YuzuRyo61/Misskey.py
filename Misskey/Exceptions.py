@@ -16,6 +16,13 @@ class MisskeyAPITokenException(Exception): # pragma: no cover
     def __str__(self):
         return('API token is not valid.')
 
+class MisskeyMiAuthCheckException(Exception): # pragma: no cover
+    """
+    This exception is thrown if the MiAuth token is not authenticated.
+    """
+    def __str__(self):
+        return('MiAuth is not authenticated.')
+
 class MisskeyFileException(Exception): # pragma: no cover
     """
     Raised when the specified file can not be found.

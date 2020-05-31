@@ -7,7 +7,12 @@ import uuid
 
 from urllib.parse import urlparse, urlencode
 
-from Misskey.Exceptions import MisskeyAPIException, MisskeyInitException, MisskeyNotImplementedVersionException
+from Misskey.Exceptions import (
+    MisskeyAPIException,
+    MisskeyInitException,
+    MisskeyNotImplementedVersionException,
+    MisskeyMiAuthCheckException
+)
 from Misskey import __version__
 
 def deprecated(func): # pragma: no cover
@@ -258,6 +263,9 @@ class MiAuth: # pragma: no cover
             raise MisskeyAPIException(f'{self.__instanceAddressUrl}/api/miauth/{self.__sessionId}/check', 200, res.status_code, res.text)
         else:
             resj = res.json()
-            self.__token = resj["token"]
-            self.__user = resj["user"]
-            return resj
+            if resj["ok"]:
+                self.__token = resj["token"]
+                self.__user = resj["user"]
+                return resj
+            else:
+                raise MisskeyMiAuthCheckException()

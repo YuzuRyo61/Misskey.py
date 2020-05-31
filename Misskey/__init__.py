@@ -16,7 +16,8 @@ __all__ = [
     'MisskeyAPIException',
     'MisskeyFileException',
     'MisskeyAPITokenException',
-    'MisskeyNotImplementedVersionException'
+    'MisskeyNotImplementedVersionException',
+    'MisskeyMiAuthCheckException'
 ]
 
 __version__ = "2.4.1"
