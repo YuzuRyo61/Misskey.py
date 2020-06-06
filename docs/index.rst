@@ -8,6 +8,12 @@ Misskey.py documentation
 
 .. toctree::
    :maxdepth: 4
+   :caption: Main documents:
+
+   getting_started
+
+.. toctree::
+   :maxdepth: 4
    :caption: Module Contents:
 
    module_Misskey
