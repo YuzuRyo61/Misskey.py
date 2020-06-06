@@ -629,9 +629,41 @@ class Misskey:
         :return: Returns `True` if the request is successful.
         :rtype: bool
         """
+        
         return self.__API('notes/reactions/delete', True, 204, noteId=noteId)
     
     def notes_polls_vote(self, noteId, choice):
+        if type(reaction) == int:
+            react_dic = [
+                'pudding',
+                'like',
+                'love',
+                'laugh',
+                'hmm',
+                'surprise',
+                'congrats',
+                'angry',
+                'confused',
+                'rip'
+            ]
+            re = react_dic[reaction]
+        elif type(reaction) == str:
+            re = reaction
+        else:
+            raise MisskeyArgumentException("Invalid reaction")
+
+        payload = {'i': self.apiToken, 'noteId': noteId, 'reaction': re}
+        self.res = requests.post(self.instanceAddressApiUrl + "/notes/reactions/create", data=json.dumps(payload), headers=self.headers)
+
+        if self.res.status_code != 204:
+            if 'error' in json.loads(self.res.text) and json.loads(self.res.text)['error'] == 'PERMISSION_DENIED':
+                raise MisskeyPermissionException("Permission denied! this function needs permission 'reaction-write'!")
+            else:
+                raise MisskeyResponseException("Server returned HTTP {}".format(self.res.status_code))
+
+        return True
+
+    def notes_reactions_delete(self, noteId):
         """
         Vote a note.
 
