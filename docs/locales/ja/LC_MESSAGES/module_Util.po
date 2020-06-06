@@ -1,0 +1,116 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, YuzuRyo61
+# This file is distributed under the same license as the Misskey.py package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Misskey.py \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-06-06 17:07+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: ../../docs/module_Util.rst:2
+msgid "MisskeyUtil module"
+msgstr ""
+
+#: Misskey.Util.MiAuth:1 of
+msgid "Bases: :class:`object`"
+msgstr ""
+
+#: Misskey.Util.MiAuth:1 of
+msgid "Misskey authentication class"
+msgstr ""
+
+#: Misskey.Util.create_app:1 of
+msgid ""
+"**Deprecated** Creates an application key with the specified instance "
+"address."
+msgstr ""
+
+#: Misskey.Util.create_app Misskey.Util.hash_apitoken
+#: Misskey.Util.session_generate Misskey.Util.session_userkey
+#: Misskey.Util.username_available of
+msgid "Parameters"
+msgstr ""
+
+#: Misskey.Util.create_app:4 Misskey.Util.session_generate:4
+#: Misskey.Util.session_userkey:4 Misskey.Util.username_available:3 of
+msgid "Specify the Misskey instance address."
+msgstr ""
+
+#: Misskey.Util.create_app:5 of
+msgid "Specifies the name of the app."
+msgstr ""
+
+#: Misskey.Util.create_app:6 of
+msgid "Specify the app description."
+msgstr ""
+
+#: Misskey.Util.create_app:7 of
+msgid "Specifies the app's permissions."
+msgstr ""
+
+#: Misskey.Util.create_app:8 of
+msgid "Specify if there is a URL to call back after user authentication."
+msgstr ""
+
+#: Misskey.Util.create_app Misskey.Util.hash_apitoken
+#: Misskey.Util.session_generate Misskey.Util.session_userkey
+#: Misskey.Util.username_available of
+msgid "Return type"
+msgstr ""
+
+#: Misskey.Util.deprecated:1 of
+msgid ""
+"This is a decorator which can be used to mark functions as deprecated. It"
+" will result in a warning being emitted when the function is used."
+msgstr ""
+
+#: Misskey.Util.hash_apitoken:1 of
+msgid ""
+"**Deprecated** The issued access token and app secret key are combined "
+"and hashed for use in API."
+msgstr ""
+
+#: Misskey.Util.hash_apitoken:4 of
+msgid "Token Specify the access token issued at the time of authentication."
+msgstr ""
+
+#: Misskey.Util.hash_apitoken:5 of
+msgid "Specify the app secret key."
+msgstr ""
+
+#: Misskey.Util.session_generate:1 of
+msgid "**Deprecated** Issue a token to authenticate the user."
+msgstr ""
+
+#: Misskey.Util.session_generate:5 Misskey.Util.session_userkey:5 of
+msgid "Specifies the secret key."
+msgstr ""
+
+#: Misskey.Util.session_userkey:1 of
+msgid ""
+"**Deprecated** It is a function to perform when the user authenticates "
+"with the browser."
+msgstr ""
+
+#: Misskey.Util.session_userkey:6 of
+msgid "Specify the token issued before authentication."
+msgstr ""
+
+#: Misskey.Util.username_available:1 of
+msgid "Checks if the specified user name can be used."
+msgstr ""
+
+#: Misskey.Util.username_available:4 of
+msgid "Specify the username you want to check."
+msgstr ""
+

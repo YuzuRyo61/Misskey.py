@@ -1,0 +1,161 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2019, YuzuRyo61
+# This file is distributed under the same license as the Misskey.py package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2020.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Misskey.py \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-06-06 17:53+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: ../../docs/getting_started.rst:3
+msgid "Getting Started"
+msgstr "入門"
+
+#: ../../docs/getting_started.rst:6
+msgid "Installing"
+msgstr "インストール"
+
+#: ../../docs/getting_started.rst:7
+msgid "Normally you would install the library from PyPi:"
+msgstr "通常であれば、PyPiからライブラリをインストールします。"
+
+#: ../../docs/getting_started.rst:14
+msgid "Quickstart"
+msgstr "クイックスタート"
+
+#: ../../docs/getting_started.rst:15
+msgid ""
+"Import the Misskey class. Enter an instance of Misskey as the first "
+"argument during class initialization."
+msgstr "Misskeyクラスをインポートします。クラスの初期化時に、最初の引数にMisskeyのインスタンスのアドレスを入力します。"
+
+#: ../../docs/getting_started.rst:23
+msgid ""
+"In the above construction, the specified server will be accessed without "
+"a token. If you want to use token, do as follows."
+msgstr "上記のコンストラクションでは、指定されたサーバーはトークン無しでアクセスします。トークンを使用する場合は次のようにします。"
+
+#: ../../docs/getting_started.rst:32
+msgid ""
+"Enter the token in the argument i. With this argument, the Misskey class "
+"validates that this token is available at initialization. Throws "
+"``MisskeyInitException`` if not available."
+msgstr "``i``という引数にトークンを入力します。この引数を使用すると、Misskeyクラスはこのトークンが初期化時に利用できるか検証します。利用できない場合は``MisskeyInitException``を送出します。"
+
+#: Misskey.Exceptions.MisskeyInitException:1 of
+msgid ""
+"This exception is raised if an error occurs during class initialization. "
+"For example, it is raised if it can not connect to the specified address "
+"or if the token is invalid."
+msgstr "この例外は、クラスの初期化中にエラーが発生した場合に発生します。 たとえば、指定されたアドレスに接続できない場合、またはトークンが無効な場合に発生します。"
+
+#: ../../docs/getting_started.rst:38
+msgid ""
+"Even after creating the instance, you can change it later by doing the "
+"following."
+msgstr "また、インスタンスを作成した後でも、次のようにして変更することができます。"
+
+#: ../../docs/getting_started.rst:48
+msgid "If you have set a token, you can read your account information."
+msgstr "トークンを設定している場合は、アカウント情報を読み出すことができます。"
+
+#: Misskey.Misskey.Misskey.i:1 of
+msgid "Show your credential."
+msgstr "自分のアカウント情報を表示します。"
+
+#: Misskey.Misskey.Misskey.i Misskey.Misskey.Misskey.notes_create of
+msgid "Return type"
+msgstr "返り型"
+
+#: ../../docs/getting_started.rst:60
+msgid "To post using your account:"
+msgstr "アカウントを使用して投稿するには："
+
+#: Misskey.Misskey.Misskey.notes_create:1 of
+msgid "Post a new note."
+msgstr "新しい投稿を作成します。"
+
+#: Misskey.Misskey.Misskey.notes_create of
+msgid "Parameters"
+msgstr "引数"
+
+#: Misskey.Misskey.Misskey.notes_create:3 of
+msgid "It is an argument of the text."
+msgstr ""
+
+#: Misskey.Misskey.Misskey.notes_create:4 of
+msgid "If set, this argument will be displayed in the main on the timeline."
+msgstr ""
+
+#: Misskey.Misskey.Misskey.notes_create:5 of
+msgid "Specify the open range."
+msgstr ""
+
+#: Misskey.Misskey.Misskey.notes_create:6 of
+msgid ""
+"When \"specified\" is specified, if the user ID is put in this argument, "
+"the user can view the post."
+msgstr ""
+
+#: Misskey.Misskey.Misskey.notes_create:7 of
+msgid "Mark it as posted as mobile if you set it to True."
+msgstr ""
+
+#: Misskey.Misskey.Misskey.notes_create:8 of
+msgid "You can specify whether to post only locally."
+msgstr ""
+
+#: Misskey.Misskey.Misskey.notes_create:9 of
+msgid "Specify whether to not expand mentions from the text."
+msgstr ""
+
+#: Misskey.Misskey.Misskey.notes_create:10 of
+msgid "Specifies whether to not expand the hash tag from the text."
+msgstr ""
+
+#: Misskey.Misskey.Misskey.notes_create:11 of
+msgid "Specify whether to not extract custom pictograms from the text."
+msgstr ""
+
+#: Misskey.Misskey.Misskey.notes_create:12 of
+msgid "You can specify the file ID attached to the post."
+msgstr ""
+
+#: Misskey.Misskey.Misskey.notes_create:13 of
+msgid "Specify the noteID to reply."
+msgstr ""
+
+#: Misskey.Misskey.Misskey.notes_create:14 of
+msgid "Specify the note ID to be Renote."
+msgstr ""
+
+#: Misskey.Misskey.Misskey.notes_create:15 of
+msgid "Designate when voting. You can specify 2 to 10 items."
+msgstr ""
+
+#: Misskey.Misskey.Misskey.notes_create:16 of
+msgid "Specifies whether to allow multiple votes."
+msgstr ""
+
+#: Misskey.Misskey.Misskey.notes_create:17 of
+msgid ""
+"Specifies the time to expire. If pollExpiresAt and pollExpiresAfter are "
+"not specified, it will be a vote indefinitely."
+msgstr ""
+
+#: Misskey.Misskey.Misskey.notes_create:18 of
+msgid ""
+"Specify the specified period from the post. If pollExpiresAt and "
+"pollExpiresAfter are not specified, it will be a vote indefinitely."
+msgstr ""
+
