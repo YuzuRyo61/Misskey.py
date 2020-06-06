@@ -11,11 +11,12 @@ toml = "*"
 tox = "*"
 pyyaml = "*"
 pytest = "*"
-
-[packages]
-m2r = "*"
 sphinx = "*"
 sphinx-rtd-theme = "*"
+sphinx-intl = "*"
+m2r = "*"
+
+[packages]
 requests = "*"
 
 [requires]
@@ -24,3 +25,5 @@ python_version = "3"
 [scripts]
 test = "tox"
 reporttest = "coveralls"
+build-pot = "sphinx-build -M gettext docs build"
+update-po = "sphinx-intl update -d docs/locales -p build/gettext -l ja"
