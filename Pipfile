@@ -1,0 +1,26 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+pylint = "*"
+coveralls = "*"
+coverage = "*"
+toml = "*"
+tox = "*"
+pyyaml = "*"
+pytest = "*"
+
+[packages]
+m2r = "*"
+sphinx = "*"
+sphinx-rtd-theme = "*"
+requests = "*"
+
+[requires]
+python_version = "3"
+
+[scripts]
+test = "tox"
+reporttest = "coveralls"

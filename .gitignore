@@ -48,6 +48,7 @@ coverage.xml
 *.cover
 .hypothesis/
 .pytest_cache/
+test/coverage/
 
 # Translations
 *.mo
@@ -105,6 +106,7 @@ venv.bak/
 
 # mkdocs documentation
 /site
+/docs-src/_build/html
 
 # mypy
 .mypy_cache/
@@ -125,3 +127,18 @@ apiToken.txt
 # CUSTOM
 test/websocket-test.py
 test/websocket-test_reversi.py
+
+# TEMP FOLDER
+tmp/
+
+# IGNORE OLD SCRIPT
+/Misskey/MisskeyOld.py
+
+# Editor
+.vscode
+
+# Test configuration (plain file)
+*.ini
+!env.sample.ini
+!tox.ini
+requirements.tmp.txt

@@ -1,2 +1,0 @@
-requests==2.20.1
-websocket-client==0.54.0
