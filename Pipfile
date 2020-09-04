@@ -17,6 +17,7 @@ sphinx-intl = "*"
 m2r = "*"
 vcrpy = "*"
 pytest-vcr = "*"
+importlib-metadata = "*"
 
 [packages]
 requests = "*"
