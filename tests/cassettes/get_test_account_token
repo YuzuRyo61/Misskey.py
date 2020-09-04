@@ -1,0 +1,71 @@
+interactions:
+- request:
+    body: '{"username": "MPTU_TGRmbNvJ", "password": "uaNmqMTe"}'
+    headers:
+      Accept:
+      - '*/*'
+      Accept-Encoding:
+      - gzip, deflate
+      Connection:
+      - keep-alive
+      Content-Length:
+      - '53'
+      Content-Type:
+      - application/json
+      User-Agent:
+      - python-requests/2.24.0
+    method: POST
+    uri: https://demo.misskey.io/api/signup
+  response:
+    body:
+      string: !!binary |
+        H4sIAAAAAAAAA2xT72/aMBD9X/yZlgjRjeYbZWu1DhiisEqbpuliH8TFsTP/KIqq/u+71ISElm++
+        5+e7e+/OL0wKlrJRZj/h59GgvGY9pqFAluqgVI8FhzbGbLZYrf+u7pZFNn++J1punG9o8Awe7Noq
+        4uXely7t9wUW5rKQzu2wupSmHzn9k1IRu1HB5uDy02wTo4xtIOnGopCapRtQDut4ZgRa8DXliN0Y
+        34km0EbUy5N0LP39hzTVbca03CJ4FGMiskEySC6S64tkuEoG6SBJh1eXw6vRL2ozlKKhxXcZaI1R
+        bxd4LySi74RMDd+h6PT5IBVqfgoFV6IWHUyg41aWXhrdpFKGQzfOpPW5gKqJNxKVOGjeGKXMHq2b
+        mKBJRtJAUm9bSBuPHUYpqX0xJ/Bbk6eFToAFbInTFG6xBvF7cwuchvVVQ6Y6smi/FuDc3lgxRUfe
+        bDtDdsiDlb76jpU7gnE52mLR4zaG4M0jeJ63duon5P6WJh1s7J2l3oY6l9pD5WZgd3O32R8fcLC4
+        Caq7TXXWMedY+tvopGhy0LzXmtZIPJTIJXneuHN4ebyfoa6ndeZmrDV5zrFA7c/detQaPl5M8lq6
+        OlfJOSAjt/GAHxnUIrXarE97u6Clo3dL5CifUUStS/wX0HV+FjW0tXAQ8/LaY0Wg3/FIMzwshdRc
+        hTpRt86qKmtbDh9PSRL7hUYZM2AB8viZ3oKfaN/cPLsNU1n3U5fyZockgUl59+NqWY2z+ySfLO88
+        e/0PAAD//wMAWIjCRNsEAAA=
+    headers:
+      CF-Cache-Status:
+      - DYNAMIC
+      CF-RAY:
+      - 5cd43ba8fbde0aac-NRT
+      Cache-Control:
+      - private, max-age=0, must-revalidate
+      Connection:
+      - keep-alive
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json; charset=utf-8
+      Date:
+      - Fri, 04 Sep 2020 02:20:45 GMT
+      Expect-CT:
+      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
+      Server:
+      - cloudflare
+      Set-Cookie:
+      - __cfduid=d35172a051521f5f5a74670e1557c83661599186044; expires=Sun, 04-Oct-20
+        02:20:44 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
+      Transfer-Encoding:
+      - chunked
+      Vary:
+      - Accept-Encoding
+      - Origin
+      X-Content-Type-Options:
+      - nosniff
+      alt-svc:
+      - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
+      cf-request-id:
+      - 04f8839d9800000aac1fbf5200000001
+      strict-transport-security:
+      - max-age=0; includeSubDomains; preload
+    status:
+      code: 200
+      message: OK
+version: 1
