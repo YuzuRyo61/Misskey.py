@@ -23,7 +23,7 @@ interactions:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 5cd6bf9e58fdef8e-NRT
+      - 5cd6bf723ff51d9f-NRT
       Cache-Control:
       - private, max-age=0, must-revalidate
       Connection:
@@ -31,14 +31,14 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 04 Sep 2020 09:40:20 GMT
+      - Fri, 04 Sep 2020 09:40:13 GMT
       Expect-CT:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Set-Cookie:
-      - __cfduid=d9d62930daf9da45035ab23e811b74e671599212420; expires=Sun, 04-Oct-20
-        09:40:20 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
+      - __cfduid=d60d23381c210e7b5a8f821f664518dba1599212413; expires=Sun, 04-Oct-20
+        09:40:13 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
       Transfer-Encoding:
       - chunked
       Vary:
@@ -49,7 +49,7 @@ interactions:
       alt-svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
       cf-request-id:
-      - 04fa1616f70000ef8eaf356200000001
+      - 04fa15fb6700001d9fb29fb200000001
       content-length:
       - '1164'
       strict-transport-security:
@@ -76,13 +76,12 @@ interactions:
     uri: https://demo.misskey.io/api/i
   response:
     body:
-      string: '{"id":"8brm3culz1","name":"Misskey.py Unit tester","username":"MPTU_xfWQ5RAi","host":null,"avatarUrl":"https://demo.misskey.io/avatar/8brm3culz1","avatarBlurhash":null,"avatarColor":null,"isAdmin":false,"isModerator":false,"isBot":true,"isCat":false,"emojis":[],"url":null,"createdAt":"2020-09-04T09:40:13.389Z","updatedAt":"2020-09-04T09:40:18.454Z","bannerUrl":null,"bannerBlurhash":null,"bannerColor":null,"isLocked":false,"isSilenced":false,"isSuspended":false,"description":"This
-        account is a Misskey.py unit test account. It works automatically.","location":null,"birthday":null,"fields":[],"followersCount":0,"followingCount":0,"notesCount":1,"pinnedNoteIds":[],"pinnedNotes":[],"pinnedPageId":null,"pinnedPage":null,"twoFactorEnabled":false,"usePasswordLessLogin":false,"securityKeys":false,"avatarId":null,"bannerId":null,"autoWatch":false,"injectFeaturedNote":true,"alwaysMarkNsfw":false,"carefulBot":false,"autoAcceptFollowed":true,"hasUnreadSpecifiedNotes":false,"hasUnreadMentions":false,"hasUnreadAnnouncement":false,"hasUnreadAntenna":false,"hasUnreadChannel":false,"hasUnreadMessagingMessage":false,"hasUnreadNotification":false,"hasPendingReceivedFollowRequest":false,"integrations":{},"mutedWords":[],"includingNotificationTypes":null,"clientData":{},"email":null,"emailVerified":false,"securityKeysList":[]}'
+      string: '{"id":"8brm3culz1","name":null,"username":"MPTU_xfWQ5RAi","host":null,"avatarUrl":"https://demo.misskey.io/avatar/8brm3culz1","avatarBlurhash":null,"avatarColor":null,"isAdmin":false,"isModerator":false,"isBot":false,"isCat":false,"emojis":[],"url":null,"createdAt":"2020-09-04T09:40:13.389Z","updatedAt":null,"bannerUrl":null,"bannerBlurhash":null,"bannerColor":null,"isLocked":false,"isSilenced":false,"isSuspended":false,"description":null,"location":null,"birthday":null,"fields":[],"followersCount":0,"followingCount":0,"notesCount":0,"pinnedNoteIds":[],"pinnedNotes":[],"pinnedPageId":null,"pinnedPage":null,"twoFactorEnabled":false,"usePasswordLessLogin":false,"securityKeys":false,"avatarId":null,"bannerId":null,"autoWatch":false,"injectFeaturedNote":true,"alwaysMarkNsfw":false,"carefulBot":false,"autoAcceptFollowed":true,"hasUnreadSpecifiedNotes":false,"hasUnreadMentions":false,"hasUnreadAnnouncement":false,"hasUnreadAntenna":false,"hasUnreadChannel":false,"hasUnreadMessagingMessage":false,"hasUnreadNotification":false,"hasPendingReceivedFollowRequest":false,"integrations":{},"mutedWords":[],"includingNotificationTypes":null,"clientData":{},"email":null,"emailVerified":false,"securityKeysList":[]}'
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 5cd6bf9f2f5cf907-NRT
+      - 5cd6bf72f965a516-NRT
       Cache-Control:
       - private, max-age=0, must-revalidate
       Connection:
@@ -90,14 +89,14 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 04 Sep 2020 09:40:21 GMT
+      - Fri, 04 Sep 2020 09:40:13 GMT
       Expect-CT:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Set-Cookie:
-      - __cfduid=d365e2aa47df47bcf0caca0a31773fac21599212420; expires=Sun, 04-Oct-20
-        09:40:20 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
+      - __cfduid=dd2524710ee40ff8402713f8a6b3b7c521599212413; expires=Sun, 04-Oct-20
+        09:40:13 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
       Transfer-Encoding:
       - chunked
       Vary:
@@ -108,18 +107,16 @@ interactions:
       alt-svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
       cf-request-id:
-      - 04fa16177d0000f9077c1e5200000001
+      - 04fa15fbd60000a5160e05e200000001
       content-length:
-      - '1326'
+      - '1216'
       strict-transport-security:
       - max-age=0; includeSubDomains; preload
     status:
       code: 200
       message: OK
 - request:
-    body: '{"visibility": "public", "text": "Now testing Note tests", "cw": null,
-      "viaMobile": false, "localOnly": false, "noExtractMentions": false, "noExtractHashtags":
-      false, "noExtractEmojis": false, "i": "O8qUyZwVozDGxtGk"}'
+    body: '{"i": "O8qUyZwVozDGxtGk"}'
     headers:
       Accept:
       - '*/*'
@@ -128,23 +125,21 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '217'
+      - '25'
       User-Agent:
       - python-requests/2.24.0
       content-type:
       - application/json
     method: POST
-    uri: https://demo.misskey.io/api/notes/create
+    uri: https://demo.misskey.io/api/meta
   response:
     body:
-      string: '{"createdNote":{"id":"8brm3iut9c","createdAt":"2020-09-04T09:40:21.173Z","userId":"8brm3culz1","user":{"id":"8brm3culz1","name":"Misskey.py
-        Unit tester","username":"MPTU_xfWQ5RAi","host":null,"avatarUrl":"https://demo.misskey.io/avatar/8brm3culz1","avatarBlurhash":null,"avatarColor":null,"isBot":true,"emojis":[]},"text":"Now
-        testing Note tests","cw":null,"visibility":"public","renoteCount":0,"repliesCount":0,"reactions":{},"emojis":[],"fileIds":[],"files":[],"replyId":null,"renoteId":null}}'
+      string: '{"maintainerName":null,"maintainerEmail":null,"version":"12.47.1","name":null,"uri":"https://demo.misskey.io","description":null,"langs":[],"tosUrl":null,"repositoryUrl":"https://github.com/syuilo/misskey","feedbackUrl":"https://github.com/syuilo/misskey/issues/new","secure":false,"disableRegistration":false,"disableLocalTimeline":false,"disableGlobalTimeline":false,"driveCapacityPerLocalUserMb":1024,"driveCapacityPerRemoteUserMb":32,"cacheRemoteFiles":true,"proxyRemoteFiles":false,"enableHcaptcha":false,"hcaptchaSiteKey":null,"enableRecaptcha":false,"recaptchaSiteKey":null,"swPublickey":null,"mascotImageUrl":"/assets/ai.png","bannerUrl":null,"errorImageUrl":"https://xn--931a.moe/aiart/yubitun.png","iconUrl":null,"maxNoteTextLength":500,"emojis":[],"requireSetup":false,"enableEmail":false,"enableTwitterIntegration":false,"enableGithubIntegration":false,"enableDiscordIntegration":false,"enableServiceWorker":false,"features":{"registration":true,"localTimeLine":true,"globalTimeLine":true,"elasticsearch":false,"hcaptcha":false,"recaptcha":false,"objectStorage":false,"twitter":false,"github":false,"discord":false,"serviceWorker":false,"miauth":true}}'
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 5cd6bf9ffe839521-NRT
+      - 5cd6bf73cf1da5b8-NRT
       Cache-Control:
       - private, max-age=0, must-revalidate
       Connection:
@@ -152,14 +147,14 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 04 Sep 2020 09:40:21 GMT
+      - Fri, 04 Sep 2020 09:40:14 GMT
       Expect-CT:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Set-Cookie:
-      - __cfduid=d9db3c8929e1d1951565b04854efd3c5c1599212421; expires=Sun, 04-Oct-20
-        09:40:21 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
+      - __cfduid=d167d1f4eeeffe48ddcb5924959421f1f1599212414; expires=Sun, 04-Oct-20
+        09:40:14 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
       Transfer-Encoding:
       - chunked
       Vary:
@@ -170,16 +165,16 @@ interactions:
       alt-svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
       cf-request-id:
-      - 04fa1617fb00009521762ba200000001
+      - 04fa15fc5e0000a5b8d7106200000001
       content-length:
-      - '495'
+      - '1164'
       strict-transport-security:
       - max-age=0; includeSubDomains; preload
     status:
       code: 200
       message: OK
 - request:
-    body: '{"noteId": "8brm3iut9c", "i": "O8qUyZwVozDGxtGk"}'
+    body: '{"i": "O8qUyZwVozDGxtGk"}'
     headers:
       Accept:
       - '*/*'
@@ -188,94 +183,38 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '49'
+      - '25'
       User-Agent:
       - python-requests/2.24.0
       content-type:
       - application/json
     method: POST
-    uri: https://demo.misskey.io/api/notes/show
+    uri: https://demo.misskey.io/api/not_exists
   response:
     body:
-      string: '{"id":"8brm3iut9c","createdAt":"2020-09-04T09:40:21.173Z","userId":"8brm3culz1","user":{"id":"8brm3culz1","name":"Misskey.py
-        Unit tester","username":"MPTU_xfWQ5RAi","host":null,"avatarUrl":"https://demo.misskey.io/avatar/8brm3culz1","avatarBlurhash":null,"avatarColor":null,"isBot":true,"emojis":[]},"text":"Now
-        testing Note tests","cw":null,"visibility":"public","renoteCount":0,"repliesCount":0,"reactions":{},"emojis":[],"fileIds":[],"files":[],"replyId":null,"renoteId":null}'
+      string: Not Found
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 5cd6bfa118f2f8e7-NRT
+      - 5cd6bf74b810ef81-NRT
       Cache-Control:
       - private, max-age=0, must-revalidate
       Connection:
       - keep-alive
+      Content-Length:
+      - '9'
       Content-Type:
-      - application/json; charset=utf-8
+      - text/plain; charset=utf-8
       Date:
-      - Fri, 04 Sep 2020 09:40:21 GMT
+      - Fri, 04 Sep 2020 09:40:14 GMT
       Expect-CT:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Set-Cookie:
-      - __cfduid=d95ab219117000d90b18b40579b4110d81599212421; expires=Sun, 04-Oct-20
-        09:40:21 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
-      Transfer-Encoding:
-      - chunked
-      Vary:
-      - Accept-Encoding
-      - Origin
-      X-Content-Type-Options:
-      - nosniff
-      alt-svc:
-      - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
-      cf-request-id:
-      - 04fa1618b30000f8e71d130200000001
-      content-length:
-      - '479'
-      strict-transport-security:
-      - max-age=0; includeSubDomains; preload
-    status:
-      code: 200
-      message: OK
-- request:
-    body: '{"noteId": "8brm3iut9c", "i": "O8qUyZwVozDGxtGk"}'
-    headers:
-      Accept:
-      - '*/*'
-      Accept-Encoding:
-      - gzip, deflate
-      Connection:
-      - keep-alive
-      Content-Length:
-      - '49'
-      User-Agent:
-      - python-requests/2.24.0
-      content-type:
-      - application/json
-    method: POST
-    uri: https://demo.misskey.io/api/notes/delete
-  response:
-    body:
-      string: ''
-    headers:
-      CF-Cache-Status:
-      - DYNAMIC
-      CF-RAY:
-      - 5cd6bfa1dc18f8d7-NRT
-      Cache-Control:
-      - private, max-age=0, must-revalidate
-      Connection:
-      - keep-alive
-      Date:
-      - Fri, 04 Sep 2020 09:40:21 GMT
-      Expect-CT:
-      - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
-      Server:
-      - cloudflare
-      Set-Cookie:
-      - __cfduid=da896c2543a0d9d47925b1ee29575d1f21599212421; expires=Sun, 04-Oct-20
-        09:40:21 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
+      - __cfduid=d1013eda2ec49dab7734f3bbee209ea561599212414; expires=Sun, 04-Oct-20
+        09:40:14 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
       Vary:
       - Origin
       X-Content-Type-Options:
@@ -283,10 +222,10 @@ interactions:
       alt-svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
       cf-request-id:
-      - 04fa1619220000f8d7661b6200000001
+      - 04fa15fcf20000ef819f1e7200000001
       strict-transport-security:
       - max-age=0; includeSubDomains; preload
     status:
-      code: 204
-      message: No Content
+      code: 404
+      message: Not Found
 version: 1

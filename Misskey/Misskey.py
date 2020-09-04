@@ -73,7 +73,7 @@ class Misskey:
         ParseRes = urlparse(address)
         if ParseRes.scheme == '':
             ParseRes = urlparse(f"https://{address}")
-        self.__address = ParseRes.netloc
+        self.__address = str(ParseRes.netloc)
         self.__instanceAddressApiUrl = f"{ParseRes.scheme}://{ParseRes.netloc}/api/"
 
         res = requests.post(self.__instanceAddressApiUrl + 'meta', headers=self.headers, allow_redirects=False)

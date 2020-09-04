@@ -23,7 +23,7 @@ interactions:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 5cd448b6d8e2a51c-NRT
+      - 5cd6bf5e6aa6ef55-NRT
       Cache-Control:
       - private, max-age=0, must-revalidate
       Connection:
@@ -31,14 +31,14 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 04 Sep 2020 02:29:39 GMT
+      - Fri, 04 Sep 2020 09:40:10 GMT
       Expect-CT:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Set-Cookie:
-      - __cfduid=d64fc76b6d0ba4cdf04c4416e7c06674c1599186579; expires=Sun, 04-Oct-20
-        02:29:39 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
+      - __cfduid=d50ffdaf40a3456b50104476f489d74de1599212410; expires=Sun, 04-Oct-20
+        09:40:10 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
       Transfer-Encoding:
       - chunked
       Vary:
@@ -49,7 +49,7 @@ interactions:
       alt-svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
       cf-request-id:
-      - 04f88bc6490000a51c93a01200000001
+      - 04fa15eefc0000ef551e851200000001
       content-length:
       - '1164'
       strict-transport-security:

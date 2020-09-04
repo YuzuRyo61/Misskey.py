@@ -23,7 +23,7 @@ interactions:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 5cd448c07baeef96-NRT
+      - 5cd6bf81fcabef92-NRT
       Cache-Control:
       - private, max-age=0, must-revalidate
       Connection:
@@ -31,14 +31,14 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 04 Sep 2020 02:29:40 GMT
+      - Fri, 04 Sep 2020 09:40:16 GMT
       Expect-CT:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Set-Cookie:
-      - __cfduid=d1ed0c0ce929fcec4e54abea135c79c961599186580; expires=Sun, 04-Oct-20
-        02:29:40 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
+      - __cfduid=d0b3b11a6d491b0c6eb67b5caf4af72a11599212416; expires=Sun, 04-Oct-20
+        09:40:16 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
       Transfer-Encoding:
       - chunked
       Vary:
@@ -49,7 +49,7 @@ interactions:
       alt-svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
       cf-request-id:
-      - 04f88bcc4a0000ef96dbaf4200000001
+      - 04fa16053a0000ef92e496b200000001
       content-length:
       - '1164'
       strict-transport-security:
@@ -58,7 +58,7 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"i": "iiGO5RyAbJ0hCRGt"}'
+    body: '{"i": "O8qUyZwVozDGxtGk"}'
     headers:
       Accept:
       - '*/*'
@@ -76,13 +76,12 @@ interactions:
     uri: https://demo.misskey.io/api/i
   response:
     body:
-      string: '{"id":"8br6e782p9","name":"Misskey.py Unit tester","username":"MPTU_TGRmbNvJ","host":null,"avatarUrl":"https://demo.misskey.io/avatar/8br6e782p9","avatarBlurhash":null,"avatarColor":null,"isAdmin":false,"isModerator":false,"isBot":true,"isCat":false,"emojis":[],"url":null,"createdAt":"2020-09-04T02:20:45.458Z","updatedAt":"2020-09-04T02:25:32.019Z","bannerUrl":null,"bannerBlurhash":null,"bannerColor":null,"isLocked":false,"isSilenced":false,"isSuspended":false,"description":"This
-        account is a Misskey.py unit test account. It works automatically.","location":null,"birthday":null,"fields":[],"followersCount":0,"followingCount":0,"notesCount":2,"pinnedNoteIds":[],"pinnedNotes":[],"pinnedPageId":null,"pinnedPage":null,"twoFactorEnabled":false,"usePasswordLessLogin":false,"securityKeys":false,"avatarId":null,"bannerId":null,"autoWatch":false,"injectFeaturedNote":true,"alwaysMarkNsfw":false,"carefulBot":false,"autoAcceptFollowed":true,"hasUnreadSpecifiedNotes":false,"hasUnreadMentions":false,"hasUnreadAnnouncement":false,"hasUnreadAntenna":false,"hasUnreadChannel":false,"hasUnreadMessagingMessage":false,"hasUnreadNotification":false,"hasPendingReceivedFollowRequest":false,"integrations":{},"mutedWords":[],"includingNotificationTypes":null,"clientData":{},"email":null,"emailVerified":false,"securityKeysList":[]}'
+      string: '{"id":"8brm3culz1","name":null,"username":"MPTU_xfWQ5RAi","host":null,"avatarUrl":"https://demo.misskey.io/avatar/8brm3culz1","avatarBlurhash":null,"avatarColor":null,"isAdmin":false,"isModerator":false,"isBot":false,"isCat":false,"emojis":[],"url":null,"createdAt":"2020-09-04T09:40:13.389Z","updatedAt":null,"bannerUrl":null,"bannerBlurhash":null,"bannerColor":null,"isLocked":false,"isSilenced":false,"isSuspended":false,"description":null,"location":null,"birthday":null,"fields":[],"followersCount":0,"followingCount":0,"notesCount":0,"pinnedNoteIds":[],"pinnedNotes":[],"pinnedPageId":null,"pinnedPage":null,"twoFactorEnabled":false,"usePasswordLessLogin":false,"securityKeys":false,"avatarId":null,"bannerId":null,"autoWatch":false,"injectFeaturedNote":true,"alwaysMarkNsfw":false,"carefulBot":false,"autoAcceptFollowed":true,"hasUnreadSpecifiedNotes":false,"hasUnreadMentions":false,"hasUnreadAnnouncement":false,"hasUnreadAntenna":false,"hasUnreadChannel":false,"hasUnreadMessagingMessage":false,"hasUnreadNotification":false,"hasPendingReceivedFollowRequest":false,"integrations":{},"mutedWords":[],"includingNotificationTypes":null,"clientData":{},"email":null,"emailVerified":false,"securityKeysList":[]}'
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 5cd448c13b2e0ad0-NRT
+      - 5cd6bf830bfc1d5f-NRT
       Cache-Control:
       - private, max-age=0, must-revalidate
       Connection:
@@ -90,14 +89,14 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 04 Sep 2020 02:29:40 GMT
+      - Fri, 04 Sep 2020 09:40:16 GMT
       Expect-CT:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Set-Cookie:
-      - __cfduid=d9a19921129fc55117eafc7f9d2b9cd9a1599186580; expires=Sun, 04-Oct-20
-        02:29:40 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
+      - __cfduid=d10094e64a956f8ea1e7708576e47a3051599212416; expires=Sun, 04-Oct-20
+        09:40:16 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
       Transfer-Encoding:
       - chunked
       Vary:
@@ -108,9 +107,9 @@ interactions:
       alt-svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
       cf-request-id:
-      - 04f88bccc300000ad0a5265200000001
+      - 04fa1605e200001d5f19156200000001
       content-length:
-      - '1326'
+      - '1216'
       strict-transport-security:
       - max-age=0; includeSubDomains; preload
     status:
@@ -140,7 +139,7 @@ interactions:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 5cd448c23ee5ef55-NRT
+      - 5cd6bf841c8e1d93-NRT
       Cache-Control:
       - private, max-age=0, must-revalidate
       Connection:
@@ -148,14 +147,14 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 04 Sep 2020 02:29:40 GMT
+      - Fri, 04 Sep 2020 09:40:16 GMT
       Expect-CT:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Set-Cookie:
-      - __cfduid=d0045be6795352b38d918226ef2fb5b731599186580; expires=Sun, 04-Oct-20
-        02:29:40 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
+      - __cfduid=dd7a9da12ca24e9199d10de8e4297cb2c1599212416; expires=Sun, 04-Oct-20
+        09:40:16 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
       Transfer-Encoding:
       - chunked
       Vary:
@@ -166,7 +165,7 @@ interactions:
       alt-svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
       cf-request-id:
-      - 04f88bcd600000ef554cb97200000001
+      - 04fa16069100001d9336a3c200000001
       content-length:
       - '1164'
       strict-transport-security:
@@ -175,7 +174,7 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{"i": "abHRqt6UVE2s53Zt"}'
+    body: '{"i": "PMMPR8WwWKYLarvr"}'
     headers:
       Accept:
       - '*/*'
@@ -193,13 +192,12 @@ interactions:
     uri: https://demo.misskey.io/api/i
   response:
     body:
-      string: '{"id":"8br6e9edg2","name":"Misskey.py Unit tester 2","username":"MPTU2_nwXaqtWf","host":null,"avatarUrl":"https://demo.misskey.io/avatar/8br6e9edg2","avatarBlurhash":null,"avatarColor":null,"isAdmin":false,"isModerator":false,"isBot":true,"isCat":false,"emojis":[],"url":null,"createdAt":"2020-09-04T02:20:48.278Z","updatedAt":"2020-09-04T02:20:52.728Z","bannerUrl":null,"bannerBlurhash":null,"bannerColor":null,"isLocked":false,"isSilenced":false,"isSuspended":false,"description":"This
-        account is a Misskey.py unit test account. It works automatically.","location":null,"birthday":null,"fields":[],"followersCount":0,"followingCount":0,"notesCount":1,"pinnedNoteIds":[],"pinnedNotes":[],"pinnedPageId":null,"pinnedPage":null,"twoFactorEnabled":false,"usePasswordLessLogin":false,"securityKeys":false,"avatarId":null,"bannerId":null,"autoWatch":false,"injectFeaturedNote":true,"alwaysMarkNsfw":false,"carefulBot":false,"autoAcceptFollowed":true,"hasUnreadSpecifiedNotes":false,"hasUnreadMentions":false,"hasUnreadAnnouncement":false,"hasUnreadAntenna":false,"hasUnreadChannel":false,"hasUnreadMessagingMessage":false,"hasUnreadNotification":false,"hasPendingReceivedFollowRequest":false,"integrations":{},"mutedWords":[],"includingNotificationTypes":null,"clientData":{},"email":null,"emailVerified":false,"securityKeysList":[]}'
+      string: '{"id":"8brm3ehdz2","name":null,"username":"MPTU2_itQXOCwX","host":null,"avatarUrl":"https://demo.misskey.io/avatar/8brm3ehdz2","avatarBlurhash":null,"avatarColor":null,"isAdmin":false,"isModerator":false,"isBot":false,"isCat":false,"emojis":[],"url":null,"createdAt":"2020-09-04T09:40:15.505Z","updatedAt":null,"bannerUrl":null,"bannerBlurhash":null,"bannerColor":null,"isLocked":false,"isSilenced":false,"isSuspended":false,"description":null,"location":null,"birthday":null,"fields":[],"followersCount":0,"followingCount":0,"notesCount":0,"pinnedNoteIds":[],"pinnedNotes":[],"pinnedPageId":null,"pinnedPage":null,"twoFactorEnabled":false,"usePasswordLessLogin":false,"securityKeys":false,"avatarId":null,"bannerId":null,"autoWatch":false,"injectFeaturedNote":true,"alwaysMarkNsfw":false,"carefulBot":false,"autoAcceptFollowed":true,"hasUnreadSpecifiedNotes":false,"hasUnreadMentions":false,"hasUnreadAnnouncement":false,"hasUnreadAntenna":false,"hasUnreadChannel":false,"hasUnreadMessagingMessage":false,"hasUnreadNotification":false,"hasPendingReceivedFollowRequest":false,"integrations":{},"mutedWords":[],"includingNotificationTypes":null,"clientData":{},"email":null,"emailVerified":false,"securityKeysList":[]}'
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 5cd448c2f9ee9503-NRT
+      - 5cd6bf84f8a81d77-NRT
       Cache-Control:
       - private, max-age=0, must-revalidate
       Connection:
@@ -207,14 +205,14 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 04 Sep 2020 02:29:41 GMT
+      - Fri, 04 Sep 2020 09:40:16 GMT
       Expect-CT:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Set-Cookie:
-      - __cfduid=d42efa9e2451328e5c0a1f7ef3f121ea01599186580; expires=Sun, 04-Oct-20
-        02:29:40 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
+      - __cfduid=d6d61f22e75613ab2e4588dee44082c361599212416; expires=Sun, 04-Oct-20
+        09:40:16 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
       Transfer-Encoding:
       - chunked
       Vary:
@@ -225,9 +223,9 @@ interactions:
       alt-svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
       cf-request-id:
-      - 04f88bcddc000095037e9bb200000001
+      - 04fa16071e00001d77a6bbd200000001
       content-length:
-      - '1329'
+      - '1217'
       strict-transport-security:
       - max-age=0; includeSubDomains; preload
     status:
@@ -235,7 +233,7 @@ interactions:
       message: OK
 - request:
     body: '{"name": "Misskey.py Unit tester", "description": "This account is a Misskey.py
-      unit test account. It works automatically.", "isBot": true, "i": "iiGO5RyAbJ0hCRGt"}'
+      unit test account. It works automatically.", "isBot": true, "i": "O8qUyZwVozDGxtGk"}'
     headers:
       Accept:
       - '*/*'
@@ -253,13 +251,13 @@ interactions:
     uri: https://demo.misskey.io/api/i/update
   response:
     body:
-      string: '{"id":"8br6e782p9","name":"Misskey.py Unit tester","username":"MPTU_TGRmbNvJ","host":null,"avatarUrl":"https://demo.misskey.io/avatar/8br6e782p9","avatarBlurhash":null,"avatarColor":null,"isAdmin":false,"isModerator":false,"isBot":true,"isCat":false,"emojis":[],"url":null,"createdAt":"2020-09-04T02:20:45.458Z","updatedAt":"2020-09-04T02:25:32.019Z","bannerUrl":null,"bannerBlurhash":null,"bannerColor":null,"isLocked":false,"isSilenced":false,"isSuspended":false,"description":"This
-        account is a Misskey.py unit test account. It works automatically.","location":null,"birthday":null,"fields":[],"followersCount":0,"followingCount":0,"notesCount":2,"pinnedNoteIds":[],"pinnedNotes":[],"pinnedPageId":null,"pinnedPage":null,"twoFactorEnabled":false,"usePasswordLessLogin":false,"securityKeys":false,"avatarId":null,"bannerId":null,"autoWatch":false,"injectFeaturedNote":true,"alwaysMarkNsfw":false,"carefulBot":false,"autoAcceptFollowed":true,"hasUnreadSpecifiedNotes":false,"hasUnreadMentions":false,"hasUnreadAnnouncement":false,"hasUnreadAntenna":false,"hasUnreadChannel":false,"hasUnreadMessagingMessage":false,"hasUnreadNotification":false,"hasPendingReceivedFollowRequest":false,"integrations":{},"mutedWords":[],"includingNotificationTypes":null,"clientData":{},"email":null,"emailVerified":false,"securityKeysList":[]}'
+      string: '{"id":"8brm3culz1","name":"Misskey.py Unit tester","username":"MPTU_xfWQ5RAi","host":null,"avatarUrl":"https://demo.misskey.io/avatar/8brm3culz1","avatarBlurhash":null,"avatarColor":null,"isAdmin":false,"isModerator":false,"isBot":true,"isCat":false,"emojis":[],"url":null,"createdAt":"2020-09-04T09:40:13.389Z","updatedAt":null,"bannerUrl":null,"bannerBlurhash":null,"bannerColor":null,"isLocked":false,"isSilenced":false,"isSuspended":false,"description":"This
+        account is a Misskey.py unit test account. It works automatically.","location":null,"birthday":null,"fields":[],"followersCount":0,"followingCount":0,"notesCount":0,"pinnedNoteIds":[],"pinnedNotes":[],"pinnedPageId":null,"pinnedPage":null,"twoFactorEnabled":false,"usePasswordLessLogin":false,"securityKeys":false,"avatarId":null,"bannerId":null,"autoWatch":false,"injectFeaturedNote":true,"alwaysMarkNsfw":false,"carefulBot":false,"autoAcceptFollowed":true,"hasUnreadSpecifiedNotes":false,"hasUnreadMentions":false,"hasUnreadAnnouncement":false,"hasUnreadAntenna":false,"hasUnreadChannel":false,"hasUnreadMessagingMessage":false,"hasUnreadNotification":false,"hasPendingReceivedFollowRequest":false,"integrations":{},"mutedWords":[],"includingNotificationTypes":null,"clientData":{},"email":null,"emailVerified":false,"securityKeysList":[]}'
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 5cd448c3da05ef55-NRT
+      - 5cd6bf85ecb994e5-NRT
       Cache-Control:
       - private, max-age=0, must-revalidate
       Connection:
@@ -267,14 +265,14 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 04 Sep 2020 02:29:41 GMT
+      - Fri, 04 Sep 2020 09:40:17 GMT
       Expect-CT:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Set-Cookie:
-      - __cfduid=dd3a66fde546246240c9facc06ded979e1599186581; expires=Sun, 04-Oct-20
-        02:29:41 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
+      - __cfduid=dec8757894bac66d391ab6972c58806b31599212416; expires=Sun, 04-Oct-20
+        09:40:16 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
       Transfer-Encoding:
       - chunked
       Vary:
@@ -285,9 +283,9 @@ interactions:
       alt-svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
       cf-request-id:
-      - 04f88bce680000ef551e2fd200000001
+      - 04fa1607ad000094e58c1d9200000001
       content-length:
-      - '1326'
+      - '1304'
       strict-transport-security:
       - max-age=0; includeSubDomains; preload
     status:
@@ -296,7 +294,7 @@ interactions:
 - request:
     body: '{"name": "Misskey.py Unit tester 2", "description": "This account is a
       Misskey.py unit test account. It works automatically.", "isBot": true, "i":
-      "abHRqt6UVE2s53Zt"}'
+      "PMMPR8WwWKYLarvr"}'
     headers:
       Accept:
       - '*/*'
@@ -314,13 +312,13 @@ interactions:
     uri: https://demo.misskey.io/api/i/update
   response:
     body:
-      string: '{"id":"8br6e9edg2","name":"Misskey.py Unit tester 2","username":"MPTU2_nwXaqtWf","host":null,"avatarUrl":"https://demo.misskey.io/avatar/8br6e9edg2","avatarBlurhash":null,"avatarColor":null,"isAdmin":false,"isModerator":false,"isBot":true,"isCat":false,"emojis":[],"url":null,"createdAt":"2020-09-04T02:20:48.278Z","updatedAt":"2020-09-04T02:20:52.728Z","bannerUrl":null,"bannerBlurhash":null,"bannerColor":null,"isLocked":false,"isSilenced":false,"isSuspended":false,"description":"This
-        account is a Misskey.py unit test account. It works automatically.","location":null,"birthday":null,"fields":[],"followersCount":0,"followingCount":0,"notesCount":1,"pinnedNoteIds":[],"pinnedNotes":[],"pinnedPageId":null,"pinnedPage":null,"twoFactorEnabled":false,"usePasswordLessLogin":false,"securityKeys":false,"avatarId":null,"bannerId":null,"autoWatch":false,"injectFeaturedNote":true,"alwaysMarkNsfw":false,"carefulBot":false,"autoAcceptFollowed":true,"hasUnreadSpecifiedNotes":false,"hasUnreadMentions":false,"hasUnreadAnnouncement":false,"hasUnreadAntenna":false,"hasUnreadChannel":false,"hasUnreadMessagingMessage":false,"hasUnreadNotification":false,"hasPendingReceivedFollowRequest":false,"integrations":{},"mutedWords":[],"includingNotificationTypes":null,"clientData":{},"email":null,"emailVerified":false,"securityKeysList":[]}'
+      string: '{"id":"8brm3ehdz2","name":"Misskey.py Unit tester 2","username":"MPTU2_itQXOCwX","host":null,"avatarUrl":"https://demo.misskey.io/avatar/8brm3ehdz2","avatarBlurhash":null,"avatarColor":null,"isAdmin":false,"isModerator":false,"isBot":true,"isCat":false,"emojis":[],"url":null,"createdAt":"2020-09-04T09:40:15.505Z","updatedAt":null,"bannerUrl":null,"bannerBlurhash":null,"bannerColor":null,"isLocked":false,"isSilenced":false,"isSuspended":false,"description":"This
+        account is a Misskey.py unit test account. It works automatically.","location":null,"birthday":null,"fields":[],"followersCount":0,"followingCount":0,"notesCount":0,"pinnedNoteIds":[],"pinnedNotes":[],"pinnedPageId":null,"pinnedPage":null,"twoFactorEnabled":false,"usePasswordLessLogin":false,"securityKeys":false,"avatarId":null,"bannerId":null,"autoWatch":false,"injectFeaturedNote":true,"alwaysMarkNsfw":false,"carefulBot":false,"autoAcceptFollowed":true,"hasUnreadSpecifiedNotes":false,"hasUnreadMentions":false,"hasUnreadAnnouncement":false,"hasUnreadAntenna":false,"hasUnreadChannel":false,"hasUnreadMessagingMessage":false,"hasUnreadNotification":false,"hasPendingReceivedFollowRequest":false,"integrations":{},"mutedWords":[],"includingNotificationTypes":null,"clientData":{},"email":null,"emailVerified":false,"securityKeysList":[]}'
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 5cd448c4e945f8af-NRT
+      - 5cd6bf871899ef51-NRT
       Cache-Control:
       - private, max-age=0, must-revalidate
       Connection:
@@ -328,14 +326,14 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 04 Sep 2020 02:29:41 GMT
+      - Fri, 04 Sep 2020 09:40:17 GMT
       Expect-CT:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Set-Cookie:
-      - __cfduid=d40d8ec3727c53f5ce790c15f0ff26c171599186581; expires=Sun, 04-Oct-20
-        02:29:41 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
+      - __cfduid=d03f0dac901e7b11e9f6258f7f5880ea11599212417; expires=Sun, 04-Oct-20
+        09:40:17 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
       Transfer-Encoding:
       - chunked
       Vary:
@@ -346,9 +344,9 @@ interactions:
       alt-svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
       cf-request-id:
-      - 04f88bcf0e0000f8af092bc200000001
+      - 04fa16086e0000ef5182bc4200000001
       content-length:
-      - '1329'
+      - '1307'
       strict-transport-security:
       - max-age=0; includeSubDomains; preload
     status:

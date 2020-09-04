@@ -23,7 +23,7 @@ interactions:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 5cd448c60eb80e6e-NRT
+      - 5cd6bf98aa7a9479-NRT
       Cache-Control:
       - private, max-age=0, must-revalidate
       Connection:
@@ -31,14 +31,14 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 04 Sep 2020 02:29:41 GMT
+      - Fri, 04 Sep 2020 09:40:20 GMT
       Expect-CT:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Set-Cookie:
-      - __cfduid=d8bb6fd6695c93a921adb80aa1d11e4ea1599186581; expires=Sun, 04-Oct-20
-        02:29:41 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
+      - __cfduid=da601781b0013018df2adb6ad276b5bbf1599212419; expires=Sun, 04-Oct-20
+        09:40:19 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
       Transfer-Encoding:
       - chunked
       Vary:
@@ -49,7 +49,7 @@ interactions:
       alt-svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
       cf-request-id:
-      - 04f88bcfc600000e6e7082c200000001
+      - 04fa16136700009479d2bc2200000001
       content-length:
       - '1164'
       strict-transport-security:
@@ -81,7 +81,7 @@ interactions:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 5cd448c6eba0d649-NRT
+      - 5cd6bf99ab4d0b9b-NRT
       Cache-Control:
       - private, max-age=0, must-revalidate
       Connection:
@@ -89,14 +89,14 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 04 Sep 2020 02:29:41 GMT
+      - Fri, 04 Sep 2020 09:40:20 GMT
       Expect-CT:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Set-Cookie:
-      - __cfduid=d5223877703d27c38c4a718be31febb7e1599186581; expires=Sun, 04-Oct-20
-        02:29:41 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
+      - __cfduid=d82f38378b55604ed0dff59846e6b76bc1599212420; expires=Sun, 04-Oct-20
+        09:40:20 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
       Transfer-Encoding:
       - chunked
       Vary:
@@ -107,7 +107,7 @@ interactions:
       alt-svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
       cf-request-id:
-      - 04f88bd0530000d649f59b6200000001
+      - 04fa16140400000b9baa929200000001
       content-length:
       - '1164'
       strict-transport-security:

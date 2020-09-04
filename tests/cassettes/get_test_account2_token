@@ -1,6 +1,6 @@
 interactions:
 - request:
-    body: '{"username": "MPTU2_nwXaqtWf", "password": "tsYknXZN"}'
+    body: '{"username": "MPTU2_itQXOCwX", "password": "W64oHkJV"}'
     headers:
       Accept:
       - '*/*'
@@ -19,22 +19,22 @@ interactions:
   response:
     body:
       string: !!binary |
-        H4sIAAAAAAAAA2xTXW8aMRD8L34mcLqmKbk3QoNaFSJEQqhSVdViL5yDzz78EYSi/PfuxRx3JLx5
-        x+Pdndn1K5OCZay/tFd4jWKdsg7TUCDLdFCqw4JDG2M2mT7M03969xu2frEiXm6cr3nwAh7s3Coi
-        5t6XLuv1BBamW0jnNrjvStOLnN5JrYjdqGBzcPlptqFRxtaQdANRSM2yFSiHVTwxAi34inLEboxv
-        RUNoIurlWTqW/flLoqo2Y1puETyKARFZmqTJRXJ9kVw+JGmWJtllv5t+6z9Rm6EUNS2+W4LWGPW2
-        gY9CIvpByNjwDYpWn/dSoeanUHAlatHCBDpuZeml0XUqZTi046W0Phewr+OVRCUOmldGKbND64Ym
-        aJKR1JDU6wbSxmOLUUpqX9wR+LPO00AnwBTWxKkLN1iN+J0ZAadh3WpYqpYsWrApOLczVozRkTfr
-        1pAd8mCl3//CvTuCcTmaYtHjJobgzQI8zxs79TNyP6JJBxt7Z5m3ocqldrB3E7CbO7faHR9wsLgK
-        qr1NVdYB51j6UXRS1Dlo3nNNayTuS+SSPK/dObw83k9QV9M6czPQmjznWKD25249ag2fL4Z5JV2d
-        q+QckJHreMDPDGqRWq3Xp7md0tLRuxlylC8ootYZbgO61s+ihtYWDmJe3zqsCPQ7FjTDw1JIzVWo
-        ErXrPOzLypbDx1OSxH6nUcYMWIA8fqb34BHtu5tnt2Esq36qUt5skCQwWP6Ybf3V/PE2dV+/PHn2
-        9h8AAP//AwAHaq7z3AQAAA==
+        H4sIAAAAAAAAA2xTXW8aMRD8L34mcKVBSu6N0CJVgZSSUNJWVbXYC+fgs6/+4ESj/PfuxRx3JLx5
+        x+Pdndn1M5OCpexqZfOPmIl/fdZhGnJkqQ5KdVhwaGPMprOHRf+P9N8ev47KR+JlxvmaBzvwYBdW
+        ETHzvnBprycwN91cOrfFfVeaXuT0TmpF7EYFm4HLTrONjDK2hqQbilxqlq5BOaziqRFowVeUI3Zj
+        fCsaQRNRL0/SsfTXbxJVtRnTcovgUQyJyPpJP7lIri+Sy4fkOr1M0g+D7iAZ/KQ2QyFqWny3Aq0x
+        6m0Db4VE9I2QieFbFK0+76VCzU+h4ArUooUJdNzKwkuj61TKcGjHK2l9JmBfx2uJShw0r41SpkTr
+        RiZokpHUkNSbBtLGY4tRSGpf3BH4pc7TQCfADDbEqQs3WI340oyB07A+a1iplixasBk4VxorJujI
+        m01ryA55sNLvb3HvjmBcjqZY9LiJIXizBM+zxk79hNyPadLBxt5Z6m2ocqkS9m4Kdnvn1uXxAQeL
+        66Da21RlHXKOhR9HJ0Wdg+a90LRG4r5ALsnz2p3Dy+P9FHU1rTM3Q63Jc445an/u1qPW8P5ilFXS
+        1blKzgEZuYkHfM+gFqnVen2a2xktHb2bI0e5QxG1zvFvQNf6WdTQxsJBzPNLh+WBfseSZnhYCqm5
+        ClWidp2HfVHZcvh4SpLYTzTKmAFzkMfP9Bp8R/vq5tltmMiqn6qUN1skCWw2nc7mV8tyeftjAnZn
+        2ct/AAAA//8DALffDx7cBAAA
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 5cd43bb2bb24f907-NRT
+      - 5cd6bf77aeddef51-NRT
       Cache-Control:
       - private, max-age=0, must-revalidate
       Connection:
@@ -44,14 +44,14 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 04 Sep 2020 02:20:48 GMT
+      - Fri, 04 Sep 2020 09:40:15 GMT
       Expect-CT:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Set-Cookie:
-      - __cfduid=d076e29f036f8ed16a3ebd9e6031e6d591599186045; expires=Sun, 04-Oct-20
-        02:20:45 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
+      - __cfduid=dec8cc81d5b992e182e9ce833eb8a145c1599212414; expires=Sun, 04-Oct-20
+        09:40:14 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
       Transfer-Encoding:
       - chunked
       Vary:
@@ -62,7 +62,7 @@ interactions:
       alt-svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
       cf-request-id:
-      - 04f883a3af0000f9076805b200000001
+      - 04fa15fec80000ef5170211200000001
       strict-transport-security:
       - max-age=0; includeSubDomains; preload
     status:

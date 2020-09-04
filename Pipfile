@@ -18,6 +18,7 @@ m2r = "*"
 vcrpy = "*"
 pytest-vcr = "*"
 importlib-metadata = "*"
+pytest-cov = "*"
 
 [packages]
 requests = "*"

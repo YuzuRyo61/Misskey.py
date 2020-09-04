@@ -23,7 +23,7 @@ interactions:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 5cd6bf9abd35a522-NRT
+      - 5cd6bf625c590aa8-NRT
       Cache-Control:
       - private, max-age=0, must-revalidate
       Connection:
@@ -31,14 +31,14 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 04 Sep 2020 09:40:20 GMT
+      - Fri, 04 Sep 2020 09:40:11 GMT
       Expect-CT:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Set-Cookie:
-      - __cfduid=df41435d5b2bf80aec73999c21ba621a51599212420; expires=Sun, 04-Oct-20
-        09:40:20 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
+      - __cfduid=d2807d1d901036f04ab87ac7dd6898dff1599212411; expires=Sun, 04-Oct-20
+        09:40:11 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
       Transfer-Encoding:
       - chunked
       Vary:
@@ -49,7 +49,7 @@ interactions:
       alt-svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
       cf-request-id:
-      - 04fa1614b00000a5229428b200000001
+      - 04fa15f17700000aa8f734c200000001
       content-length:
       - '1164'
       strict-transport-security:
@@ -58,7 +58,7 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{}'
+    body: '{"i": "invalid"}'
     headers:
       Accept:
       - '*/*'
@@ -67,21 +67,22 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '2'
+      - '16'
       User-Agent:
       - python-requests/2.24.0
       content-type:
       - application/json
     method: POST
-    uri: https://demo.misskey.io/api/stats
+    uri: https://demo.misskey.io/api/i
   response:
     body:
-      string: '{"notesCount":0,"originalNotesCount":0,"usersCount":2,"originalUsersCount":2,"instances":0,"driveUsageLocal":0,"driveUsageRemote":0}'
+      string: '{"error":{"message":"Authentication failed. Please ensure your token
+        is correct.","code":"AUTHENTICATION_FAILED","id":"b0a7f5f8-dc2f-4171-b91f-de88ad238e14","kind":"client"}}'
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 5cd6bf9bad5594d9-NRT
+      - 5cd6bf632e6cef4d-NRT
       Cache-Control:
       - private, max-age=0, must-revalidate
       Connection:
@@ -89,14 +90,14 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 04 Sep 2020 09:40:20 GMT
+      - Fri, 04 Sep 2020 09:40:11 GMT
       Expect-CT:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Set-Cookie:
-      - __cfduid=d432bd4880afeafcfb2ee1158dbf4e8361599212420; expires=Sun, 04-Oct-20
-        09:40:20 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
+      - __cfduid=dddc6263d0fc0d3cf9b0dcb5515ba7db51599212411; expires=Sun, 04-Oct-20
+        09:40:11 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
       Transfer-Encoding:
       - chunked
       Vary:
@@ -106,12 +107,12 @@ interactions:
       alt-svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
       cf-request-id:
-      - 04fa161547000094d9ab17b200000001
+      - 04fa15f1f70000ef4d29a76200000001
       content-length:
-      - '132'
+      - '174'
       strict-transport-security:
       - max-age=0; includeSubDomains; preload
     status:
-      code: 200
-      message: OK
+      code: 403
+      message: Forbidden
 version: 1

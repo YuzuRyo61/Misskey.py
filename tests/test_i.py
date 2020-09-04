@@ -30,3 +30,44 @@ def test_i_update(api, api2):
     assert i2["description"] == __I_UPDATE_DESC
     assert i["isBot"]
     assert i2["isBot"]
+
+
+@pytest.mark.vcr()
+def test_i_favorites(api):
+    favorites = api.i_favorites()
+    assert isinstance(favorites, list)
+
+
+@pytest.mark.vcr()
+def test_i_notifications(api):
+    notifications = api.i_notifications()
+    assert isinstance(notifications, list)
+
+
+@pytest.mark.vcr()
+def test_i_pin(note, api):
+    pinned = api.i_pin(note["createdNote"]["id"])
+    assert isinstance(pinned, dict)
+    unpin = api.i_unpin(note["createdNote"]["id"])
+    assert isinstance(unpin, dict)
+
+
+@pytest.mark.vcr()
+def test_i_readAllUnreadNotes(api):
+    res = api.i_readAllMessagingMessages()
+    assert isinstance(res, bool)
+    assert res is True
+
+
+@pytest.mark.vcr()
+def test_i_readAllUnreadNotes(api):
+    res = api.i_readAllUnreadNotes()
+    assert isinstance(res, bool)
+    assert res is True
+
+
+@pytest.mark.vcr()
+def test_notifications_markAllAsRead(api):
+    res = api.notifications_markAllAsRead()
+    assert isinstance(res, bool)
+    assert res is True

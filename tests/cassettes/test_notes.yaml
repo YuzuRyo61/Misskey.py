@@ -23,7 +23,7 @@ interactions:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 5cd6bf9abd35a522-NRT
+      - 5cd6bfafbe78d641-NRT
       Cache-Control:
       - private, max-age=0, must-revalidate
       Connection:
@@ -31,14 +31,14 @@ interactions:
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 04 Sep 2020 09:40:20 GMT
+      - Fri, 04 Sep 2020 09:40:23 GMT
       Expect-CT:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Set-Cookie:
-      - __cfduid=df41435d5b2bf80aec73999c21ba621a51599212420; expires=Sun, 04-Oct-20
-        09:40:20 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
+      - __cfduid=d7b42a77a518f4e65e0ef68303b0855041599212423; expires=Sun, 04-Oct-20
+        09:40:23 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
       Transfer-Encoding:
       - chunked
       Vary:
@@ -49,7 +49,7 @@ interactions:
       alt-svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
       cf-request-id:
-      - 04fa1614b00000a5229428b200000001
+      - 04fa1621d50000d641628ff200000001
       content-length:
       - '1164'
       strict-transport-security:
@@ -58,7 +58,8 @@ interactions:
       code: 200
       message: OK
 - request:
-    body: '{}'
+    body: '{"local": false, "reply": false, "renote": false, "withFiles": false, "poll":
+      false, "limit": 10}'
     headers:
       Accept:
       - '*/*'
@@ -67,38 +68,38 @@ interactions:
       Connection:
       - keep-alive
       Content-Length:
-      - '2'
+      - '97'
       User-Agent:
       - python-requests/2.24.0
       content-type:
       - application/json
     method: POST
-    uri: https://demo.misskey.io/api/stats
+    uri: https://demo.misskey.io/api/notes
   response:
     body:
-      string: '{"notesCount":0,"originalNotesCount":0,"usersCount":2,"originalUsersCount":2,"instances":0,"driveUsageLocal":0,"driveUsageRemote":0}'
+      string: '[]'
     headers:
       CF-Cache-Status:
       - DYNAMIC
       CF-RAY:
-      - 5cd6bf9bad5594d9-NRT
+      - 5cd6bfb0a813d625-NRT
       Cache-Control:
       - private, max-age=0, must-revalidate
       Connection:
       - keep-alive
+      Content-Length:
+      - '2'
       Content-Type:
       - application/json; charset=utf-8
       Date:
-      - Fri, 04 Sep 2020 09:40:20 GMT
+      - Fri, 04 Sep 2020 09:40:23 GMT
       Expect-CT:
       - max-age=604800, report-uri="https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct"
       Server:
       - cloudflare
       Set-Cookie:
-      - __cfduid=d432bd4880afeafcfb2ee1158dbf4e8361599212420; expires=Sun, 04-Oct-20
-        09:40:20 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
-      Transfer-Encoding:
-      - chunked
+      - __cfduid=d2df0e1f234e5c57d1e01975f3fa5cda61599212423; expires=Sun, 04-Oct-20
+        09:40:23 GMT; path=/; domain=.misskey.io; HttpOnly; SameSite=Lax; Secure
       Vary:
       - Origin
       X-Content-Type-Options:
@@ -106,9 +107,7 @@ interactions:
       alt-svc:
       - h3-27=":443"; ma=86400, h3-28=":443"; ma=86400, h3-29=":443"; ma=86400
       cf-request-id:
-      - 04fa161547000094d9ab17b200000001
-      content-length:
-      - '132'
+      - 04fa1622640000d625afb87200000001
       strict-transport-security:
       - max-age=0; includeSubDomains; preload
     status:

@@ -70,6 +70,17 @@ def note2(api2):
 
 
 @pytest.fixture
+def note_polls(api):
+    _note = api.notes_create("This is polls test!",
+                             poll=[
+                                 "1",
+                                 "2"
+                             ])
+    yield _note
+    api.notes_delete(_note["createdNote"]["id"])
+
+
+@pytest.fixture
 def note_reaction(note2, api):
     _reaction = api.notes_reactions_create(note2["createdNote"]["id"], "like")
     yield _reaction
