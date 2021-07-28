@@ -1,13 +1,11 @@
-# -*- coding: utf-8 -*-
 """
-Misskey.py
+misskey.py
 
 :copyright: (C) 2019 YuzuRyo61.
 :license: MIT License, see LICENSE for more details.
 """
 
-from Misskey.Misskey import Misskey
-from Misskey.Exceptions import *
+from misskey.legacy.Exceptions import *
 
 __all__ = [
     'Misskey',
@@ -19,5 +17,3 @@ __all__ = [
     'MisskeyNotImplementedVersionException',
     'MisskeyMiAuthCheckException'
 ]
-
-__version__ = "3.0.0"

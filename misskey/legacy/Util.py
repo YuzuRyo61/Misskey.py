@@ -7,13 +7,13 @@ import uuid
 
 from urllib.parse import urlparse, urlencode
 
-from Misskey.Exceptions import (
+from misskey.legacy.Exceptions import (
     MisskeyAPIException,
     MisskeyInitException,
     MisskeyNotImplementedVersionException,
     MisskeyMiAuthCheckException
 )
-from Misskey import __version__
+from misskey import __version__
 
 def deprecated(func): # pragma: no cover
     """This is a decorator which can be used to mark functions
@@ -71,7 +71,7 @@ def create_app(instanceAddress, appName, description, permission=[
     **Deprecated**
     Creates an application key with the specified instance address.
 
-    :param instanceAddress: Specify the Misskey instance address.
+    :param instanceAddress: Specify the misskey instance address.
     :param appName: Specifies the name of the app.
     :param description: Specify the app description.
     :param permission: Specifies the app's permissions.
@@ -96,7 +96,7 @@ def session_generate(instanceAddress, appSecret): # pragma: no cover
     **Deprecated**
     Issue a token to authenticate the user.
 
-    :param instanceAddress: Specify the Misskey instance address.
+    :param instanceAddress: Specify the misskey instance address.
     :param appSecret: Specifies the secret key.
     :type instanceAddress: str
     :type appSecret: str
@@ -115,7 +115,7 @@ def session_userkey(instanceAddress, appSecret, token): # pragma: no cover
     **Deprecated**
     It is a function to perform when the user authenticates with the browser.
 
-    :param instanceAddress: Specify the Misskey instance address.
+    :param instanceAddress: Specify the misskey instance address.
     :param appSecret: Specifies the secret key.
     :param token: Specify the token issued before authentication.
     :type instanceAddress: str
@@ -134,7 +134,7 @@ def username_available(instanceAddress, username):
     """
     Checks if the specified user name can be used.
 
-    :param instanceAddress: Specify the Misskey instance address.
+    :param instanceAddress: Specify the misskey instance address.
     :param username: Specify the username you want to check.
     :type instanceAddress: str
     :type username: str
@@ -149,7 +149,7 @@ def username_available(instanceAddress, username):
 
 class MiAuth: # pragma: no cover
     """
-    Misskey authentication class
+    misskey authentication class
     """
     headers = {'content-type': 'application/json'}
     __token = None
@@ -159,7 +159,7 @@ class MiAuth: # pragma: no cover
         self,
         instanceAddress="misskey.io",
         sessionId=uuid.uuid4,
-        name=f"Misskey.py v{__version__}",
+        name=f"misskey.py v{__version__}",
         icon=None,
         callback=None,
         permission=(

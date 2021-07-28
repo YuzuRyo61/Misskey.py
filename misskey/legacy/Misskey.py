@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from Misskey.Exceptions import MisskeyInitException, MisskeyAPIException, MisskeyAiException, MisskeyFileException, MisskeyAPITokenException, MisskeyNotImplementedVersionException
+from misskey.legacy.Exceptions import MisskeyInitException, MisskeyAPIException, MisskeyAiException, MisskeyFileException, MisskeyAPITokenException, MisskeyNotImplementedVersionException
 
 import requests
 import json
@@ -28,7 +28,7 @@ class Misskey:
     """
     Initialize the library.
     
-    :param address: Instance address of Misskey. If leave a blank, library will use 'misskey.io'.
+    :param address: Instance address of misskey. If leave a blank, library will use 'misskey.io'.
     :param i: Use hashed keys or keys used on the web.
     :param skipChk: Skip instance valid check. It is not recommended to make it True.
     :raises MisskeyInitException: This exception is raised if an error occurs during class initialization. For example, it is raised if it can not connect to the specified address or if the token is invalid.

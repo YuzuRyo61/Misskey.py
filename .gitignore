@@ -116,23 +116,11 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# test files
-response*.json
-sample/key/*
-apiToken.txt
-
 # IDEA
 .idea
 
-# CUSTOM
-test/websocket-test.py
-test/websocket-test_reversi.py
-
 # TEMP FOLDER
 tmp/
-
-# IGNORE OLD SCRIPT
-/Misskey/MisskeyOld.py
 
 # Editor
 .vscode
@@ -141,4 +129,3 @@ tmp/
 *.ini
 !env.sample.ini
 !tox.ini
-requirements.tmp.txt
