@@ -1,3 +1,5 @@
+import uuid
+
 import pytest
 
 from urllib.parse import urlparse
@@ -5,7 +7,10 @@ from urllib.parse import urlparse
 import requests
 
 from misskey import Misskey
-from misskey.exceptions import MisskeyAuthorizeFailedException
+from misskey.exceptions import (
+    MisskeyAuthorizeFailedException,
+    MisskeyAPIException,
+)
 
 from .conftest import TEST_HOST
 
@@ -75,3 +80,17 @@ def test_token_should_be_valid(mk_cli_user: Misskey, mk_user_token: str):
 def test_token_should_be_settable(mk_user_token: str):
     mk = Misskey(TEST_HOST)
     mk.token = mk_user_token
+
+
+def test_should_success_i(mk_cli_user: Misskey):
+    res = mk_cli_user.i()
+    assert type(res) == dict
+
+
+def test_should_fail_i(mk_cli_anon: Misskey):
+    with pytest.raises(MisskeyAPIException) as e:
+        mk_cli_anon.i()
+
+    assert type(e.value.code) == str
+    assert type(e.value.message) == str
+    assert type(e.value.id) == uuid.UUID or type(e.value.id) == str

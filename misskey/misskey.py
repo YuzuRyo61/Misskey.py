@@ -1,9 +1,12 @@
-from typing import Optional
+from typing import Optional, Union
 from urllib.parse import urlparse
 
 import requests
 
-from .exceptions import MisskeyAuthorizeFailedException
+from .exceptions import (
+    MisskeyAuthorizeFailedException,
+    MisskeyAPIException,
+)
 
 
 class Misskey:
@@ -72,5 +75,32 @@ class Misskey:
             allow_redirects=False
         )
 
-        if meta_res.status_code == 403:
+        if meta_res.status_code == 403 or \
+           meta_res.status_code == 401:
             raise MisskeyAuthorizeFailedException()
+
+    def __request_api(
+        self,
+        endpoint_name: str,
+        **payload
+    ) -> Union[dict, bool]:
+        if self.__token is not None:
+            payload['i'] = self.__token
+
+        response = self.__session.post(
+            f'{self.__api_url}/{endpoint_name}',
+            json=payload
+        )
+        if response.status_code >= 400:
+            raise MisskeyAPIException(response.json())
+
+        if response.status_code == 204:
+            return True
+        else:
+            return response.json()
+
+    def i(self) -> dict:
+        return self.__request_api('i')
+
+    def meta(self, detail: bool = True) -> dict:
+        return self.__request_api('meta', detail=detail)

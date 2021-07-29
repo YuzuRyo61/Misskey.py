@@ -1,3 +1,6 @@
+# for misskey server. see below:
+# https://github.com/misskey-dev/misskey/blob/develop/.config/example.yml
+
 url: http://misskey-web/
 
 port: 3000
