@@ -129,3 +129,6 @@ tmp/
 *.ini
 !env.sample.ini
 !tox.ini
+
+# Docker compose volumes
+/.docker-compose/

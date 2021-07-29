@@ -22,7 +22,7 @@ services:
     networks:
       - internal_network
     volumes:
-      - ./redis:/data
+      - ./.docker-compose/redis:/data
 
   db:
     restart: always
@@ -34,7 +34,7 @@ services:
       - POSTGRES_USER=example-misskey-user
       - POSTGRES_DB=misskey
     volumes:
-      - ./db:/var/lib/postgresql/data
+      - ./.docker-compose/db:/var/lib/postgresql/data
 
 networks:
   internal_network:
