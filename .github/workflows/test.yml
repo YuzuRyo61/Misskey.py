@@ -21,7 +21,7 @@ jobs:
         pipenv sync --dev --bare
     - name: Test with pytest (via pipenv)
       run: |
-        pipenv run pytest --cov
+        pipenv run pytest --cov --cov-report=xml
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v2
       with:
