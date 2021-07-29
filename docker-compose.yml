@@ -21,8 +21,6 @@ services:
     image: redis:4.0-alpine
     networks:
       - internal_network
-    volumes:
-      - ./.docker-compose/redis:/data
 
   db:
     restart: always
@@ -33,8 +31,6 @@ services:
       - POSTGRES_PASSWORD=example-misskey-pass
       - POSTGRES_USER=example-misskey-user
       - POSTGRES_DB=misskey
-    volumes:
-      - ./.docker-compose/db:/var/lib/postgresql/data
 
 networks:
   internal_network:
