@@ -1,0 +1,42 @@
+# for Misskey.py testing, it does not use in production
+version: "3"
+
+services:
+  misskey-web:
+    image: misskey/misskey:latest
+    restart: always
+    links:
+      - db
+      - redis
+    ports:
+      - "127.0.0.1:3000:3000"
+    networks:
+      - internal_network
+      - external_network
+    volumes:
+      - ./tests/misskey_config:/misskey/.config
+
+  redis:
+    restart: always
+    image: redis:4.0-alpine
+    networks:
+      - internal_network
+    volumes:
+      - ./redis:/data
+
+  db:
+    restart: always
+    image: postgres:12.2-alpine
+    networks:
+      - internal_network
+    environment:
+      - POSTGRES_PASSWORD=example-misskey-pass
+      - POSTGRES_USER=example-misskey-user
+      - POSTGRES_DB=misskey
+    volumes:
+      - ./db:/var/lib/postgresql/data
+
+networks:
+  internal_network:
+    internal: true
+  external_network:

@@ -1,0 +1,24 @@
+name: Python test
+
+on: [ push, pull_request ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Misskey server
+      run: |
+        docker-compose up -d
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install dependencies (with pipenv)
+      run: |
+        python -m pip install --upgrade pip
+        pip install --upgrade pipenv
+        pipenv sync --dev --bare
+    - name: Test with pytest (via pipenv)
+      run: |
+        pipenv run pytest
