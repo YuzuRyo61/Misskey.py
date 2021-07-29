@@ -34,3 +34,4 @@ def test_api_exception(res_dict: dict):
     assert type(mk_ae.code) == str
     assert type(mk_ae.id) == str or type(mk_ae.id) == uuid.UUID
     assert type(mk_ae.message) == str
+    assert type(str(mk_ae)) == str

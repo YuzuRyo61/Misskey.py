@@ -94,3 +94,8 @@ def test_should_fail_i(mk_cli_anon: Misskey):
     assert type(e.value.code) == str
     assert type(e.value.message) == str
     assert type(e.value.id) == uuid.UUID or type(e.value.id) == str
+
+
+def test_meta(mk_cli_anon: Misskey):
+    res = mk_cli_anon.meta()
+    assert type(res) == dict
