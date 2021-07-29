@@ -6,15 +6,15 @@ try:
     # noinspection PyUnresolvedReferences
     from m2r import parse_from_file
 except ImportError:
-    ld = ":code:`Could not load m2r module.`"
+    ld = ':code:`Could not load m2r module.`'
 else:
     ld = parse_from_file('README.md')
 
-from misskey import __version__ as mkver
+from misskey import __version__ as mkp_version
 
 setup(
     name='Misskey.py',
-    version=mkver,
+    version=mkp_version,
     description='The misskey library for Python. misskey is made by syuilo.',
     long_description=ld,
     keywords="misskey API syuilo",
