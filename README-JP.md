@@ -2,6 +2,7 @@
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+[![codecov](https://codecov.io/gh/YuzuRyo61/Misskey.py/branch/v4/graph/badge.svg?token=97A1HJHUMW)](https://codecov.io/gh/YuzuRyo61/Misskey.py)
 
 > Do you looking for English version? [Click Here](README.md)
 
@@ -9,7 +10,7 @@ Misskeyインスタンス用のPythonライブラリです。
 
 ※Python3でのみ使用できます。
 
-[Misskey](https://github.com/syuilo/misskey)は[syuilo](https://github.com/syuilo)氏が作成した分散型SNSソフトウェアです。
+[Misskey](https://github.com/misskey-dev/misskey) は [syuilo](https://github.com/syuilo) 氏が作成した分散型SNSソフトウェアです。
 
 ---
 

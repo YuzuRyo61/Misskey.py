@@ -2,6 +2,7 @@
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+[![codecov](https://codecov.io/gh/YuzuRyo61/Misskey.py/branch/v4/graph/badge.svg?token=97A1HJHUMW)](https://codecov.io/gh/YuzuRyo61/Misskey.py)
 
 > Japanese version available. [Click Here](https://github.com/YuzuRyo61/Misskey.py/blob/v2/README-JP.md).
 
@@ -9,7 +10,7 @@ This script is Python library for Misskey Instance.
 
 This library is only available in Python3.
 
-[Misskey](https://github.com/syuilo/misskey) is made by [syuilo](https://github.com/syuilo).
+[Misskey](https://github.com/misskey-dev/misskey) is made by [syuilo](https://github.com/syuilo).
 
 ---
 
