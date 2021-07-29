@@ -63,6 +63,7 @@ class Misskey:
 
         body = {}
         if i is not None:
+            self.__token = i
             body['i'] = i
 
         meta_res = self.__session.post(

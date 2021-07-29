@@ -3,7 +3,7 @@ name: Python test
 on: [ push, pull_request ]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -21,4 +21,8 @@ jobs:
         pipenv sync --dev --bare
     - name: Test with pytest (via pipenv)
       run: |
-        pipenv run pytest
+        pipenv run pytest --cov
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v2
+      with:
+        fail_ci_if_error: true
