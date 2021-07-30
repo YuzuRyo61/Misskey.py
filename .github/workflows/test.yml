@@ -19,6 +19,9 @@ jobs:
         python -m pip install --upgrade pip
         pip install --upgrade pipenv
         pipenv sync --dev --bare
+    - name: flake8 lint test (via pipenv)
+      run: |
+        pipenv run flake8
     - name: Test with pytest (via pipenv)
       run: |
         pipenv run pytest --cov --cov-report=xml

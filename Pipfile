@@ -7,9 +7,12 @@ verify_ssl = true
 pylint = "*"
 pytest = "*"
 pytest-cov = "*"
+flake8 = "*"
+wheel = "*"
 
 [packages]
 requests = "*"
+m2r = "*"
 
 [requires]
 python_version = "3"

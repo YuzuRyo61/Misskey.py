@@ -17,7 +17,8 @@ def test_should_be_unknown_api_exception():
     {
         'error': {
             'code': 'I_AM_AI',
-            'message': 'You sent a request to Ai-chan, Misskey\'s showgirl, instead of the server.',
+            'message': 'You sent a request to Ai-chan, '
+                       'Misskey\'s showgirl, instead of the server.',
             'id': '60c46cd1-f23a-46b1-bebe-5d2b73951a84',
         }
     },
