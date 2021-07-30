@@ -132,3 +132,10 @@ def test_note_poll_expired_after(
 
     assert type(is_deleted) == bool
     assert is_deleted
+
+
+def test_should_be_error_in_create_note_visibility(
+    mk_cli_admin: Misskey,
+):
+    with pytest.raises(ValueError):
+        mk_cli_admin.notes_create(visibility='not valid visibility')
