@@ -1,8 +1,14 @@
-from typing import Optional, Union
+import re
+import datetime
+import math
+
+from enum import Enum
+from typing import Optional, Union, List, Tuple, Set
 from urllib.parse import urlparse
 
 import requests
 
+from .enum import NoteVisibility
 from .exceptions import (
     MisskeyAuthorizeFailedException,
     MisskeyAPIException,
@@ -83,7 +89,7 @@ class Misskey:
         self,
         endpoint_name: str,
         **payload
-    ) -> Union[dict, bool]:
+    ) -> Union[dict, bool, List[dict]]:
         if self.__token is not None:
             payload['i'] = self.__token
 
@@ -99,8 +105,100 @@ class Misskey:
         else:
             return response.json()
 
+    @staticmethod
+    def __params(
+        params: dict,
+        exclude_keys: Optional[Union[Set[str], Tuple[str], List[str]]] = None
+    ):
+        if exclude_keys is None:
+            exclude_keys = tuple()
+
+        if 'self' in params:
+            del params['self']
+
+        param_keys = list(params.keys())
+        for key in param_keys:
+            if params[key] is None or key in exclude_keys:
+                del params[key]
+
+        param_camel = {}
+        for key, val in params.items():
+            key_camel = re.sub(r'_(.)', lambda x: x.group(1).upper(), key)
+            if isinstance(val, Enum):
+                val = val.value
+            param_camel[key_camel] = val
+
+        return param_camel
+
     def i(self) -> dict:
         return self.__request_api('i')
 
-    def meta(self, detail: bool = True) -> dict:
+    def meta(
+        self,
+        detail: bool = True
+    ) -> dict:
         return self.__request_api('meta', detail=detail)
+
+    def stats(self) -> dict:
+        return self.__request_api('stats')
+
+    def i_favorites(
+        self,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None
+    ) -> List[dict]:
+        param = self.__params(locals())
+
+        return self.__request_api('i/favorites', **param)
+
+    def notes_create(
+        self,
+        text: Optional[str] = None,
+        cw: Optional[str] = None,
+        visibility: Union[NoteVisibility, str] = NoteVisibility.PUBLIC,
+        visible_user_ids: Optional[List[str]] = None,
+        via_mobile: bool = False,
+        local_only: bool = False,
+        no_extract_mentions: bool = False,
+        no_extract_hashtags: bool = False,
+        no_extract_emojis: bool = False,
+        file_ids: Optional[List[str]] = None,
+        reply_id: Optional[str] = None,
+        renote_id: Optional[str] = None,
+        poll_choices: Optional[Union[List[str], Tuple[str]]] = None,
+        poll_multiple: bool = False,
+        poll_expires_at: Optional[Union[int, datetime.datetime]] = None,
+        poll_expired_after: Optional[Union[int, datetime.timedelta]] = None,
+    ) -> dict:
+        if type(visibility) is str:
+            visibility = NoteVisibility(visibility)
+
+        if (type(poll_choices) == list or type(poll_choices) == tuple) and \
+           10 >= len(poll_choices) >= 2:
+            if isinstance(poll_expires_at, datetime.datetime):
+                poll_expires_at = math.floor(poll_expires_at.timestamp() * 1000)
+            if isinstance(poll_expired_after, datetime.timedelta):
+                poll_expired_after = poll_expired_after.seconds * 1000
+
+            poll = {
+                'choices': poll_choices,
+                'expiresAt': poll_expires_at,
+                'expiredAfter': poll_expired_after,
+            }
+
+        params = self.__params(locals(), {'poll_choices', 'poll_multiple', 'poll_expires_at', 'poll_expired_after'})
+
+        return self.__request_api('notes/create', **params)
+
+    def notes_show(
+        self,
+        note_id: str
+    ) -> dict:
+        return self.__request_api('notes/show', noteId=note_id)
+
+    def notes_delete(
+        self,
+        note_id: str
+    ) -> bool:
+        return self.__request_api('notes/delete', noteId=note_id)
