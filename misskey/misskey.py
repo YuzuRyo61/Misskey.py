@@ -177,7 +177,8 @@ class Misskey:
         if (type(poll_choices) == list or type(poll_choices) == tuple) and \
            10 >= len(poll_choices) >= 2:
             if isinstance(poll_expires_at, datetime.datetime):
-                poll_expires_at = math.floor(poll_expires_at.timestamp() * 1000)
+                poll_expires_at = math.floor(
+                    poll_expires_at.timestamp() * 1000)
             if isinstance(poll_expired_after, datetime.timedelta):
                 poll_expired_after = poll_expired_after.seconds * 1000
 
@@ -187,7 +188,15 @@ class Misskey:
                 'expiredAfter': poll_expired_after,
             }
 
-        params = self.__params(locals(), {'poll_choices', 'poll_multiple', 'poll_expires_at', 'poll_expired_after'})
+        params = self.__params(
+            locals(),
+            {
+                'poll_choices',
+                'poll_multiple',
+                'poll_expires_at',
+                'poll_expired_after'
+            }
+        )
 
         return self.__request_api('notes/create', **params)
 
