@@ -82,23 +82,23 @@ def test_stats(mk_cli_anon: Misskey):
     assert type(res) == dict
 
 
-def test_i_favorites(mk_cli_user: Misskey):
-    res = mk_cli_user.i_favorites()
+def test_i_favorites(mk_cli_admin: Misskey):
+    res = mk_cli_admin.i_favorites()
     assert type(res) == list
 
 
 def test_should_be_viewable_note(
-    mk_cli_user: Misskey,
+    mk_cli_admin: Misskey,
     mk_user_new_note: str
 ):
-    res = mk_cli_user.notes_show(mk_user_new_note)
+    res = mk_cli_admin.notes_show(mk_user_new_note)
     assert type(res) == dict
 
 
 def test_note_poll_expires_at(
-    mk_cli_user: Misskey
+    mk_cli_admin: Misskey
 ):
-    res = mk_cli_user.notes_create(
+    res = mk_cli_admin.notes_create(
         text='poll test (expires_at)',
         poll_choices=[
             'test 1',
@@ -110,16 +110,16 @@ def test_note_poll_expires_at(
         ),
     )
     assert type(res) == dict
-    is_deleted = mk_cli_user.notes_delete(res['createdNote']['id'])
+    is_deleted = mk_cli_admin.notes_delete(res['createdNote']['id'])
 
     assert type(is_deleted) == bool
     assert is_deleted
 
 
 def test_note_poll_expired_after(
-    mk_cli_user: Misskey
+    mk_cli_admin: Misskey
 ):
-    res = mk_cli_user.notes_create(
+    res = mk_cli_admin.notes_create(
         text='poll test (expired_after)',
         poll_choices=[
             'test 1',
@@ -128,7 +128,7 @@ def test_note_poll_expired_after(
         poll_expired_after=datetime.timedelta(minutes=1),
     )
     assert type(res) == dict
-    is_deleted = mk_cli_user.notes_delete(res['createdNote']['id'])
+    is_deleted = mk_cli_admin.notes_delete(res['createdNote']['id'])
 
     assert type(is_deleted) == bool
     assert is_deleted

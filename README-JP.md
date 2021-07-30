@@ -2,6 +2,7 @@
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
+[![Python test](https://github.com/YuzuRyo61/Misskey.py/actions/workflows/test.yml/badge.svg?branch=v4)](https://github.com/YuzuRyo61/Misskey.py/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/YuzuRyo61/Misskey.py/branch/v4/graph/badge.svg?token=97A1HJHUMW)](https://codecov.io/gh/YuzuRyo61/Misskey.py)
 
 > Do you looking for English version? [Click Here](README.md)
