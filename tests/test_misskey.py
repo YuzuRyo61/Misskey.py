@@ -1,9 +1,8 @@
+import datetime
 import uuid
-
-import pytest
-
 from urllib.parse import urlparse
 
+import pytest
 import requests
 
 from misskey import Misskey
@@ -11,33 +10,7 @@ from misskey.exceptions import (
     MisskeyAuthorizeFailedException,
     MisskeyAPIException,
 )
-
 from .conftest import TEST_HOST
-
-
-@pytest.fixture()
-def mk_cli_anon() -> Misskey:
-    return Misskey(TEST_HOST)
-
-
-@pytest.fixture()
-def mk_cli_admin(fixture_session: tuple) -> Misskey:
-    return Misskey(TEST_HOST, i=fixture_session[0])
-
-
-@pytest.fixture()
-def mk_cli_user(fixture_session: tuple) -> Misskey:
-    return Misskey(TEST_HOST, i=fixture_session[1])
-
-
-@pytest.fixture()
-def mk_admin_token(fixture_session: tuple) -> str:
-    return fixture_session[0]
-
-
-@pytest.fixture()
-def mk_user_token(fixture_session: tuple) -> str:
-    return fixture_session[1]
 
 
 @pytest.mark.parametrize('host', [
@@ -73,7 +46,10 @@ def test_address_should_be_same(mk_cli_anon: Misskey):
     assert mk_cli_anon.address == host_url.netloc
 
 
-def test_token_should_be_valid(mk_cli_user: Misskey, mk_user_token: str):
+def test_token_should_be_valid(
+    mk_cli_user: Misskey,
+    mk_user_token: str
+):
     assert mk_cli_user.token == mk_user_token
 
 
@@ -99,3 +75,60 @@ def test_should_fail_i(mk_cli_anon: Misskey):
 def test_meta(mk_cli_anon: Misskey):
     res = mk_cli_anon.meta()
     assert type(res) == dict
+
+
+def test_stats(mk_cli_anon: Misskey):
+    res = mk_cli_anon.stats()
+    assert type(res) == dict
+
+
+def test_i_favorites(mk_cli_user: Misskey):
+    res = mk_cli_user.i_favorites()
+    assert type(res) == list
+
+
+def test_should_be_viewable_note(
+    mk_cli_user: Misskey,
+    mk_user_new_note: str
+):
+    res = mk_cli_user.notes_show(mk_user_new_note)
+    assert type(res) == dict
+
+
+def test_note_poll_expires_at(
+    mk_cli_user: Misskey
+):
+    res = mk_cli_user.notes_create(
+        text='poll test (expires_at)',
+        poll_choices=[
+            'test 1',
+            'test 2',
+        ],
+        poll_expires_at=(
+            datetime.datetime.now() +
+            datetime.timedelta(minutes=1)
+        ),
+    )
+    assert type(res) == dict
+    is_deleted = mk_cli_user.notes_delete(res['createdNote']['id'])
+
+    assert type(is_deleted) == bool
+    assert is_deleted
+
+
+def test_note_poll_expired_after(
+    mk_cli_user: Misskey
+):
+    res = mk_cli_user.notes_create(
+        text='poll test (expired_after)',
+        poll_choices=[
+            'test 1',
+            'test 2',
+        ],
+        poll_expired_after=datetime.timedelta(minutes=1),
+    )
+    assert type(res) == dict
+    is_deleted = mk_cli_user.notes_delete(res['createdNote']['id'])
+
+    assert type(is_deleted) == bool
+    assert is_deleted
