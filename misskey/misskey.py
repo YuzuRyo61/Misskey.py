@@ -151,7 +151,7 @@ class Misskey:
                     if isinstance(val_list, Enum):
                         val[index] = val_list.value
 
-            if key in custom_rename.keys():
+            if type(custom_rename) is dict and key in custom_rename.keys():
                 rename_to = custom_rename[key]
                 param_camel[rename_to] = val
             else:
