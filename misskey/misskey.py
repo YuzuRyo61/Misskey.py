@@ -57,7 +57,7 @@ class Misskey:
             timeout=self.timeout
         )
         if credential_res.status_code == 403 or \
-            credential_res.status_code == 401:
+           credential_res.status_code == 401:
             raise MisskeyAuthorizeFailedException()
 
         self.__token = new_token
