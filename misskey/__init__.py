@@ -5,11 +5,17 @@ Misskey.py
 :license: MIT License, see LICENSE for more details.
 """
 
+from .enum import (
+    NotificationsType,
+    NoteVisibility
+)
 from .misskey import Misskey
 
 __all__ = [
     '__version__',
     'Misskey',
+    'NoteVisibility',
+    'NotificationsType'
 ]
 
 __version__ = "4.0.0"

@@ -5,7 +5,10 @@ from urllib.parse import urlparse
 import pytest
 import requests
 
-from misskey import Misskey
+from misskey import (
+    Misskey,
+    NotificationsType
+)
 from misskey.exceptions import (
     MisskeyAuthorizeFailedException,
     MisskeyAPIException,
@@ -144,7 +147,11 @@ def test_should_be_error_in_create_note_visibility(
 def test_i_notifications(
     mk_cli_admin: Misskey
 ):
-    res = mk_cli_admin.i_notifications()
+    res = mk_cli_admin.i_notifications(
+        include_types=[
+            NotificationsType.REACTION
+        ],
+    )
     assert type(res) == list
 
 
