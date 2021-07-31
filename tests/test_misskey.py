@@ -103,6 +103,7 @@ def test_should_be_viewable_note(
 
 def test_note_poll_expires_at(
     mk_cli_admin: Misskey,
+    mk_cli_user: Misskey,
 ):
     res = mk_cli_admin.notes_create(
         text='poll test (expires_at)',
@@ -116,14 +117,22 @@ def test_note_poll_expires_at(
         ),
     )
     assert type(res) == dict
-    is_deleted = mk_cli_admin.notes_delete(res['createdNote']['id'])
 
+    vote_res = mk_cli_user.notes_polls_vote(
+        res['createdNote']['id'],
+        0,
+    )
+    assert type(vote_res) == bool
+    assert vote_res
+
+    is_deleted = mk_cli_admin.notes_delete(res['createdNote']['id'])
     assert type(is_deleted) == bool
     assert is_deleted
 
 
 def test_note_poll_expired_after(
     mk_cli_admin: Misskey,
+    mk_cli_user: Misskey,
 ):
     res = mk_cli_admin.notes_create(
         text='poll test (expired_after)',
@@ -134,8 +143,15 @@ def test_note_poll_expired_after(
         poll_expired_after=datetime.timedelta(minutes=1),
     )
     assert type(res) == dict
-    is_deleted = mk_cli_admin.notes_delete(res['createdNote']['id'])
 
+    vote_res = mk_cli_user.notes_polls_vote(
+        res['createdNote']['id'],
+        0,
+    )
+    assert type(vote_res) == bool
+    assert vote_res
+
+    is_deleted = mk_cli_admin.notes_delete(res['createdNote']['id'])
     assert type(is_deleted) == bool
     assert is_deleted
 
@@ -198,7 +214,10 @@ def test_should_ok_show_reactions(
     mk_cli_admin: Misskey,
     mk_admin_new_note: str,
 ):
-    res = mk_cli_admin.notes_reactions(mk_admin_new_note)
+    res = mk_cli_admin.notes_reactions(
+        mk_admin_new_note,
+        reaction_type='✅',
+    )
     assert type(res) == list
 
 
@@ -281,3 +300,27 @@ def test_notes_global_timeline(
         )
     )
     assert type(timeline_global) == list
+
+
+def test_notes_replies(
+    mk_cli_admin: Misskey,
+    mk_admin_new_note: str,
+):
+    res = mk_cli_admin.notes_replies(mk_admin_new_note)
+    assert type(res) == list
+
+
+def test_renote_note(
+    mk_cli_admin: Misskey,
+    mk_admin_new_note: str,
+):
+    res = mk_cli_admin.notes_create(
+        renote_id=mk_admin_new_note,
+    )
+    assert type(res) == dict
+
+    res_unrenote = mk_cli_admin.notes_unrenote(
+        mk_admin_new_note,
+    )
+    assert type(res_unrenote) == bool
+    assert res_unrenote
