@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 
-from misskey.legacy.Exceptions import MisskeyInitException, MisskeyAPIException, MisskeyAiException, MisskeyFileException, MisskeyAPITokenException, MisskeyNotImplementedVersionException
+import json
+import mimetypes
+import os
+from distutils.version import LooseVersion  # pylint: disable=no-name-in-module,import-error
+from urllib.parse import urlparse
 
 import requests
-import json
-import os
-import mimetypes
-from urllib.parse import urlparse
-from distutils.version import LooseVersion # pylint: disable=no-name-in-module,import-error
+
+from misskey.legacy.Exceptions import MisskeyInitException, MisskeyAPIException, MisskeyAiException, \
+    MisskeyFileException, MisskeyAPITokenException, MisskeyNotImplementedVersionException
+from .Util import deprecated
+
 
 def restrictVer(minVer):
     """
@@ -15,19 +19,24 @@ def restrictVer(minVer):
 
     :raises MisskeyNotImplementedVersionException: Raised if lower than the specified version.
     """
+
     def deco(function):
         def inner(self, *args, **kwargs):
             if LooseVersion(getattr(self, 'version')) >= LooseVersion(minVer):
                 return function(self, *args, **kwargs)
-            else: # pragma: no cover
+            else:  # pragma: no cover
                 raise MisskeyNotImplementedVersionException
+
         return inner
+
     return deco
 
+
+@deprecated
 class Misskey:
     """
     Initialize the library.
-    
+
     :param address: Instance address of misskey. If leave a blank, library will use 'misskey.io'.
     :param i: Use hashed keys or keys used on the web.
     :param skipChk: Skip instance valid check. It is not recommended to make it True.
@@ -40,21 +49,21 @@ class Misskey:
 
     def __getApiToken(self):
         return self.__apiToken
-    
+
     def __setApiToken(self, val):
         if val != None:
             try:
                 res = requests.post(self.__instanceAddressApiUrl + 'i', data=json.dumps({'i': val}), headers={'content-type': 'application/json'}, allow_redirects=False)
             except: # pragma: no cover
                 raise MisskeyAPITokenException()
-            
+
             if res.status_code != 200:
                 raise MisskeyAPITokenException()
             else:
                 self.__apiToken = val
         else:
             self.__apiToken = None
-    
+
     def __delApiToken(self):
         self.__apiToken = None
 
@@ -101,7 +110,7 @@ class Misskey:
                 payload['i'] = self.apiToken
             else:
                 raise MisskeyAiException()
-        
+
         res = requests.post(self.__instanceAddressApiUrl + apiName, data=json.dumps(payload), headers=self.headers, allow_redirects=False)
 
         if res.status_code in expected:
@@ -136,7 +145,7 @@ class Misskey:
     def meta(self, detail=True):
         """
         Read a instance meta information.
-        
+
         :param detail: Choose whether to show details.
         :type detail: bool
         :rtype: dict
@@ -183,15 +192,15 @@ class Misskey:
         payload = {
             'limit': limit
         }
-        
+
         if sinceId != None: # pragma: no cover
             payload['sinceId'] = sinceId
-        
+
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
-        
+
         return self.__API('i/favorites', True, 200, **payload)
-    
+
     def i_notifications(self, limit=10, sinceId=None, untilId=None, following=False, markAsRead=True, includeTypes=[], excludeTypes=[]):
         """
         Show your notifications.
@@ -221,12 +230,12 @@ class Misskey:
 
         if sinceId != None: # pragma: no cover
             payload['sinceId'] = sinceId
-        
+
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
-        
+
         return self.__API('i/notifications', True, 200, **payload)
-    
+
     def i_pin(self, noteId):
         """
         Pin a note.
@@ -264,7 +273,7 @@ class Misskey:
         :rtype: dict
         """
         return self.__API('i/unpin', True, 200, noteId=noteId)
-    
+
     def i_update(self,
         name="",
         description="",
@@ -318,16 +327,16 @@ class Misskey:
 
         if name != "": # pragma: no cover
             payload['name'] = name
-        
+
         if description != "": # pragma: no cover
             payload['description'] = description
-        
+
         if lang != "": # pragma: no cover
             payload['lang'] = lang
-        
+
         if location != "": # pragma: no cover
             payload['location'] = location
-        
+
         if birthday != "": # pragma: no cover
             payload['birthday'] = birthday
 
@@ -357,7 +366,7 @@ class Misskey:
 
         if alwaysMarkNsfw != None: # pragma: no cover
             payload['alwaysMarkNsfw'] = alwaysMarkNsfw
-        
+
         return self.__API('i/update', True, 200, **payload)
 
     def notifications_markAllAsRead(self):
@@ -402,7 +411,7 @@ class Misskey:
 
         if sinceId != None: # pragma: no cover
             payload['sinceId'] = sinceId
-        
+
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
 
@@ -495,7 +504,7 @@ class Misskey:
                 payload['poll']['expiresAt'] = pollExpiresAt
             if pollExpiredAfter != None:
                 payload['poll']['expiredAfter'] = pollExpiredAfter
-        
+
         return self.__API('notes/create', True, 200, **payload)
 
     def notes_renote(self, noteId):
@@ -532,9 +541,9 @@ class Misskey:
 
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
-        
+
         return self.__API('notes/renotes', self.__isUseCred(), 200, **payload)
-    
+
     def notes_delete(self, noteId):
         """
         Delete a own note.
@@ -584,7 +593,7 @@ class Misskey:
 
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
-        
+
         return self.__API('notes/reactions', True, 200, **payload)
 
     def notes_reactions_create(self, noteId, reaction):
@@ -617,9 +626,9 @@ class Misskey:
             payload['reaction'] = reactionTemplate[reaction]
         else: # pragma: no cover
             payload['reaction'] = reaction
-        
+
         return self.__API('notes/reactions/create', True, 204, **payload)
-    
+
     def notes_reactions_delete(self, noteId):
         """
         Cancel a reaction for note.
@@ -630,7 +639,7 @@ class Misskey:
         :rtype: bool
         """
         return self.__API('notes/reactions/delete', True, 204, noteId=noteId)
-    
+
     def notes_polls_vote(self, noteId, choice):
         """
         Vote a note.
@@ -696,7 +705,7 @@ class Misskey:
 
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
-        
+
         if sinceDate != None: # pragma: no cover
             payload['sinceDate'] = sinceDate
 
@@ -752,7 +761,7 @@ class Misskey:
 
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
-        
+
         if sinceDate != None: # pragma: no cover
             payload['sinceDate'] = sinceDate
 
@@ -797,7 +806,7 @@ class Misskey:
 
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
-        
+
         if sinceDate != None: # pragma: no cover
             payload['sinceDate'] = sinceDate
 
@@ -805,7 +814,7 @@ class Misskey:
             payload['untilDate'] = untilDate
 
         return self.__API('notes/local-timeline', self.__isUseCred(), 200, **payload)
-    
+
     def notes_userListTimeline(self, listId, limit=10, sinceId=None, untilId=None, sinceDate=None, untilDate=None, includeMyRenotes=True, includeRenotedMyNotes=True, includeLocalRenotes=True, withFiles=False):
         """
         Show timeline from specified list.
@@ -844,7 +853,7 @@ class Misskey:
 
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
-        
+
         if sinceDate != None: # pragma: no cover
             payload['sinceDate'] = sinceDate
 
@@ -871,7 +880,7 @@ class Misskey:
         ::param noteId: Specify the post ID you want to watch a note
         :type noteId: str
         :return: Returns `True` if the request is successful.
-        :rtype: bool 
+        :rtype: bool
         """
         return self.__API('notes/watching/create', True, 204, noteId=noteId)
 
@@ -882,7 +891,7 @@ class Misskey:
         ::param noteId: Specify the post ID you want to unwatch a note
         :type noteId: str
         :return: Returns `True` if the request is successful.
-        :rtype: bool 
+        :rtype: bool
         """
         return self.__API('notes/watching/delete', True, 204, noteId=noteId)
 
@@ -932,10 +941,10 @@ class Misskey:
         :rtype: dict, list
         """
         payload = {}
-        
+
         if userId != None: # pragma: no cover
             payload['userId'] = userId
-        
+
         if userIds != None and type(userIds) == list: # pragma: no cover
             payload['userIds'] = userIds
 
@@ -944,9 +953,9 @@ class Misskey:
 
         if host != None: # pragma: no cover
             payload['host'] = host
-        
+
         return self.__API('users/show', self.__isUseCred(), 200, **payload)
-    
+
     def users_notes(self, userId, includeReplies=True, limit=10, sinceId=None, untilId=None, sinceDate=None, untilDate=None, includeMyRenotes=True, includeRenotedMyNotes=True, includeLocalRenotes=True, withFiles=False, fileType=None, excludeNsfw=False):
         """
         Show timeline from specified user.
@@ -988,7 +997,7 @@ class Misskey:
 
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
-        
+
         if sinceDate != None: # pragma: no cover
             payload['sinceDate'] = sinceDate
 
@@ -1026,7 +1035,7 @@ class Misskey:
 
         if userId != None: # pragma: no cover
             payload['userId'] = userId
-        
+
         if username != None: # pragma: no cover
             payload['username'] = username
 
@@ -1035,12 +1044,12 @@ class Misskey:
 
         if sinceId != None: # pragma: no cover
             payload['sinceId'] = sinceId
-        
+
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
 
         return self.__API('users/followers', self.__isUseCred(), 200, **payload)
-    
+
     def users_following(self, userId=None, username=None, host=None, sinceId=None, untilId=None, limit=10):
         """
         Show following from specified user.
@@ -1065,7 +1074,7 @@ class Misskey:
 
         if userId != None: # pragma: no cover
             payload['userId'] = userId
-        
+
         if username != None: # pragma: no cover
             payload['username'] = username
 
@@ -1074,7 +1083,7 @@ class Misskey:
 
         if sinceId != None: # pragma: no cover
             payload['sinceId'] = sinceId
-        
+
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
 
@@ -1176,7 +1185,7 @@ class Misskey:
         :rtype: dict
         """
         return self.__API('following/create', True, 200, userId=userId)
-    
+
     def following_delete(self, userId):
         """
         Unfollow a user.
@@ -1214,7 +1223,7 @@ class Misskey:
 
         if sinceId != None: # pragma: no cover
             payload['sinceId'] = sinceId
-        
+
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
 
@@ -1256,7 +1265,7 @@ class Misskey:
 
         if sinceId != None: # pragma: no cover
             payload['sinceId'] = sinceId
-        
+
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
 
@@ -1274,7 +1283,7 @@ class Misskey:
     def drive(self):
         """
         Show your capacity.
-        
+
         :rtype: dict
         """
         return self.__API('drive', True)
@@ -1300,10 +1309,10 @@ class Misskey:
         }
         if sinceId != None: # pragma: no cover
             payload['sinceId'] = sinceId
-        
+
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
-        
+
         if folderId != "": # pragma: no cover
             payload['folderId'] = folderId
 
@@ -1328,7 +1337,7 @@ class Misskey:
         """
         if not os.path.isfile(filePath):
             raise MisskeyFileException(filePath)
-        
+
         fileName = os.path.basename(filePath)
         fileAbs = os.path.abspath(filePath)
         fileBin = open(fileAbs, 'rb')
@@ -1377,7 +1386,7 @@ class Misskey:
 
         if folderId != "": # pragma: no cover
             payload['folderId'] = folderId
-        
+
         return self.__API('drive/files/find', True, 200, **payload)
 
     def drive_files_attachedNotes(self, fileId):
@@ -1389,7 +1398,7 @@ class Misskey:
         :rtype: list
         """
         return self.__API('drive/files/attached-notes', True, 200, fileId=fileId)
-    
+
     def drive_files_checkExistence(self, md5):
         """
         You can check if the specified hash value exists on the drive.
@@ -1417,9 +1426,9 @@ class Misskey:
 
         if url != None: # pragma: no cover
             payload['url'] = url
-        
+
         return self.__API('drive/files/show', True, 200, **payload)
-    
+
     def drive_files_update(self, fileId, folderId="", name=None, isSensitive=None):
         """
         Update a file.
@@ -1446,7 +1455,7 @@ class Misskey:
 
         if isSensitive != None: # pragma: no cover
             payload['isSensitive'] = isSensitive
-        
+
         return self.__API('drive/files/update', True, 200, **payload)
 
     def drive_files_delete(self, fileId):
@@ -1459,7 +1468,7 @@ class Misskey:
         :rtype: bool
         """
         return self.__API('drive/files/delete', True, 204, fileId=fileId)
-    
+
     def drive_folders(self, limit=10, sinceId=None, untilId=None, folderId=None):
         """
         List folders in specified directory.
@@ -1478,13 +1487,13 @@ class Misskey:
             'limit': limit,
             'folderId': folderId
         }
-        
+
         if sinceId != None: # pragma: no cover
             payload['sinceId'] = sinceId
-        
+
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
-        
+
         return self.__API('drive/folders', True, 200, **payload)
 
     def drive_folders_create(self, name="Untitled", parentId=None):
@@ -1515,7 +1524,7 @@ class Misskey:
 
         if parentId != "": # pragma: no cover
             payload['parentId'] = parentId
-        
+
         return self.__API('drive/folders/find', True, 200, **payload)
 
 
@@ -1550,7 +1559,7 @@ class Misskey:
 
         if parentId != "": # pragma: no cover
             payload['parentId'] = parentId
-        
+
         return self.__API('drive/folders/update', True, 200, **payload)
 
     def drive_folders_delete(self, folderId):
@@ -1563,7 +1572,7 @@ class Misskey:
         :rtype: bool
         """
         return self.__API('drive/folders/delete', True, 204, folderId=folderId)
-    
+
     def drive_stream(self, limit=10, sinceId=None, untilId=None, type=None):
         """
         Display the file of the file uploaded so far.
@@ -1586,13 +1595,13 @@ class Misskey:
 
         if sinceId != None: # pragma: no cover
             payload['sinceId'] = sinceId
-        
+
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
-        
+
         if type != None: # pragma: no cover
             payload['type'] = type
-        
+
         return self.__API('drive/stream', True, 200, **payload)
 
     def messaging_history(self, limit=10):
@@ -1629,10 +1638,10 @@ class Misskey:
 
         if sinceId != None: # pragma: no cover
             payload['sinceId'] = sinceId
-        
+
         if untilId != None: # pragma: no cover
             payload['untilId'] = untilId
-        
+
         return self.__API('messaging/messages', True, 200, **payload)
 
     def messaging_messages_create(self, userId, text=None, fileId=None):
@@ -1653,10 +1662,10 @@ class Misskey:
 
         if text != None: # pragma: no cover
             payload['text'] = text
-        
+
         if fileId != None: # pragma: no cover
             payload['fileId'] = fileId
-        
+
         return self.__API('messaging/messages/create', True, 200, **payload)
 
     def messaging_messages_delete(self, messageId):

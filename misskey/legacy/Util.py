@@ -1,28 +1,29 @@
+import functools
 import hashlib
 import json
-import requests
-import warnings
-import functools
 import uuid
-
+import warnings
 from urllib.parse import urlparse, urlencode
 
+import requests
+
+from misskey import __version__
 from misskey.legacy.Exceptions import (
     MisskeyAPIException,
     MisskeyInitException,
     MisskeyNotImplementedVersionException,
     MisskeyMiAuthCheckException
 )
-from misskey import __version__
 
-def deprecated(func): # pragma: no cover
+
+def deprecated(func):  # pragma: no cover
     """This is a decorator which can be used to mark functions
     as deprecated. It will result in a warning being emitted
     when the function is used."""
     @functools.wraps(func)
     def new_func(*args, **kwargs):
         warnings.simplefilter('always', DeprecationWarning)  # turn off filter
-        warnings.warn("Call to deprecated function {}.".format(func.__name__),
+        warnings.warn("Called deprecated function or class: {}.".format(func.__name__),
                       category=DeprecationWarning,
                       stacklevel=2)
         warnings.simplefilter('default', DeprecationWarning)  # reset filter
@@ -147,6 +148,8 @@ def username_available(instanceAddress, username):
     else:
         return res.json()
 
+
+@deprecated
 class MiAuth: # pragma: no cover
     """
     misskey authentication class
@@ -214,7 +217,7 @@ class MiAuth: # pragma: no cover
     @property
     def instanceAddress(self):
         return self.__instanceAddress
-    
+
     @property
     def sessionId(self):
         return self.__sessionId
@@ -222,23 +225,23 @@ class MiAuth: # pragma: no cover
     @property
     def name(self):
         return self.__name
-    
+
     @property
     def icon(self):
         return self.__icon
-    
+
     @property
     def callback(self):
         return self.__callback
-    
+
     @property
     def permission(self):
         return self.__permission
-    
+
     @property
     def token(self):
         return self.__token
-    
+
     @property
     def user(self):
         return self.__user
@@ -251,7 +254,7 @@ class MiAuth: # pragma: no cover
 
         if self.__icon != None:
             payload["icon"] == self.__icon
-        
+
         if self.__callback != None:
             payload["callback"] == self.__callback
 

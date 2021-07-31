@@ -56,9 +56,12 @@ def test_token_should_be_valid(
     assert mk_cli_user.token == mk_user_token
 
 
-def test_token_should_be_settable(mk_user_token: str):
+def test_token_should_be_settable_and_deletable(mk_user_token: str):
     mk = Misskey(TEST_HOST)
     mk.token = mk_user_token
+    assert type(mk.token) == str
+    del mk.token
+    assert mk.token is None
 
 
 def test_should_success_i(mk_cli_user: Misskey):

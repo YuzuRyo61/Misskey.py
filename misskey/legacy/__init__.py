@@ -5,7 +5,8 @@ misskey.py
 :license: MIT License, see LICENSE for more details.
 """
 
-from misskey.legacy.Exceptions import *
+from .Exceptions import *
+from .Misskey import Misskey
 
 __all__ = [
     'Misskey',
