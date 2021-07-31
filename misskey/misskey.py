@@ -1,14 +1,22 @@
-import re
 import datetime
 import math
-
+import re
 from enum import Enum
-from typing import Optional, Union, List, Tuple, Set
+from typing import (
+    Optional,
+    Union,
+    List,
+    Tuple,
+    Set
+)
 from urllib.parse import urlparse
 
 import requests
 
-from .enum import NoteVisibility
+from .enum import (
+    NoteVisibility,
+    NotificationsType
+)
 from .exceptions import (
     MisskeyAuthorizeFailedException,
     MisskeyAPIException,
@@ -123,9 +131,14 @@ class Misskey:
 
         param_camel = {}
         for key, val in params.items():
-            key_camel = re.sub(r'_(.)', lambda x: x.group(1).upper(), key)
             if isinstance(val, Enum):
                 val = val.value
+            if type(val) is list:
+                for index, val_list in enumerate(val):
+                    if isinstance(val_list, Enum):
+                        val[index] = val_list.value
+
+            key_camel = re.sub(r'_(.)', lambda x: x.group(1).upper(), key)
             param_camel[key_camel] = val
 
         return param_camel
@@ -151,6 +164,39 @@ class Misskey:
         param = self.__params(locals())
 
         return self.__request_api('i/favorites', **param)
+
+    def i_notifications(
+        self,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        following: bool = False,
+        mark_as_read: bool = True,
+        include_types: Union[
+            List[Union[NotificationsType, str]],
+            Tuple[Union[NotificationsType, str]],
+            Set[NotificationsType],
+            None,
+        ] = None,
+        exclude_types: Union[
+            List[Union[NotificationsType, str]],
+            Tuple[Union[NotificationsType, str]],
+            Set[NotificationsType],
+            None,
+        ] = None,
+    ) -> List[dict]:
+        if type(include_types) is list or type(include_types) is tuple:
+            for index, val in enumerate(include_types):
+                if type(val) is str:
+                    include_types[index] = NotificationsType(val)
+
+        if type(exclude_types) is list or type(include_types) is tuple:
+            for index, val in enumerate(exclude_types):
+                if type(val) is str:
+                    exclude_types[index] = NotificationsType(val)
+
+        params = self.__params(locals())
+        return self.__request_api('i/notifications', **params)
 
     def notes_create(
         self,

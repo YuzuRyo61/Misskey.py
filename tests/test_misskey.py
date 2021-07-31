@@ -89,9 +89,9 @@ def test_i_favorites(mk_cli_admin: Misskey):
 
 def test_should_be_viewable_note(
     mk_cli_admin: Misskey,
-    mk_user_new_note: str
+    mk_admin_new_note: str
 ):
-    res = mk_cli_admin.notes_show(mk_user_new_note)
+    res = mk_cli_admin.notes_show(mk_admin_new_note)
     assert type(res) == dict
 
 
@@ -139,3 +139,28 @@ def test_should_be_error_in_create_note_visibility(
 ):
     with pytest.raises(ValueError):
         mk_cli_admin.notes_create(visibility='not valid visibility')
+
+
+def test_i_notifications(
+    mk_cli_admin: Misskey
+):
+    res = mk_cli_admin.i_notifications()
+    assert type(res) == list
+
+
+def test_should_be_error_in_i_notifications(
+    mk_cli_admin: Misskey
+):
+    if pytest.raises(ValueError):
+        mk_cli_admin.i_notifications(
+            include_types=[
+                'unknown_type'
+            ]
+        )
+
+    if pytest.raises(ValueError):
+        mk_cli_admin.i_notifications(
+            exclude_types=[
+                'unknown_type'
+            ]
+        )
