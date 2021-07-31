@@ -102,7 +102,7 @@ def test_should_be_viewable_note(
 
 
 def test_note_poll_expires_at(
-    mk_cli_admin: Misskey
+    mk_cli_admin: Misskey,
 ):
     res = mk_cli_admin.notes_create(
         text='poll test (expires_at)',
@@ -123,7 +123,7 @@ def test_note_poll_expires_at(
 
 
 def test_note_poll_expired_after(
-    mk_cli_admin: Misskey
+    mk_cli_admin: Misskey,
 ):
     res = mk_cli_admin.notes_create(
         text='poll test (expired_after)',
@@ -148,7 +148,7 @@ def test_should_be_error_in_create_note_visibility(
 
 
 def test_i_notifications(
-    mk_cli_admin: Misskey
+    mk_cli_admin: Misskey,
 ):
     res = mk_cli_admin.i_notifications(
         include_types=[
@@ -159,7 +159,7 @@ def test_i_notifications(
 
 
 def test_should_be_error_in_i_notifications(
-    mk_cli_admin: Misskey
+    mk_cli_admin: Misskey,
 ):
     with pytest.raises(ValueError):
         mk_cli_admin.i_notifications(
@@ -174,3 +174,110 @@ def test_should_be_error_in_i_notifications(
                 'unknown_type'
             ]
         )
+
+
+def test_should_can_be_pin_and_unpin_note(
+    mk_cli_admin: Misskey,
+    mk_admin_new_note: str,
+):
+    res_pin = mk_cli_admin.i_pin(mk_admin_new_note)
+    assert type(res_pin) == dict
+    res_unpin = mk_cli_admin.i_unpin(mk_admin_new_note)
+    assert type(res_unpin) == dict
+
+
+def test_should_ok_show_replies(
+    mk_cli_admin: Misskey,
+    mk_admin_new_note: str,
+):
+    res = mk_cli_admin.notes_renotes(mk_admin_new_note)
+    assert type(res) == list
+
+
+def test_should_ok_show_reactions(
+    mk_cli_admin: Misskey,
+    mk_admin_new_note: str,
+):
+    res = mk_cli_admin.notes_reactions(mk_admin_new_note)
+    assert type(res) == list
+
+
+def test_should_can_be_reaction_to_notes(
+    mk_cli_user: Misskey,
+    mk_admin_new_note: str,
+):
+    res_reaction = mk_cli_user.notes_reactions_create(
+        mk_admin_new_note,
+        '✅',
+    )
+    assert type(res_reaction) == bool
+    assert res_reaction
+    res_del_reaction = mk_cli_user.notes_reactions_delete(
+        mk_admin_new_note,
+    )
+    assert type(res_del_reaction) == bool
+    assert res_del_reaction
+
+
+def test_notes_timeline(
+    mk_cli_admin: Misskey,
+):
+    timeline = mk_cli_admin.notes_timeline(
+        since_date=(
+            datetime.datetime.now() -
+            datetime.timedelta(days=1)
+        ),
+        until_date=(
+            datetime.datetime.now() +
+            datetime.timedelta(hours=3)
+        )
+    )
+    assert type(timeline) == list
+
+
+def test_notes_local_timeline(
+    mk_cli_admin: Misskey,
+):
+    timeline_local = mk_cli_admin.notes_local_timeline(
+        since_date=(
+            datetime.datetime.now() -
+            datetime.timedelta(days=1)
+        ),
+        until_date=(
+            datetime.datetime.now() +
+            datetime.timedelta(hours=3)
+        )
+    )
+    assert type(timeline_local) == list
+
+
+def test_notes_hybrid_timeline(
+    mk_cli_admin: Misskey,
+):
+    timeline_hybrid = mk_cli_admin.notes_hybrid_timeline(
+        since_date=(
+            datetime.datetime.now() -
+            datetime.timedelta(days=1)
+        ),
+        until_date=(
+            datetime.datetime.now() +
+            datetime.timedelta(hours=3)
+        )
+    )
+    assert type(timeline_hybrid) == list
+
+
+def test_notes_global_timeline(
+    mk_cli_admin: Misskey,
+):
+    timeline_global = mk_cli_admin.notes_global_timeline(
+        since_date=(
+            datetime.datetime.now() -
+            datetime.timedelta(days=1)
+        ),
+        until_date=(
+            datetime.datetime.now() +
+            datetime.timedelta(hours=3)
+        )
+    )
+    assert type(timeline_global) == list
