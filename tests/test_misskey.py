@@ -151,14 +151,14 @@ def test_i_notifications(
 def test_should_be_error_in_i_notifications(
     mk_cli_admin: Misskey
 ):
-    if pytest.raises(ValueError):
+    with pytest.raises(ValueError):
         mk_cli_admin.i_notifications(
             include_types=[
                 'unknown_type'
             ]
         )
 
-    if pytest.raises(ValueError):
+    with pytest.raises(ValueError):
         mk_cli_admin.i_notifications(
             exclude_types=[
                 'unknown_type'
