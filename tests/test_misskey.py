@@ -324,3 +324,20 @@ def test_renote_note(
     )
     assert type(res_unrenote) == bool
     assert res_unrenote
+
+
+def test_favorite_note(
+    mk_cli_admin: Misskey,
+    mk_admin_new_note: str,
+):
+    res_favorite = mk_cli_admin.notes_favorites_create(
+        mk_admin_new_note,
+    )
+    assert type(res_favorite) == bool
+    assert res_favorite
+
+    res_unfavorite = mk_cli_admin.notes_favorites_delete(
+        mk_admin_new_note,
+    )
+    assert type(res_unfavorite) == bool
+    assert res_unfavorite

@@ -132,7 +132,7 @@ class Misskey:
             None
         ] = None,
         custom_rename: Optional[dict] = None,
-    ):
+    ) -> dict:
         if exclude_keys is None:
             exclude_keys = tuple()
 
@@ -350,6 +350,24 @@ class Misskey:
             'notes/polls/vote',
             noteId=note_id,
             choice=choice,
+        )
+
+    def notes_favorites_create(
+        self,
+        note_id: str,
+    ) -> bool:
+        return self.__request_api(
+            'notes/favorites/create',
+            noteId=note_id,
+        )
+
+    def notes_favorites_delete(
+        self,
+        note_id: str,
+    ) -> bool:
+        return self.__request_api(
+            'notes/favorites/delete',
+            noteId=note_id,
         )
 
     def notes_delete(
