@@ -336,8 +336,28 @@ def test_favorite_note(
     assert type(res_favorite) == bool
     assert res_favorite
 
-    res_unfavorite = mk_cli_admin.notes_favorites_delete(
+    res_unfav = mk_cli_admin.notes_favorites_delete(
         mk_admin_new_note,
     )
-    assert type(res_unfavorite) == bool
-    assert res_unfavorite
+    assert type(res_unfav) == bool
+    assert res_unfav
+
+
+def test_notes_conversation(
+    mk_cli_admin: Misskey,
+    mk_admin_new_note: str,
+):
+    res = mk_cli_admin.notes_conversation(
+        mk_admin_new_note,
+    )
+    assert type(res) == list
+
+
+def test_notes_children(
+    mk_cli_admin: Misskey,
+    mk_admin_new_note: str,
+):
+    res = mk_cli_admin.notes_children(
+        mk_admin_new_note,
+    )
+    assert type(res) == list

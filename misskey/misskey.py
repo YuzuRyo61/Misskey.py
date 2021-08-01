@@ -283,6 +283,25 @@ class Misskey:
     ) -> dict:
         return self.__request_api('notes/show', noteId=note_id)
 
+    def notes_conversation(
+        self,
+        note_id: str,
+        limit: int = 10,
+        offset: Optional[int] = None,
+    ) -> List[dict]:
+        params = self.__params(locals())
+        return self.__request_api('notes/conversation', **params)
+
+    def notes_children(
+        self,
+        note_id: str,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+    ) -> List[dict]:
+        params = self.__params(locals())
+        return self.__request_api('notes/children', **params)
+
     def notes_replies(
         self,
         note_id: str,
