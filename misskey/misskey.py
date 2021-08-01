@@ -277,7 +277,7 @@ class Misskey:
             None,
         ] = None,
         email_notification_types: Optional[List[str]] = None,
-    ):
+    ) -> dict:
         if type(lang) is str:
             lang = LangType(lang)
 
