@@ -112,6 +112,7 @@ class Misskey:
             f'{self.__api_url}/{endpoint_name}',
             json=payload,
             allow_redirects=False,
+            timeout=self.timeout,
         )
         if response.status_code >= 400:
             raise MisskeyAPIException(response.json())
