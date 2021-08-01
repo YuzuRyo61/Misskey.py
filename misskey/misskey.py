@@ -110,7 +110,8 @@ class Misskey:
 
         response = self.__session.post(
             f'{self.__api_url}/{endpoint_name}',
-            json=payload
+            json=payload,
+            allow_redirects=False,
         )
         if response.status_code >= 400:
             raise MisskeyAPIException(response.json())
