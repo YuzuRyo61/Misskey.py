@@ -167,9 +167,9 @@ def test_i_notifications(
     mk_cli_admin: Misskey,
 ):
     res = mk_cli_admin.i_notifications(
-        include_types=[
+        include_types={
             NotificationsType.REACTION
-        ],
+        },
     )
     assert type(res) == list
 
@@ -392,5 +392,19 @@ def test_notes_state(
 ):
     res = mk_cli_admin.notes_state(
         mk_admin_new_note,
+    )
+    assert type(res) == dict
+
+
+def test_i_update(
+    mk_cli_admin: Misskey,
+):
+    res = mk_cli_admin.i_update(
+        name='Unit test user admin',
+        birthday=datetime.date.today(),
+        lang='ja-JP',
+        muting_notification_types=[
+            'app',
+        ],
     )
     assert type(res) == dict

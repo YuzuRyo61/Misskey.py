@@ -16,7 +16,8 @@ import requests
 
 from .enum import (
     NoteVisibility,
-    NotificationsType
+    NotificationsType,
+    LangType,
 )
 from .exceptions import (
     MisskeyAuthorizeFailedException,
@@ -148,6 +149,8 @@ class Misskey:
         for key, val in params.items():
             if isinstance(val, Enum):
                 val = val.value
+            if type(val) is set:
+                val = list(val)
             if type(val) is list:
                 for index, val_list in enumerate(val):
                     if isinstance(val_list, Enum):
@@ -231,13 +234,65 @@ class Misskey:
                 if type(val) is str:
                     include_types[index] = NotificationsType(val)
 
-        if type(exclude_types) is list or type(include_types) is tuple:
+        if type(exclude_types) is list or type(exclude_types) is tuple:
             for index, val in enumerate(exclude_types):
                 if type(val) is str:
                     exclude_types[index] = NotificationsType(val)
 
         params = self.__params(locals())
         return self.__request_api('i/notifications', **params)
+
+    def i_update(
+        self,
+        name: Optional[str] = None,
+        description: Optional[str] = None,
+        lang: Union[LangType, str, None] = None,
+        location: Optional[str] = None,
+        birthday: Union[
+            datetime.date,
+            datetime.datetime,
+            str,
+            None,
+        ] = None,
+        avatar_id: Optional[str] = None,
+        banner_id: Optional[str] = None,
+        fields: Optional[List[dict]] = None,
+        is_locked: Optional[bool] = None,
+        is_explorable: Optional[bool] = None,
+        hide_online_status: Optional[bool] = None,
+        careful_bot: Optional[bool] = None,
+        auto_accept_followed: Optional[bool] = None,
+        no_crawle: Optional[bool] = None,
+        is_bot: Optional[bool] = None,
+        is_cat: Optional[bool] = None,
+        inject_featured_note: Optional[bool] = None,
+        receive_announcement_email: Optional[bool] = None,
+        always_mark_nsfw: Optional[bool] = None,
+        pinned_page_id: Optional[str] = None,
+        muted_words: Optional[List[List[str]]] = None,
+        muting_notification_types: Union[
+            List[Union[NotificationsType, str]],
+            Tuple[Union[NotificationsType, str]],
+            Set[NotificationsType],
+            None,
+        ] = None,
+        email_notification_types: Optional[List[str]] = None,
+    ):
+        if type(lang) is str:
+            lang = LangType(lang)
+
+        if isinstance(birthday, datetime.date) or \
+           isinstance(birthday, datetime.datetime):
+            birthday = birthday.strftime('%Y-%m-%d')
+
+        if type(muting_notification_types) is list or \
+           type(muting_notification_types) is tuple:
+            for index, val in enumerate(muting_notification_types):
+                if type(val) is str:
+                    muting_notification_types[index] = NotificationsType(val)
+
+        params = self.__params(locals())
+        return self.__request_api('i/update', **params)
 
     def notes_create(
         self,
