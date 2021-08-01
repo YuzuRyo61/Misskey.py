@@ -361,3 +361,36 @@ def test_notes_children(
         mk_admin_new_note,
     )
     assert type(res) == list
+
+
+def test_announcements(
+    mk_cli_admin: Misskey,
+):
+    res = mk_cli_admin.announcements()
+    assert type(res) == list
+
+
+def test_notes_watching(
+    mk_cli_user: Misskey,
+    mk_admin_new_note: str,
+):
+    res_watch = mk_cli_user.notes_watching_create(
+        mk_admin_new_note,
+    )
+    assert type(res_watch) == bool
+    assert res_watch
+    res_unwatch = mk_cli_user.notes_watching_delete(
+        mk_admin_new_note,
+    )
+    assert type(res_unwatch) == bool
+    assert res_unwatch
+
+
+def test_notes_state(
+    mk_cli_admin: Misskey,
+    mk_admin_new_note: str,
+):
+    res = mk_cli_admin.notes_state(
+        mk_admin_new_note,
+    )
+    assert type(res) == dict

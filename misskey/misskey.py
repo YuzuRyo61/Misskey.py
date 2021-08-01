@@ -174,6 +174,16 @@ class Misskey:
     def stats(self) -> dict:
         return self.__request_api('stats')
 
+    def announcements(
+        self,
+        limit: int = 10,
+        with_unreads: bool = True,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+    ) -> List[dict]:
+        params = self.__params(locals())
+        return self.__request_api('announcements', **params)
+
     def i_favorites(
         self,
         limit: int = 10,
@@ -371,6 +381,15 @@ class Misskey:
             choice=choice,
         )
 
+    def notes_state(
+        self,
+        note_id: str,
+    ) -> dict:
+        return self.__request_api(
+            'notes/state',
+            noteId=note_id,
+        )
+
     def notes_favorites_create(
         self,
         note_id: str,
@@ -386,6 +405,24 @@ class Misskey:
     ) -> bool:
         return self.__request_api(
             'notes/favorites/delete',
+            noteId=note_id,
+        )
+
+    def notes_watching_create(
+        self,
+        note_id: str,
+    ) -> bool:
+        return self.__request_api(
+            'notes/watching/create',
+            noteId=note_id,
+        )
+
+    def notes_watching_delete(
+        self,
+        note_id: str,
+    ) -> bool:
+        return self.__request_api(
+            'notes/watching/delete',
             noteId=note_id,
         )
 
