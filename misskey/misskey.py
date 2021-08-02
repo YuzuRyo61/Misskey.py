@@ -654,3 +654,35 @@ class Misskey:
         user_id: str,
     ) -> dict:
         return self.__request_api('following/delete', userId=user_id)
+
+    def following_requests_accept(
+        self,
+        user_id: str,
+    ) -> bool:
+        return self.__request_api(
+            'following/requests/accept',
+            userId=user_id
+        )
+
+    def following_requests_reject(
+        self,
+        user_id: str,
+    ) -> bool:
+        return self.__request_api(
+            'following/requests/reject',
+            userId=user_id,
+        )
+
+    def following_requests_cancel(
+        self,
+        user_id: str,
+    ) -> dict:
+        return self.__request_api(
+            'following/requests/cancel',
+            userId=user_id,
+        )
+
+    def following_requests_list(
+        self,
+    ) -> List[dict]:
+        return self.__request_api('following/requests/list')

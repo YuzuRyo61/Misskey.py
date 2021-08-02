@@ -490,3 +490,48 @@ def test_following(
         mk_user_id,
     )
     assert type(res_unfollow) == dict
+
+
+def test_follow_request(
+    mk_cli_admin: Misskey,
+    mk_cli_user: Misskey,
+    mk_user_id: str,
+    mk_admin_id: str,
+):
+    mk_cli_user.i_update(
+        is_locked=True,
+    )
+    mk_cli_admin.following_create(
+        mk_user_id,
+    )
+    res_follow_cancel = mk_cli_admin.following_requests_cancel(
+        mk_user_id,
+    )
+    assert type(res_follow_cancel) == dict
+
+    mk_cli_admin.following_create(
+        mk_user_id,
+    )
+    res_follow_list = mk_cli_user.following_requests_list()
+    assert type(res_follow_list) == list
+    res_follow_reject = mk_cli_user.following_requests_reject(
+        mk_admin_id,
+    )
+    assert type(res_follow_reject) == bool
+    assert res_follow_reject
+
+    mk_cli_admin.following_create(
+        mk_user_id,
+    )
+    res_follow_accept = mk_cli_user.following_requests_accept(
+        mk_admin_id,
+    )
+    assert type(res_follow_accept) == bool
+    assert res_follow_accept
+
+    mk_cli_user.i_update(
+        is_locked=False,
+    )
+    mk_cli_admin.following_delete(
+        mk_user_id,
+    )
