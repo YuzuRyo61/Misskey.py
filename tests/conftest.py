@@ -8,25 +8,48 @@ TEST_HOST = 'http://localhost:3000'
 
 @pytest.fixture(scope='session', autouse=True)
 def fixture_session():
+    admin_cred = {
+        'username': 'administrator',
+        'password': 'administrator_pass',
+    }
+    user_cred = {
+        'username': 'user',
+        'password': 'user_pass',
+    }
+
     res_admin = requests.post(
         f'{TEST_HOST}/api/admin/accounts/create',
-        json={
-            'username': 'administrator',
-            'password': 'administrator_pass',
-        }
+        json=admin_cred,
     )
-    res_admin.raise_for_status()
+    try:
+        res_admin.raise_for_status()
+    except requests.HTTPError:
+        res_admin_signin = requests.post(
+            f'{TEST_HOST}/api/signin',
+            json=admin_cred,
+        )
+        res_admin_signin.raise_for_status()
+        token_admin = res_admin_signin.json()['i']
+    else:
+        token_admin = res_admin.json()['token']
 
     res_user = requests.post(
         f'{TEST_HOST}/api/signup',
-        json={
-            'username': 'user',
-            'password': 'user_pass',
-        }
+        json=user_cred,
     )
-    res_user.raise_for_status()
+    try:
+        res_user.raise_for_status()
+    except requests.HTTPError:
+        res_user_signin = requests.post(
+            f'{TEST_HOST}/api/signin',
+            json=user_cred,
+        )
+        res_user_signin.raise_for_status()
+        token_user = res_user_signin.json()['i']
+    else:
+        token_user = res_user.json()['token']
 
-    yield res_admin.json()['token'], res_user.json()['token']
+    yield token_admin, token_user
 
 
 @pytest.fixture(scope='session')
