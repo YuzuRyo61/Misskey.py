@@ -717,3 +717,54 @@ class Misskey:
         file_id: str,
     ) -> bool:
         return self.__request_api('drive/files/delete', fileId=file_id)
+
+    def drive_files_check_existence(
+        self,
+        md5: str,
+    ) -> bool:
+        return self.__request_api('drive/files/check-existence', md5=md5)
+
+    def drive_files_attached_notes(
+        self,
+        file_id: str,
+    ) -> List[dict]:
+        return self.__request_api(
+            'drive/files/attached-notes',
+            fileId=file_id
+        )
+
+    def drive_files_find_by_hash(
+        self,
+        md5: str,
+    ) -> List[dict]:
+        return self.__request_api(
+            'drive/files/find-by-hash',
+            md5=md5,
+        )
+
+    def drive_files_show(
+        self,
+        file_id: Optional[str] = None,
+        url: Optional[str] = None,
+    ) -> dict:
+        params = self.__params(locals())
+        return self.__request_api(
+            'drive/files/show',
+            **params
+        )
+
+    def drive_files_update(
+        self,
+        file_id: str,
+        folder_id: Union[str, None] = '',
+        name: Optional[str] = None,
+        is_sensitive: Optional[bool] = None,
+        comment: Union[str, None] = '',
+    ) -> dict:
+        params = self.__params(locals(), {'folder_id', 'comment'})
+        if folder_id != '':
+            params['folderId'] = folder_id
+        if comment != '':
+            params['comment'] = comment
+
+        return self.__request_api('drive/files/update', **params)

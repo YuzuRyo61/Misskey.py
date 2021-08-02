@@ -555,6 +555,35 @@ def test_drives_files(
             f,
         )
         assert type(res_create) == dict
+
+        res_file_check = mk_cli_admin.drive_files_check_existence(
+            res_create['md5'],
+        )
+        assert type(res_file_check) == bool
+        assert res_file_check
+
+        res_find_hash = mk_cli_admin.drive_files_find_by_hash(
+            res_create['md5'],
+        )
+        assert type(res_find_hash) == list
+
+        res_attached_notes = mk_cli_admin.drive_files_attached_notes(
+            res_create['id'],
+        )
+        assert type(res_attached_notes) == list
+
+        res_files_show = mk_cli_admin.drive_files_show(
+            res_create['id'],
+        )
+        assert type(res_files_show) == dict
+
+        res_files_update = mk_cli_admin.drive_files_update(
+            res_create['id'],
+            folder_id=None,
+            comment='test file',
+        )
+        assert type(res_files_update) == dict
+
         res_delete = mk_cli_admin.drive_files_delete(
             res_create['id'],
         )
