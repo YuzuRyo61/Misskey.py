@@ -408,3 +408,85 @@ def test_i_update(
         ],
     )
     assert type(res) == dict
+
+
+def test_users_show(
+    mk_cli_admin: Misskey,
+):
+    res = mk_cli_admin.users_show(
+        username='user',
+    )
+    assert type(res) == dict
+
+
+def test_users_following(
+    mk_cli_admin: Misskey,
+):
+    res = mk_cli_admin.users_following(
+        username='user'
+    )
+    assert type(res) == list
+
+
+def test_users_followers(
+    mk_cli_admin: Misskey,
+):
+    res = mk_cli_admin.users_followers(
+        username='user'
+    )
+    assert type(res) == list
+
+
+def test_user_notes(
+    mk_cli_admin: Misskey,
+    mk_admin_id: str,
+):
+    res = mk_cli_admin.users_notes(
+        mk_admin_id,
+        since_date=(
+            datetime.datetime.now() -
+            datetime.timedelta(days=1)
+        ),
+        until_date=(
+            datetime.datetime.now()
+        ),
+    )
+    assert type(res) == list
+
+
+def test_users_stats(
+    mk_cli_admin: Misskey,
+    mk_admin_id: str,
+):
+    res = mk_cli_admin.users_stats(
+        mk_admin_id,
+    )
+    assert type(res) == dict
+
+
+def test_user_relation(
+    mk_cli_admin: Misskey,
+    mk_user_id: str,
+):
+    res_single = mk_cli_admin.users_relation(
+        mk_user_id,
+    )
+    assert type(res_single) == dict
+    res_multiple = mk_cli_admin.users_relation(
+        [mk_user_id],
+    )
+    assert type(res_multiple) == list
+
+
+def test_following(
+    mk_cli_admin: Misskey,
+    mk_user_id: str,
+):
+    res_follow = mk_cli_admin.following_create(
+        mk_user_id,
+    )
+    assert type(res_follow) == dict
+    res_unfollow = mk_cli_admin.following_delete(
+        mk_user_id,
+    )
+    assert type(res_unfollow) == dict

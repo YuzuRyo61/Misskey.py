@@ -566,3 +566,91 @@ class Misskey:
                 until_date.timestamp() * 1000)
         params = self.__params(locals())
         return self.__request_api('notes/global-timeline', **params)
+
+    def users_show(
+        self,
+        user_id: Optional[str] = None,
+        user_ids: Optional[List[str]] = None,
+        username: Optional[str] = None,
+        host: Optional[str] = None,
+    ) -> Union[dict, List[dict]]:
+        params = self.__params(locals())
+        return self.__request_api('users/show', **params)
+
+    def users_following(
+        self,
+        user_id: Optional[str] = None,
+        username: Optional[str] = None,
+        host: Optional[str] = None,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        limit: int = 10,
+    ) -> List[dict]:
+        params = self.__params(locals())
+        return self.__request_api('users/following', **params)
+
+    def users_followers(
+        self,
+        user_id: Optional[str] = None,
+        username: Optional[str] = None,
+        host: Optional[str] = None,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        limit: int = 10,
+    ) -> List[dict]:
+        params = self.__params(locals())
+        return self.__request_api('users/followers', **params)
+
+    def users_notes(
+        self,
+        user_id: str,
+        include_replies: bool = True,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        since_date: Union[
+            datetime.datetime,
+            int,
+            None,
+        ] = None,
+        until_date: Union[
+            datetime.datetime,
+            int,
+            None,
+        ] = None,
+        include_my_renotes: bool = True,
+        with_files: bool = True,
+        file_type: Optional[List[str]] = None,
+        exclude_nsfw: bool = False,
+    ) -> List[dict]:
+        if isinstance(since_date, datetime.datetime):
+            since_date = math.floor(since_date.timestamp() * 1000)
+        if isinstance(until_date, datetime.datetime):
+            until_date = math.floor(until_date.timestamp() * 1000)
+
+        params = self.__params(locals())
+        return self.__request_api('users/notes', **params)
+
+    def users_stats(
+        self,
+        user_id: str,
+    ) -> dict:
+        return self.__request_api('users/stats', userId=user_id)
+
+    def users_relation(
+        self,
+        user_id: Union[str, List[str]],
+    ) -> Union[dict, List[dict]]:
+        return self.__request_api('users/relation', userId=user_id)
+
+    def following_create(
+        self,
+        user_id: str,
+    ) -> dict:
+        return self.__request_api('following/create', userId=user_id)
+
+    def following_delete(
+        self,
+        user_id: str,
+    ) -> dict:
+        return self.__request_api('following/delete', userId=user_id)

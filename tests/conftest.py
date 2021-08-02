@@ -54,6 +54,16 @@ def mk_user_token(fixture_session: tuple) -> str:
     return fixture_session[1]
 
 
+@pytest.fixture(scope='session')
+def mk_admin_id(mk_cli_admin: Misskey) -> str:
+    return mk_cli_admin.i()['id']
+
+
+@pytest.fixture(scope='session')
+def mk_user_id(mk_cli_user: Misskey) -> str:
+    return mk_cli_user.i()['id']
+
+
 @pytest.fixture()
 def mk_admin_new_note(mk_cli_admin: Misskey):
     new_note = mk_cli_admin.notes_create(
