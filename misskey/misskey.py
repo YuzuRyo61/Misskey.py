@@ -8,7 +8,8 @@ from typing import (
     List,
     Tuple,
     Set,
-    Any
+    Any,
+    IO as IOTypes,
 )
 from urllib.parse import urlparse
 
@@ -686,3 +687,33 @@ class Misskey:
         self,
     ) -> List[dict]:
         return self.__request_api('following/requests/list')
+
+    def drive_files_create(
+        self,
+        file: IOTypes,
+        folder_id: Optional[str] = None,
+        name: Optional[str] = None,
+        is_sensitive: bool = False,
+        force: bool = False,
+    ) -> dict:
+        params = self.__params(locals(), {'file'})
+        params.update(i=self.__token)
+        response = self.__session.post(
+            f'{self.__api_url}/drive/files/create',
+            data=params,
+            files={
+                'file': file,
+            },
+            allow_redirects=False,
+            timeout=self.timeout,
+        )
+        if response.status_code >= 400:
+            raise MisskeyAPIException(response.json())
+
+        return response.json()
+
+    def drive_files_delete(
+        self,
+        file_id: str,
+    ) -> bool:
+        return self.__request_api('drive/files/delete', fileId=file_id)

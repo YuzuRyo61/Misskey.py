@@ -535,3 +535,28 @@ def test_follow_request(
     mk_cli_admin.following_delete(
         mk_user_id,
     )
+
+
+def test_should_fail_in_drives_files_create(
+    mk_cli_anon: Misskey
+):
+    with pytest.raises(MisskeyAPIException):
+        with open('tests/test_image.png', mode='rb') as f:
+            mk_cli_anon.drive_files_create(
+                f,
+            )
+
+
+def test_drives_files(
+    mk_cli_admin: Misskey
+):
+    with open('tests/test_image.png', mode='rb') as f:
+        res_create = mk_cli_admin.drive_files_create(
+            f,
+        )
+        assert type(res_create) == dict
+        res_delete = mk_cli_admin.drive_files_delete(
+            res_create['id'],
+        )
+        assert type(res_delete) == bool
+        assert res_delete
