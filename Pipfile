@@ -5,29 +5,16 @@ verify_ssl = true
 
 [dev-packages]
 pylint = "*"
-coveralls = "*"
-coverage = "*"
-toml = "*"
-tox = "*"
-pyyaml = "*"
 pytest = "*"
-sphinx = "*"
-sphinx-rtd-theme = "*"
-sphinx-intl = "*"
-m2r = "*"
-vcrpy = "*"
-pytest-vcr = "*"
-importlib-metadata = "*"
 pytest-cov = "*"
+flake8 = "*"
+wheel = "*"
 
 [packages]
 requests = "*"
+m2r = "*"
 
 [requires]
 python_version = "3"
 
 [scripts]
-test = "tox"
-reporttest = "coveralls"
-build-pot = "sphinx-build -M gettext docs build"
-update-po = "sphinx-intl update -d docs/locales -p build/gettext -l ja"
