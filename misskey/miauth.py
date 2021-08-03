@@ -158,14 +158,19 @@ class MiAuth:
     def generate_url(self) -> str:
         url_params = {
             'name': self.__name,
-            'permission': ','.join(str(perm.value) for perm in self.__permission),
+            'permission': ','.join(
+                str(perm.value) for perm in self.__permission
+            ),
         }
         if self.__icon is not None:
             url_params['icon'] = self.__icon
         if self.__callback is not None:
             url_params['callback'] = self.__callback
 
-        return f'{self.__endpoint}/miauth/{str(self.__session_id)}?{urlencode(url_params)}'
+        return (
+            f'{self.__endpoint}/miauth/{str(self.__session_id)}'
+            f'?{urlencode(url_params)}'
+        )
 
     def check(self) -> str:
         res = self.__session.post(
