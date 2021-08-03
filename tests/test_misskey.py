@@ -694,3 +694,47 @@ def test_blocking(
         mk_user_id,
     )
     assert type(res_unblock) == dict
+
+
+def test_users_lists(
+    mk_cli_admin: Misskey,
+    mk_user_id: str,
+):
+    res_create = mk_cli_admin.users_lists_create(
+        'test-list',
+    )
+    assert type(res_create) == dict
+
+    res_show = mk_cli_admin.users_lists_show(
+        res_create['id'],
+    )
+    assert type(res_show) == dict
+
+    res_list = mk_cli_admin.users_lists_list()
+    assert type(res_list) == list
+
+    res_push = mk_cli_admin.users_lists_push(
+        list_id=res_create['id'],
+        user_id=mk_user_id,
+    )
+    assert type(res_push) == bool
+    assert res_push
+
+    res_pull = mk_cli_admin.users_lists_pull(
+        list_id=res_create['id'],
+        user_id=mk_user_id,
+    )
+    assert type(res_pull) == bool
+    assert res_pull
+
+    res_update = mk_cli_admin.users_lists_update(
+        list_id=res_create['id'],
+        name='test-list-renamed',
+    )
+    assert type(res_update) == dict
+
+    res_delete = mk_cli_admin.users_lists_delete(
+        res_create['id'],
+    )
+    assert type(res_delete) == bool
+    assert res_delete

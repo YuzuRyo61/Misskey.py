@@ -649,6 +649,51 @@ class Misskey:
     ) -> Union[dict, List[dict]]:
         return self.__request_api('users/relation', userId=user_id)
 
+    def users_lists_create(
+        self,
+        name: str,
+    ) -> dict:
+        return self.__request_api('users/lists/create', name=name)
+
+    def users_lists_list(self) -> List[dict]:
+        return self.__request_api('users/lists/list')
+
+    def users_lists_show(
+        self,
+        list_id: str,
+    ) -> dict:
+        return self.__request_api('users/lists/show', listId=list_id)
+
+    def users_lists_push(
+        self,
+        list_id: str,
+        user_id: str,
+    ) -> bool:
+        params = self.__params(locals())
+        return self.__request_api('users/lists/push', **params)
+
+    def users_lists_pull(
+        self,
+        list_id: str,
+        user_id: str,
+    ) -> bool:
+        params = self.__params(locals())
+        return self.__request_api('users/lists/pull', **params)
+
+    def users_lists_update(
+        self,
+        list_id: str,
+        name: str,
+    ) -> dict:
+        params = self.__params(locals())
+        return self.__request_api('users/lists/update', **params)
+
+    def users_lists_delete(
+        self,
+        list_id: str,
+    ) -> bool:
+        return self.__request_api('users/lists/delete', listId=list_id)
+
     def users_report_abuse(
         self,
         user_id: str,
