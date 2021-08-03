@@ -5,8 +5,6 @@
 [![Python test](https://github.com/YuzuRyo61/Misskey.py/actions/workflows/test.yml/badge.svg)](https://github.com/YuzuRyo61/Misskey.py/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/YuzuRyo61/Misskey.py/branch/main/graph/badge.svg?token=97A1HJHUMW)](https://codecov.io/gh/YuzuRyo61/Misskey.py)
 
-> Japanese version available. [Click Here](https://github.com/YuzuRyo61/Misskey.py/blob/v2/README-JP.md).
-
 This script is Python library for Misskey Instance.
 
 This library is only available in Python3.

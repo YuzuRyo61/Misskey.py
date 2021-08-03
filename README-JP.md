@@ -5,8 +5,6 @@
 [![Python test](https://github.com/YuzuRyo61/Misskey.py/actions/workflows/test.yml/badge.svg)](https://github.com/YuzuRyo61/Misskey.py/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/YuzuRyo61/Misskey.py/branch/main/graph/badge.svg?token=97A1HJHUMW)](https://codecov.io/gh/YuzuRyo61/Misskey.py)
 
-> Do you looking for English version? [Click Here](README.md)
-
 Misskeyインスタンス用のPythonライブラリです。
 
 ※Python3でのみ使用できます。
