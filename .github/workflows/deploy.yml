@@ -17,7 +17,7 @@ jobs:
         pip install --upgrade pipenv
         pipenv sync --dev --bare
     - name: Build package
-      run: pipenv run setup.py bdist_wheel
+      run: pipenv run python setup.py bdist_wheel
     - name: Publish package
       uses: pypa/gh-action-pypi-publish@27b31702a0e7fc50959f5ad993c78deac1bdfc29
       with:

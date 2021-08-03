@@ -1,6 +1,9 @@
 name: Python test
 
-on: [ push, pull_request ]
+on:
+  push:
+    branches-ignore:
+      - main
 
 jobs:
   test:
