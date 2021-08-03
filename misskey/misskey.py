@@ -243,6 +243,11 @@ class Misskey:
         params = self.__params(locals())
         return self.__request_api('i/notifications', **params)
 
+    def notifications_mark_all_as_read(self) -> bool:
+        return self.__request_api(
+            'notifications/mark-all-as-read'
+        )
+
     def i_update(
         self,
         name: Optional[str] = None,

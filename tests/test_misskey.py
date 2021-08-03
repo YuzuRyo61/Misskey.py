@@ -174,6 +174,14 @@ def test_i_notifications(
     assert type(res) == list
 
 
+def test_notifications_mark_all_as_read(
+    mk_cli_admin: Misskey,
+):
+    res = mk_cli_admin.notifications_mark_all_as_read()
+    assert type(res) == bool
+    assert res
+
+
 def test_should_be_error_in_i_notifications(
     mk_cli_admin: Misskey,
 ):
