@@ -644,3 +644,53 @@ def test_drive_folders(
     )
     assert type(res_delete) == bool
     assert res_delete
+
+
+def test_users_report_abuse(
+    mk_cli_admin: Misskey,
+    mk_user_id: str,
+):
+    res = mk_cli_admin.users_report_abuse(
+        user_id=mk_user_id,
+        comment='this is test report abuse',
+    )
+    assert type(res) == bool
+    assert res
+
+
+def test_mute(
+    mk_cli_admin: Misskey,
+    mk_user_id: str,
+):
+    res_mute = mk_cli_admin.mute_create(
+        mk_user_id,
+    )
+    assert type(res_mute) == bool
+    assert res_mute
+
+    res_mute_list = mk_cli_admin.mute_list()
+    assert type(res_mute_list) == list
+
+    res_unmute = mk_cli_admin.mute_delete(
+        mk_user_id,
+    )
+    assert type(res_unmute) == bool
+    assert res_unmute
+
+
+def test_blocking(
+    mk_cli_admin: Misskey,
+    mk_user_id: str,
+):
+    res_block = mk_cli_admin.blocking_create(
+        mk_user_id,
+    )
+    assert type(res_block) == dict
+
+    res_block_list = mk_cli_admin.blocking_list()
+    assert type(res_block_list) == list
+
+    res_unblock = mk_cli_admin.blocking_delete(
+        mk_user_id,
+    )
+    assert type(res_unblock) == dict

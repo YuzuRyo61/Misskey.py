@@ -649,6 +649,14 @@ class Misskey:
     ) -> Union[dict, List[dict]]:
         return self.__request_api('users/relation', userId=user_id)
 
+    def users_report_abuse(
+        self,
+        user_id: str,
+        comment: str,
+    ) -> bool:
+        params = self.__params(locals())
+        return self.__request_api('users/report-abuse', **params)
+
     def following_create(
         self,
         user_id: str,
@@ -660,6 +668,48 @@ class Misskey:
         user_id: str,
     ) -> dict:
         return self.__request_api('following/delete', userId=user_id)
+
+    def mute_create(
+        self,
+        user_id: str,
+    ) -> bool:
+        return self.__request_api('mute/create', userId=user_id)
+
+    def mute_list(
+        self,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+    ) -> List[dict]:
+        params = self.__params(locals())
+        return self.__request_api('mute/list', **params)
+
+    def mute_delete(
+        self,
+        user_id: str,
+    ) -> bool:
+        return self.__request_api('mute/delete', userId=user_id)
+
+    def blocking_create(
+        self,
+        user_id: str,
+    ) -> dict:
+        return self.__request_api('blocking/create', userId=user_id)
+
+    def blocking_list(
+        self,
+        limit: int = 30,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+    ) -> List[dict]:
+        params = self.__params(locals())
+        return self.__request_api('blocking/list', **params)
+
+    def blocking_delete(
+        self,
+        user_id: str,
+    ) -> dict:
+        return self.__request_api('blocking/delete', userId=user_id)
 
     def following_requests_accept(
         self,
