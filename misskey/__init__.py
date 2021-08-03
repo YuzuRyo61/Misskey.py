@@ -7,15 +7,21 @@ Misskey.py
 
 from .enum import (
     NotificationsType,
-    NoteVisibility
+    NoteVisibility,
+    LangType,
+    Permissions
 )
+from .miauth import MiAuth
 from .misskey import Misskey
 
 __all__ = [
     '__version__',
     'Misskey',
     'NoteVisibility',
-    'NotificationsType'
+    'NotificationsType',
+    'LangType',
+    'Permissions',
+    'MiAuth',
 ]
 
 __version__ = "4.0.0"

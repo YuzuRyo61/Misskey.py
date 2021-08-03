@@ -38,3 +38,7 @@ class MisskeyAPIException(Exception):
 
 class MisskeyAuthorizeFailedException(Exception):
     pass
+
+
+class MisskeyMiAuthFailedException(Exception):
+    pass

@@ -219,23 +219,23 @@ class Misskey:
         mark_as_read: bool = True,
         include_types: Union[
             List[Union[NotificationsType, str]],
-            Tuple[Union[NotificationsType, str]],
+            Tuple[NotificationsType],
             Set[NotificationsType],
             None,
         ] = None,
         exclude_types: Union[
             List[Union[NotificationsType, str]],
-            Tuple[Union[NotificationsType, str]],
+            Tuple[NotificationsType],
             Set[NotificationsType],
             None,
         ] = None,
     ) -> List[dict]:
-        if type(include_types) is list or type(include_types) is tuple:
+        if type(include_types) is list:
             for index, val in enumerate(include_types):
                 if type(val) is str:
                     include_types[index] = NotificationsType(val)
 
-        if type(exclude_types) is list or type(exclude_types) is tuple:
+        if type(exclude_types) is list:
             for index, val in enumerate(exclude_types):
                 if type(val) is str:
                     exclude_types[index] = NotificationsType(val)
@@ -278,7 +278,7 @@ class Misskey:
         muted_words: Optional[List[List[str]]] = None,
         muting_notification_types: Union[
             List[Union[NotificationsType, str]],
-            Tuple[Union[NotificationsType, str]],
+            Tuple[NotificationsType],
             Set[NotificationsType],
             None,
         ] = None,
@@ -291,8 +291,7 @@ class Misskey:
            isinstance(birthday, datetime.datetime):
             birthday = birthday.strftime('%Y-%m-%d')
 
-        if type(muting_notification_types) is list or \
-           type(muting_notification_types) is tuple:
+        if type(muting_notification_types) is list:
             for index, val in enumerate(muting_notification_types):
                 if type(val) is str:
                     muting_notification_types[index] = NotificationsType(val)
