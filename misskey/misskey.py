@@ -688,6 +688,40 @@ class Misskey:
     ) -> List[dict]:
         return self.__request_api('following/requests/list')
 
+    def drive(self) -> dict:
+        return self.__request_api('drive')
+
+    def drive_stream(
+        self,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        file_type: Optional[str] = None,
+    ) -> List[dict]:
+        params = self.__params(
+            locals(),
+            custom_rename={
+                'file_type': 'type',
+            },
+        )
+        return self.__request_api('drive/stream', **params)
+
+    def drive_files(
+        self,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        folder_id: Optional[str] = None,
+        file_type: Optional[str] = None,
+    ) -> List[dict]:
+        params = self.__params(
+            locals(),
+            custom_rename={
+                'file_type': 'type',
+            },
+        )
+        return self.__request_api('drive/files', **params)
+
     def drive_files_create(
         self,
         file: IOTypes,
@@ -711,12 +745,6 @@ class Misskey:
             raise MisskeyAPIException(response.json())
 
         return response.json()
-
-    def drive_files_delete(
-        self,
-        file_id: str,
-    ) -> bool:
-        return self.__request_api('drive/files/delete', fileId=file_id)
 
     def drive_files_check_existence(
         self,
@@ -768,3 +796,56 @@ class Misskey:
             params['comment'] = comment
 
         return self.__request_api('drive/files/update', **params)
+
+    def drive_files_delete(
+        self,
+        file_id: str,
+    ) -> bool:
+        return self.__request_api('drive/files/delete', fileId=file_id)
+
+    def drive_folders(
+        self,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        folder_id: Optional[str] = None,
+    ) -> List[dict]:
+        params = self.__params(locals())
+        return self.__request_api('drive/folders', **params)
+
+    def drive_folders_create(
+        self,
+        name: str = 'Untitled',
+        parent_id: Optional[str] = None,
+    ) -> dict:
+        params = self.__params(locals())
+        return self.__request_api('drive/folders/create', **params)
+
+    def drive_folders_show(
+        self,
+        folder_id: str,
+    ) -> dict:
+        return self.__request_api(
+            'drive/folders/show',
+            folderId=folder_id
+        )
+
+    def drive_folders_update(
+        self,
+        folder_id: str,
+        name: Optional[str] = None,
+        parent_id: Union[str, None] = '',
+    ) -> dict:
+        params = self.__params(locals(), {'parent_id'})
+        if parent_id != '':
+            params['parentId'] = parent_id
+        return self.__request_api('drive/folders/update', **params)
+
+    def drive_folders_delete(
+        self,
+        folder_id: str,
+    ) -> bool:
+        return self.__request_api(
+            'drive/folders/delete',
+            folderId=folder_id
+        )

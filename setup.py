@@ -11,6 +11,7 @@ else:
     ld = parse_from_file('README.md')
 
 from misskey import __version__ as mkp_version
+
 setup(
     name='Misskey.py',
     version=mkp_version,

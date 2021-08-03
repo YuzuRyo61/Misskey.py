@@ -547,7 +547,27 @@ def test_should_fail_in_drives_files_create(
             )
 
 
-def test_drives_files(
+def test_drive(
+    mk_cli_admin: Misskey,
+):
+    res = mk_cli_admin.drive()
+    assert type(res) == dict
+
+
+def test_drive_stream(
+    mk_cli_admin: Misskey,
+):
+    res_stream = mk_cli_admin.drive_stream()
+    assert type(res_stream) == list
+
+    res_files = mk_cli_admin.drive_files()
+    assert type(res_files) == list
+
+    res_folders = mk_cli_admin.drive_folders()
+    assert type(res_folders) == list
+
+
+def test_drive_files(
     mk_cli_admin: Misskey
 ):
     with open('tests/test_image.png', mode='rb') as f:
@@ -589,3 +609,30 @@ def test_drives_files(
         )
         assert type(res_delete) == bool
         assert res_delete
+
+
+def test_drive_folders(
+    mk_cli_admin: Misskey,
+):
+    res_create = mk_cli_admin.drive_folders_create(
+        name='test-folder',
+    )
+    assert type(res_create) == dict
+
+    res_show = mk_cli_admin.drive_folders_show(
+        res_create['id'],
+    )
+    assert type(res_show) == dict
+
+    res_update = mk_cli_admin.drive_folders_update(
+        folder_id=res_create['id'],
+        name='renamed-folder',
+        parent_id=None,
+    )
+    assert type(res_update) == dict
+
+    res_delete = mk_cli_admin.drive_folders_delete(
+        res_create['id'],
+    )
+    assert type(res_delete) == bool
+    assert res_delete
