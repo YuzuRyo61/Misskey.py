@@ -27,6 +27,26 @@ from .exceptions import (
 
 
 class Misskey:
+    """Misskey API client class.
+
+    Args:
+        address (:obj:`str`): Instance address.
+        You can also include the URL protocol.
+        If not specified, it will be automatically
+        recognized as :code:`https`.
+
+        i (:obj:`str`, optional): Misskey API token.
+        If you have an API token, you can assign it at instantiation.
+
+        session (:obj:`requests.Session`, optional): If you have prepared the
+        :obj:`requests.Session` class yourself, you can assign it here.
+        Normally you do not need to specify it.
+
+    Raises:
+        MisskeyAuthorizeFailedException: Raises if token validation fails
+        during instantiation.
+    """
+
     __DEFAULT_ADDRESS: str = 'https://misskey.io'
 
     __address: str
@@ -34,10 +54,17 @@ class Misskey:
     __session: requests.Session
 
     __token: Optional[str] = None
+
     timeout: Optional[Any] = 15.0
+    """
+    Specifies the number of seconds for HTTP communication timeout.
+    Comply with "`requests <https://docs.python-requests.org/en/latest/>`_".
+    """
 
     @property
     def address(self):
+        """Misskey instance address. Cannot be edited.
+        """
         return self.__address
 
     @property
@@ -45,7 +72,14 @@ class Misskey:
         return f'{self.__scheme}://{self.__address}/api'
 
     @property
-    def token(self):
+    def token(self) -> Optional[str]:
+        """Get a token.
+
+        When you assign a new token, it automatically verifies whether the token can be used.
+        If validation fails, the exception :obj:`MisskeyAuthorizeFailedException` is raised.
+
+        If using :code:`del`, token will be :code:`None`.
+        """
         return self.__token
 
     @token.setter
@@ -167,12 +201,31 @@ class Misskey:
         return param_camel
 
     def i(self) -> dict:
+        """Get your credentials.
+
+        Returns:
+            dict: A dict containing your profile information will be returned.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('i')
 
     def meta(
         self,
         detail: bool = True,
     ) -> dict:
+        """Get instance meta.
+
+        Args:
+            detail (bool): Add the details of the instance information.
+
+        Returns:
+            dict: A dict containing instance information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('meta', detail=detail)
 
     def stats(self) -> dict:

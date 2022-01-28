@@ -11,11 +11,13 @@ Welcome to Misskey.py's documentation!
    :maxdepth: 4
    :caption: API Document
 
-   misskey
+   api/misskey
+   api/miauth
+   api/enums
+   api/exceptions
 
 
-Indices and tables
-==================
+索引
+===============
 
 * :ref:`genindex`
-* :ref:`modindex`
