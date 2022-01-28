@@ -30,7 +30,7 @@ class Misskey:
     """Misskey API client class.
 
     Args:
-        address (:obj:`str`): Instance address.
+        address (str): Instance address.
         You can also include the URL protocol.
         If not specified, it will be automatically
         recognized as :code:`https`.
@@ -229,6 +229,15 @@ class Misskey:
         return self.__request_api('meta', detail=detail)
 
     def stats(self) -> dict:
+        """Get instance statuses.
+
+        Returns:
+            dict: A dict containing the number of users, the number of notes,
+            etc. is returned.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('stats')
 
     def announcements(
@@ -238,6 +247,14 @@ class Misskey:
         since_id: Optional[str] = None,
         until_id: Optional[str] = None,
     ) -> List[dict]:
+        """Get announcements.
+
+        Returns:
+            `list` of `dict`: List of announcements.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals())
         return self.__request_api('announcements', **params)
 
@@ -247,6 +264,22 @@ class Misskey:
         since_id: Optional[str] = None,
         until_id: Optional[str] = None,
     ) -> List[dict]:
+        """Get your favorites.
+
+        Args:
+            limit (int): Specify the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (:obj:`str`, optional): Specify the first ID to get.
+
+            until_id (:obj:`str`, optional): Specify the last ID to get.
+
+        Returns:
+            `list` of `dict`: List of notes.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         param = self.__params(locals())
 
         return self.__request_api('i/favorites', **param)
