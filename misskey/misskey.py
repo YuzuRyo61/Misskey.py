@@ -75,8 +75,10 @@ class Misskey:
     def token(self) -> Optional[str]:
         """Get a token.
 
-        When you assign a new token, it automatically verifies whether the token can be used.
-        If validation fails, the exception :obj:`MisskeyAuthorizeFailedException` is raised.
+        When you assign a new token, it automatically verifies whether
+        the token can be used.
+        If validation fails, the exception
+        :obj:`MisskeyAuthorizeFailedException` is raised.
 
         If using :code:`del`, token will be :code:`None`.
         """
@@ -206,6 +208,9 @@ class Misskey:
         Returns:
             dict: A dict containing your profile information will be returned.
 
+        Note:
+            :code:`token` must be set in the instance.
+
         Raises:
             MisskeyAPIException: Raise if the API request fails.
         """
@@ -274,6 +279,9 @@ class Misskey:
 
             until_id (:obj:`str`, optional): Specify the last ID to get.
 
+        Note:
+            :code:`token` must be set in the instance.
+
         Returns:
             `list` of `dict`: List of notes.
 
@@ -288,12 +296,34 @@ class Misskey:
         self,
         note_id: str,
     ) -> dict:
+        """Pin a note.
+
+        Args:
+            note_id (str): Note id.
+
+        Note:
+            :code:`token` must be set in the instance.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('i/pin', noteId=note_id)
 
     def i_unpin(
         self,
         note_id: str,
     ) -> dict:
+        """Unpin a note.
+
+        Args:
+            note_id (str): Note id.
+
+        Note:
+            :code:`token` must be set in the instance.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('i/unpin', noteId=note_id)
 
     def i_notifications(
@@ -316,6 +346,36 @@ class Misskey:
             None,
         ] = None,
     ) -> List[dict]:
+        """Get your notifications.
+
+        Args:
+            limit (int): Specify the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (:obj:`str`, optional): Specify the first ID to get.
+
+            until_id (:obj:`str`, optional): Specify the last ID to get.
+
+            following (bool): Only following.
+
+            mark_as_read (bool): Specify whether to mark it as read
+            when it is acquired.
+
+            include_types (:obj:`list`, :obj:`tuple` or :obj:`set`): Specifies
+            the type of notification to include.
+
+            exclude_types (:obj:`list`, :obj:`tuple` or :obj:`set`): Specifies
+            the type of notification to exclude.
+
+        Note:
+            :code:`token` must be set in the instance.
+
+        Returns:
+            `list` of `dict`: List of notifications.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         if type(include_types) is list:
             for index, val in enumerate(include_types):
                 if type(val) is str:
@@ -330,6 +390,18 @@ class Misskey:
         return self.__request_api('i/notifications', **params)
 
     def notifications_mark_all_as_read(self) -> bool:
+        """Mark all as read to your notifications.
+
+        Note:
+            :code:`token` must be set in the instance.
+
+        Returns:
+            bool: Returns :code:`True` if successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+        """
         return self.__request_api(
             'notifications/mark-all-as-read'
         )
@@ -370,6 +442,78 @@ class Misskey:
         ] = None,
         email_notification_types: Optional[List[str]] = None,
     ) -> dict:
+        """Update your profiles.
+
+        Args:
+            name (:obj:`str`, optional): Your name to display.
+
+            description (:obj:`str`, optional): Write an introductory text.
+
+            lang (:obj:`str`, optional): Specify your language.
+
+            location (:obj:`str`, optional): Specify your location.
+
+            birthday (:obj:`datetime.date`,
+            :obj:`datetime.datetime` or :obj:`str`, optional):
+            Specify your birthday date.
+
+            avatar_id (:obj:`str`, optional): Avatar's drive id.
+
+            banner_id (:obj:`str`, optional): Banner's drive id.
+
+            fields (:obj:`list` of :obj:`dict`, optional):
+            Profile supplementary information.
+
+            is_locked (:obj:`bool`, optional): Whether to make
+            follow-up approval system.
+
+            is_explorable (:obj:`bool`, optional): Whether to set as
+            a discoverable user.
+
+            hide_online_status (:obj:`bool`, optional): Whether to
+            hide online status.
+
+            careful_bot (:obj:`bool`, optional): Whether to
+            approve follow-ups from bots.
+
+            auto_accept_followed (:obj:`bool`, optional): Whether to
+            automatically follow from the users you are following
+
+            no_crawle (:obj:`bool`, optional): Specifies whether to
+            prevent it from being tracked by search engines.
+
+            is_bot (:obj:`bool`, optional): Whether to operate as a bot.
+
+            is_cat (:obj:`bool`, optional): Specifies whether to use nyaise.
+
+            inject_featured_note (:obj:`bool`, optional):
+
+            receive_announcement_email (:obj:`bool`, optional):
+
+            always_mark_nsfw (:obj:`bool`, optional): Whether to give NSFW
+            to the posted file by default.
+
+            pinned_page_id (:obj:`str`, optional): ID of the page to be fixed.
+
+            muted_words (:obj:`list` of :obj:`list` of :obj:`str`, optional):
+            Word to mute.
+
+            muting_notification_types (:obj:`list`, optional):
+            Notification type to hide.
+
+            email_notification_types (:obj:`list` of :obj:`str`, optional):
+            Specify the notification type for email notification.
+
+        Note:
+            :code:`token` must be set in the instance.
+
+        Returns:
+            bool: Returns :code:`True` if successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+        """
         if type(lang) is str:
             lang = LangType(lang)
 
