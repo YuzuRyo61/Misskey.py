@@ -5,6 +5,7 @@ Welcome to Misskey.py's documentation!
    :maxdepth: 4
 
    getting-started
+   quick-start
    get-token-from-miauth
 
 .. toctree::
