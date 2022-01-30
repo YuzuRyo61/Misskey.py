@@ -349,7 +349,7 @@ class Misskey:
         """Get your notifications.
 
         Args:
-            limit (int): Specify the amount to get.
+            limit (int, optional): Specify the amount to get.
             You can specify from 1 to 100.
 
             since_id (:obj:`str`, optional): Specify the first ID to get.
@@ -602,6 +602,8 @@ class Misskey:
             be indefinite. Cannot be used with :code:`poll_expired_at`.
 
         Note:
+            :code:`token` must be set in the instance.
+
             You must specify at least either :code:`text` or :code:`files_id`.
 
         Returns:
@@ -643,6 +645,17 @@ class Misskey:
         self,
         note_id: str,
     ) -> dict:
+        """Show a note.
+
+        Args:
+            note_id (str): Specify the Note ID to get.
+
+        Returns:
+            dict: A dict with the specified Note ID is returned.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('notes/show', noteId=note_id)
 
     def notes_conversation(
@@ -651,6 +664,23 @@ class Misskey:
         limit: int = 10,
         offset: Optional[int] = None,
     ) -> List[dict]:
+        """Show note conversations.
+
+        Args:
+            note_id (str): Specify the Note ID to get.
+
+            limit (int, optional): Specify the amount to get.
+            You can specify from 1 to 100.
+
+            offset (int, optional): Specify the offset to get.
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Gets the Note associated
+            with that Note.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals())
         return self.__request_api('notes/conversation', **params)
 
