@@ -548,6 +548,68 @@ class Misskey:
         poll_expires_at: Optional[Union[int, datetime.datetime]] = None,
         poll_expired_after: Optional[Union[int, datetime.timedelta]] = None,
     ) -> dict:
+        """Create a note.
+
+        Args:
+            text (:obj:`str`, optional): Specify the text.
+
+            cw (:obj:`str`, optional): Specify the CW(Content Warning).
+
+            visibility (:obj:`str`, default: :code:`public`): Post range.
+            Specifies the enumeration in :obj:`NoteVisibility`.
+
+            visible_user_ids (:obj:`list` of :obj:`str`, optional):
+            If :code:`visibility` is :code:`specified`,
+            specify the user ID in the list.
+
+            via_mobile (:obj:`bool`, optional): Specify whether to post from
+            mobile. It doesn't work with recent Misskey versions.
+
+            local_only (:obj:`bool`, optional): Specifies whether to
+            post only the instance you are using.
+
+            no_extract_mentions (:obj:`bool`, optional): Specifies whether
+            to detect mentions from the text.
+
+            no_extract_hashtags (:obj:`bool`, optional): Specifies whether
+            to detect hashtags from the text.
+
+            no_extract_emojis (:obj:`bool`, optional): Specifies whether
+            to detect emojis from the text.
+
+            file_ids (:obj:`list` of :obj:`str`, optional): Specify
+            the file ID to attach in the list.
+
+            reply_id (:obj:`str`, optional): Specify the Note ID of
+            the reply destination.
+
+            renote_id (:obj:`str`, optional): Specify the Note ID to renote.
+
+            poll_choices (:obj:`list` of :obj:`str`, optional): Specify the
+            voting item. You can specify 2 or more and 10 or less.
+
+            poll_multiple (:obj:`bool`, optional): Specifies whether
+            to allow multiple votes. This is valid only when
+            :code:`poll_choices` is specified.
+
+            poll_expires_at (:obj:`datetime.datetime`, optional): Specify
+            the expiration date of the vote. If not specified,
+            it will be indefinite. Cannot be used
+            with :code:`poll_expired_after`.
+
+            poll_expired_after (:obj:`datetime.timedelta`, optional): Specifies
+            the validity period of the vote. If not specified, it will
+            be indefinite. Cannot be used with :code:`poll_expired_at`.
+
+        Note:
+            You must specify at least either :code:`text` or :code:`files_id`.
+
+        Returns:
+            dict: The dict of the posted result is returned.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         if type(visibility) is str:
             visibility = NoteVisibility(visibility)
 
