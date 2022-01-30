@@ -205,6 +205,9 @@ class Misskey:
     def i(self) -> dict:
         """Get your credentials.
 
+        Endpoint:
+            :code:`i`
+
         Returns:
             dict: A dict containing your profile information will be returned.
 
@@ -225,6 +228,9 @@ class Misskey:
         Args:
             detail (bool): Add the details of the instance information.
 
+        Endpoint:
+            :code:`meta`
+
         Returns:
             dict: A dict containing instance information.
 
@@ -235,6 +241,9 @@ class Misskey:
 
     def stats(self) -> dict:
         """Get instance statuses.
+
+        Endpoint:
+            :code:`stats`
 
         Returns:
             dict: A dict containing the number of users, the number of notes,
@@ -253,6 +262,9 @@ class Misskey:
         until_id: Optional[str] = None,
     ) -> List[dict]:
         """Get announcements.
+
+        Endpoint:
+            :code:`announcements`
 
         Returns:
             `list` of `dict`: List of announcements.
@@ -279,6 +291,9 @@ class Misskey:
 
             until_id (:obj:`str`, optional): Specify the last ID to get.
 
+        Endpoint:
+            :code:`i/favorites`
+
         Note:
             :code:`token` must be set in the instance.
 
@@ -301,6 +316,9 @@ class Misskey:
         Args:
             note_id (str): Note id.
 
+        Endpoint:
+            :code:`i/pin`
+
         Note:
             :code:`token` must be set in the instance.
 
@@ -317,6 +335,9 @@ class Misskey:
 
         Args:
             note_id (str): Note id.
+
+        Endpoint:
+            :code:`i/unpin`
 
         Note:
             :code:`token` must be set in the instance.
@@ -367,6 +388,9 @@ class Misskey:
             exclude_types (:obj:`list`, :obj:`tuple` or :obj:`set`): Specifies
             the type of notification to exclude.
 
+        Endpoint:
+            :code:`i/notifications`
+
         Note:
             :code:`token` must be set in the instance.
 
@@ -391,6 +415,9 @@ class Misskey:
 
     def notifications_mark_all_as_read(self) -> bool:
         """Mark all as read to your notifications.
+
+        Endpoint:
+            :code:`notifications/mark-all-as-read`
 
         Note:
             :code:`token` must be set in the instance.
@@ -504,6 +531,9 @@ class Misskey:
             email_notification_types (:obj:`list` of :obj:`str`, optional):
             Specify the notification type for email notification.
 
+        Endpoint:
+            :code:`i/update`
+
         Note:
             :code:`token` must be set in the instance.
 
@@ -601,6 +631,9 @@ class Misskey:
             the validity period of the vote. If not specified, it will
             be indefinite. Cannot be used with :code:`poll_expired_at`.
 
+        Endpoint:
+            :code:`notes/create`
+
         Note:
             :code:`token` must be set in the instance.
 
@@ -650,6 +683,9 @@ class Misskey:
         Args:
             note_id (str): Specify the Note ID to get.
 
+        Endpoint:
+            :code:`notes/show`
+
         Returns:
             dict: A dict with the specified Note ID is returned.
 
@@ -673,6 +709,9 @@ class Misskey:
             You can specify from 1 to 100.
 
             offset (int, optional): Specify the offset to get.
+
+        Endpoint:
+            :code:`notes/conversation`
 
         Returns:
             :obj:`list` of :obj:`dict`: Gets the Note associated
