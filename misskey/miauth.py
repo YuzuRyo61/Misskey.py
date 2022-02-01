@@ -16,6 +16,30 @@ from .exceptions import MisskeyMiAuthFailedException
 
 
 class MiAuth:
+    """Misskey Authentication Class
+
+    Args:
+        address (str): Instance address.
+        You can also include the URL protocol.
+        If not specified, it will be automatically
+        recognized as :code:`https`.
+
+        session_id (:obj:`uuid.UUID` or :obj:`str`, optional): Session ID
+        for performing MiAuth. If not specified, it will be set automatically.
+
+        name (:obj:`str`, optional): App name.
+
+        icon (:obj:`str`, optional): The URL of the icon.
+
+        callback (:obj:`str`, optional): App callback URL.
+
+        permission (:obj:`list` of :obj:`str`, optional): The permissions
+        that the app can use. You can specify an enumeration of Permissions.
+
+        session (:obj:`requests.Session`, optional): If you have prepared the
+        :obj:`requests.Session` class yourself, you can assign it here.
+        Normally you do not need to specify it.
+    """
     __DEFAULT_ADDRESS: str = 'https://misskey.io'
 
     __address: str
@@ -37,10 +61,16 @@ class MiAuth:
 
     @property
     def address(self) -> str:
+        """Misskey instance address for MiAuth. Cannot be edited.
+        """
         return self.__address
 
     @property
     def name(self) -> str:
+        """App name.
+
+        It can be changed by assignment.
+        """
         return self.__name
 
     @name.setter
@@ -49,6 +79,12 @@ class MiAuth:
 
     @property
     def icon(self) -> Optional[str]:
+        """The URL of the icon.
+
+        It can be changed by assignment.
+
+        If using :code:`del`, :code:`icon` will be :code:`None`.
+        """
         return self.__icon
 
     @icon.setter
@@ -61,6 +97,12 @@ class MiAuth:
 
     @property
     def callback(self) -> Optional[str]:
+        """App callback URL.
+
+        It can be changed by assignment.
+
+        If using :code:`del`, :code:`icon` will be :code:`None`.
+        """
         return self.__callback
 
     @callback.setter
@@ -76,6 +118,8 @@ class MiAuth:
         uuid.UUID,
         str,
     ]:
+        """Session ID for performing MiAuth. Cannot be edited.
+        """
         return self.__session_id
 
     @property
@@ -85,6 +129,8 @@ class MiAuth:
         Set[Permissions],
         None,
     ]:
+        """The permissions that the app can use.
+        """
         return self.__permission
 
     @permission.setter
@@ -103,6 +149,9 @@ class MiAuth:
 
     @property
     def token(self) -> Optional[str]:
+        """Contains the token authenticated by MiAuth.
+        If not authenticated, :code:`None` will be returned.
+        """
         return self.__token
 
     @property
@@ -156,6 +205,12 @@ class MiAuth:
         self.__callback = callback
 
     def generate_url(self) -> str:
+        """Create a URL for your end user.
+
+        Returns:
+            str: The URL for the end user is returned.
+            Instruct the end user to open it in a web browser or the like.
+        """
         url_params = {
             'name': self.__name,
             'permission': ','.join(
@@ -173,6 +228,19 @@ class MiAuth:
         )
 
     def check(self) -> str:
+        """Validate MiAuth authentication.
+
+        Returns:
+            str: If the authentication is successful,
+            a MiAuth token will be returned.
+
+        Note:
+            The token obtained by this method is also assigned
+            to the property :code:`token`.
+
+        Raises:
+            MisskeyMiAuthFailedException: Raise if MiAuth authentication fails.
+        """
         res = self.__session.post(
             f'{self.__endpoint}/api/miauth/{str(self.__session_id)}/check',
             allow_redirects=False,

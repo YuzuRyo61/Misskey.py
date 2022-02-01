@@ -80,7 +80,7 @@ class Misskey:
         If validation fails, the exception
         :obj:`MisskeyAuthorizeFailedException` is raised.
 
-        If using :code:`del`, token will be :code:`None`.
+        If using :code:`del`, :code:`token` will be :code:`None`.
         """
         return self.__token
 
