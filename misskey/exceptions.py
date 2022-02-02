@@ -22,9 +22,11 @@ class MisskeyAPIException(Exception):
     def __init__(self, response_dict: dict):
         if response_dict.get('error') is not None:
             self.__code = response_dict['error'].get('code', self.__code)
-            self.__message = response_dict['error'].get('message', self.__message)
+            self.__message = response_dict['error'].get(
+                'message', self.__message)
             try:
-                self.__id = uuid.UUID(str(response_dict['error'].get('id', self.__id)))
+                self.__id = uuid.UUID(str(response_dict['error'].get(
+                    'id', self.__id)))
             except (ValueError, TypeError):
                 self.__id = str(response_dict['error'].get('id', self.__id))
 
