@@ -1190,8 +1190,12 @@ class Misskey:
         is_sensitive: bool = False,
         force: bool = False,
     ) -> dict:
-        params = self.__params(locals(), {'file'})
-        params.update(i=self.__token)
+        params = self.__params(locals(), {'file', 'is_sensitive', 'force'})
+        params.update(
+            i=self.__token,
+            isSensitive=str(is_sensitive).lower(),
+            force=str(force).lower()
+        )
         response = self.__session.post(
             f'{self.__api_url}/drive/files/create',
             data=params,
