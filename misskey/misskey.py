@@ -730,6 +730,28 @@ class Misskey:
         since_id: Optional[str] = None,
         until_id: Optional[str] = None,
     ) -> List[dict]:
+        """Show note children.
+
+        Args:
+            note_id (str): Specify the Note ID to get.
+
+            limit (int, optional): Specify the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specify the first ID to get.
+
+            until_id (str, optional): Specify the last ID to get.
+
+        Endpoint:
+            :code:`notes/children`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Gets the Note associated
+            with that Note.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals())
         return self.__request_api('notes/children', **params)
 
@@ -740,6 +762,28 @@ class Misskey:
         until_id: Optional[str] = None,
         limit: int = 10,
     ) -> List[dict]:
+        """Show note replies.
+
+        Args:
+            note_id (str): Specify the Note ID to get.
+
+            since_id (str, optional): Specify the first ID to get.
+
+            until_id (str, optional): Specify the last ID to get.
+
+            limit (int, optional): Specify the amount to get.
+            You can specify from 1 to 100.
+
+        Endpoint:
+            :code:`notes/replies`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Gets the Note associated
+            with that Note.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals())
         return self.__request_api('notes/replies', **params)
 
@@ -750,6 +794,27 @@ class Misskey:
         since_id: Optional[str] = None,
         until_id: Optional[str] = None,
     ) -> List[dict]:
+        """Show renotes.
+
+        Args:
+            note_id (str): Specify the Note ID to get.
+
+            limit(int, optional): Specify the amount to get.
+
+            since_id (str, optional): Specify the first ID to get.
+
+            until_id (str, optional): Specify the last ID to get.
+
+        Endpoint:
+            :code:`notes/renotes`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Gets the Note associated
+            with that Note.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals())
         return self.__request_api('notes/renotes', **params)
 
@@ -757,6 +822,20 @@ class Misskey:
         self,
         note_id: str
     ) -> bool:
+        """Unrenote a note.
+
+        Args:
+            note_id (str): Specify the Note ID to unrenote.
+
+        Endpoint:
+            :code:`notes/unrenote`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('notes/unrenote', noteId=note_id)
 
     def notes_reactions(
@@ -768,6 +847,31 @@ class Misskey:
         since_id: Optional[str] = None,
         until_id: Optional[str] = None,
     ) -> List[dict]:
+        """Show note reactions.
+
+        Args:
+            note_id (str): Specify the Note ID to get.
+
+            reaction_type (str, optional): Specify the reaction type to get.
+
+            limit (int, optional): Specify the amount to get.
+            You can specify from 1 to 100.
+
+            offset (int, optional): Specify the offset to get.
+
+            since_id (str, optional): Specify the first ID to get.
+
+            until_id (str, optional): Specify the last ID to get.
+
+        Endpoint:
+            :code:`notes/reactions`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Get reactions in associated note.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(
             locals(),
             custom_rename={
@@ -781,6 +885,22 @@ class Misskey:
         note_id: str,
         reaction: str,
     ) -> bool:
+        """Create a reaction in a note.
+
+        Args:
+            note_id (str): Specify the Note ID to create your reaction.
+
+            reaction (str): Specify the reaction type.
+
+        Endpoint:
+            :code:`notes/reactions/create`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals())
         return self.__request_api('notes/reactions/create', **params)
 
@@ -788,6 +908,20 @@ class Misskey:
         self,
         note_id: str,
     ) -> bool:
+        """Delete a reaction in a note.
+
+        Args:
+            note_id (str): Specify the Note ID to delete your reaction.
+
+        Endpoint:
+            :code:`notes/reactions/delete`
+
+        Returns:
+            bool: Returns :code:`True` if the reaction was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals())
         return self.__request_api('notes/reactions/delete', **params)
 
@@ -796,6 +930,22 @@ class Misskey:
         note_id: str,
         choice: int,
     ) -> bool:
+        """Vote in a note poll.
+
+        Args:
+            note_id (str): Specify the Note ID to vote.
+
+            choice (int): Specify the choice to vote. Specify from 0.
+
+        Endpoint:
+            :code:`notes/polls/vote`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api(
             'notes/polls/vote',
             noteId=note_id,
@@ -806,6 +956,20 @@ class Misskey:
         self,
         note_id: str,
     ) -> dict:
+        """Show a state of a note.
+
+        Args:
+            note_id (str): Specify the Note ID to get.
+
+        Endpoint:
+            :code:`notes/state`
+
+        Returns:
+            :obj:`dict`: Get state of a note.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api(
             'notes/state',
             noteId=note_id,
@@ -815,6 +979,20 @@ class Misskey:
         self,
         note_id: str,
     ) -> bool:
+        """Mark as favorite a note.
+
+        Args:
+            note_id (str): Specify the Note ID to make a favorite.
+
+        Endpoint:
+            :code:`notes/favorites/create`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api(
             'notes/favorites/create',
             noteId=note_id,
@@ -824,6 +1002,20 @@ class Misskey:
         self,
         note_id: str,
     ) -> bool:
+        """Delete favorite a note.
+
+        Args:
+            note_id (str): Specify the Note ID to unmark a favorite.
+
+        Endpoint:
+            :code:`notes/favorites/delete`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api(
             'notes/favorites/delete',
             noteId=note_id,
@@ -833,6 +1025,20 @@ class Misskey:
         self,
         note_id: str,
     ) -> bool:
+        """Watch a note.
+
+        Args:
+            note_id (str): Specify the Note ID to watch.
+
+        Endpoint:
+            :code:`notes/watching/create`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api(
             'notes/watching/create',
             noteId=note_id,
@@ -842,6 +1048,20 @@ class Misskey:
         self,
         note_id: str,
     ) -> bool:
+        """Unwatch a note.
+
+        Args:
+            note_id (str): Specify the Note ID to unwatch.
+
+        Endpoint:
+            :code:`notes/watching/delete`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api(
             'notes/watching/delete',
             noteId=note_id,
@@ -851,6 +1071,20 @@ class Misskey:
         self,
         note_id: str,
     ) -> bool:
+        """Delete a note.
+
+        Args:
+            note_id (str): Specify the Note ID to delete.
+
+        Endpoint:
+            :code:`notes/delete`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('notes/delete', noteId=note_id)
 
     def notes_timeline(
