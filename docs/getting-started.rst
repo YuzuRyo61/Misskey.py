@@ -6,9 +6,9 @@ Misskey.pyはMisskeyのAPIの利用を容易にするためのラッパーAPIラ
 前提
 -------
 
-Misskey.pyはPython 3.6以降からサポートしています。
+Misskey.pyはPython 3.7以降からサポートしています。
 
-Python 2.xやPython 3.5以前はサポートされませんのでご注意ください。
+Python 2.xやPython 3.6以前はサポートされませんのでご注意ください。
 
 インストール
 -------------
