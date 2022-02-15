@@ -1099,6 +1099,42 @@ class Misskey:
         include_local_renotes: bool = True,
         with_files: bool = True,
     ) -> List[dict]:
+        """Show your home timeline.
+
+        Args:
+            limit (int, optional): Specify the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specify the first ID to get.
+
+            until_id (str, optional): Specify the last ID to get.
+
+            since_date (int, datetime.datetime, optional): Specify
+            the first date to get.
+
+            until_date (int, datetime.datetime, optional): Specify
+             the last date to get.
+
+            include_my_renotes (bool, optional): Specify whether to
+            include your notes.
+
+            include_renoted_my_notes (bool, optional): Specify whether to
+            include renotes of your notes.
+
+            include_local_renotes (bool, optional): Specify whether to
+            include local renotes.
+
+            with_files (bool, optional): Specify whether to include files.
+
+        Endpoint:
+            :code:`notes/timeline`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns a list of notes.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         if isinstance(since_date, datetime.datetime):
             since_date = math.floor(
                 since_date.timestamp() * 1000)
@@ -1119,6 +1155,39 @@ class Misskey:
         file_type: Optional[List[str]] = None,
         exclude_nsfw: bool = False,
     ) -> List[dict]:
+        """Show local timeline.
+
+        Args:
+            limit (int, optional): Specify the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specify the first ID to get.
+
+            until_id (str, optional): Specify the last ID to get.
+
+            since_date (int, datetime.datetime, optional): Specify
+            the first date to get.
+
+            until_date (int, datetime.datetime, optional): Specify
+             the last date to get.
+
+            with_files (bool, optional): Specify whether to include files.
+
+            file_type (:obj:`list` of :obj:`str`, optional): Specify the file
+            type to get.
+
+            exclude_nsfw (bool, optional): Specify whether to exclude NSFW
+            (Not safe for work) notes.
+
+        Endpoint:
+            :code:`notes/local-timeline`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns a list of notes.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         if isinstance(since_date, datetime.datetime):
             since_date = math.floor(
                 since_date.timestamp() * 1000)
@@ -1140,6 +1209,42 @@ class Misskey:
         include_local_renotes: bool = True,
         with_files: bool = True,
     ) -> List[dict]:
+        """Show hybrid(home + local) timeline.
+
+        Args:
+            limit (int, optional): Specify the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specify the first ID to get.
+
+            until_id (str, optional): Specify the last ID to get.
+
+            since_date (int, datetime.datetime, optional): Specify
+            the first date to get.
+
+            until_date (int, datetime.datetime, optional): Specify
+             the last date to get.
+
+            include_my_renotes (bool, optional): Specify whether to
+            include your notes.
+
+            include_renoted_my_notes (bool, optional): Specify whether to
+            include renotes of your notes.
+
+            include_local_renotes (bool, optional): Specify whether to
+            include local renotes.
+
+            with_files (bool, optional): Specify whether to include files.
+
+        Endpoint:
+            :code:`notes/hybrid-timeline`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns a list of notes.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         if isinstance(since_date, datetime.datetime):
             since_date = math.floor(
                 since_date.timestamp() * 1000)
@@ -1158,6 +1263,33 @@ class Misskey:
         until_date: Union[int, datetime.datetime, None] = None,
         with_files: bool = True,
     ) -> List[dict]:
+        """Show global timeline.
+
+        Args:
+            limit (int, optional): Specify the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specify the first ID to get.
+
+            until_id (str, optional): Specify the last ID to get.
+
+            since_date (int, datetime.datetime, optional): Specify
+            the first date to get.
+
+            until_date (int, datetime.datetime, optional): Specify
+             the last date to get.
+
+            with_files (bool, optional): Specify whether to include files.
+
+        Endpoint:
+            :code:`notes/global-timeline`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns a list of notes.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         if isinstance(since_date, datetime.datetime):
             since_date = math.floor(
                 since_date.timestamp() * 1000)
@@ -1174,6 +1306,33 @@ class Misskey:
         username: Optional[str] = None,
         host: Optional[str] = None,
     ) -> Union[dict, List[dict]]:
+        """Show user.
+
+        Args:
+            user_id (str, optional): Specify the user ID.
+
+            user_ids (list of str, optional): Specify the user IDs.
+
+            username (str, optional): Specify the username.
+
+            host (str, optional): Specify the host.
+
+        Endpoint:
+            :code:`users/show`
+
+        Note:
+            You must specify one of user_id, user_ids, username (and host).
+
+            If you specify :code:`user_ids`, it returns a list of users.
+
+        Returns:
+            :obj:`dict` or :obj:`list` of :obj:`dict`: Returns a user or
+            a list of users.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+        """
         params = self.__params(locals())
         return self.__request_api('users/show', **params)
 
@@ -1186,6 +1345,34 @@ class Misskey:
         until_id: Optional[str] = None,
         limit: int = 10,
     ) -> List[dict]:
+        """Get the follow list of the specified user.
+
+        Args:
+            user_id (str, optional): Specify the user ID.
+
+            username (str, optional): Specify the username.
+
+            host (str, optional): Specify the host.
+
+            since_id (str, optional): Specify the first ID to get.
+
+            until_id (str, optional): Specify the last ID to get.
+
+            limit (int, optional): Specify the amount to get.
+            You can specify from 1 to 100.
+
+        Endpoint:
+            :code:`users/following`
+
+        Note:
+            You must specify one of user_id, username (and host).
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns a list of users.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals())
         return self.__request_api('users/following', **params)
 
@@ -1198,6 +1385,34 @@ class Misskey:
         until_id: Optional[str] = None,
         limit: int = 10,
     ) -> List[dict]:
+        """Get the follower list of the specified user.
+
+        Args:
+            user_id (str, optional): Specify the user ID.
+
+            username (str, optional): Specify the username.
+
+            host (str, optional): Specify the host.
+
+            since_id (str, optional): Specify the first ID to get.
+
+            until_id (str, optional): Specify the last ID to get.
+
+            limit (int, optional): Specify the amount to get.
+            You can specify from 1 to 100.
+
+        Endpoint:
+            :code:`users/following`
+
+        Note:
+            You must specify one of user_id, username (and host).
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns a list of users.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals())
         return self.__request_api('users/followers', **params)
 
@@ -1223,6 +1438,47 @@ class Misskey:
         file_type: Optional[List[str]] = None,
         exclude_nsfw: bool = False,
     ) -> List[dict]:
+        """Get the note list of the specified user.
+
+        Args:
+            user_id (str): Specify the user ID.
+
+            include_replies (bool, optional): Specify whether to
+            include replies.
+
+            limit (int, optional): Specify the amount to get.
+
+            since_id (str, optional): Specify the first ID to get.
+
+            until_id (str, optional): Specify the last ID to get.
+
+            since_date (:obj:`datetime.datetime`, optional): Specify the
+            first date to get.
+
+            until_date (:obj:`datetime.datetime`, optional): Specify the
+            last date to get.
+
+            include_my_renotes (bool, optional): Specify whether to
+            include my renotes.
+
+            with_files (bool, optional): Specify whether to include
+            files.
+
+            file_type (:obj:`list` of :obj:`str`, optional): Specify
+            the file type to get.
+
+            exclude_nsfw (bool, optional): Specify whether to exclude
+            NSFW notes.
+
+        Endpoint:
+            :code:`users/notes`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns a list of notes.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         if isinstance(since_date, datetime.datetime):
             since_date = math.floor(since_date.timestamp() * 1000)
         if isinstance(until_date, datetime.datetime):
@@ -1235,12 +1491,46 @@ class Misskey:
         self,
         user_id: str,
     ) -> dict:
+        """Gets the count for the specified user
+
+        Args:
+            user_id (str): Specify the user ID.
+
+        Endpoint:
+            :code:`users/stats`
+
+        Returns:
+            :obj:`dict`: Returns a count for the specified user.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('users/stats', userId=user_id)
 
     def users_relation(
         self,
         user_id: Union[str, List[str]],
     ) -> Union[dict, List[dict]]:
+        """Get the relation of the specified user(s).
+
+        Args:
+            user_id (:obj:`str` or :obj:`list` of :obj:`str`): Specify the
+            user ID(s).
+
+        Endpoint:
+            :code:`users/relation`
+
+        Note:
+            If :code:`user_id` is specified by str, it will be returned by dict.
+
+            If :code:`user_id` is specified by list, it will be returned by dict of list.
+
+        Returns:
+            :obj:`dict` or :obj:`list` of :obj:`dict`: Returns the relation.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('users/relation', userId=user_id)
 
     def users_lists_create(
