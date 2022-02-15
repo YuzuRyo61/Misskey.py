@@ -1521,9 +1521,11 @@ class Misskey:
             :code:`users/relation`
 
         Note:
-            If :code:`user_id` is specified by str, it will be returned by dict.
+            If :code:`user_id` is specified by str, it will be returned
+            by dict.
 
-            If :code:`user_id` is specified by list, it will be returned by dict of list.
+            If :code:`user_id` is specified by list, it will be returned
+            by dict of list.
 
         Returns:
             :obj:`dict` or :obj:`list` of :obj:`dict`: Returns the relation.
