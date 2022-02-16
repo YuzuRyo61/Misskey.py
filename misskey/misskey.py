@@ -1447,6 +1447,7 @@ class Misskey:
             include replies.
 
             limit (int, optional): Specify the amount to get.
+            You can specify from 1 to 100.
 
             since_id (str, optional): Specify the first ID to get.
 
@@ -1539,15 +1540,54 @@ class Misskey:
         self,
         name: str,
     ) -> dict:
+        """Create user list.
+
+        Args:
+            name (str): Specify the list name.
+
+        Endpoint:
+            :code:`users/lists/create`
+
+        Returns:
+            dict: Returns the new list information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('users/lists/create', name=name)
 
     def users_lists_list(self) -> List[dict]:
+        """Get user list.
+
+        Endpoint:
+            :code:`users/lists/list`
+
+        Returns:
+            list of dict: Returns a list of user lists.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('users/lists/list')
 
     def users_lists_show(
         self,
         list_id: str,
     ) -> dict:
+        """Get user list detail.
+
+        Args:
+            list_id (str): Specify the list ID.
+
+        Endpoint:
+            :code:`users/lists/show`
+
+        Returns:
+            dict: Returns the list information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('users/lists/show', listId=list_id)
 
     def users_lists_push(
@@ -1555,6 +1595,23 @@ class Misskey:
         list_id: str,
         user_id: str,
     ) -> bool:
+        """Add user to user list.
+
+        Args:
+            list_id (str): Specify the list ID.
+
+            user_id (str): Specify the user ID.
+
+        Endpoint:
+            :code:`users/lists/push`
+
+        Returns:
+            bool: Returns :code:`True` if the user is added to
+            the list.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals())
         return self.__request_api('users/lists/push', **params)
 
@@ -1563,6 +1620,23 @@ class Misskey:
         list_id: str,
         user_id: str,
     ) -> bool:
+        """Remove user from user list.
+
+        Args:
+            list_id (str): Specify the list ID.
+
+            user_id (str): Specify the user ID.
+
+        Endpoint:
+            :code:`users/lists/pull`
+
+        Returns:
+            bool: Returns :code:`True` if the user is removed from
+            the list.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals())
         return self.__request_api('users/lists/pull', **params)
 
@@ -1571,6 +1645,22 @@ class Misskey:
         list_id: str,
         name: str,
     ) -> dict:
+        """Update user list.
+
+        Args:
+            list_id (str): Specify the list ID.
+
+            name (str): Specify the new list name.
+
+        Endpoint:
+            :code:`users/lists/update`
+
+        Returns:
+            dict: Returns the updated list information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals())
         return self.__request_api('users/lists/update', **params)
 
@@ -1578,6 +1668,20 @@ class Misskey:
         self,
         list_id: str,
     ) -> bool:
+        """Delete user list.
+
+        Args:
+            list_id (str): Specify the list ID.
+
+        Endpoint:
+            :code:`users/lists/delete`
+
+        Returns:
+            bool: Returns :code:`True` if the list is deleted.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('users/lists/delete', listId=list_id)
 
     def users_report_abuse(
@@ -1585,6 +1689,22 @@ class Misskey:
         user_id: str,
         comment: str,
     ) -> bool:
+        """Report abuse to user.
+
+        Args:
+            user_id (str): Specify the user ID.
+
+            comment (str): Specify the comment.
+
+        Endpoint:
+            :code:`users/report/abuse`
+
+        Returns:
+            bool: Returns :code:`True` if the report is sent.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals())
         return self.__request_api('users/report-abuse', **params)
 
@@ -1592,18 +1712,60 @@ class Misskey:
         self,
         user_id: str,
     ) -> dict:
+        """Follow the specified user.
+
+        Args:
+            user_id (str): Specify the user ID.
+
+        Endpoint:
+            :code:`following/create`
+
+        Returns:
+            dict: Returns the following information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('following/create', userId=user_id)
 
     def following_delete(
         self,
         user_id: str,
     ) -> dict:
+        """Unfollow the specified user.
+
+        Args:
+            user_id (str): Specify the user ID.
+
+        Endpoint:
+            :code:`following/delete`
+
+        Returns:
+            dict: Returns the following information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('following/delete', userId=user_id)
 
     def mute_create(
         self,
         user_id: str,
     ) -> bool:
+        """Mute the specified user.
+
+        Args:
+            user_id (str): Specify the user ID.
+
+        Endpoint:
+            :code:`mute/create`
+
+        Returns:
+            bool: Returns :code:`True` if the user is muted.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('mute/create', userId=user_id)
 
     def mute_list(
@@ -1612,6 +1774,25 @@ class Misskey:
         since_id: Optional[str] = None,
         until_id: Optional[str] = None,
     ) -> List[dict]:
+        """Get list of muted users.
+
+        Args:
+            limit (int): Specify the number of users to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specify the first ID to get.
+
+            until_id (str, optional): Specify the last ID to get.
+
+        Endpoint:
+            :code:`mute/list`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of muted users.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals())
         return self.__request_api('mute/list', **params)
 
@@ -1619,12 +1800,40 @@ class Misskey:
         self,
         user_id: str,
     ) -> bool:
+        """Unmute the specified user.
+
+        Args:
+            user_id (str): Specify the user ID.
+
+        Endpoint:
+            :code:`mute/delete`
+
+        Returns:
+            bool: Returns :code:`True` if the user is unmuted.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('mute/delete', userId=user_id)
 
     def blocking_create(
         self,
         user_id: str,
     ) -> dict:
+        """Block the specified user.
+
+        Args:
+            user_id (str): Specify the user ID.
+
+        Endpoint:
+            :code:`blocking/create`
+
+        Returns:
+            dict: Returns the blocking information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('blocking/create', userId=user_id)
 
     def blocking_list(
@@ -1633,6 +1842,22 @@ class Misskey:
         since_id: Optional[str] = None,
         until_id: Optional[str] = None,
     ) -> List[dict]:
+        """Get list of blocked users.
+
+        Args:
+            limit (int): Specify the number of users to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specify the first ID to get.
+
+            until_id (str, optional): Specify the last ID to get.
+
+        Endpoint:
+            :code:`blocking/list`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of blocked users.
+        """
         params = self.__params(locals())
         return self.__request_api('blocking/list', **params)
 
@@ -1640,12 +1865,40 @@ class Misskey:
         self,
         user_id: str,
     ) -> dict:
+        """Unblock the specified user.
+
+        Args:
+            user_id (str): Specify the user ID.
+
+        Endpoint:
+            :code:`blocking/delete`
+
+        Returns:
+            dict: Returns the blocking information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('blocking/delete', userId=user_id)
 
     def following_requests_accept(
         self,
         user_id: str,
     ) -> bool:
+        """Accept the following request.
+
+        Args:
+            user_id (str): Specify the user ID.
+
+        Endpoint:
+            :code:`following/requests/accept`
+
+        Returns:
+            bool: Returns :code:`True` if the request is successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api(
             'following/requests/accept',
             userId=user_id
@@ -1655,6 +1908,20 @@ class Misskey:
         self,
         user_id: str,
     ) -> bool:
+        """Reject the following request.
+
+        Args:
+            user_id (str): Specify the user ID.
+
+        Endpoint:
+            :code:`following/requests/reject`
+
+        Returns:
+            bool: Returns :code:`True` if the request is successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api(
             'following/requests/reject',
             userId=user_id,
@@ -1664,6 +1931,20 @@ class Misskey:
         self,
         user_id: str,
     ) -> dict:
+        """Cancel the following request.
+
+        Args:
+            user_id (str): Specify the user ID.
+
+        Endpoint:
+            :code:`following/requests/cancel`
+
+        Returns:
+            dict: Returns the following information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api(
             'following/requests/cancel',
             userId=user_id,
@@ -1672,9 +1953,31 @@ class Misskey:
     def following_requests_list(
         self,
     ) -> List[dict]:
+        """Get list of following requests.
+
+        Endpoint:
+            :code:`following/requests/list`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of following requests.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('following/requests/list')
 
     def drive(self) -> dict:
+        """Get drive usage information.
+
+        Endpoint:
+            :code:`drive`
+
+        Returns:
+            dict: Returns the drive usage information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('drive')
 
     def drive_stream(
@@ -1684,6 +1987,27 @@ class Misskey:
         until_id: Optional[str] = None,
         file_type: Optional[str] = None,
     ) -> List[dict]:
+        """Get drive files.
+
+        Args:
+            limit (int): Specify the number of files to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specify the first ID to get.
+
+            until_id (str, optional): Specify the last ID to get.
+
+            file_type (str, optional): Specify the file type.
+
+        Endpoint:
+            :code:`drive/stream`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of files.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(
             locals(),
             custom_rename={
@@ -1700,6 +2024,29 @@ class Misskey:
         folder_id: Optional[str] = None,
         file_type: Optional[str] = None,
     ) -> List[dict]:
+        """Get drive files in specified folder(optional).
+
+        Args:
+            limit (int): Specify the number of files to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specify the first ID to get.
+
+            until_id (str, optional): Specify the last ID to get.
+
+            folder_id (str, optional): Specify the folder ID.
+
+            file_type (str, optional): Specify the file type.
+
+        Endpoint:
+            :code:`drive/files`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of files.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(
             locals(),
             custom_rename={
@@ -1716,6 +2063,31 @@ class Misskey:
         is_sensitive: bool = False,
         force: bool = False,
     ) -> dict:
+        """Upload a file to the drive.
+
+        Args:
+            file (:obj:`IOTypes`): Assign a file stream. As an example,
+            the one opened by the :obj:`open` function is included.
+
+            folder_id (str, optional): Specify the folder ID.
+
+            name (str, optional): Specify the file name.
+
+            is_sensitive (bool, optional): Specify whether the file is
+            sensitive.
+
+            force (bool, optional): Specify whether to overwrite the file
+            if it already exists.
+
+        Endpoint:
+            :code:`drive/files/create`
+
+        Returns:
+            dict: Returns the file information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals(), {'file', 'is_sensitive', 'force'})
         params.update(
             i=self.__token,
@@ -1740,12 +2112,40 @@ class Misskey:
         self,
         md5: str,
     ) -> bool:
+        """Validate if the specified md5 hash exists in the drive.
+
+        Args:
+            md5 (str): Specify the md5 hash.
+
+        Endpoint:
+            :code:`drive/files/check-existence`
+
+        Returns:
+            bool: Returns :code:`True` if the file exists.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('drive/files/check-existence', md5=md5)
 
     def drive_files_attached_notes(
         self,
         file_id: str,
     ) -> List[dict]:
+        """Get notes that have the specified file.
+
+        Args:
+            file_id (str): Specify the file ID.
+
+        Endpoint:
+            :code:`drive/files/attached-notes`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of notes.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api(
             'drive/files/attached-notes',
             fileId=file_id
@@ -1755,6 +2155,20 @@ class Misskey:
         self,
         md5: str,
     ) -> List[dict]:
+        """Get files that have the specified md5 hash.
+
+        Args:
+            md5 (str): Specify the md5 hash.
+
+        Endpoint:
+            :code:`drive/files/find-by-hash`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of files.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api(
             'drive/files/find-by-hash',
             md5=md5,
@@ -1765,6 +2179,25 @@ class Misskey:
         file_id: Optional[str] = None,
         url: Optional[str] = None,
     ) -> dict:
+        """Get file information.
+
+        Args:
+            file_id (str, optional): Specify the file ID.
+
+            url (str, optional): Specify the file URL.
+
+        Endpoint:
+            :code:`drive/files/show`
+
+        Note:
+            You need to specify either :obj:`file_id` or :obj:`url`.
+
+        Returns:
+            dict: Returns the file information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals())
         return self.__request_api(
             'drive/files/show',
@@ -1779,6 +2212,29 @@ class Misskey:
         is_sensitive: Optional[bool] = None,
         comment: Union[str, None] = '',
     ) -> dict:
+        """Update file information.
+
+        Args:
+            file_id (str): Specify the file ID.
+
+            folder_id (str, optional): Specify the folder ID.
+
+            name (str, optional): Specify the file name.
+
+            is_sensitive (bool, optional): Specify whether the file is
+            sensitive.
+
+            comment (str, optional): Specify a comment.
+
+        Endpoint:
+            :code:`drive/files/update`
+
+        Returns:
+            dict: Returns the file information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals(), {'folder_id', 'comment'})
         if folder_id != '':
             params['folderId'] = folder_id
@@ -1791,6 +2247,20 @@ class Misskey:
         self,
         file_id: str,
     ) -> bool:
+        """Delete a file.
+
+        Args:
+            file_id (str): Specify the file ID.
+
+        Endpoint:
+            :code:`drive/files/delete`
+
+        Returns:
+            bool: Returns :code:`True` if the file is deleted.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api('drive/files/delete', fileId=file_id)
 
     def drive_folders(
@@ -1800,6 +2270,27 @@ class Misskey:
         until_id: Optional[str] = None,
         folder_id: Optional[str] = None,
     ) -> List[dict]:
+        """Get the folder list.
+
+        Args:
+            limit (int, optional): Specify the number of folders to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specify the first ID to get.
+
+            until_id (str, optional): Specify the last ID to get.
+
+            folder_id (str, optional): Specify the folder ID.
+
+        Endpoint:
+            :code:`drive/folders`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of folders.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals())
         return self.__request_api('drive/folders', **params)
 
@@ -1808,6 +2299,22 @@ class Misskey:
         name: str = 'Untitled',
         parent_id: Optional[str] = None,
     ) -> dict:
+        """Create a folder.
+
+        Args:
+            name (str, optional): Specify the folder name.
+
+            parent_id (str, optional): Specify the parent folder ID.
+
+        Endpoint:
+            :code:`drive/folders/create`
+
+        Returns:
+            dict: Returns the folder information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         params = self.__params(locals())
         return self.__request_api('drive/folders/create', **params)
 
@@ -1815,6 +2322,20 @@ class Misskey:
         self,
         folder_id: str,
     ) -> dict:
+        """Get folder information.
+
+        Args:
+            folder_id (str): Specify the folder ID.
+
+        Endpoint:
+            :code:`drive/folders/show`
+
+        Returns:
+            dict: Returns the folder information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api(
             'drive/folders/show',
             folderId=folder_id
@@ -1826,6 +2347,21 @@ class Misskey:
         name: Optional[str] = None,
         parent_id: Union[str, None] = '',
     ) -> dict:
+        """Update folder information.
+
+        Args:
+            folder_id (str): Specify the folder ID.
+
+            name (str, optional): Specify the folder name.
+
+            parent_id (str, optional): Specify the parent folder ID.
+
+        Endpoint:
+            :code:`drive/folders/update`
+
+        Returns:
+            dict: Returns the folder information.
+        """
         params = self.__params(locals(), {'parent_id'})
         if parent_id != '':
             params['parentId'] = parent_id
@@ -1835,6 +2371,20 @@ class Misskey:
         self,
         folder_id: str,
     ) -> bool:
+        """Delete a folder.
+
+        Args:
+            folder_id (str): Specify the folder ID.
+
+        Endpoint:
+            :code:`drive/folders/delete`
+
+        Returns:
+            bool: Returns :code:`True` if the folder is deleted.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
         return self.__request_api(
             'drive/folders/delete',
             folderId=folder_id
