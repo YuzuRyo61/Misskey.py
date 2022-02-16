@@ -6,6 +6,7 @@ Welcome to Misskey.py's documentation!
 
    getting-started
    quick-start
+   upload-file
    get-token-from-miauth
 
 .. toctree::

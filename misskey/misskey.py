@@ -2066,7 +2066,7 @@ class Misskey:
         """Upload a file to the drive.
 
         Args:
-            file (:obj:`IOTypes`): Assign a file stream. As an example,
+            file (:obj:`IO`): Assign a file stream. As an example,
             the one opened by the :obj:`open` function is included.
 
             folder_id (str, optional): Specify the folder ID.
