@@ -53,5 +53,4 @@ jobs:
     - name: Upload artifact to GitHub
       uses: actions/upload-artifact@v2
       with:
-        name: dist/*.whl
-        target_directory: dist
+        path: dist/*.whl
