@@ -3,6 +3,8 @@ from enum import Enum, unique
 
 @unique
 class NoteVisibility(Enum):
+    """Note visibility enumeration.
+    """
     PUBLIC = 'public'
     HOME = 'home'
     FOLLOWERS = 'followers'
@@ -11,6 +13,8 @@ class NoteVisibility(Enum):
 
 @unique
 class NotificationsType(Enum):
+    """Notifications type enumeration.
+    """
     FOLLOW = 'follow'
     MENTIONS = 'mention'
     REPLY = 'reply'
@@ -26,6 +30,8 @@ class NotificationsType(Enum):
 
 @unique
 class LangType(Enum):
+    """Language type enumuration.
+    """
     ACH = 'ach'
     ADY = 'ady'
     AF = 'af'
@@ -243,6 +249,8 @@ class LangType(Enum):
 
 @unique
 class Permissions(Enum):
+    """Permissions enumuration.
+    """
     READ_ACCOUNT = 'read:account'
     WRITE_ACCOUNT = 'write:account'
     READ_BLOCKS = 'read:blocks'
