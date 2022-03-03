@@ -4,6 +4,7 @@
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 [![Python test](https://github.com/YuzuRyo61/Misskey.py/actions/workflows/test.yml/badge.svg)](https://github.com/YuzuRyo61/Misskey.py/actions/workflows/test.yml)
 [![codecov](https://codecov.io/gh/YuzuRyo61/Misskey.py/branch/main/graph/badge.svg?token=97A1HJHUMW)](https://codecov.io/gh/YuzuRyo61/Misskey.py)
+[![Documentation Status](https://readthedocs.org/projects/misskeypy/badge/?version=latest)](https://misskeypy.readthedocs.io/ja/latest/?badge=latest)
 
 Misskeyインスタンス用のPythonライブラリです。
 
