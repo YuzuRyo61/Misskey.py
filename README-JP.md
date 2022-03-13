@@ -67,3 +67,11 @@ mk = Misskey("misskey.io", i=token)  # または: misskey = misskey("misskey.io"
 プルリクエスト大歓迎です！
 
 是非ともライブラリ完成に貢献していただけると幸いです。
+
+# 寄付
+
+[GitHub Sponsor](https://github.com/sponsors/YuzuRyo61)にて受け付けています。
+
+## 寄付者
+
+- [tearaikazuki](https://github.com/tearaikazuki)
