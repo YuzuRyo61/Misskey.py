@@ -71,7 +71,3 @@ We hope you will contribute to the completion of the library by all means.
 # Donation
 
 We are accepting at [GitHub Sponsors](https://github.com/sponsors/YuzuRyo61)!
-
-## Donors
-
-- [tearaikazuki](https://github.com/tearaikazuki)
