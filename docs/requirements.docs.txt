@@ -2,7 +2,7 @@ alabaster==0.7.12
 astroid==2.9.0
 attrs==21.2.0
 Babel==2.9.1
-certifi==2021.10.8
+certifi==2022.12.7
 charset-normalizer==2.0.9
 click==8.0.3
 coverage==6.2
