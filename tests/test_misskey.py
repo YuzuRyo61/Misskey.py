@@ -722,3 +722,44 @@ def test_users_lists(
     )
     assert type(res_delete) == bool
     assert res_delete
+
+
+def test_antennas(
+    mk_cli_admin: Misskey,
+):
+    res_create = mk_cli_admin.antennas_create(
+        name='test-antenna',
+        src='all',
+    )
+    assert type(res_create) == dict
+
+    res_update = mk_cli_admin.antennas_update(
+        res_create['id'],
+        name='test-antenna-renamed',
+        src='home',
+    )
+    assert type(res_update) == dict
+
+    res_list = mk_cli_admin.antennas_list()
+    assert type(res_list) == list
+
+    res_notes = mk_cli_admin.antennas_notes(
+        res_create['id'],
+        since_date=(
+            datetime.datetime.now() -
+            datetime.timedelta(days=1)
+        ),
+        until_date=(
+            datetime.datetime.now()
+        ),
+    )
+    assert type(res_notes) == list
+
+    res_show = mk_cli_admin.antennas_show(res_create['id'])
+    assert type(res_show == dict)
+
+    res_delete = mk_cli_admin.antennas_delete(
+        antenna_id=res_create['id']
+    )
+    assert type(res_delete) == bool
+    assert res_delete

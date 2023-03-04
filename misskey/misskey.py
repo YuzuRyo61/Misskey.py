@@ -19,6 +19,7 @@ from .enum import (
     NoteVisibility,
     NotificationsType,
     LangType,
+    AntennaSource,
 )
 from .exceptions import (
     MisskeyAuthorizeFailedException,
@@ -2347,3 +2348,245 @@ class Misskey:
             'drive/folders/delete',
             folderId=folder_id
         )
+
+    def antennas_create(
+        self,
+        name: str,
+        src: Union[AntennaSource, str] = AntennaSource.ALL,
+        user_list_id: Optional[str] = None,
+        keywords: List[List[str]] = [[]],
+        exclude_keywords: List[List[str]] = [[]],
+        users: List[str] = [],
+        case_sensitive: bool = False,
+        with_replies: bool = False,
+        with_file: bool = False,
+        notify: bool = False,
+    ) -> dict:
+        """Create an antenna.
+
+        Args:
+            name (str): Specifies the name of the antenna.
+
+            src (str, default: :code:`all`): Specifies antenna source.
+            Available values are enumerated in :class:`enum.AntennaSource`.
+
+            user_list_id (str, optional):
+            If :code:`src` is :code:`list`, specifies the list ID.
+
+            keywords
+            (:obj:`list` of :obj:`list` of :obj:`str`, default: :code:`[[]]`):
+            Specifies keywords to listen to. Keywords in the inner list join
+            with AND conditions and the outer list with OR conditions.
+
+            exclude_keywords
+            (:obj:`list` of :obj:`list` of :obj:`str`, default: :code:`[[]]`):
+            Specifies keywords to exclude. Keywords in the inner list join with
+            AND conditions and the outer list with OR conditions.
+
+            users (:obj:`list` of :obj:`str`, default: :code:`[]`):
+            Specifies usernames of users to listen to.
+
+            case_sensitive (bool, default: :code:`False`):
+            Specifies whether keywords are case sensitive.
+
+            with_replies (bool, default: :code:`False`):
+            Specifies whether to include replies.
+
+            with_file (bool, default: :code:`False`):
+            Specifies whether to listen only to notes with files.
+
+            notify (bool, default: :code:`False`):
+            Specifies whether to notify about new notes.
+
+        Endpoint:
+            :code:`antennas/create`
+
+        Note:
+            If :code:`src` is :code:`list`,
+            :code:`user_list_id` must be specified.
+
+        Returns:
+            dict: Returns the created antenna information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`src` is invalid.
+        """
+        if type(src) is str:
+            src = AntennaSource(src)
+
+        params = self.__params(locals())
+        return self.__request_api('antennas/create', **params)
+
+    def antennas_delete(
+        self,
+        antenna_id: str,
+    ) -> bool:
+        """Delete an antenna.
+
+        Args:
+            antenna_id (str): Specifies the antenna ID.
+
+        Endpoint:
+            :code:`antennas/delete`
+
+        Returns:
+            bool: Returns :code:`True` if the antenna is deleted.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('antennas/delete', antennaId=antenna_id)
+
+    def antennas_list(self) -> List[dict]:
+        """Get list of antennas.
+
+        Endpoint:
+            :code:`antennas/list`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns a list of antennas.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('antennas/list')
+
+    def antennas_notes(
+        self,
+        antenna_id: str,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        since_date: Union[int, datetime.datetime, None] = None,
+        until_date: Union[int, datetime.datetime, None] = None,
+    ) -> List[dict]:
+        """Get notes from the specified antenna.
+
+        Args:
+            antenna_id (str): Specifies the antenna ID.
+
+            limit (int, default: :code:`10`): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+            since_date (int, datetime.datetime, optional): Specifies
+            the first date to get.
+
+            until_date (int, datetime.datetime, optional): Specifies
+            the last date to get.
+
+
+        Endpoint:
+            :code:`antennas/notes`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns a list of notes.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        if isinstance(since_date, datetime.datetime):
+            since_date = math.floor(since_date.timestamp() * 1000)
+        if isinstance(until_date, datetime.datetime):
+            until_date = math.floor(until_date.timestamp() * 1000)
+
+        params = self.__params(locals())
+        return self.__request_api('antennas/notes', **params)
+
+    def antennas_show(
+        self,
+        antenna_id: str
+    ) -> dict:
+        """Get user antenna detail.
+
+        Args:
+            antenna_id (str): Specifies the antenna ID.
+
+        Endpoint:
+            :code:`antennas/show`
+
+        Returns:
+            dict: Returns the antenna information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('antennas/show', antennaId=antenna_id)
+
+    def antennas_update(
+        self,
+        antenna_id: str,
+        name: str,
+        src: Union[AntennaSource, str] = AntennaSource.ALL,
+        user_list_id: Optional[str] = None,
+        keywords: List[List[str]] = [[]],
+        exclude_keywords: List[List[str]] = [[]],
+        users: List[str] = [],
+        case_sensitive: bool = False,
+        with_replies: bool = False,
+        with_file: bool = False,
+        notify: bool = False,
+    ) -> dict:
+        """Update an antenna.
+
+        Args:
+            antenna_id (str): Specifies the antenna ID to update.
+
+            name (str): Specifies the name of the antenna.
+
+            src (str, default: :code:`all`): Specifies antenna source.
+            Available values are enumerated in :class:`enum.AntennaSource`.
+
+            user_list_id (str, optional):
+            If :code:`src` is :code:`list`, specifies the list ID.
+
+            keywords
+            (:obj:`list` of :obj:`list` of :obj:`str`, default: :code:`[[]]`):
+            Specifies keywords to listen to. Keywords in the inner list join
+            with AND conditions and the outer list with OR conditions.
+
+            exclude_keywords
+            (:obj:`list` of :obj:`list` of :obj:`str`, default: :code:`[[]]`):
+            Specifies keywords to exclude. Keywords in the inner list join with
+            AND conditions and the outer list with OR conditions.
+
+            users (:obj:`list` of :obj:`str`, default: :code:`[]`):
+            Specifies usernames of users to listen to.
+
+            case_sensitive (bool, default: :code:`False`):
+            Specifies whether keywords are case sensitive.
+
+            with_replies (bool, default: :code:`False`):
+            Specifies whether to include replies.
+
+            with_file (bool, default: :code:`False`):
+            Specifies whether to listen only to notes with files.
+
+            notify (bool, default: :code:`False`):
+            Specifies whether to notify about new notes.
+
+        Endpoint:
+            :code:`antennas/update`
+
+        Note:
+            If :code:`src` is :code:`list`,
+            :code:`user_list_id` must be specified.
+
+        Returns:
+            dict: Returns the updated antenna information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`src` is invalid.
+        """
+        if type(src) is str:
+            src = AntennaSource(src)
+
+        params = self.__params(locals())
+        return self.__request_api('antennas/update', **params)

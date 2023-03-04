@@ -248,6 +248,16 @@ class LangType(Enum):
 
 
 @unique
+class AntennaSource(Enum):
+    """Antenna source enumeration.
+    """
+    HOME = 'home'
+    ALL = 'all'
+    USERS = 'users'
+    LIST = 'list'
+
+
+@unique
 class Permissions(Enum):
     """Permissions enumuration.
     """
