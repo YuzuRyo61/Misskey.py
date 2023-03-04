@@ -1374,6 +1374,8 @@ class Misskey:
             MisskeyAPIException: Raise if the API request fails.
         """
         params = self.__params(locals())
+        if host is None:
+            params['host'] = None
         return self.__request_api('users/following', **params)
 
     def users_followers(
@@ -1414,6 +1416,8 @@ class Misskey:
             MisskeyAPIException: Raise if the API request fails.
         """
         params = self.__params(locals())
+        if host is None:
+            params['host'] = None
         return self.__request_api('users/followers', **params)
 
     def users_notes(
