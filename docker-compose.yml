@@ -3,7 +3,7 @@ version: "3"
 
 services:
   misskey-web:
-    image: misskey/misskey:latest
+    image: misskey/misskey:13.0.0
     restart: always
     links:
       - db
