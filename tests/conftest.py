@@ -1,3 +1,5 @@
+import time
+
 import pytest
 import requests
 
@@ -98,3 +100,11 @@ def mk_admin_new_note(mk_cli_admin: Misskey):
     is_deleted = mk_cli_admin.notes_delete(new_note['createdNote']['id'])
     assert type(is_deleted) == bool
     assert is_deleted
+
+
+# Avoid rate limit
+# https://stackoverflow.com/a/66974375
+@pytest.fixture(autouse=True)
+def slow_down_tests():
+    yield
+    time.sleep(1)
