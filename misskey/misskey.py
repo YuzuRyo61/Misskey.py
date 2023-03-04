@@ -1021,52 +1021,6 @@ class Misskey:
             noteId=note_id,
         )
 
-    def notes_watching_create(
-        self,
-        note_id: str,
-    ) -> bool:
-        """Watch a note.
-
-        Args:
-            note_id (str): Specify the Note ID to watch.
-
-        Endpoint:
-            :code:`notes/watching/create`
-
-        Returns:
-            bool: Returns :code:`True` if the request was successful.
-
-        Raises:
-            MisskeyAPIException: Raise if the API request fails.
-        """
-        return self.__request_api(
-            'notes/watching/create',
-            noteId=note_id,
-        )
-
-    def notes_watching_delete(
-        self,
-        note_id: str,
-    ) -> bool:
-        """Unwatch a note.
-
-        Args:
-            note_id (str): Specify the Note ID to unwatch.
-
-        Endpoint:
-            :code:`notes/watching/delete`
-
-        Returns:
-            bool: Returns :code:`True` if the request was successful.
-
-        Raises:
-            MisskeyAPIException: Raise if the API request fails.
-        """
-        return self.__request_api(
-            'notes/watching/delete',
-            noteId=note_id,
-        )
-
     def notes_delete(
         self,
         note_id: str,

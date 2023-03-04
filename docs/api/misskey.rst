@@ -62,10 +62,6 @@ MisskeyのAPIプレフィックスは :code:`/api/` です。
 +----------------------------------------+------------------------------------------------+
 | :code:`notes/favorites/delete`         | :meth:`Misskey.notes_favorites_delete`         |
 +----------------------------------------+------------------------------------------------+
-| :code:`notes/watching/create`          | :meth:`Misskey.notes_watching_create`          |
-+----------------------------------------+------------------------------------------------+
-| :code:`notes/watching/delete`          | :meth:`Misskey.notes_watching_delete`          |
-+----------------------------------------+------------------------------------------------+
 | :code:`notes/timeline`                 | :meth:`Misskey.notes_timeline`                 |
 +----------------------------------------+------------------------------------------------+
 | :code:`notes/local-timeline`           | :meth:`Misskey.notes_local_timeline`           |
