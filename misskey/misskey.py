@@ -2590,3 +2590,243 @@ class Misskey:
 
         params = self.__params(locals())
         return self.__request_api('antennas/update', **params)
+
+    def channels_create(
+        self,
+        name: str,
+        description: Optional[str] = None,
+        banner_id: Optional[str] = None,
+    ) -> dict:
+        """Create a channel.
+
+        Args:
+            name (str): Specifies the name of the channel.
+
+            description (str, optional):
+            Specifies the description of the channel.
+
+            banner_id (str, optional):
+            Specifies the file ID of the banner image for the channel.
+
+        Endpoint:
+            :code:`channels/create`
+
+        Returns:
+            dict: Returns the created channel information.
+
+        Note:
+            Once you have created a channel, it cannot be deleted.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('channels/create', **params)
+
+    def channels_featured(self) -> List[dict]:
+        """Get list of featured channels.
+
+        Endpoint:
+            :code:`channels/featured`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of featured channels.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('channels/featured')
+
+    def channels_follow(
+        self,
+        channel_id: str,
+    ) -> bool:
+        """Follow the specified channel.
+
+        Args:
+            channel_id (str): Specifies the channel ID to follow.
+
+        Endpoint:
+            :code:`channels/follow`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('channels/follow', channelId=channel_id)
+
+    def channels_followed(
+        self,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        limit: int = 5,
+    ) -> List[dict]:
+        """Get list of channels you are following.
+
+        Args:
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+            limit (int, default: 5): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+        Endpoint:
+            :code:`channels/followed`
+
+        Returns:
+            :obj:`list` of :obj:`dict`:
+            Returns the list of channels you are following.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('channels/followed', **params)
+
+    def channels_owned(
+        self,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        limit: int = 5,
+    ) -> List[dict]:
+        """Get list of channels you have created.
+
+        Args:
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+            limit (int, default: 5): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+        Endpoint:
+            :code:`channels/owned`
+
+        Returns:
+            :obj:`list` of :obj:`dict`:
+            Returns the list of channels you have created.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('channels/owned', **params)
+
+    def channels_show(
+        self,
+        channel_id: str,
+    ) -> dict:
+        """Get channel details.
+
+        Args:
+            channel_id (str): Specifies the channel ID to get.
+
+        Endpoint:
+            :code:`channels/show`
+
+        Returns:
+            dict: Returns the channel information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('channels/show', channelId=channel_id)
+
+    def channels_timeline(
+        self,
+        channel_id: str,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        since_date: Union[int, datetime.datetime, None] = None,
+        until_date: Union[int, datetime.datetime, None] = None,
+    ) -> List[dict]:
+        """Get notes from the specified channel.
+
+        Args:
+            channel_id (str): Specifies the channel ID to get.
+
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+            since_date (int, datetime.datetime, optional): Specifies
+            the first date to get.
+
+            until_date (int, datetime.datetime, optional): Specifies
+            the last date to get.
+
+        Endpoint:
+            :code:`channels/timeline`
+
+        Returns:
+            :obj:`list` of :obj:`dict`:
+            Returns the list of notes from the channel.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        if isinstance(since_date, datetime.datetime):
+            since_date = math.floor(since_date.timestamp() * 1000)
+        if isinstance(until_date, datetime.datetime):
+            until_date = math.floor(until_date.timestamp() * 1000)
+        params = self.__params(locals())
+        return self.__request_api('channels/timeline', **params)
+
+    def channels_unfollow(
+        self,
+        channel_id: str,
+    ) -> bool:
+        """Unfollow the specified channel.
+
+        Args:
+            channel_id (str): Specifies the channel ID to unfollow.
+
+        Endpoint:
+            :code:`channels/unfollow`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('channels/unfollow', channelId=channel_id)
+
+    def channels_update(
+        self,
+        channel_id: str,
+        name: str,
+        description: Optional[str] = None,
+        banner_id: Optional[str] = None,
+    ) -> dict:
+        """Update a channel.
+
+        Args:
+            channel_id (str): Specifies the channel ID to update.
+
+            name (str): Specifies the name of the channel.
+
+            description (str, optional):
+            Specifies the description of the channel.
+
+            banner_id (str, optional):
+            Specifies the file ID of the banner image for the channel.
+
+        Endpoint:
+            :code:`channels/update`
+
+        Returns:
+            dict: Returns the updated channel information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('channels/update', **params)

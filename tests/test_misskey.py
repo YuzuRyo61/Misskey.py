@@ -763,3 +763,48 @@ def test_antennas(
     )
     assert type(res_delete) == bool
     assert res_delete
+
+
+def test_channels(
+    mk_cli_admin: Misskey,
+):
+    res_create = mk_cli_admin.channels_create('test-channel')
+    assert type(res_create) == dict
+
+    res_featured = mk_cli_admin.channels_featured()
+    assert type(res_featured) == list
+
+    res_follow = mk_cli_admin.channels_follow(res_create['id'])
+    assert type(res_follow) == bool
+    assert res_follow
+
+    res_followed = mk_cli_admin.channels_followed()
+    assert type(res_followed) == list
+
+    res_owned = mk_cli_admin.channels_owned()
+    assert type(res_owned) == list
+
+    res_show = mk_cli_admin.channels_show(res_create['id'])
+    assert type(res_show) == dict
+
+    res_timeline = mk_cli_admin.channels_timeline(
+        res_create['id'],
+        since_date=(
+            datetime.datetime.now() -
+            datetime.timedelta(days=1)
+        ),
+        until_date=(
+            datetime.datetime.now()
+        ),
+    )
+    assert type(res_timeline) == list
+
+    res_unfollow = mk_cli_admin.channels_unfollow(res_create['id'])
+    assert type(res_unfollow) == bool
+    assert res_unfollow
+
+    res_update = mk_cli_admin.channels_update(
+        res_create['id'],
+        name='test-channel-renamed'
+    )
+    assert type(res_update) == dict
