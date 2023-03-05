@@ -2258,6 +2258,31 @@ class Misskey:
         """
         return self.__request_api('drive/files/delete', fileId=file_id)
 
+    def drive_files_find(
+        self,
+        name: str,
+        folder_id: Optional[str] = None,
+    ) -> List[dict]:
+        """Get files with the specified name.
+
+        Args:
+            name (str): Specifies the file name.
+
+            folder_id (Optional[str]): Specifies the folder ID of the parent
+            folder. If :code:`None`, search files in root folder.
+
+        Endpoint:
+            :code:`drive/files/find`
+
+        Returns:
+            List[dict]: Returns the list of files.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('drive/files/find', **params)
+
     def drive_folders(
         self,
         limit: int = 10,
@@ -2384,6 +2409,31 @@ class Misskey:
             'drive/folders/delete',
             folderId=folder_id
         )
+
+    def drive_folders_find(
+        self,
+        name: str,
+        parent_id: Optional[str] = None,
+    ) -> List[dict]:
+        """Get folders with the specified name.
+
+        Args:
+            name (str): Specifies the folder name.
+
+            folder_id (Optional[str]): Specifies the folder ID of the parent
+            folder. If :code:`None`, search folders in root folder.
+
+        Endpoint:
+            :code:`drive/folders/find`
+
+        Returns:
+            List[dict]: Returns the list of folders.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('drive/folders/find', **params)
 
     def antennas_create(
         self,

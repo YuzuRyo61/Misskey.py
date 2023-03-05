@@ -574,6 +574,11 @@ def test_drive_files(
         assert type(res_file_check) == bool
         assert res_file_check
 
+        res_find = mk_cli_admin.drive_files_find(
+            res_create['name'],
+        )
+        assert type(res_find) == list
+
         res_find_hash = mk_cli_admin.drive_files_find_by_hash(
             res_create['md5'],
         )
@@ -610,6 +615,11 @@ def test_drive_folders(
         name='test-folder',
     )
     assert type(res_create) == dict
+
+    res_find = mk_cli_admin.drive_folders_find(
+        name='test-folder'
+    )
+    assert type(res_find) == list
 
     res_show = mk_cli_admin.drive_folders_show(
         res_create['id'],
