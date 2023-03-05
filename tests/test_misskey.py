@@ -923,3 +923,46 @@ def test_clips(
     res_delete = mk_cli_admin.clips_delete(res_create['id'])
     assert type(res_delete) == bool
     assert res_delete
+
+
+def test_flash(
+    mk_cli_admin: Misskey,
+    mk_cli_user: Misskey,
+):
+    res_create = mk_cli_admin.flash_create(
+        title='test-play',
+        summary='Hello world!',
+        script='Ui:render([Ui:C:text({ text: "Hello world!" })])'
+    )
+    assert type(res_create) == dict
+
+    res_featured = mk_cli_admin.flash_featured()
+    assert type(res_featured) == list
+
+    res_like = mk_cli_user.flash_like(res_create['id'])
+    assert type(res_like) == bool
+    assert res_like
+
+    res_my = mk_cli_admin.flash_my()
+    assert type(res_my) == list
+
+    res_my_likes = mk_cli_user.flash_my_likes()
+    assert type(res_my_likes) == list
+
+    res_show = mk_cli_admin.flash_show(res_create['id'])
+    assert type(res_show) == dict
+
+    res_unlike = mk_cli_user.flash_unlike(res_create['id'])
+    assert type(res_unlike) == bool
+
+    res_update = mk_cli_admin.flash_update(
+        flash_id=res_create['id'],
+        title='test-play-renamed',
+        summary='',
+        script='',
+    )
+    assert type(res_update) == bool
+
+    res_delete = mk_cli_admin.flash_delete(res_create['id'])
+    assert type(res_delete) == bool
+    assert res_delete

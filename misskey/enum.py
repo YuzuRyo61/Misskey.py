@@ -300,3 +300,7 @@ class Permissions(Enum):
     WRITE_GALLERY = 'write:gallery'
     READ_GALLERY_LIKES = 'read:gallery-likes'
     WRITE_GALLERY_LIKES = 'write:gallery-likes'
+    READ_FLASH = 'read:flash'
+    WRITE_FLASH = 'write:flash'
+    READ_FLASH_LIKES = 'read:flash-likes'
+    WRITE_FLASH_LIKES = 'write:flash-likes'

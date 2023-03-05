@@ -2745,19 +2745,19 @@ class Misskey:
 
     def channels_followed(
         self,
+        limit: int = 5,
         since_id: Optional[str] = None,
         until_id: Optional[str] = None,
-        limit: int = 5,
     ) -> List[dict]:
         """Get list of channels you are following.
 
         Args:
+            limit (int, default: 5): Specifies the amount to get.
+            You can specify from 1 to 100.
+
             since_id (str, optional): Specifies the first ID to get.
 
             until_id (str, optional): Specifies the last ID to get.
-
-            limit (int, default: 5): Specifies the amount to get.
-            You can specify from 1 to 100.
 
         Endpoint:
             :code:`channels/followed`
@@ -2774,19 +2774,19 @@ class Misskey:
 
     def channels_owned(
         self,
+        limit: int = 5,
         since_id: Optional[str] = None,
         until_id: Optional[str] = None,
-        limit: int = 5,
     ) -> List[dict]:
         """Get list of channels you have created.
 
         Args:
+            limit (int, default: 5): Specifies the amount to get.
+            You can specify from 1 to 100.
+
             since_id (str, optional): Specifies the first ID to get.
 
             until_id (str, optional): Specifies the last ID to get.
-
-            limit (int, default: 5): Specifies the amount to get.
-            You can specify from 1 to 100.
 
         Endpoint:
             :code:`channels/owned`
@@ -3522,3 +3522,219 @@ class Misskey:
         """
         params = self.__params(locals())
         return self.__request_api('clips/update', **params)
+
+    def flash_create(
+        self,
+        title: str,
+        summary: str,
+        script: str,
+        permissions: List[str] = [],
+    ) -> dict:
+        """Create a Play.
+
+        Args:
+            title (str): Specifies the title of the Play.
+
+            summary (str): Specifies the description of the Play.
+
+            script (str): Specifies the script of the Play.
+
+            permissions (:obj:`list` of :obj:`str`, default: :code:`[]`):
+            Specifies permissions.
+
+        Endpoint:
+            :code:`flash/create`
+
+        Returns:
+            dict: Returns the created Play information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('flash/create', **params)
+
+    def flash_delete(
+        self,
+        flash_id: str,
+    ) -> List[dict]:
+        """Delete a Play.
+
+        Args:
+            flash_id (str): Specifies the Play ID.
+
+        Endpoint:
+            :code:`flash/delete`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('flash/delete', flashId=flash_id)
+
+    def flash_featured(self) -> List[dict]:
+        """Get list of featured Plays.
+
+        Endpoint:
+            :code:`flash/featured`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of featured Plays.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('flash/featured', **params)
+
+    def flash_like(
+        self,
+        flash_id: str,
+    ) -> bool:
+        """Like the specified Play.
+
+        Args:
+            flash_id (str): Specifies the Play ID.
+
+        Endpoint:
+            :code:`flash/like`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('flash/like', flashId=flash_id)
+
+    def flash_my(
+        self,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+    ) -> List[dict]:
+        """Get list of Plays you have created.
+
+        Args:
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+        Endpoint:
+            :code:`flash/my`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of Plays.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('flash/my', **params)
+
+    def flash_my_likes(
+        self,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+    ) -> List[dict]:
+        """Get list of Plays you have liked.
+
+        Args:
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+        Endpoint:
+            :code:`flash/my-likes`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of Plays.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('flash/my-likes', **params)
+
+    def flash_show(
+        self,
+        flash_id: str,
+    ) -> dict:
+        """Get Play details.
+
+        Args:
+            flash_id (str): Specifies the Play ID to get.
+
+        Endpoint:
+            :code:`flash/show`
+
+        Returns:
+            dict: Returns the Play information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('flash/show', flashId=flash_id)
+
+    def flash_unlike(
+        self,
+        flash_id: str,
+    ) -> bool:
+        """Unlike the specified Play.
+
+        Args:
+            flash_id (str): Specifies the Play ID.
+
+        Endpoint:
+            :code:`flash/unlike`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('flash/unlike', flashId=flash_id)
+
+    def flash_update(
+        self,
+        flash_id: str,
+        title: str,
+        summary: str,
+        script: str,
+        permissions: List[str] = [],
+    ) -> bool:
+        """Update the Play information.
+
+        Args:
+            flash_id (str): Specifies the Play ID.
+
+            title (str): Specifies the title of the Play.
+
+            summary (str): Specifies the description of the Play.
+
+            script (str): Specifies the script of the Play.
+
+            permissions (:obj:`list` of :obj:`str`, default: :code:`[]`):
+            Specifies permissions.
+
+        Endpoint:
+            :code:`flash/update`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('flash/update', **params)
