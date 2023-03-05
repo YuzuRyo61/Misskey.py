@@ -484,6 +484,23 @@ def test_following(
     assert type(res_unfollow) == dict
 
 
+def test_following_invalidate(
+    mk_cli_admin: Misskey,
+    mk_cli_user: Misskey,
+    mk_admin_id: str,
+    mk_user_id: str,
+):
+    res_follow = mk_cli_admin.following_create(
+        mk_user_id,
+    )
+    assert type(res_follow) == dict
+
+    res_invalidate = mk_cli_user.following_invalidate(
+        mk_admin_id,
+    )
+    assert type(res_invalidate) == dict
+
+
 def test_follow_request(
     mk_cli_admin: Misskey,
     mk_cli_user: Misskey,

@@ -1743,6 +1743,26 @@ class Misskey:
         """
         return self.__request_api('following/delete', userId=user_id)
 
+    def following_invalidate(
+        self,
+        user_id: str,
+    ) -> dict:
+        """Invalidate follow from the specified user.
+
+        Args:
+            user_id (str): Specifies the user ID.
+
+        Endpoint:
+            :code:`following/invalidate`
+
+        Returns:
+            dict: Returns the following information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('following/invalidate', userId=user_id)
+
     def mute_create(
         self,
         user_id: str,

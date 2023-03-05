@@ -106,6 +106,8 @@ MisskeyのAPIプレフィックスは :code:`/api/` です。
 +----------------------------------------+------------------------------------------------+
 | :code:`following/delete`               | :meth:`Misskey.following_delete`               |
 +----------------------------------------+------------------------------------------------+
+| :code:`following/invalidate`           | :meth:`Misskey.following_invalidate`           |
++----------------------------------------+------------------------------------------------+
 | :code:`following/requests/accept`      | :meth:`Misskey.following_requests_accept`      |
 +----------------------------------------+------------------------------------------------+
 | :code:`following/requests/reject`      | :meth:`Misskey.following_requests_reject`      |
