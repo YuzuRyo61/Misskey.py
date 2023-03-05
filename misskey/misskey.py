@@ -3771,3 +3771,208 @@ class Misskey:
         """
         params = self.__params(locals())
         return self.__request_api('flash/update', **params)
+
+    def gallery_featured(self) -> List[dict]:
+        """Get list of featured gallery posts.
+
+        Endpoint:
+            :code:`gallery/featured`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of featured gallery
+            posts.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('gallery/featured')
+
+    def gallery_popular(self) -> List[dict]:
+        """Get list of popular gallery posts.
+
+        Endpoint:
+            :code:`gallery/popular`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of popular gallery
+            posts.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('gallery/popular')
+
+    def gallery_posts(
+        self,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+    ) -> List[dict]:
+        """Get list of gallery posts.
+
+        Args:
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+        Endpoint:
+            :code:`gallery/posts`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of gallery posts.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('gallery/posts', **params)
+
+    def gallery_posts_create(
+        self,
+        title: str,
+        file_ids: List[str],
+        description: Optional[str] = None,
+        is_sensitive: bool = False,
+    ) -> dict:
+        """Create a gallery post.
+
+        Args:
+            title (str): Specifies the title of the post.
+
+            file_ids (:obj:`list` of :obj:`str`): Specifies the file ID to
+            attach to the post.
+
+            description (str, optional): Specifies the description of the post.
+
+            is_sensitive (bool, default: :code:`False`): Specifies whether the
+            files are sensitive.
+
+        Endpoint:
+            :code:`gallery/posts/create`
+
+        Returns:
+            dict: Returns the created gallery post information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('gallery/posts/create', **params)
+
+    def gallery_posts_delete(
+        self,
+        post_id: str,
+    ) -> bool:
+        """Delete a gallery post.
+
+        Args:
+            post_id (str): Specifies the gallery post ID.
+
+        Endpoint:
+            :code:`gallery/posts/delete`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('gallery/posts/delete', postId=post_id)
+
+    def gallery_posts_like(
+        self,
+        post_id: str,
+    ) -> bool:
+        """Like the specified gallery post.
+
+        Args:
+            post_id (str): Specifies the gallery post ID.
+
+        Endpoint:
+            :code:`gallery/posts/like`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('gallery/posts/like', postId=post_id)
+
+    def gallery_posts_show(
+        self,
+        post_id: str,
+    ) -> dict:
+        """Get the gallery post information.
+
+        Args:
+            post_id (str): Specifies the gallery post ID.
+
+        Endpoint:
+            :code:`gallery/posts/show`
+
+        Returns:
+            dict: Returns the gallery post information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('gallery/posts/show', postId=post_id)
+
+    def gallery_posts_unlike(
+        self,
+        post_id: str,
+    ) -> bool:
+        """Unlike the specified gallery post.
+
+        Args:
+            post_id (str): Specifies the gallery post ID.
+
+        Endpoint:
+            :code:`gallery/posts/unlike`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('gallery/posts/unlike', postId=post_id)
+
+    def gallery_posts_update(
+        self,
+        post_id: str,
+        title: str,
+        file_ids: List[str],
+        description: Optional[str] = None,
+        is_sensitive: bool = False,
+    ) -> dict:
+        """Update a gallery post.
+
+        Args:
+            post_id (str): Specifies the gallery post ID.
+
+            title (str): Specifies the title of the post.
+
+            file_ids (:obj:`list` of :obj:`str`): Specifies the file ID to
+            attach to the post.
+
+            description (str, optional): Specifies the description of the post.
+
+            is_sensitive (bool, default: :code:`False`): Specifies whether the
+            files are sensitive.
+
+        Endpoint:
+            :code:`gallery/posts/update`
+
+        Returns:
+            dict: Returns the updated gallery post information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('gallery/posts/update', **params)

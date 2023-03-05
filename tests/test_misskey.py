@@ -983,3 +983,53 @@ def test_flash(
     res_delete = mk_cli_admin.flash_delete(res_create['id'])
     assert type(res_delete) == bool
     assert res_delete
+
+
+def test_gallery(
+    mk_cli_admin: Misskey,
+):
+    res_featured = mk_cli_admin.gallery_featured()
+    assert type(res_featured) == list
+
+    res_popular = mk_cli_admin.gallery_popular()
+    assert type(res_popular) == list
+
+    res_posts = mk_cli_admin.gallery_posts()
+    assert type(res_posts) == list
+
+
+def test_gallery_posts(
+    mk_cli_admin: Misskey,
+    mk_cli_user: Misskey,
+):
+    with open('tests/test_image.png', mode='rb') as f:
+        res_files_create = mk_cli_admin.drive_files_create(f)
+    assert type(res_files_create) == dict
+
+    res_create = mk_cli_admin.gallery_posts_create(
+        title='test-post',
+        file_ids=[res_files_create['id']],
+    )
+    assert type(res_create) == dict
+
+    res_like = mk_cli_user.gallery_posts_like(res_create['id'])
+    assert type(res_like) == bool
+    assert res_like
+
+    res_show = mk_cli_admin.gallery_posts_show(res_create['id'])
+    assert type(res_show) == dict
+
+    res_unlike = mk_cli_user.gallery_posts_unlike(res_create['id'])
+    assert type(res_unlike) == bool
+    assert res_unlike
+
+    res_update = mk_cli_admin.gallery_posts_update(
+        post_id=res_create['id'],
+        title='test-post-renamed',
+        file_ids=[res_files_create['id']]
+    )
+    assert type(res_update) == dict
+
+    res_delete = mk_cli_admin.gallery_posts_delete(res_create['id'])
+    assert type(res_delete) == bool
+    assert res_delete
