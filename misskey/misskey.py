@@ -1967,8 +1967,20 @@ class Misskey:
 
     def following_requests_list(
         self,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
     ) -> List[dict]:
         """Get list of following requests.
+
+        Args:
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
 
         Endpoint:
             :code:`following/requests/list`
@@ -1979,7 +1991,8 @@ class Misskey:
         Raises:
             MisskeyAPIException: Raise if the API request fails.
         """
-        return self.__request_api('following/requests/list')
+        params = self.__params(locals())
+        return self.__request_api('following/requests/list', **params)
 
     def drive(self) -> dict:
         """Get drive usage information.
