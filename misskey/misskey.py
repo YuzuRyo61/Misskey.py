@@ -575,6 +575,7 @@ class Misskey:
         file_ids: Optional[List[str]] = None,
         reply_id: Optional[str] = None,
         renote_id: Optional[str] = None,
+        channel_id: Optional[str] = None,
         poll_choices: Optional[Union[List[str], Tuple[str]]] = None,
         poll_multiple: bool = False,
         poll_expires_at: Optional[Union[int, datetime.datetime]] = None,
@@ -616,6 +617,9 @@ class Misskey:
             the reply destination.
 
             renote_id (:obj:`str`, optional): Specify the Note ID to renote.
+
+            channel_id (:obj:`str`, optional): Specify the channel ID to post
+            the note to.
 
             poll_choices (:obj:`list` of :obj:`str`, optional): Specify the
             voting item. You can specify 2 or more and 10 or less.

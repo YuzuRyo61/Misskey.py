@@ -771,6 +771,12 @@ def test_channels(
     res_create = mk_cli_admin.channels_create('test-channel')
     assert type(res_create) == dict
 
+    res_notes_create = mk_cli_admin.notes_create(
+        'post to test channel',
+        channel_id=res_create['id'],
+    )
+    assert type(res_notes_create) == dict
+
     res_featured = mk_cli_admin.channels_featured()
     assert type(res_featured) == list
 
