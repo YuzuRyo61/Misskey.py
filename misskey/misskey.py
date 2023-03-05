@@ -1672,6 +1672,37 @@ class Misskey:
         params = self.__params(locals())
         return self.__request_api('users/report-abuse', **params)
 
+    def users_clips(
+        self,
+        user_id: str,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+    ) -> List[dict]:
+        """Get list of clips created by the specified user.
+
+        Args:
+            user_id (str): Specifies the user ID.
+
+            limit (int, default: :code:`10`): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+        Endpoints:
+            :code:`users/clips`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns a list of clips.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('users/clips', **params)
+
     def following_create(
         self,
         user_id: str,
@@ -3249,3 +3280,195 @@ class Misskey:
             span = ChartSpan(span)
         params = self.__params(locals())
         return self.__request_api('charts/users', **params)
+
+    def clips_add_note(
+        self,
+        clip_id: str,
+        note_id: str,
+    ) -> bool:
+        """Add a note to the specified clip.
+
+        Args:
+            clip_id (str): Specifies the clip ID to add the note.
+
+            note_id (str): Specifies the note ID to add.
+
+        Endpoints:
+            :code:`clips/add-note`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('clips/add-note', **params)
+
+    def clips_create(
+        self,
+        name: str,
+        is_public: bool = False,
+        description: Optional[str] = None,
+    ) -> dict:
+        """Create a clip.
+
+        Args:
+            name (str): Specifies the clip name.
+
+            is_public (bool, default: :code:`False`):
+            Whether to reveal the clip to other users.
+
+            description (str, optional): Specifies the description of the clip.
+
+        Endpoints:
+            :code:`clips/create`
+
+        Returns:
+            dict: Returns the created clip.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('clips/create', **params)
+
+    def clips_delete(
+        self,
+        clip_id: str
+    ) -> bool:
+        """Delete a clip.
+
+        Args:
+            clip_id (str): Specifies the clip ID to delete.
+
+        Endpoints:
+            :code:`clips/delete`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('clips/delete', clipId=clip_id)
+
+    def clips_list(self) -> List[dict]:
+        """Get list of clips you have created.
+
+        Endpoints:
+            :code:`clips/list`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns a list of clips.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('clips/list')
+
+    def clips_notes(
+        self,
+        clip_id: str,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+    ) -> List[dict]:
+        """Get notes in the specified clip.
+
+        Args:
+            clip_id (str): Specifies the clip ID.
+
+            limit (int, default: :code:`10`): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+        Endpoints:
+            :code:`clips/notes`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns a list of notes.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('clips/notes', **params)
+
+    def clips_remove_note(
+        self,
+        clip_id: str,
+        note_id: str,
+    ) -> bool:
+        """Remove a note from the specified clip.
+
+        Args:
+            clip_id (str): Specifies the clip ID to remove the note.
+
+            note_id (str): Specifies the note ID to remove.
+
+        Endpoints:
+            :code:`clips/remove-note`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('clips/remove-note', **params)
+
+    def clips_show(
+        self,
+        clip_id: str,
+    ) -> dict:
+        """Get clip information.
+
+        Args:
+            clip_id (str): Specifies the clip ID.
+
+        Endpoints:
+            :code:`clips/show`
+
+        Returns:
+            dict: Returns the clip information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('clips/show', clipId=clip_id)
+
+    def clips_update(
+        self,
+        clip_id: str,
+        name: str,
+        is_public: bool = False,
+        description: Optional[str] = None,
+    ) -> dict:
+        """Update the clip information.
+
+        Args:
+            clip_id (str): Specifies the clip ID to update.
+
+            name (str): Specifies the clip name.
+
+            is_public (bool, default: :code:`False`):
+            Whether to reveal the clip to other users.
+
+            description (str, optional): Specifies the description of the clip.
+
+        Endpoints:
+            :code:`clips/update`
+
+        Returns:
+            dict: Returns the updated clip.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('clips/update', **params)

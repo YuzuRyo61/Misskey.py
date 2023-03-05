@@ -642,6 +642,16 @@ def test_users_report_abuse(
     assert res
 
 
+def test_users_clips(
+    mk_cli_admin: Misskey,
+    mk_user_id: str,
+):
+    res = mk_cli_admin.users_clips(
+        user_id=mk_user_id,
+    )
+    assert type(res) == list
+
+
 def test_mute(
     mk_cli_admin: Misskey,
     mk_user_id: str,
@@ -859,3 +869,47 @@ def test_charts_user(
 
     res_reactions = mk_cli_admin.charts_user_reactions(mk_user_id, span='hour')
     assert type(res_reactions) == dict
+
+
+def test_clips(
+    mk_cli_admin: Misskey,
+    mk_admin_new_note: str,
+):
+    res_create = mk_cli_admin.clips_create(
+        'test-clip',
+        description='test clip description',
+    )
+    assert type(res_create) == dict
+
+    res_add_note = mk_cli_admin.clips_add_note(
+        clip_id=res_create['id'],
+        note_id=mk_admin_new_note,
+    )
+    assert type(res_add_note) == bool
+    assert res_add_note
+
+    res_list = mk_cli_admin.clips_list()
+    assert type(res_list) == list
+
+    res_notes = mk_cli_admin.clips_notes(res_create['id'])
+    assert type(res_notes) == list
+
+    res_remove_note = mk_cli_admin.clips_remove_note(
+        clip_id=res_create['id'],
+        note_id=mk_admin_new_note,
+    )
+    assert type(res_remove_note) == bool
+    assert res_remove_note
+
+    res_show = mk_cli_admin.clips_show(res_create['id'])
+    assert type(res_show) == dict
+
+    res_update = mk_cli_admin.clips_update(
+        res_create['id'],
+        name='test-clip-renamed'
+    )
+    assert type(res_update) == dict
+
+    res_delete = mk_cli_admin.clips_delete(res_create['id'])
+    assert type(res_delete) == bool
+    assert res_delete
