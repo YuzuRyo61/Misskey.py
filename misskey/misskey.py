@@ -20,6 +20,7 @@ from .enum import (
     NotificationsType,
     LangType,
     AntennaSource,
+    ChartSpan,
 )
 from .exceptions import (
     MisskeyAuthorizeFailedException,
@@ -709,7 +710,7 @@ class Misskey:
             limit (int, optional): Specify the amount to get.
             You can specify from 1 to 100.
 
-            offset (int, optional): Specify the offset to get.
+            offset (int, optional): Specifies the offset to get.
 
         Endpoint:
             :code:`notes/conversation`
@@ -858,7 +859,7 @@ class Misskey:
             limit (int, optional): Specify the amount to get.
             You can specify from 1 to 100.
 
-            offset (int, optional): Specify the offset to get.
+            offset (int, optional): Specifies the offset to get.
 
             since_id (str, optional): Specify the first ID to get.
 
@@ -2830,3 +2831,417 @@ class Misskey:
         """
         params = self.__params(locals())
         return self.__request_api('channels/update', **params)
+
+    def charts_active_users(
+        self,
+        span: Union[ChartSpan, str] = ChartSpan.DAY,
+        limit: int = 30,
+        offset: Optional[int] = None,
+    ) -> dict:
+        """Get chart of active users.
+
+        Args:
+            span (str, default: :code:`day`):
+            Specifies spans of single items in the chart.
+
+            limit (int, default: :code:`30`): Specifies the amount to get.
+            You can specify from 1 to 500.
+
+            offset (int, optional): Specifies the offset to get.
+
+        Endpoint:
+            :code:`charts/active-users`
+
+        Returns:
+            dict: Returns the active users chart.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`span` is invalid.
+        """
+        if type(span) is str:
+            span = ChartSpan(span)
+        params = self.__params(locals())
+        return self.__request_api('charts/active-users', **params)
+
+    def charts_ap_request(
+        self,
+        span: Union[ChartSpan, str] = ChartSpan.DAY,
+        limit: int = 30,
+        offset: Optional[int] = None,
+    ) -> dict:
+        """Get chart of ActivityPub requests amount.
+
+        Args:
+            span (str, default: :code:`day`):
+            Specifies spans of single items in the chart.
+
+            limit (int, default: :code:`30`): Specifies the amount to get.
+            You can specify from 1 to 500.
+
+            offset (int, optional): Specifies the offset to get.
+
+        Endpoint:
+            :code:`charts/ap-request`
+
+        Returns:
+            dict: Returns the ActivityPub request chart.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`span` is invalid.
+        """
+        if type(span) is str:
+            span = ChartSpan(span)
+        params = self.__params(locals())
+        return self.__request_api('charts/ap-request', **params)
+
+    def charts_drive(
+        self,
+        span: Union[ChartSpan, str] = ChartSpan.DAY,
+        limit: int = 30,
+        offset: Optional[int] = None,
+    ) -> dict:
+        """Get chart of drive file difference.
+
+        Args:
+            span (str, default: :code:`day`):
+            Specifies spans of single items in the chart.
+
+            limit (int, default: :code:`30`): Specifies the amount to get.
+            You can specify from 1 to 500.
+
+            offset (int, optional): Specifies the offset to get.
+
+        Endpoint:
+            :code:`charts/drive`
+
+        Returns:
+            dict: Returns the drive chart.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`span` is invalid.
+        """
+        if type(span) is str:
+            span = ChartSpan(span)
+        params = self.__params(locals())
+        return self.__request_api('charts/drive', **params)
+
+    def charts_federation(
+        self,
+        span: Union[ChartSpan, str] = ChartSpan.DAY,
+        limit: int = 30,
+        offset: Optional[int] = None,
+    ) -> dict:
+        """Get chart of federation.
+
+        Args:
+            span (str, default: :code:`day`):
+            Specifies spans of single items in the chart.
+
+            limit (int, default: :code:`30`): Specifies the amount to get.
+            You can specify from 1 to 500.
+
+            offset (int, optional): Specifies the offset to get.
+
+        Endpoint:
+            :code:`charts/federation`
+
+        Returns:
+            dict: Returns the federation chart.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`span` is invalid.
+        """
+        if type(span) is str:
+            span = ChartSpan(span)
+        params = self.__params(locals())
+        return self.__request_api('charts/federation', **params)
+
+    def charts_instance(
+        self,
+        host: str,
+        span: Union[ChartSpan, str] = ChartSpan.DAY,
+        limit: int = 30,
+        offset: Optional[int] = None,
+    ) -> dict:
+        """Get chart of the specified instance.
+
+        Args:
+            host (str): Specifies the host of the instance.
+
+            span (str, default: :code:`day`):
+            Specifies spans of single items in the chart.
+
+            limit (int, default: :code:`30`): Specifies the amount to get.
+            You can specify from 1 to 500.
+
+            offset (int, optional): Specifies the offset to get.
+
+        Endpoint:
+            :code:`charts/instance`
+
+        Returns:
+            dict: Returns the instance chart.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`span` is invalid.
+        """
+        if type(span) is str:
+            span = ChartSpan(span)
+        params = self.__params(locals())
+        return self.__request_api('charts/instance', **params)
+
+    def charts_notes(
+        self,
+        span: Union[ChartSpan, str] = ChartSpan.DAY,
+        limit: int = 30,
+        offset: Optional[int] = None,
+    ) -> dict:
+        """Get chart of notes.
+
+        Args:
+            span (str, default: :code:`day`):
+            Specifies spans of single items in the chart.
+
+            limit (int, default: :code:`30`): Specifies the amount to get.
+            You can specify from 1 to 500.
+
+            offset (int, optional): Specifies the offset to get.
+
+        Endpoint:
+            :code:`charts/notes`
+
+        Returns:
+            dict: Returns the notes chart.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`span` is invalid.
+        """
+        if type(span) is str:
+            span = ChartSpan(span)
+        params = self.__params(locals())
+        return self.__request_api('charts/notes', **params)
+
+    def charts_user_drive(
+        self,
+        user_id: str,
+        span: Union[ChartSpan, str] = ChartSpan.DAY,
+        limit: int = 30,
+        offset: Optional[int] = None,
+    ) -> dict:
+        """Get chart of drive usage of the specified user.
+
+        Args:
+            user_id (str): Specifies the user ID.
+
+            span (str, default: :code:`day`):
+            Specifies spans of single items in the chart.
+
+            limit (int, default: :code:`30`): Specifies the amount to get.
+            You can specify from 1 to 500.
+
+            offset (int, optional): Specifies the offset to get.
+
+        Endpoint:
+            :code:`charts/user/drive`
+
+        Returns:
+            dict: Returns the user drive chart.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`span` is invalid.
+        """
+        if type(span) is str:
+            span = ChartSpan(span)
+        params = self.__params(locals())
+        return self.__request_api('charts/user/drive', **params)
+
+    def charts_user_following(
+        self,
+        user_id: str,
+        span: Union[ChartSpan, str] = ChartSpan.DAY,
+        limit: int = 30,
+        offset: Optional[int] = None,
+    ) -> dict:
+        """Get chart of following and followers number of the specified user.
+
+        Args:
+            user_id (str): Specifies the user ID.
+
+            span (str, default: :code:`day`):
+            Specifies spans of single items in the chart.
+
+            limit (int, default: :code:`30`): Specifies the amount to get.
+            You can specify from 1 to 500.
+
+            offset (int, optional): Specifies the offset to get.
+
+        Endpoint:
+            :code:`charts/user/following`
+
+        Returns:
+            dict: Returns the user following chart.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`span` is invalid.
+        """
+        if type(span) is str:
+            span = ChartSpan(span)
+        params = self.__params(locals())
+        return self.__request_api('charts/user/following', **params)
+
+    def charts_user_notes(
+        self,
+        user_id: str,
+        span: Union[ChartSpan, str] = ChartSpan.DAY,
+        limit: int = 30,
+        offset: Optional[int] = None,
+    ) -> dict:
+        """Get chart of notes of the specified user.
+
+        Args:
+            user_id (str): Specifies the user ID.
+
+            span (str, default: :code:`day`):
+            Specifies spans of single items in the chart.
+
+            limit (int, default: :code:`30`): Specifies the amount to get.
+            You can specify from 1 to 500.
+
+            offset (int, optional): Specifies the offset to get.
+
+        Endpoint:
+            :code:`charts/user/notes`
+
+        Returns:
+            dict: Returns the user notes chart.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`span` is invalid.
+        """
+        if type(span) is str:
+            span = ChartSpan(span)
+        params = self.__params(locals())
+        return self.__request_api('charts/user/notes', **params)
+
+    def charts_user_pv(
+        self,
+        user_id: str,
+        span: Union[ChartSpan, str] = ChartSpan.DAY,
+        limit: int = 30,
+        offset: Optional[int] = None,
+    ) -> dict:
+        """Get chart of profile view count of the specified user.
+
+        Args:
+            user_id (str): Specifies the user ID.
+
+            span (str, default: :code:`day`):
+            Specifies spans of single items in the chart.
+
+            limit (int, default: :code:`30`): Specifies the amount to get.
+            You can specify from 1 to 500.
+
+            offset (int, optional): Specifies the offset to get.
+
+        Endpoint:
+            :code:`charts/user/pv`
+
+        Returns:
+            dict: Returns the user pv chart.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`span` is invalid.
+        """
+        if type(span) is str:
+            span = ChartSpan(span)
+        params = self.__params(locals())
+        return self.__request_api('charts/user/pv', **params)
+
+    def charts_user_reactions(
+        self,
+        user_id: str,
+        span: Union[ChartSpan, str] = ChartSpan.DAY,
+        limit: int = 30,
+        offset: Optional[int] = None,
+    ) -> dict:
+        """Get chart of received reactions of the specified user.
+
+        Args:
+            user_id (str): Specifies the user ID.
+
+            span (str, default: :code:`day`):
+            Specifies spans of single items in the chart.
+
+            limit (int, default: :code:`30`): Specifies the amount to get.
+            You can specify from 1 to 500.
+
+            offset (int, optional): Specifies the offset to get.
+
+        Endpoint:
+            :code:`charts/user/reactions`
+
+        Returns:
+            dict: Returns the user reactions chart.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`span` is invalid.
+        """
+        if type(span) is str:
+            span = ChartSpan(span)
+        params = self.__params(locals())
+        return self.__request_api('charts/user/reactions', **params)
+
+    def charts_users(
+        self,
+        span: Union[ChartSpan, str] = ChartSpan.DAY,
+        limit: int = 30,
+        offset: Optional[int] = None,
+    ) -> dict:
+        """Get chart of users.
+
+        Args:
+            span (str, default: :code:`day`):
+            Specifies spans of single items in the chart.
+
+            limit (int, default: :code:`30`): Specifies the amount to get.
+            You can specify from 1 to 500.
+
+            offset (int, optional): Specifies the offset to get.
+
+        Endpoint:
+            :code:`charts/users`
+
+        Returns:
+            dict: Returns the users chart.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`span` is invalid.
+        """
+        if type(span) is str:
+            span = ChartSpan(span)
+        params = self.__params(locals())
+        return self.__request_api('charts/users', **params)

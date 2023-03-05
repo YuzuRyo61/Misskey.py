@@ -808,3 +808,48 @@ def test_channels(
         name='test-channel-renamed'
     )
     assert type(res_update) == dict
+
+
+def test_charts(
+    mk_cli_admin: Misskey,
+):
+    res_active_users = mk_cli_admin.charts_active_users(span='day')
+    assert type(res_active_users) == dict
+
+    res_ap_request = mk_cli_admin.charts_ap_request(span='day')
+    assert type(res_ap_request) == dict
+
+    res_drive = mk_cli_admin.charts_drive(span='day')
+    assert type(res_drive) == dict
+
+    res_federation = mk_cli_admin.charts_federation(span='hour', offset=30)
+    assert type(res_federation) == dict
+
+    res_instance = mk_cli_admin.charts_instance(host=TEST_HOST, span='hour')
+    assert type(res_instance) == dict
+
+    res_notes = mk_cli_admin.charts_notes(span='hour')
+    assert type(res_notes) == dict
+
+    res_users = mk_cli_admin.charts_users(span='hour')
+    assert type(res_users) == dict
+
+
+def test_charts_user(
+    mk_cli_admin: Misskey,
+    mk_user_id: str,
+):
+    res_drive = mk_cli_admin.charts_user_drive(mk_user_id, span='day')
+    assert type(res_drive) == dict
+
+    res_following = mk_cli_admin.charts_user_following(mk_user_id, span='day')
+    assert type(res_following) == dict
+
+    res_notes = mk_cli_admin.charts_user_notes(mk_user_id, span='day')
+    assert type(res_notes) == dict
+
+    res_pv = mk_cli_admin.charts_user_pv(mk_user_id, span='hour')
+    assert type(res_pv) == dict
+
+    res_reactions = mk_cli_admin.charts_user_reactions(mk_user_id, span='hour')
+    assert type(res_reactions) == dict

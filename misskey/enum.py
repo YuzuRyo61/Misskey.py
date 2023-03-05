@@ -258,6 +258,14 @@ class AntennaSource(Enum):
 
 
 @unique
+class ChartSpan(Enum):
+    """Chart span enumeration.
+    """
+    DAY = 'day'
+    HOUR = 'hour'
+
+
+@unique
 class Permissions(Enum):
     """Permissions enumuration.
     """
