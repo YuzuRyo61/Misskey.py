@@ -266,6 +266,36 @@ class ChartSpan(Enum):
 
 
 @unique
+class HashtagsListSortKey(Enum):
+    """Hashtags list sort key enumeration.
+    """
+    MENTIONED_USERS = 'mentionedUsers'
+    MENTIONED_LOCAL_USERS = 'mentionedLocalUsers'
+    MENTIONED_REMOTE_USERS = 'mentionedRemoteUsers'
+    ATTACHED_USERS = 'attachedUsers'
+    ATTACHED_LOCAL_USERS = 'attachedLocalUsers'
+    ATTACHED_REMOTE_USERS = 'attachedRemoteUsers'
+
+
+@unique
+class UserSortKey(Enum):
+    """User sort key enumeration.
+    """
+    FOLLOWER = 'follower'
+    CREATED_AT = 'createdAt'
+    UPDATED_AT = 'updatedAt'
+
+
+@unique
+class UserOrigin(Enum):
+    """User origin enumeration.
+    """
+    COMBINED = 'combined'
+    LOCAL = 'local'
+    REMOTE = 'remote'
+
+
+@unique
 class Permissions(Enum):
     """Permissions enumuration.
     """

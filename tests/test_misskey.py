@@ -1033,3 +1033,33 @@ def test_gallery_posts(
     res_delete = mk_cli_admin.gallery_posts_delete(res_create['id'])
     assert type(res_delete) == bool
     assert res_delete
+
+
+def test_hashtags(
+    mk_cli_admin: Misskey,
+):
+    res_update = mk_cli_admin.i_update(
+        description='#test_tag',
+    )
+    assert type(res_update) == dict
+
+    res_list = mk_cli_admin.hashtags_list(
+        sort_key='attachedUsers'
+    )
+    assert type(res_list) == list
+
+    res_search = mk_cli_admin.hashtags_search('test_tag')
+    assert type(res_search) == list
+
+    res_show = mk_cli_admin.hashtags_show('test_tag')
+    assert type(res_show) == dict
+
+    res_trend = mk_cli_admin.hashtags_trend()
+    assert type(res_trend) == list
+
+    res_users = mk_cli_admin.hashtags_users(
+        'test_tag',
+        origin='combined',
+        sort_key='createdAt',
+    )
+    assert type(res_users) == list

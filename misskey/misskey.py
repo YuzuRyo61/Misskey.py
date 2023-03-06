@@ -21,6 +21,9 @@ from .enum import (
     LangType,
     AntennaSource,
     ChartSpan,
+    HashtagsListSortKey,
+    UserSortKey,
+    UserOrigin,
 )
 from .exceptions import (
     MisskeyAuthorizeFailedException,
@@ -3976,3 +3979,178 @@ class Misskey:
         """
         params = self.__params(locals())
         return self.__request_api('gallery/posts/update', **params)
+
+    def hashtags_list(
+        self,
+        limit: int = 10,
+        attached_to_user_only: bool = False,
+        attached_to_local_user_only: bool = False,
+        attached_to_remote_user_only: bool = False,
+        sort_key: Union[
+            HashtagsListSortKey,
+            str,
+        ] = HashtagsListSortKey.MENTIONED_USERS,
+        sort_asc: bool = False,
+    ) -> List[dict]:
+        """Get list of hashtags.
+
+        Args:
+            limit (int, default: :code:`10`): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            attached_to_user_only (bool, default: :code:`False`): Specifies
+            whether to exclude hashtags that are not attached to user profiles.
+
+            attached_to_local_user_only (bool, default: :code:`False`):
+            Specifies whether to exclude hashtags that are not attached to
+            local user profiles.
+
+            attached_to_remote_user_only (bool, default: :code:`False`):
+            Specifies whether to exclude hashtags that are not attached to
+            remote user profiles.
+
+            sort_key (str, default: :code:`mentionedUsers`):
+            Specifies sort key. Available values are enumerated in
+            :class:`enum.HashtagsListSortKey`.
+
+            sort_asc (bool, default: :code:`False`): Specifies the sort order.
+            Hashtags sort in ascending order according to the key specified
+            with :obj:`sort_key` if :code:`True`, descending order if
+            :code:`False`.
+
+        Endpoint:
+            :code:`hashtags/list`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of hashtags.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        if type(sort_key) is str:
+            sort_key = HashtagsListSortKey(sort_key)
+        sort = '-' if sort_asc else '+'
+        sort += sort_key.value
+        del sort_key, sort_asc
+        params = self.__params(locals())
+        return self.__request_api('hashtags/list', **params)
+
+    def hashtags_search(
+        self,
+        query: str,
+        limit: int = 10,
+        offset: int = 0,
+    ) -> List[dict]:
+        """Search hashtags that start with the specified query.
+
+        Args:
+            query (str): Specify search query.
+
+            limit (int, default: :code:`10`): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            offset (int, default: :code:`0`): Specifies the offset to get.
+
+        Endpoint:
+            :code:`hashtags/search`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns a list of hashtags sorted in
+            descending order of use count.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('hashtags/search', **params)
+
+    def hashtags_show(
+        self,
+        tag: str,
+    ) -> dict:
+        """Get information of the specified hashtag.
+
+        Args:
+            tag (str): Specifies the hashtag to search.
+
+        Endpoint:
+            :code:`hashtags/show`
+
+        Returns:
+            dict: Returns the hashtag information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('hashtags/show', tag=tag)
+
+    def hashtags_trend(self) -> List[dict]:
+        """Get hashtags on trend.
+
+        Endpoint:
+            :code:`hashtags/trend`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of hashtag charts.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('hashtags/trend')
+
+    def hashtags_users(
+        self,
+        tag: str,
+        limit: int = 10,
+        alive_only: bool = False,
+        origin: Union[UserOrigin, str] = UserOrigin.LOCAL,
+        sort_key: Union[
+            UserSortKey,
+            str,
+        ] = UserSortKey.FOLLOWER,
+        sort_asc: bool = False,
+    ) -> List[dict]:
+        """Get list of users that include the specified hashtag in their
+        profile.
+
+        Args:
+            tag (str): Specifies the hashtag to search.
+
+            limit (int, default: :code:`10`): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            alive_only (bool, default: :code:`False`): Specifies whether to
+            only get users active in 5 days.
+
+            origin (str, default: :code:`local`): Specifies the origin type of
+            users to get. Available values are enumerated in
+            :class:`enum.UserOrigin`. If :code:`combined`, both :code:`local`
+            and :code:`remote` users are included in the result.
+
+            sort_key (str, default: :code:`follower`):
+            Specifies sort key. Available values are enumerated in
+            :class:`enum.UserSortKey`.
+
+            sort_asc (bool, default: :code:`False`): Specifies the sort order.
+            Hashtags sort in ascending order according to the key specified
+            with :obj:`sort_key` if :code:`True`, descending order if
+            :code:`False`.
+
+        Endpoint:
+            :code:`hashtags/users`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of users.
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        state = 'alive' if alive_only else 'all'
+        if type(origin) is str:
+            origin = UserOrigin(origin)
+        if type(sort_key) is str:
+            sort_key = UserSortKey(sort_key)
+        sort = '-' if sort_asc else '+'
+        sort += sort_key.value
+        del alive_only, sort_key, sort_asc
+        params = self.__params(locals())
+        return self.__request_api('hashtags/users', **params)
