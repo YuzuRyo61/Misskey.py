@@ -22,6 +22,7 @@ from .enum import (
     NotificationsType,
     EmailNotificationsType,
     LangType,
+    WebhookEventType,
     AntennaSource,
     ChartSpan,
     HashtagsListSortKey,
@@ -603,6 +604,479 @@ class Misskey:
 
         params = self.__params(locals())
         return self.__request_api('i/update', **params)
+
+    def i_export_blocking(self) -> bool:
+        """Export list of users you are blocking to your drive.
+
+        Endpoint:
+            :code:`i/export-blocking`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('i/export-blocking')
+
+    def i_export_favorites(self) -> bool:
+        """Export list of favorite notes to your drive.
+
+        Endpoint:
+            :code:`i/export-favorites`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('i/export-favorites')
+
+    def i_export_following(
+        self,
+        exclude_muting: bool = False,
+        exclude_inactive: bool = False,
+    ) -> bool:
+        """Export list of users you are following to your drive.
+
+        Args:
+            exclude_muting (bool, default: :code:`False`): Specifies whether to
+            exclude users you are muting.
+
+            exclude_inactive (bool, default: :code:`False`): Specifies whether
+            to exclude users that are inactive for more than 90 days.
+
+        Endpoint:
+            :code:`i/export-following`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('i/export-following', **params)
+
+    def i_export_mute(self) -> bool:
+        """Export list of users you are muting to your drive.
+
+        Endpoint:
+            :code:`i/export-mute`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('i/export-mute')
+
+    def i_export_notes(self) -> bool:
+        """Export list of notes you have created to your drive.
+
+        Endpoint:
+            :code:`i/export-notes`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('i/export-notes')
+
+    def i_export_user_lists(self) -> bool:
+        """Export list of user lists you have created to your drive.
+
+        Endpoint:
+            :code:`i/export-user-lists`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('i/export-user-lists')
+
+    def i_gallery_likes(
+        self,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+    ) -> List[dict]:
+        """Get list of likes you gave to gallery posts.
+
+        Args:
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+        Endpoint:
+            :code:`i/gallery/likes`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of likes.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('i/gallery/likes', **params)
+
+    def i_gallery_posts(
+        self,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+    ) -> List[dict]:
+        """Get list of gallery posts you have created.
+
+        Args:
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+        Endpoint:
+            :code:`i/gallery/posts`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of gallery posts.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('i/gallery/posts', **params)
+
+    def i_get_word_muted_notes_count(self) -> dict:
+        """Get number of notes that were word-muted by your preferences.
+
+        Endpoint:
+            :code:`i/get-word-muted-notes-count`
+
+        Returns:
+            dict: Returns word muted notes count.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('i/get-word-muted-notes-count')
+
+    def i_import_blocking(
+        self,
+        file_id: str,
+    ) -> bool:
+        """Import users to block from your drive file.
+
+        Args:
+            file_id (str): Specifies the file ID to import.
+
+        Endpoint:
+            :code:`i/import-blocking`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('i/import-blocking', fileId=file_id)
+
+    def i_import_following(
+        self,
+        file_id: str,
+    ) -> bool:
+        """Import users to follow from your drive file.
+
+        Args:
+            file_id (str): Specifies the file ID to import.
+
+        Endpoint:
+            :code:`i/import-following`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('i/import-following', fileId=file_id)
+
+    def i_import_muting(
+        self,
+        file_id: str,
+    ) -> bool:
+        """Import users to mute from your drive file.
+
+        Args:
+            file_id (str): Specifies the file ID to import.
+
+        Endpoint:
+            :code:`i/import-muting`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('i/import-muting', fileId=file_id)
+
+    def i_import_user_lists(
+        self,
+        file_id: str,
+    ) -> bool:
+        """Import user lists from your drive file.
+
+        Args:
+            file_id (str): Specifies the file ID to import.
+
+        Endpoint:
+            :code:`i/import-user-lists`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('i/import-user-lists', fileId=file_id)
+
+    def i_page_likes(
+        self,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+    ) -> List[dict]:
+        """Get list of likes you gave to pages.
+
+        Args:
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+        Endpoint:
+            :code:`i/page-likes`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of likes.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('i/page-likes', **params)
+
+    def i_pages(
+        self,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+    ) -> List[dict]:
+        """Get list of pages you have created.
+
+        Args:
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+        Endpoint:
+            :code:`i/pages`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of likes.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('i/pages', **params)
+
+    def i_read_all_unread_notes(self) -> bool:
+        """Mark all unread notes as read.
+
+        Endpoint:
+            :code:`i/read-all-unread-notes`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('i/read-all-unread-notes')
+
+    def i_read_announcement(
+        self,
+        announcement_id: str,
+    ) -> bool:
+        """Mark the specified annoucement as read.
+
+        Args:
+            announcement_id (str): Specifies the announcement ID to read.
+
+        Endpoint:
+            :code:`i/read-announcement`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api(
+            'i/read-announcement',
+            announcementId=announcement_id,
+        )
+
+    def i_webhooks_create(
+        self,
+        name: str,
+        url: str,
+        secret: str,
+        on: List[Union[WebhookEventType, str]],
+    ) -> dict:
+        """Create a webhook.
+
+        Args:
+            name (str): Specifies the name of webhook.
+
+            url (str): Specifies the URL to send HTTP request to.
+
+            secret (str): Specifies the secret value.
+
+            on (str): Specifies the list of events. Available values are
+            enumerated in :class:`enum.WebhookEventType`.
+
+        Endpoint:
+            :code:`i/webhooks/create`
+
+        Returns:
+            dict: Returns the created webhook information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        on = [
+            WebhookEventType(val) if type(val) is str else val
+            for val in on
+        ]
+        params = self.__params(locals())
+        return self.__request_api('i/webhooks/create', **params)
+
+    def i_webhooks_delete(
+        self,
+        webhook_id: str,
+    ) -> bool:
+        """Delete a webhook.
+
+        Args:
+            webhook_id (str): Specifies the webhook ID to delete.
+
+        Endpoint:
+            :code:`i/webhooks/delete`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('i/webhooks/delete', webhookId=webhook_id)
+
+    def i_webhooks_list(self) -> List[dict]:
+        """Get list of webhooks you have created.
+
+        Endpoint:
+            :code:`i/webhooks/list`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of webhooks.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('i/webhooks/list', **params)
+
+    def i_webhooks_show(
+        self,
+        webhook_id: str,
+    ) -> dict:
+        """Get information of the specified webhook.
+
+        Args:
+            webhook_id (str): Specifies the webhook ID to get.
+
+        Endpoint:
+            :code:`i/webhooks/show`
+
+        Returns:
+            dict: Returns the webhook information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('i/webhooks/show', **params)
+
+    def i_webhooks_update(
+        self,
+        webhook_id: str,
+        name: str,
+        url: str,
+        secret: str,
+        on: List[Union[WebhookEventType, str]],
+        active: bool,
+    ) -> bool:
+        """Update a webhook.
+
+        Args:
+            webhook_id (str): Specifies the webhook ID to update.
+
+            name (str): Specifies the name of webhook.
+
+            url (str): Specifies the URL to send HTTP request to.
+
+            secret (str): Specifies the secret value.
+
+            on (str): Specifies the list of events. Available values are
+            enumerated in :class:`enum.WebhookEventType`.
+
+            active (bool): Specifies whether to activate the webhook.
+
+        Endpoint:
+            :code:`i/webhooks/update`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`on` is invalid.
+        """
+        on = [
+            WebhookEventType(val) if type(val) is str else val
+            for val in on
+        ]
+        params = self.__params(locals())
+        return self.__request_api('i/webhooks/update', **params)
 
     def notes_create(
         self,

@@ -268,6 +268,20 @@ class LangType(Enum):
 
 
 @unique
+class WebhookEventType(Enum):
+    """Webhook event type enumeration.
+    """
+    MENTION = 'mention'
+    UNFOLLOW = 'unfollow'
+    FOLLOW = 'follow'
+    FOLLOWED = 'followed'
+    NOTE = 'note'
+    REPLY = 'reply'
+    RENOTE = 'renote'
+    REACTION = 'reaction'
+
+
+@unique
 class AntennaSource(Enum):
     """Antenna source enumeration.
     """

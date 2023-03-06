@@ -1,4 +1,5 @@
 import datetime
+import io
 import uuid
 from urllib.parse import urlparse
 
@@ -405,6 +406,155 @@ def test_i_update(
         ),
     )
     assert type(res) == dict
+
+
+def test_i_export(
+    mk_cli_admin: Misskey,
+):
+    res_blocking = mk_cli_admin.i_export_blocking()
+    assert type(res_blocking) == bool
+    assert res_blocking
+
+    res_favorites = mk_cli_admin.i_export_favorites()
+    assert type(res_favorites) == bool
+    assert res_favorites
+
+    res_following = mk_cli_admin.i_export_following()
+    assert type(res_following) == bool
+    assert res_following
+
+    res_mute = mk_cli_admin.i_export_mute()
+    assert type(res_mute) == bool
+    assert res_mute
+
+    res_notes = mk_cli_admin.i_export_notes()
+    assert type(res_notes) == bool
+    assert res_notes
+
+    res_user_lists = mk_cli_admin.i_export_user_lists()
+    assert type(res_user_lists) == bool
+    assert res_user_lists
+
+
+def test_i_gallery(
+    mk_cli_admin: Misskey,
+):
+    res_gallery_likes = mk_cli_admin.i_gallery_likes()
+    assert type(res_gallery_likes) == list
+
+    res_gallery_posts = mk_cli_admin.i_gallery_posts()
+    assert type(res_gallery_posts) == list
+
+
+def test_i_get_word_muted_notes_count(
+    mk_cli_admin: Misskey,
+):
+    res = mk_cli_admin.i_get_word_muted_notes_count()
+    assert type(res) == dict
+
+
+def test_i_import(
+    mk_cli_admin: Misskey,
+):
+    res_files_create = mk_cli_admin.drive_files_create(
+        io.StringIO('test-import'),
+        name='empty.csv',
+    )
+    assert type(res_files_create) == dict
+
+    res_import_blocking = mk_cli_admin.i_import_blocking(
+        res_files_create['id']
+    )
+    assert type(res_import_blocking) == bool
+    assert res_import_blocking
+
+    res_import_following = mk_cli_admin.i_import_following(
+        res_files_create['id']
+    )
+    assert type(res_import_following) == bool
+    assert res_import_following
+
+    res_import_muting = mk_cli_admin.i_import_muting(
+        res_files_create['id']
+    )
+    assert type(res_import_muting) == bool
+    assert res_import_muting
+
+    res_import_user_lists = mk_cli_admin.i_import_user_lists(
+        res_files_create['id']
+    )
+    assert type(res_import_user_lists) == bool
+    assert res_import_user_lists
+
+
+def test_i_page(
+    mk_cli_admin: Misskey,
+):
+    res_page_likes = mk_cli_admin.i_page_likes()
+    assert type(res_page_likes) == list
+
+    res_pages = mk_cli_admin.i_pages()
+    assert type(res_pages) == list
+
+
+def test_i_read(
+    mk_cli_admin: Misskey,
+):
+    res_all_unread_notes = mk_cli_admin.i_read_all_unread_notes()
+    assert type(res_all_unread_notes) == bool
+    assert res_all_unread_notes
+
+    res_create = requests.post(
+        f"{TEST_HOST}/api/admin/announcements/create",
+        json={
+            'i': mk_cli_admin.token,
+            'title': 'test-announcement',
+            'text': 'test-announcement',
+            'imageUrl': None,
+        }
+    ).json()
+    res_announcement = mk_cli_admin.i_read_announcement(
+        res_create['id']
+    )
+    assert type(res_announcement) == bool
+    assert res_announcement
+
+
+def test_i_webhooks(
+    mk_cli_admin: Misskey,
+):
+    res_create = mk_cli_admin.i_webhooks_create(
+        name='test-webhook',
+        url='test-webhook',
+        secret='test-webhook',
+        on=['mention'],
+    )
+    assert type(res_create) == dict
+
+    res_list = mk_cli_admin.i_webhooks_list()
+    assert type(res_list) == list
+
+    res_show = mk_cli_admin.i_webhooks_show(
+        res_create['id'],
+    )
+    assert type(res_show) == dict
+
+    res_update = mk_cli_admin.i_webhooks_update(
+        webhook_id=res_create['id'],
+        name='test-webhook-renamed',
+        url='test-webhook-renamed',
+        secret='test-webhook-renamed',
+        on=['mention', 'follow'],
+        active=False,
+    )
+    assert type(res_update) == bool
+    assert res_update
+
+    res_delete = mk_cli_admin.i_webhooks_delete(
+        res_create['id']
+    )
+    assert type(res_delete) == bool
+    assert res_delete
 
 
 def test_users_show(
