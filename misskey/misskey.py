@@ -4540,6 +4540,8 @@ class Misskey:
 
         Raises:
             MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`origin` or :code:`sort_key` is invalid.
         """
         if type(sort_key) is str:
             sort_key = HashtagsListSortKey(sort_key)
@@ -4655,8 +4657,11 @@ class Misskey:
 
         Returns:
             :obj:`list` of :obj:`dict`: Returns the list of users.
+
         Raises:
             MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`origin` or :code:`sort_key` is invalid.
         """
         state = 'alive' if alive_only else 'all'
         if type(origin) is str:
