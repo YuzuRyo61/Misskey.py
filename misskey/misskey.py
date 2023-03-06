@@ -1084,7 +1084,6 @@ class Misskey:
         cw: Optional[str] = None,
         visibility: Union[NoteVisibility, str] = NoteVisibility.PUBLIC,
         visible_user_ids: Optional[List[str]] = None,
-        via_mobile: bool = False,
         local_only: bool = False,
         no_extract_mentions: bool = False,
         no_extract_hashtags: bool = False,
@@ -1111,9 +1110,6 @@ class Misskey:
             visible_user_ids (:obj:`list` of :obj:`str`, optional):
             If :code:`visibility` is :code:`specified`,
             specify the user ID in the list.
-
-            via_mobile (:obj:`bool`, optional): Specify whether to post from
-            mobile. It doesn't work with recent Misskey versions.
 
             local_only (:obj:`bool`, optional): Specifies whether to
             post only the instance you are using.
