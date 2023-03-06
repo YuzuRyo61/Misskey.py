@@ -2283,11 +2283,15 @@ class Misskey:
     def mute_create(
         self,
         user_id: str,
+        expires_at: Optional[Union[int, datetime.datetime]] = None,
     ) -> bool:
         """Mute the specified user.
 
         Args:
             user_id (str): Specify the user ID.
+
+            expires_at (:obj:`datetime.datetime`, optional): Specifies the date
+            the mute expires at. If :code:`None`, mute indefinitely.
 
         Endpoint:
             :code:`mute/create`
@@ -2298,6 +2302,8 @@ class Misskey:
         Raises:
             MisskeyAPIException: Raise if the API request fails.
         """
+        if isinstance(expires_at, datetime.datetime):
+            expires_at = math.floor(expires_at.timestamp() * 1000)
         return self.__request_api('mute/create', userId=user_id)
 
     def mute_list(

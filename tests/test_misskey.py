@@ -840,6 +840,7 @@ def test_mute(
 ):
     res_mute = mk_cli_admin.mute_create(
         mk_user_id,
+        expires_at=datetime.datetime.now() + datetime.timedelta(days=1)
     )
     assert type(res_mute) == bool
     assert res_mute
