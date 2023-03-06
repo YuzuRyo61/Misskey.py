@@ -1570,7 +1570,7 @@ class Misskey:
         include_my_renotes: bool = True,
         include_renoted_my_notes: bool = True,
         include_local_renotes: bool = True,
-        with_files: bool = True,
+        with_files: bool = False,
     ) -> List[dict]:
         """Show your home timeline.
 
@@ -1586,7 +1586,7 @@ class Misskey:
             the first date to get.
 
             until_date (int, datetime.datetime, optional): Specify
-             the last date to get.
+            the last date to get.
 
             include_my_renotes (bool, optional): Specify whether to
             include your notes.
@@ -1597,7 +1597,8 @@ class Misskey:
             include_local_renotes (bool, optional): Specify whether to
             include local renotes.
 
-            with_files (bool, optional): Specify whether to include files.
+            with_files (bool, optional): Specify whether to get only notes with
+            files.
 
         Endpoint:
             :code:`notes/timeline`
@@ -1624,7 +1625,7 @@ class Misskey:
         until_id: Optional[str] = None,
         since_date: Union[int, datetime.datetime, None] = None,
         until_date: Union[int, datetime.datetime, None] = None,
-        with_files: bool = True,
+        with_files: bool = False,
         file_type: Optional[List[str]] = None,
         exclude_nsfw: bool = False,
     ) -> List[dict]:
@@ -1642,9 +1643,10 @@ class Misskey:
             the first date to get.
 
             until_date (int, datetime.datetime, optional): Specify
-             the last date to get.
+            the last date to get.
 
-            with_files (bool, optional): Specify whether to include files.
+            with_files (bool, optional): Specify whether to get only notes with
+            files.
 
             file_type (:obj:`list` of :obj:`str`, optional): Specify the file
             type to get.
@@ -1680,7 +1682,7 @@ class Misskey:
         include_my_renotes: bool = True,
         include_renoted_my_notes: bool = True,
         include_local_renotes: bool = True,
-        with_files: bool = True,
+        with_files: bool = False,
     ) -> List[dict]:
         """Show hybrid(home + local) timeline.
 
@@ -1696,7 +1698,7 @@ class Misskey:
             the first date to get.
 
             until_date (int, datetime.datetime, optional): Specify
-             the last date to get.
+            the last date to get.
 
             include_my_renotes (bool, optional): Specify whether to
             include your notes.
@@ -1707,7 +1709,8 @@ class Misskey:
             include_local_renotes (bool, optional): Specify whether to
             include local renotes.
 
-            with_files (bool, optional): Specify whether to include files.
+            with_files (bool, optional): Specify whether to get only notes with
+            files.
 
         Endpoint:
             :code:`notes/hybrid-timeline`
@@ -1734,7 +1737,7 @@ class Misskey:
         until_id: Optional[str] = None,
         since_date: Union[int, datetime.datetime, None] = None,
         until_date: Union[int, datetime.datetime, None] = None,
-        with_files: bool = True,
+        with_files: bool = False,
     ) -> List[dict]:
         """Show global timeline.
 
@@ -1750,9 +1753,10 @@ class Misskey:
             the first date to get.
 
             until_date (int, datetime.datetime, optional): Specify
-             the last date to get.
+            the last date to get.
 
-            with_files (bool, optional): Specify whether to include files.
+            with_files (bool, optional): Specify whether to get only notes with
+            files.
 
         Endpoint:
             :code:`notes/global-timeline`
