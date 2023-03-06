@@ -12,6 +12,15 @@ class NoteVisibility(Enum):
 
 
 @unique
+class FfVisibility(Enum):
+    """FF visibility Enumeration.
+    """
+    PUBLIC = 'public'
+    FOLLOWERS = 'followers'
+    PRIVATE = 'private'
+
+
+@unique
 class NotificationsType(Enum):
     """Notifications type enumeration.
     """
@@ -26,6 +35,17 @@ class NotificationsType(Enum):
     FOLLOW_REQUEST_ACCEPTED = 'followRequestAccepted'
     GROUP_INVITED = 'groupInvited'
     APP = 'app'
+
+
+@unique
+class EmailNotificationsType(Enum):
+    """Email notifications type enumeration.
+    """
+    FOLLOW = 'follow'
+    MENTIONS = 'mention'
+    REPLY = 'reply'
+    QUOTE = 'quote'
+    RECEIVE_FOLLOW_REQUEST = 'receiveFollowRequest'
 
 
 @unique

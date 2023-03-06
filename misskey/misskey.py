@@ -10,6 +10,7 @@ from typing import (
     Set,
     Any,
     IO as IOTypes,
+    Iterable,
 )
 from urllib.parse import urlparse
 
@@ -17,7 +18,9 @@ import requests
 
 from .enum import (
     NoteVisibility,
+    FfVisibility,
     NotificationsType,
+    EmailNotificationsType,
     LangType,
     AntennaSource,
     ChartSpan,
@@ -358,6 +361,7 @@ class Misskey:
         since_id: Optional[str] = None,
         until_id: Optional[str] = None,
         following: bool = False,
+        unread_only: bool = False,
         mark_as_read: bool = True,
         include_types: Union[
             List[Union[NotificationsType, str]],
@@ -383,6 +387,8 @@ class Misskey:
             until_id (:obj:`str`, optional): Specify the last ID to get.
 
             following (bool): Only following.
+
+            unread_only (bool): Get only unread notifications.
 
             mark_as_read (bool): Specify whether to mark it as read
             when it is acquired.
@@ -456,23 +462,27 @@ class Misskey:
         is_locked: Optional[bool] = None,
         is_explorable: Optional[bool] = None,
         hide_online_status: Optional[bool] = None,
+        public_reactions: Optional[bool] = None,
         careful_bot: Optional[bool] = None,
         auto_accept_followed: Optional[bool] = None,
         no_crawle: Optional[bool] = None,
         is_bot: Optional[bool] = None,
         is_cat: Optional[bool] = None,
+        show_timeline_replies: Optional[bool] = None,
         inject_featured_note: Optional[bool] = None,
         receive_announcement_email: Optional[bool] = None,
         always_mark_nsfw: Optional[bool] = None,
+        auto_sensitive: Optional[bool] = None,
+        ff_visibility: Union[FfVisibility, str, None] = None,
         pinned_page_id: Optional[str] = None,
         muted_words: Optional[List[List[str]]] = None,
-        muting_notification_types: Union[
-            List[Union[NotificationsType, str]],
-            Tuple[NotificationsType],
-            Set[NotificationsType],
-            None,
+        muted_instances: Optional[List[str]] = None,
+        muting_notification_types: Optional[
+            Iterable[Union[NotificationsType, str]]
         ] = None,
-        email_notification_types: Optional[List[str]] = None,
+        email_notification_types: Optional[
+            Iterable[Union[EmailNotificationsType, str]]
+        ] = None,
     ) -> dict:
         """Update your profiles.
 
@@ -505,6 +515,9 @@ class Misskey:
             hide_online_status (:obj:`bool`, optional): Whether to
             hide online status.
 
+            public_reactions (:obj:`bool`, optional): Whether to make your
+            reactions publicly visible.
+
             careful_bot (:obj:`bool`, optional): Whether to
             approve follow-ups from bots.
 
@@ -518,23 +531,40 @@ class Misskey:
 
             is_cat (:obj:`bool`, optional): Specifies whether to use nyaise.
 
-            inject_featured_note (:obj:`bool`, optional):
+            show_timeline_replies (:obj:`bool`, optional): Specifies whether to
+            show replies to other users in the timeline.
 
-            receive_announcement_email (:obj:`bool`, optional):
+            inject_featured_note (:obj:`bool`, optional): Specifies whether to
+            show featured notes in the timeline.
+
+            receive_announcement_email (:obj:`bool`, optional): Specifies
+            whether to receive email notification from the instance.
 
             always_mark_nsfw (:obj:`bool`, optional): Whether to give NSFW
             to the posted file by default.
+
+            auto_sensitive (:obj:`bool`, optional): Specifies whether to allow
+            automatic detection and marking of NSFW media.
+
+            ff_visibility (:obj:`str`, optional): Specifies visibility of
+            follows and followers. Available values are enumerated in
+            :class:`enum.FfVisibility`.
 
             pinned_page_id (:obj:`str`, optional): ID of the page to be fixed.
 
             muted_words (:obj:`list` of :obj:`list` of :obj:`str`, optional):
             Word to mute.
 
-            muting_notification_types (:obj:`list`, optional):
-            Notification type to hide.
+            muted_instance (:obj:`list` of :obj:`str`, optional): Specifies
+            instances to mute.
+
+            muting_notification_types (:obj:`list` of :obj:`str`, optional):
+            Notification type to hide. Available values are enumerated in
+            :class:`enum.NotificationsType`.
 
             email_notification_types (:obj:`list` of :obj:`str`, optional):
-            Specify the notification type for email notification.
+            Specify the notification type for email notification. Available
+            values are enumerated in :class:`enum.EmailNotificationsType`.
 
         Endpoint:
             :code:`i/update`
@@ -556,10 +586,20 @@ class Misskey:
            isinstance(birthday, datetime.datetime):
             birthday = birthday.strftime('%Y-%m-%d')
 
-        if type(muting_notification_types) is list:
-            for index, val in enumerate(muting_notification_types):
-                if type(val) is str:
-                    muting_notification_types[index] = NotificationsType(val)
+        if type(ff_visibility) is str:
+            ff_visibility = FfVisibility(ff_visibility)
+
+        if muting_notification_types is not None:
+            muting_notification_types = [
+                NotificationsType(val) if type(val) is str else val
+                for val in muting_notification_types
+            ]
+
+        if email_notification_types is not None:
+            email_notification_types = [
+                EmailNotificationsType(val) if type(val) is str else val
+                for val in email_notification_types
+            ]
 
         params = self.__params(locals())
         return self.__request_api('i/update', **params)

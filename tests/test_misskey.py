@@ -395,9 +395,14 @@ def test_i_update(
         name='Unit test user admin',
         birthday=datetime.date.today(),
         lang='ja-JP',
+        ff_visibility='private',
         muting_notification_types=[
             'app',
         ],
+        email_notification_types=(
+            'follow',
+            'mention',
+        ),
     )
     assert type(res) == dict
 
