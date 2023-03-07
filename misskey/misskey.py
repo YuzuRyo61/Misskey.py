@@ -3639,8 +3639,11 @@ class Misskey:
             :code:`antennas/update`
 
         Note:
-            If :code:`src` is :code:`list`,
-            :code:`user_list_id` must be specified.
+            If :code:`src` is :code:`list`, :code:`user_list_id` must be
+            specified.
+
+            If you do not specify any of arguments, the corresponding parts of
+            your antenna settings will be updated with the default values.
 
         Returns:
             dict: Returns the updated antenna information.
@@ -3883,6 +3886,10 @@ class Misskey:
 
             banner_id (str, optional):
             Specifies the file ID of the banner image for the channel.
+
+        Note:
+            If you do not specify any of arguments, the corresponding parts of
+            your channel settings will be updated with the default values.
 
         Endpoint:
             :code:`channels/update`
@@ -4496,6 +4503,10 @@ class Misskey:
         Returns:
             dict: Returns the updated clip.
 
+        Note:
+            If you do not specify any of arguments, the corresponding parts of
+            your clip settings will be updated with the default values.
+
         Raises:
             MisskeyAPIException: Raise if the API request fails.
         """
@@ -4916,6 +4927,10 @@ class Misskey:
 
         Returns:
             dict: Returns the updated gallery post information.
+
+        Note:
+            If you do not specify any of arguments, the corresponding parts of
+            your gallery settings will be updated with the default values.
 
         Raises:
             MisskeyAPIException: Raise if the API request fails.
