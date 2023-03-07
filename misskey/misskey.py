@@ -1078,6 +1078,60 @@ class Misskey:
         params = self.__params(locals())
         return self.__request_api('i/webhooks/update', **params)
 
+    def notifications_create(
+        self,
+        body: str,
+        header: Optional[str] = None,
+        icon: Optional[str] = None,
+    ) -> bool:
+        """Create a notification.
+
+        Args:
+            body (str): Specifies the body text of the notification.
+
+            header (str): Specifies the header text of the notification.
+
+            icon (str): Specifies the URL of the notification icon image.
+
+        Endpoint:
+            :code:`notifications/create`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('notifications/create', **params)
+
+    def notifications_read(
+        self,
+        notification_id: Union[str, List[str]],
+    ) -> bool:
+        """Mark a notification as read.
+
+        Args:
+            notification_id (str or :obj:`list` of :obj:`str`): Specifies
+            notification ID to mark as read. If specified by :obj:`list`,
+            read multiple notifications.
+
+        Endpoint:
+            :code:`notifications/read`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        if type(notification_id) is str:
+            notification_id = [notification_id]
+        return self.__request_api(
+            'notifications/read',
+            notificationIds=notification_id
+        )
+
     def notes_create(
         self,
         text: Optional[str] = None,

@@ -232,6 +232,10 @@ MisskeyのAPIプレフィックスは :code:`/api/` です。
 +----------------------------------------+------------------------------------------------+
 | :code:`notifications/mark-all-as-read` | :meth:`Misskey.notifications_mark_all_as_read` |
 +----------------------------------------+------------------------------------------------+
+| :code:`notifications/create`           | :meth:`Misskey.notifications_create`           |
++----------------------------------------+------------------------------------------------+
+| :code:`notifications/read`             | :meth:`Misskey.notifications_read`             |
++----------------------------------------+------------------------------------------------+
 | .. centered:: **Antennas**                                                              |
 +----------------------------------------+------------------------------------------------+
 | :code:`antennas/create`                | :meth:`Misskey.antennas_create`                |

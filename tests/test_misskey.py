@@ -183,6 +183,26 @@ def test_notifications_mark_all_as_read(
     assert res
 
 
+def test_notifications(
+    mk_cli_admin: Misskey,
+):
+    res_create = mk_cli_admin.notifications_create(
+        body='test-notification',
+    )
+    assert type(res_create) == bool
+    assert res_create
+
+    res_notifications = mk_cli_admin.i_notifications()
+    assert type(res_notifications) == list
+    assert len(res_notifications) > 0
+
+    res_read = mk_cli_admin.notifications_read(
+        res_notifications[0]['id'],
+    )
+    assert type(res_read) == bool
+    assert res_read
+
+
 def test_should_be_error_in_i_notifications(
     mk_cli_admin: Misskey,
 ):
