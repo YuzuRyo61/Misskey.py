@@ -5102,3 +5102,228 @@ class Misskey:
         del alive_only, sort_key, sort_asc
         params = self.__params(locals())
         return self.__request_api('hashtags/users', **params)
+
+    def pages_create(
+        self,
+        title: str,
+        name: str,
+        summary: Optional[str] = None,
+        content: List[dict] = [],
+        variables: List[dict] = [],
+        script: str = '',
+        eye_catching_image_id: Optional[str] = None,
+        font_serif: bool = False,
+        align_center: bool = False,
+        hide_title_when_pinned: bool = False,
+    ) -> dict:
+        """Create a page.
+
+        Args:
+            title (str): Specifies the title of the page.
+
+            name (str): Specifies the unique name of the page.
+
+            summary (str, optional): Specifies the summary of the page.
+
+            content (:obj:`list` of :obj:`dict`): Specifies the content of the
+            page.
+
+            variables (:obj:`list` of :obj:`dict`): Specifies the variables
+            that are to be used in the page.
+
+            script (str): Specifies the script that is used in the page.
+
+            eye_catching_image_id (str, optional): Specifies the file ID of the
+            eye catching image of the page.
+
+            font_serif (bool, default: :code:`False`): Specifies the font. If
+            :code:`True`, serif and if :code:`False`. sans-serif.
+
+            align_center (bool, default: :code:`False`): Specifies whether to
+            center contents of the page.
+
+            hide_title_when_pinned (bool, default: :code:`False`): Specifies
+            whether to hide title when pinned to the profile.
+
+        Endpoint:
+            :code:`pages/create`
+
+        Returns:
+            dict: Returns the created page information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        font = 'serif' if font_serif else 'sans-serif'
+        params = self.__params(locals(), ('font_serif',))
+        return self.__request_api('pages/create', **params)
+
+    def pages_delete(
+        self,
+        page_id: str
+    ) -> bool:
+        """Delete a page.
+
+        Args:
+            page_id (str): Specifies the page ID.
+
+        Endpoint:
+            :code:`pages/delete`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('pages/delete', pageId=page_id)
+
+    def pages_featured(self) -> List[dict]:
+        """Get a list of featured pages.
+
+        Endpoint:
+            :code:`pages/featured`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of most liked pages.
+            No more than 10 pages are in the list.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('pages/featured')
+
+    def pages_like(
+        self,
+        page_id: str
+    ) -> bool:
+        """Give a like to a page.
+
+        Args:
+            page_id (str): Specifies the page ID.
+
+        Endpoint:
+            :code:`pages/like`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('pages/like', pageId=page_id)
+
+    def pages_show(
+        self,
+        page_id: Optional[str] = None,
+        name: Optional[str] = None,
+        username: Optional[str] = None,
+    ) -> dict:
+        """Get information of the specified page.
+
+        Args:
+            page_id (str, optional): Specifies the page ID.
+
+            name (str, optional): Specifies the unique name of the page.
+
+            username (str, optional): Specifies the username of the page
+            author.
+
+        Endpoint:
+            :code:`pages/show`
+
+        Returns:
+            dict: Returns the page information.
+
+        Note:
+            You must specify either :code:`page_id` or :code:`name`.
+
+            If you specify :code:`name`, you must specify :code:`username`.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('pages/show', **params)
+
+    def pages_unlike(
+        self,
+        page_id: str
+    ) -> bool:
+        """Remove a like to the note.
+
+        Args:
+            page_id (str): Specifies the page ID.
+
+        Endpoint:
+            :code:`pages/unlike`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('pages/unlike', **params)
+
+    def pages_update(
+        self,
+        page_id: str,
+        title: str,
+        name: str,
+        summary: Optional[str] = None,
+        content: List[dict] = [],
+        variables: List[dict] = [],
+        script: str = '',
+        eye_catching_image_id: Optional[str] = None,
+        font_serif: bool = False,
+        align_center: bool = False,
+        hide_title_when_pinned: bool = False,
+    ) -> bool:
+        """Update a page.
+
+        Args:
+            page_id (str): Specifies the page ID to update.
+
+            title (str): Specifies the title of the page.
+
+            name (str): Specifies the unique name of the page.
+
+            summary (str, optional): Specifies the summary of the page.
+
+            content (:obj:`list` of :obj:`dict`): Specifies the content of the
+            page.
+
+            variables (:obj:`list` of :obj:`dict`): Specifies the variables
+            that are to be used in the page.
+
+            script (str): Specifies the script that is used in the page.
+
+            eye_catching_image_id (str, optional): Specifies the file ID of the
+            eye catching image of the page.
+
+            font_serif (bool, default: :code:`False`): Specifies the font. If
+            :code:`True`, serif and if :code:`False`. sans-serif.
+
+            align_center (bool, default: :code:`False`): Specifies whether to
+            center contents of the page.
+
+            hide_title_when_pinned (bool, default: :code:`False`): Specifies
+            whether to hide title when pinned to the profile.
+
+        Endpoint:
+            :code:`pages/update`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Note:
+            If you do not specify any of arguments, the corresponding parts of
+            your page settings will be updated with the default values.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('pages/update', **params)

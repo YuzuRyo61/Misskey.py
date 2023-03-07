@@ -1314,3 +1314,108 @@ def test_hashtags(
         sort_key='createdAt',
     )
     assert type(res_users) == list
+
+
+def test_pages(
+    mk_cli_admin: Misskey,
+    mk_cli_user: Misskey,
+):
+    res_create = mk_cli_admin.pages_create(
+        title='test-page',
+        name='test-page',
+    )
+    assert type(res_create) == dict
+
+    res_featured = mk_cli_admin.pages_featured()
+    assert type(res_featured) == list
+
+    res_like = mk_cli_user.pages_like(res_create['id'])
+    assert type(res_like) == bool
+    assert res_like
+
+    res_show = mk_cli_admin.pages_show(res_create['id'])
+    assert type(res_show) == dict
+
+    res_unlike = mk_cli_user.pages_unlike(res_create['id'])
+    assert type(res_unlike) == bool
+    assert res_unlike
+
+    res_update = mk_cli_admin.pages_update(
+        page_id=res_create['id'],
+        title='test-page-renamed',
+        name='test-page-renamed',
+    )
+    assert type(res_update) == bool
+    assert res_update
+
+    res_delete = mk_cli_admin.pages_delete(res_create['id'])
+    assert type(res_delete) == bool
+    assert res_delete
+
+
+def test_pages_create_with_content(
+    mk_cli_admin: Misskey,
+):
+    with open('tests/test_image.png', mode='rb') as f:
+        res_file = mk_cli_admin.drive_files_create(f)
+    assert type(res_file) == dict
+
+    res_sub = mk_cli_admin.pages_create(
+        title='sub-page',
+        name='sub-page',
+        summary='sub summary',
+        content=[{
+            'type': 'text',
+            'text': '\n'.join([str(i)*10 for i in range(10)])
+        }],
+    )
+    assert type(res_sub) == dict
+
+    main_content = [
+        {
+            'type': 'section',
+            'title': 'section-title',
+            'children': [
+                {
+                    'type': 'text',
+                    'text': 'inside section',
+                },
+            ],
+        },
+        {
+            'type': 'text',
+            'text': 'outside section\n' 'a = {a}',
+        },
+        {
+            'type': 'image',
+            'fileId': res_file['id'],
+        },
+        {
+            'type': 'note',
+            'note': res_sub['id'],
+            'detailed': True,
+        },
+    ]
+    res_main = mk_cli_admin.pages_create(
+        title='main page',
+        name='main page',
+        summary='main summary',
+        content=main_content,
+        script='<: "Hello, world!"',
+        variables=[
+            {
+                'name': 'a',
+                'type': 'number',
+                'value': 1,
+            }
+        ],
+        eye_catching_image_id=res_file['id'],
+        font_serif=True,
+        align_center=True,
+        hide_title_when_pinned=True,
+    )
+    assert type(res_main) == dict
+
+    mk_cli_admin.pages_delete(res_sub['id'])
+    mk_cli_admin.pages_delete(res_main['id'])
+    mk_cli_admin.drive_files_delete(res_file['id'])
