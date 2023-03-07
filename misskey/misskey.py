@@ -1776,6 +1776,375 @@ class Misskey:
         params = self.__params(locals())
         return self.__request_api('notes/global-timeline', **params)
 
+    def notes(
+        self,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        local: bool = False,
+        reply: Optional[bool] = None,
+        renote: Optional[bool] = None,
+        with_files: Optional[bool] = None,
+        pool: Optional[bool] = None,
+    ) -> List[dict]:
+        """Get a list of notes.
+
+        Args:
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+            local (bool, default: :code:`False`): Specifies whether to only get
+            local notes.
+
+            reply (bool, optional): Specifies whether to get replies. If
+            :code:`True`, get only replies and if :code:`False`, get only
+            notes which are not replies. If :code:`None`, get both notes.
+
+            renote (bool, optional): Specifies whether to get renotes. If
+            :code:`True`, get only renotes and if :code:`False`, get only
+            notes which are not renotes. If :code:`None`, get both notes.
+
+            with_files (bool, optional): Specifies whether to get note with
+            files. If :code:`True`, get only notes with files and if
+            :code:`False`, get only notes without files. If :code:`None`, get
+            both notes.
+
+            poll (bool, optional): Specifies whether to get note with poll. If
+            :code:`True`, get only notes with polls and if :code:`False`, get
+            only notes without polls. If :code:`None`, get both notes.
+
+        Endpoint:
+            :code:`notes`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of notes.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('notes', **params)
+
+    def notes_clips(
+        self,
+        note_id: str
+    ) -> List[dict]:
+        """Get a list of clips that contain the specified note.
+
+        Args:
+            note_id (str): Specifies the note ID.
+
+        Endpoint:
+            :code:`notes/clips`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of notes.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('notes/clips', noteId=note_id)
+
+    def notes_featured(
+        self,
+        limit: int = 10,
+        offset: int = 0,
+    ) -> List[dict]:
+        """Get featured notes.
+
+        Args:
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            offset (int, default: 0): Specifies the offset to get.
+
+        Endpoint:
+            :code:`notes/featured`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns featured notes sorted in
+            reverse chronological order.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('notes/featured', **params)
+
+    def notes_mentions(
+        self,
+        following: bool = False,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        visibility: Optional[Union[NoteVisibility, str]] = None,
+    ) -> List[dict]:
+        """Get a list of notes that mention you.
+
+        Args:
+            following (bool, default: :code:`False`): Specifies whether to get
+            notes only from you or users you follow.
+
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+            visibility (str, optional): Specifies the visibility of the note to
+            get. Available values are enumerated in
+            :class:`enum.NoteVisibility`.
+
+        Endpoint:
+            :code:`notes/mentions`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of notes.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`visibility` is invalid.
+        """
+        if type(visibility) is str:
+            visibility = NoteVisibility(visibility)
+        params = self.__params(locals())
+        return self.__request_api('notes/mentions', **params)
+
+    def notes_polls_recommendation(
+        self,
+        limit: int = 10,
+        offset: int = 0,
+    ) -> List[dict]:
+        """Get a list of recommended notes with polls.
+
+        Args:
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            offset (int, default: 0): Specifies the offset to get.
+
+        Endpoint:
+            :code:`notes/polls/recommendation`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of recommended notes.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('notes/polls/recommendation', **params)
+
+    def notes_search(
+        self,
+        query: str,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        offset: int = 0,
+        host: Optional[str] = None,
+        user_id: Optional[str] = None,
+        channel_id: Optional[str] = None,
+    ) -> List[dict]:
+        """Search notes that contain query.
+
+        Args:
+            query (str): Specifies search query.
+
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+            offset (int, default: 0): Specifies the offset to get.
+
+            host (str, optional): Specifies the host to search. The local host
+            is represented with :code:`None`.
+
+            user_id (str, optional): Specifies the user ID to search.
+
+            channel_id (str, optional): Specifies the channel ID to search.
+
+        Endpoint:
+            :code:`notes/search`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of notes.
+
+        Note:
+            If :code:`user_id` is set, :code:`channel_id` is ignored.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('notes/search', **params)
+
+    def notes_search_by_tag(
+        self,
+        tag: Union[str, List[List[str]]],
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        reply: Optional[bool] = None,
+        renote: Optional[bool] = None,
+        with_files: Optional[bool] = None,
+        poll: Optional[bool] = None,
+    ) -> List[dict]:
+        """Search notes that contain specified hashtags.
+
+        Args:
+            tag (str or :obj:`list` of :obj:`list` of :obj:`str`): Specifies
+            the hashtag to search. If specified by :obj:`list`, tags inside the
+            inner lists are chained with AND, and the outer lists are chained
+            with OR.
+
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+            reply (bool, optional): Specifies whether to get replies. If
+            :code:`True`, get only replies and if :code:`False`, get only
+            notes which are not replies. If :code:`None`, get both notes.
+
+            renote (bool, optional): Specifies whether to get renotes. If
+            :code:`True`, get only renotes and if :code:`False`, get only
+            notes which are not renotes. If :code:`None`, get both notes.
+
+            with_files (bool, optional): Specifies whether to get note with
+            file. If :code:`True`, get only notes with files and if
+            :code:`False`, get only notes without files. If :code:`None`, get
+            both notes.
+
+            poll (bool, optional): Specifies whether to get note with poll. If
+            :code:`True`, get only notes with polls and if :code:`False`, get
+            only notes without polls. If :code:`None`, get both notes.
+
+        Endpoint:
+            :code:`notes/search-by-tag`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of notes.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        if type(tag) is list:
+            query = tag
+            tag = None
+        params = self.__params(locals())
+        return self.__request_api('notes/search-by-tag', **params)
+
+    def notes_thread_muting_create(
+        self,
+        note_id: str,
+    ) -> bool:
+        """Mute the thread that contains the specified note.
+
+        Args:
+            note_id (str): Specifies the note ID.
+
+        Endpoint:
+            :code:`notes/thread-muting/create`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('notes/thread-muting/create', noteId=note_id)
+
+    def notes_thread_muting_delete(
+        self,
+        note_id: str,
+    ) -> bool:
+        """Unmute the thread that contains the specified note.
+
+        Args:
+            note_id (str): Specifies the note ID.
+
+        Endpoint:
+            :code:`notes/thread-muting/delete`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('notes/thread-muting/delete', noteId=note_id)
+
+    def notes_user_list_timeline(
+        self,
+        list_id: str,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        since_date: Union[int, datetime.datetime, None] = None,
+        until_date: Union[int, datetime.datetime, None] = None,
+        include_my_renotes: bool = True,
+        include_renoted_my_notes: bool = True,
+        include_local_renotes: bool = True,
+        with_files: bool = False,
+    ) -> List[dict]:
+        """Show the user list timeline.
+
+        Args:
+            list_id (str): Specifies the list ID.
+
+            limit (int, optional): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+            since_date (int, datetime.datetime, optional): Specifies
+            the first date to get.
+
+            until_date (int, datetime.datetime, optional): Specifies
+            the last date to get.
+
+            include_my_renotes (bool, optional): Specifies whether to
+            include your notes.
+
+            include_renoted_my_notes (bool, optional): Specifies whether to
+            include renotes of your notes.
+
+            include_local_renotes (bool, optional): Specifies whether to
+            include local renotes.
+
+            with_files (bool, optional): Specifies whether to get only notes
+            with files.
+
+        Endpoint:
+            :code:`notes/user-list-timeline`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns a list of notes.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        if isinstance(since_date, datetime.datetime):
+            since_date = math.floor(since_date.timestamp() * 1000)
+        if isinstance(until_date, datetime.datetime):
+            until_date = math.floor(until_date.timestamp() * 1000)
+        params = self.__params(locals())
+        return self.__request_api('notes/user-list-timeline', **params)
+
     def users_show(
         self,
         user_id: Optional[str] = None,

@@ -389,6 +389,81 @@ def test_notes_state(
     assert type(res) == dict
 
 
+def test_notes(
+    mk_cli_admin: Misskey,
+):
+    res_notes = mk_cli_admin.notes()
+    assert type(res_notes) == list
+
+    res_featured = mk_cli_admin.notes_featured()
+    assert type(res_featured) == list
+
+    res_mentions = mk_cli_admin.notes_mentions(
+        visibility='public',
+    )
+    assert type(res_mentions) == list
+
+
+def test_notes_clips(
+    mk_cli_admin: Misskey,
+    mk_admin_new_note: str,
+):
+    res = mk_cli_admin.notes_clips(mk_admin_new_note)
+    assert type(res) == list
+
+
+def test_notes_polls_recommendation(
+    mk_cli_admin: Misskey,
+):
+    res = mk_cli_admin.notes_polls_recommendation()
+    assert type(res) == list
+
+
+def test_notes_search(
+    mk_cli_admin: Misskey,
+):
+    res_search = mk_cli_admin.notes_search('test')
+    assert type(res_search) == list
+
+    res_search_by_tag = mk_cli_admin.notes_search_by_tag(
+        [['fediverse'], ['misskey', 'ai']]
+    )
+    assert type(res_search_by_tag) == list
+
+
+def test_notes_thread_muting(
+    mk_cli_admin: Misskey,
+    mk_admin_new_note: str,
+):
+    res_create = mk_cli_admin.notes_thread_muting_create(mk_admin_new_note)
+    assert type(res_create) == bool
+    assert res_create
+
+    res_delete = mk_cli_admin.notes_thread_muting_delete(mk_admin_new_note)
+    assert type(res_delete) == bool
+    assert res_delete
+
+
+def test_notes_user_list_timeline(
+    mk_cli_admin: Misskey,
+):
+    res_create = mk_cli_admin.users_lists_create('test-list')
+    assert type(res_create) == dict
+
+    res_user_list_timeline = mk_cli_admin.notes_user_list_timeline(
+        list_id=res_create['id'],
+        since_date=(
+            datetime.datetime.now() -
+            datetime.timedelta(days=1)
+        ),
+        until_date=(
+            datetime.datetime.now() +
+            datetime.timedelta(hours=3)
+        )
+    )
+    assert type(res_user_list_timeline) == list
+
+
 def test_i_update(
     mk_cli_admin: Misskey,
 ):
