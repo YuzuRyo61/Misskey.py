@@ -3608,6 +3608,44 @@ class Misskey:
         params = self.__params(locals())
         return self.__request_api('drive/files/find', **params)
 
+    def drive_files_upload_from_url(
+        self,
+        url: str,
+        folder_id: Optional[str] = None,
+        is_sensitive: bool = False,
+        comment: Optional[str] = None,
+        marker: Optional[str] = None,
+        force: bool = False,
+    ) -> bool:
+        """Upload a file specified with the source URL to the drive.
+
+        Args:
+            url (str): Specifies the URL where the file content locates.
+
+            folder_id (str, optional): Specifies the folder ID.
+
+            is_sensitive (bool, default: :code:`False`): Specifies whether the
+            file is sensitive.
+
+            comment (str, optional): Specifies the caption of the file.
+
+            marker (str, optional): Specifies the marker to track the upload.
+
+            force (bool, optional): Specifies whether to overwrite the file
+            if it already exists.
+
+        Endpoint:
+            :code:`drive/files/upload-from-url`
+
+        Returns:
+            bool: Returns :code:`True` if the request was successful.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('drive/files/upload-from-url', **params)
+
     def drive_folders(
         self,
         limit: int = 10,

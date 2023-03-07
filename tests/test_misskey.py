@@ -875,6 +875,16 @@ def test_drive_files(
         assert res_delete
 
 
+def test_drive_files_upload_from_url(
+    mk_cli_admin: Misskey,
+):
+    res = mk_cli_admin.drive_files_upload_from_url(
+        'https://placehold.jp/150x150.png',
+    )
+    assert type(res) == bool
+    assert res
+
+
 def test_drive_folders(
     mk_cli_admin: Misskey,
 ):
