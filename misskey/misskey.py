@@ -2304,7 +2304,7 @@ class Misskey:
             You can specify from 1 to 100.
 
         Endpoint:
-            :code:`users/following`
+            :code:`users/followers`
 
         Note:
             You must specify one of user_id, username (and host).
@@ -2601,7 +2601,7 @@ class Misskey:
             comment (str): Specify the comment.
 
         Endpoint:
-            :code:`users/report/abuse`
+            :code:`users/report-abuse`
 
         Returns:
             bool: Returns :code:`True` if the report is sent.
