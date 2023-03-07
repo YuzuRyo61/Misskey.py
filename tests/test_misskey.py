@@ -929,6 +929,95 @@ def test_users_clips(
     assert type(res) == list
 
 
+def test_users(
+    mk_cli_admin: Misskey,
+):
+    res = mk_cli_admin.users(
+        origin='combined',
+        sort_key='updatedAt',
+        hostname=TEST_HOST,
+    )
+    assert type(res) == list
+
+
+def test_users_gallery_posts(
+    mk_cli_admin: Misskey,
+    mk_user_id: str,
+):
+    res = mk_cli_admin.users_gallery_posts(mk_user_id)
+    assert type(res) == list
+
+
+def test_users_get_freq(
+    mk_cli_admin: Misskey,
+    mk_user_id: str,
+):
+    res = mk_cli_admin.users_get_frequently_replied_users(mk_user_id)
+    assert type(res) == list
+
+
+def test_users_pages(
+    mk_cli_admin: Misskey,
+    mk_user_id: str,
+):
+    res_pages = mk_cli_admin.users_pages(mk_user_id)
+    assert type(res_pages) == list
+
+
+def test_users_reactions(
+    mk_cli_admin: Misskey,
+    mk_admin_id: str,
+):
+    res_reactions = mk_cli_admin.users_reactions(
+        user_id=mk_admin_id,
+        since_date=(
+            datetime.datetime.now() -
+            datetime.timedelta(days=1)
+        ),
+        until_date=(
+            datetime.datetime.now()
+        ),
+    )
+    assert type(res_reactions) == list
+
+
+def test_users_search(
+    mk_cli_admin: Misskey,
+):
+    res_search = mk_cli_admin.users_search(
+        query='user',
+        origin='local',
+    )
+    assert type(res_search) == list
+
+    res_by_username_and_host = mk_cli_admin.users_search_by_username_and_host(
+        username='user',
+        host=TEST_HOST,
+    )
+    assert type(res_by_username_and_host) == list
+
+
+def test_email_address_available(
+    mk_cli_admin: Misskey,
+):
+    res = mk_cli_admin.email_address_available('test@example.com')
+    assert type(res) == dict
+
+
+def test_pinned_users(
+    mk_cli_admin: Misskey,
+):
+    res = mk_cli_admin.pinned_users()
+    assert type(res) == list
+
+
+def test_username_available(
+    mk_cli_admin: Misskey,
+):
+    res = mk_cli_admin.username_available('user')
+    assert type(res) == dict
+
+
 def test_mute(
     mk_cli_admin: Misskey,
     mk_user_id: str,

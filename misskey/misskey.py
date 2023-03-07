@@ -2643,6 +2643,352 @@ class Misskey:
         params = self.__params(locals())
         return self.__request_api('users/clips', **params)
 
+    def users(
+        self,
+        limit: int = 10,
+        offset: int = 0,
+        alive_only: bool = False,
+        origin: Union[UserOrigin, str] = UserOrigin.LOCAL,
+        sort_key: Union[
+            UserSortKey,
+            str,
+        ] = UserSortKey.FOLLOWER,
+        sort_asc: bool = False,
+        hostname: Optional[str] = None,
+    ) -> List[dict]:
+        """Get a list of users.
+
+        Args:
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            offset (int, default: 0): Specifies the offset to get.
+
+            alive_only (bool, default: :code:`False`): Specifies whether to
+            only get users active in 5 days.
+
+            origin (str, default: :code:`local`): Specifies the origin type of
+            users to get. Available values are enumerated in
+            :class:`enum.UserOrigin`. If :code:`combined`, both :code:`local`
+            and :code:`remote` users are included in the result.
+
+            sort_key (str, default: :code:`follower`):
+            Specifies sort key. Available values are enumerated in
+            :class:`enum.UserSortKey`.
+
+            sort_asc (bool, default: :code:`False`): Specifies the sort order.
+            Hashtags sort in ascending order according to the key specified
+            with :obj:`sort_key` if :code:`True`, descending order if
+            :code:`False`.
+
+            hostname (str, optional): Specifies the host to search. The local
+            host is represented with :code:`None`.
+
+        Endpoint:
+            :code:`users`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of users.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`origin` or :code:`sort_key` is invalid.
+        """
+        state = 'alive' if alive_only else 'all'
+        if type(origin) is str:
+            origin = UserOrigin(origin)
+        if type(sort_key) is str:
+            sort_key = UserSortKey(sort_key)
+        sort = '-' if sort_asc else '+'
+        sort += sort_key.value
+        del alive_only, sort_key, sort_asc
+        params = self.__params(locals())
+        return self.__request_api('users', **params)
+
+    def users_gallery_posts(
+        self,
+        user_id: str,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+    ) -> List[dict]:
+        """Show all gallery posts created by the specified user.
+
+        Args:
+            user_id (str): Specifies the user ID.
+
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+        Endpoint:
+            :code:`users/gallery/posts`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of gallery posts.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('users/gallery/posts', **params)
+
+    def users_get_frequently_replied_users(
+        self,
+        user_id: str,
+        limit: int = 10,
+    ) -> List[dict]:
+        """Get list of users sorted by the number of replies sent by the
+        specified user.
+
+        Args:
+            user_id (str): Specifies the user ID.
+
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+        Endpoint:
+            :code:`users/get-frequently-replied-users`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of notes and weights.
+            Weight is defined as number of replies the user accepted divided by
+            the maximum number of replies the sender sent to a user.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api(
+            'users/get-frequently-replied-users',
+            userId=user_id,
+        )
+
+    def users_pages(
+        self,
+        user_id: str,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+    ) -> List[dict]:
+        """Show all pages created by the specified user.
+
+        Args:
+            user_id (str): Specifies the user ID.
+
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+        Endpoint:
+            :code:`users/pages`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of pages.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('users/pages', **params)
+
+    def users_reactions(
+        self,
+        user_id: str,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        since_date: Optional[Union[int, datetime.datetime]] = None,
+        until_date: Optional[Union[int, datetime.datetime]] = None,
+    ) -> List[dict]:
+        """Get reactions created by the specified user.
+
+        Args:
+            user_id (str): Specifies the user ID.
+
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            since_id (str, optional): Specifies the first ID to get.
+
+            until_id (str, optional): Specifies the last ID to get.
+
+            since_date (:obj:`datetime.datetime`, optional): Specifies
+            the first date to get.
+
+            since_date (:obj:`datetime.datetime`, optional): Specifies
+            the last date to get.
+
+        Endpoint:
+            :code:`users/reactions`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of reactions.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        if isinstance(since_date, datetime.datetime):
+            since_date = math.floor(since_date.timestamp() * 1000)
+        if isinstance(until_date, datetime.datetime):
+            until_date = math.floor(until_date.timestamp() * 1000)
+        params = self.__params(locals())
+        return self.__request_api('users/reactions', **params)
+
+    def users_search(
+        self,
+        query: str,
+        limit: int = 10,
+        offset: int = 0,
+        origin: Union[UserOrigin, str] = UserOrigin.LOCAL,
+        detail: bool = True,
+    ) -> List[dict]:
+        """Search for users.
+
+        Args:
+            query(str): Specifies the search query. If starts with :code:`@`,
+            search for users whose username starts with the query. Otherwise,
+            search for users that contain query in their display name,
+            username or profiles.
+
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            offset (int, default: 0): Specifies the offset to get.
+
+            origin (str, default: :code:`local`): Specifies the origin type of
+            users to get. Available values are enumerated in
+            :class:`enum.UserOrigin`. If :code:`combined`, both :code:`local`
+            and :code:`remote` users are included in the result.
+
+            detail (bool, default: :code:`True`): Specifies whether to get
+            detailed profiles.
+
+        Endpoint:
+            :code:`users/search`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of users. Those
+            inactive for more than 30 days or suspended users are excluded from
+            the result. Sorted by the last note created by the user, in reverse
+            chronological order.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+
+            ValueError: Raise if :code:`origin` is invalid.
+        """
+        if type(origin) is str:
+            origin = UserOrigin(origin)
+        params = self.__params(locals())
+        return self.__request_api('users/search', **params)
+
+    def users_search_by_username_and_host(
+        self,
+        username: Optional[str] = None,
+        host: Optional[str] = None,
+        limit: int = 10,
+        detail: bool = True,
+    ) -> List[dict]:
+        """Search for users by username and host.
+
+        Args:
+            username (str, optional): Specifies the username to search.
+
+            host (str, optional): Specifies the host to search.
+
+            limit (int, default: 10): Specifies the amount to get.
+            You can specify from 1 to 100.
+
+            detail (bool, default: :code:`True`): Specifies whether to get
+            detailed profiles.
+
+        Endpoint:
+            :code:`users/search-by-username-and-host`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of users. Those
+            inactive for more than 30 days or suspended users are excluded from
+            the result. Sorted by the last note created by the user, in reverse
+            chronological order.
+
+        Note:
+            You must specify at least any of :code:`username` or :code:`host`.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api(
+            'users/search-by-username-and-host',
+            **params
+        )
+
+    def email_address_available(
+        self,
+        email_address: str,
+    ) -> dict:
+        """Check if the email address is available for the instance.
+
+        Args:
+            email_address (str): Specifies the email address.
+
+        Endpoint:
+            :code:`email-address/available`
+
+        Returns:
+            dict: Returns whether the address is available and the reason if
+            unavailable.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api(
+            'email-address/available',
+            emailAddress=email_address
+        )
+
+    def pinned_users(self) -> List[dict]:
+        """Get a list of users pinned by the administrator of the instance.
+
+        Endpoint:
+            :code:`pinned-users`
+
+        Returns:
+            :obj:`list` of :obj:`dict`: Returns the list of users.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('pinned-users')
+
+    def username_available(
+        self,
+        username: str,
+    ) -> dict:
+        """Check if the username is available for the instance.
+
+        Args:
+            username (str): Specifies the username.
+
+        Endpoint:
+            :code:`username/available`
+
+        Returns:
+            dict: Returns whether the username is available.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        params = self.__params(locals())
+        return self.__request_api('username/available', **params)
+
     def following_create(
         self,
         user_id: str,
