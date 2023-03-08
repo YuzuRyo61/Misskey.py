@@ -89,6 +89,41 @@ def test_stats(mk_cli_anon: Misskey):
     assert type(res) == dict
 
 
+def test_emojis(mk_cli_anon: Misskey):
+    res = mk_cli_anon.emojis()
+    assert type(res) == dict
+
+
+def test_endpoint(mk_cli_anon: Misskey):
+    res = mk_cli_anon.endpoint('endpoint')
+    assert type(res) == dict
+
+
+def test_endpoints(mk_cli_anon: Misskey):
+    res = mk_cli_anon.endpoints()
+    assert type(res) == list
+
+
+def test_fetch_rss(mk_cli_anon: Misskey):
+    res = mk_cli_anon.fetch_rss('http://feeds.afpbb.com/rss/afpbb/afpbbnews')
+    assert type(res) == dict
+
+
+def test_get_online_users_count(mk_cli_anon: Misskey):
+    res = mk_cli_anon.get_online_users_count()
+    assert type(res) == dict
+
+
+def test_ping(mk_cli_anon: Misskey):
+    res = mk_cli_anon.ping()
+    assert type(res) == dict
+
+
+def test_server_info(mk_cli_anon: Misskey):
+    res = mk_cli_anon.server_info()
+    assert type(res) == dict
+
+
 def test_i_favorites(mk_cli_admin: Misskey):
     res = mk_cli_admin.i_favorites()
     assert type(res) == list

@@ -284,6 +284,117 @@ class Misskey:
         params = self.__params(locals())
         return self.__request_api('announcements', **params)
 
+    def emojis(self) -> dict:
+        """Get all emojis available for the instance.
+
+        Endpoint:
+            :code:`emojis`
+
+        Returns:
+            dict: Returns a list of emojis.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('emojis')
+
+    def endpoint(
+        self,
+        endpoint: str,
+    ) -> Union[dict, bool]:
+        """Get params of the specified endpoint.
+
+        Args:
+            endpoint (str): Specifies the endpoint.
+
+        Endpoint:
+            :code:`endpoint`
+
+        Returns:
+            dict or bool: Returns the list of param names and types. If the
+            endpoint is not available for the instance, returns :code:`True`.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('endpoint', endpoint=endpoint)
+
+    def endpoints(self) -> List[str]:
+        """Get all endpoints available for the instance.
+
+        Endpoint:
+            :code:`endpoints`
+
+        Returns:
+            `list` of `str`: Returns the list of endpoints.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('endpoints')
+
+    def fetch_rss(
+        self,
+        url: str,
+    ) -> dict:
+        """Fetch RSS from the URL.
+
+        Args:
+            url (str): Specifies the URL to fetch RSS from.
+
+        Endpoint:
+            :code:`fetch-rss`
+
+        Returns:
+            dict: Returns the parsed RSS feed.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('fetch-rss', url=url)
+
+    def get_online_users_count(self) -> dict:
+        """Get number of users currently online in the instance.
+
+        Endpoint:
+            :code:`get-online-users-count`
+
+        Returns:
+            dict: Returns the online users count.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('get-online-users-count')
+
+    def ping(self) -> dict:
+        """Send a ping.
+
+        Endpoint:
+            :code:`ping`
+
+        Returns:
+            dict: Returns response time in epoch milliseconds.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('ping')
+
+    def server_info(self) -> dict:
+        """Get information of the server machine that runs the instance.
+
+        Endpoint:
+            :code:`server-info`
+
+        Returns:
+            dict: Returns the server machine information.
+
+        Raises:
+            MisskeyAPIException: Raise if the API request fails.
+        """
+        return self.__request_api('server-info')
+
     def i_favorites(
         self,
         limit: int = 10,
