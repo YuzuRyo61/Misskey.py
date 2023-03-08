@@ -2742,7 +2742,7 @@ class Misskey:
 
             until_id (str, optional): Specifies the last ID to get.
 
-        Endpoints:
+        Endpoint:
             :code:`users/clips`
 
         Returns:
@@ -4824,7 +4824,7 @@ class Misskey:
 
             note_id (str): Specifies the note ID to add.
 
-        Endpoints:
+        Endpoint:
             :code:`clips/add-note`
 
         Returns:
@@ -4852,7 +4852,7 @@ class Misskey:
 
             description (str, optional): Specifies the description of the clip.
 
-        Endpoints:
+        Endpoint:
             :code:`clips/create`
 
         Returns:
@@ -4873,7 +4873,7 @@ class Misskey:
         Args:
             clip_id (str): Specifies the clip ID to delete.
 
-        Endpoints:
+        Endpoint:
             :code:`clips/delete`
 
         Returns:
@@ -4887,7 +4887,7 @@ class Misskey:
     def clips_list(self) -> List[dict]:
         """Get list of clips you have created.
 
-        Endpoints:
+        Endpoint:
             :code:`clips/list`
 
         Returns:
@@ -4917,7 +4917,7 @@ class Misskey:
 
             until_id (str, optional): Specifies the last ID to get.
 
-        Endpoints:
+        Endpoint:
             :code:`clips/notes`
 
         Returns:
@@ -4941,7 +4941,7 @@ class Misskey:
 
             note_id (str): Specifies the note ID to remove.
 
-        Endpoints:
+        Endpoint:
             :code:`clips/remove-note`
 
         Returns:
@@ -4962,7 +4962,7 @@ class Misskey:
         Args:
             clip_id (str): Specifies the clip ID.
 
-        Endpoints:
+        Endpoint:
             :code:`clips/show`
 
         Returns:
@@ -4992,7 +4992,7 @@ class Misskey:
 
             description (str, optional): Specifies the description of the clip.
 
-        Endpoints:
+        Endpoint:
             :code:`clips/update`
 
         Returns:
