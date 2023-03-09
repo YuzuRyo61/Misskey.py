@@ -526,7 +526,6 @@ def test_i_update(
         name='Unit test user admin',
         birthday=datetime.date.today(),
         lang='ja-JP',
-        fields={'name1': 'value1', 'name2': 'value2'},
         ff_visibility='private',
         muting_notification_types=[
             'app',

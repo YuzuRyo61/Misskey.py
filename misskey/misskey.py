@@ -570,7 +570,7 @@ class Misskey:
         ] = None,
         avatar_id: Optional[str] = None,
         banner_id: Optional[str] = None,
-        fields: Union[List[dict], dict, None] = None,
+        fields: Optional[List[dict]] = None,
         is_locked: Optional[bool] = None,
         is_explorable: Optional[bool] = None,
         hide_online_status: Optional[bool] = None,
@@ -615,7 +615,7 @@ class Misskey:
 
             banner_id (:obj:`str`, optional): Banner's drive id.
 
-            fields (:obj:`list` of :obj:`dict` or :obj:`dict`, optional):
+            fields (:obj:`list` of :obj:`dict`, optional):
             Profile supplementary information.
 
             is_locked (:obj:`bool`, optional): Whether to make
@@ -697,10 +697,6 @@ class Misskey:
         if isinstance(birthday, datetime.date) or \
            isinstance(birthday, datetime.datetime):
             birthday = birthday.strftime('%Y-%m-%d')
-
-        if issubclass(type(fields), dict):
-            fields = [{'name': key, 'value': val}
-                      for key, val in fields.items()]
 
         if type(ff_visibility) is str:
             ff_visibility = FfVisibility(ff_visibility)
