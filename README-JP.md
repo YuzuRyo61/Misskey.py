@@ -71,7 +71,3 @@ mk = Misskey("misskey.io", i=token)  # または: misskey = misskey("misskey.io"
 # 寄付
 
 [GitHub Sponsor](https://github.com/sponsors/YuzuRyo61)にて受け付けています。
-
-## 寄付者
-
-- [tearaikazuki](https://github.com/tearaikazuki)
