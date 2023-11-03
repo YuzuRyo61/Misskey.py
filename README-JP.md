@@ -1,3 +1,7 @@
+<!--
+  TODO: reStructured形式に置き換える
+-->
+
 # Misskey.py
 
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)

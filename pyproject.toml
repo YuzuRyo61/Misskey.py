@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "Misskey.py"
+version = "5.0.0.a1"
+description = "The Misskey API library for Python. Misskey is made by syuilo."
+license = "MIT"
+authors = ["YuzuRyo61 <yuzuryo61@yuzulia.work>"]
+readme = ["README.md", "README-JP.md"]
+packages = [{ include = "misskey" }]
+repository = "https://github.com/YuzuRyo61/Misskey.py"
+documentation = "https://misskeypy.readthedocs.io/ja/latest/"
+keywords = [
+    "Misskey",
+    "API",
+    "library",
+    "syuilo",
+    "SNS",
+    "Social Networking Service",
+]
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Development Status :: 2 - Pre-Alpha",
+    "Natural Language :: English",
+    "Natural Language :: Japanese",
+    # Misskey.py supports current supported Python versions
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Internet",
+    "Topic :: Internet :: WWW/HTTP",
+    "Topic :: Communications",
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+# TODO: TBD
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
