@@ -39,6 +39,7 @@ classifiers = [
 [tool.poetry.dependencies]
 python = "^3.10"
 # TODO: TBD
+requests = "^2.31.0"
 
 
 [tool.poetry.group.docs.dependencies]
