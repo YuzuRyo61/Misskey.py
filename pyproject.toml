@@ -41,6 +41,9 @@ python = "^3.10"
 # TODO: TBD
 
 
+[tool.poetry.group.docs.dependencies]
+sphinx = "^7.2.6"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
