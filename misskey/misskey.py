@@ -1097,7 +1097,7 @@ class Misskey:
         include_my_renotes: bool = True,
         include_renoted_my_notes: bool = True,
         include_local_renotes: bool = True,
-        with_files: bool = True,
+        with_files: bool = False,
     ) -> List[dict]:
         """Show your home timeline.
 
@@ -1151,7 +1151,7 @@ class Misskey:
         until_id: Optional[str] = None,
         since_date: Union[int, datetime.datetime, None] = None,
         until_date: Union[int, datetime.datetime, None] = None,
-        with_files: bool = True,
+        with_files: bool = False,
         file_type: Optional[List[str]] = None,
         exclude_nsfw: bool = False,
     ) -> List[dict]:
@@ -1207,7 +1207,7 @@ class Misskey:
         include_my_renotes: bool = True,
         include_renoted_my_notes: bool = True,
         include_local_renotes: bool = True,
-        with_files: bool = True,
+        with_files: bool = False,
     ) -> List[dict]:
         """Show hybrid(home + local) timeline.
 
@@ -1261,7 +1261,7 @@ class Misskey:
         until_id: Optional[str] = None,
         since_date: Union[int, datetime.datetime, None] = None,
         until_date: Union[int, datetime.datetime, None] = None,
-        with_files: bool = True,
+        with_files: bool = False,
     ) -> List[dict]:
         """Show global timeline.
 
