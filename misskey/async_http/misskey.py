@@ -1,7 +1,8 @@
+
 __all__ = (
     "AsyncMisskey",
 )
 
 
-class AsyncMisskey(object):
+class AsyncMisskey:
     pass

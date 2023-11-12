@@ -47,7 +47,6 @@ class Misskey(object):
         if self.token is not None:
             params["i"] = self.token
 
-        response_object: Optional[requests.Response] = None
         try:
             response_object = self.session.post(url=self.address + endpoint, json=params)
         except Exception as e:
@@ -56,13 +55,12 @@ class Misskey(object):
         if response_object is None:
             raise MisskeyIllegalArgumentError("Illegal response")
 
-        response: Optional[Any] = None
         try:
             response = response_object.json()
+
+            if response_object.ok:
+                return response
+            else:
+                raise MisskeyAPIException.from_dict(response)
         except requests.exceptions.JSONDecodeError:
             raise MisskeyResponseError("JSON decode error")
-
-        if response_object.ok:
-            return response
-        else:
-            raise MisskeyAPIException.from_dict(response)

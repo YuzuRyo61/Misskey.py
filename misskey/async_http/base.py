@@ -1,0 +1,2 @@
+class AsyncMisskey(object):
+    pass
