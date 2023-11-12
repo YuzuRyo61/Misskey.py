@@ -1,0 +1,23 @@
+name: Lint
+on:
+  push:
+jobs:
+  flake8:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.12.0'
+      - name: Install pipx
+        run: |
+          python3 -m pip install --user pipx
+      - name: Install poetry
+        run: |
+          pipx install poetry
+      - name: Install project dependencies
+        run: |
+          poetry install --sync --with=main,dev
+      - name: Run lint
+        run: |
+          poetry run flake8 misskey tests
