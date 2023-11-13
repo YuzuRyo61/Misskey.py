@@ -50,11 +50,7 @@ sphinx = "^7.2.6"
 [tool.poetry.group.dev.dependencies]
 flake8 = "^6.1.0"
 setuptools = "^68.2.2"
-pyproject-flake8 = "^6.1.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.flake8]
-extend-ignore = ["F401"]
