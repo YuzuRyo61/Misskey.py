@@ -20,7 +20,12 @@ class Misskey(object):
     token: Optional[str] = None
     session: requests.Session
 
-    def __init__(self, *, address: str, token: Optional[str] = None, session: Optional[requests.Session] = None):
+    def __init__(
+        self, *,
+        address: str,
+        token: Optional[str] = None,
+        session: Optional[requests.Session] = None
+    ):
         self.address = self.__add_protocol(address)
 
         self.token = token
@@ -32,7 +37,8 @@ class Misskey(object):
 
     @staticmethod
     def __add_protocol(address: str) -> str:
-        if not address.startswith("http://") and not address.startswith("https://"):
+        if (not address.startswith("http://") and not
+           address.startswith("https://")):
             address = "https://" + address
 
         address.rstrip("/")
@@ -48,7 +54,8 @@ class Misskey(object):
             params["i"] = self.token
 
         try:
-            response_object = self.session.post(url=self.address + endpoint, json=params)
+            response_object = self.session.post(
+                url=self.address + endpoint, json=params)
         except Exception as e:
             raise MisskeyNetworkException(f"Could not complete request: ${e}")
 

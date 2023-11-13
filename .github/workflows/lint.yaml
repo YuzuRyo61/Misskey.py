@@ -20,4 +20,4 @@ jobs:
           poetry install --sync --with=main,dev
       - name: Run lint
         run: |
-          poetry run flake8 misskey tests
+          poetry run pflake8 misskey tests
