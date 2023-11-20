@@ -1,1 +1,3 @@
-from .misskey import *
+from .misskey import (
+    AsyncMisskey,
+)
