@@ -41,6 +41,7 @@ python = "^3.10"
 # TODO: TBD
 requests = "^2.31.0"
 marshmallow = "^3.20.1"
+numpy = "^1.26.2"
 
 
 [tool.poetry.group.docs.dependencies]
