@@ -1,7 +1,8 @@
-__all__ = (
-    "MiAuth",
-)
+from .miauth_base import MiAuthBase
 
 
-class MiAuth(object):
-    pass
+class MiAuth(MiAuthBase):
+
+    def auth(self):
+        # TODO: Authentication of MiAuth by requests
+        pass
