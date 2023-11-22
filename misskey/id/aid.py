@@ -11,7 +11,7 @@ __all__ = (
     "AID_REGEXP",
 )
 
-TIME2000_UTC: datetime.datetime = datetime.datetime(2000, 1, 1, 0, 0, 0, 0, datetime.timezone.utc)
+TIME2000_UTC = datetime.datetime(2000, 1, 1, 0, 0, 0, 0, datetime.timezone.utc)
 
 AID_REGEXP = re.compile(r"^[0-9a-z]{10}", flags=re.I)
 
@@ -30,7 +30,8 @@ class MisskeyAID(MisskeyID):
         # t's datetime timezone should be utc.
         time_counter: int = 0
         if t >= TIME2000_UTC:
-            time_counter = math.floor((t - TIME2000_UTC).total_seconds() * 1000)
+            time_counter = math.floor(
+                (t - TIME2000_UTC).total_seconds() * 1000)
 
         return np.base_repr(time_counter, 36).zfill(8).lower()
 
