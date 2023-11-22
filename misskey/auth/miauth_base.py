@@ -1,6 +1,9 @@
 import uuid
 from urllib.parse import urlencode
-from typing import Optional, List
+from typing import Optional, List, Union
+
+from ..enum import MisskeyPermission
+from ..schemas import MiAuthResult
 
 
 __all__ = (
@@ -31,18 +34,25 @@ class MiAuthBase(object):
         name: str,
         icon: Optional[str] = None,
         callback: Optional[str] = None,
-        # TODO: Enumerate permissions
-        permission: Optional[List[str]] = None,
+        permission: Optional[Union[List[str], List[MisskeyPermission]]] = None,
     ):
         self.name = name
         self.address = self.__add_protocol(address)
         self.icon = icon
         self.callback = callback
-        self.permission = permission
         if session_id is None:
             self.session_id = str(uuid.uuid4())
         else:
             self.session_id = session_id
+
+        if permission is not None:
+            perm = []
+            for p in permission:
+                if type(p) is MisskeyPermission:
+                    perm.append(p.value)
+                elif type(p) is str:
+                    perm.append(p)
+            self.permission = perm
 
     def generate_url(self):
         query = {
@@ -57,6 +67,6 @@ class MiAuthBase(object):
 
         return f"{self.address}/miauth/{self.session_id}?{urlencode(query)}"
 
-    def auth(self):
+    def auth(self, *args, **kwargs) -> MiAuthResult:
         # Define MiAuth HTTP processing in subclasses
         raise NotImplementedError()
