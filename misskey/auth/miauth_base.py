@@ -34,7 +34,8 @@ class MiAuthBase(object):
         name: str,
         icon: Optional[str] = None,
         callback: Optional[str] = None,
-        permission: Optional[Union[List[str], List[MisskeyPermissionEnum]]] = None,
+        permission: Optional[
+            Union[List[str], List[MisskeyPermissionEnum]]] = None,
     ):
         self.name = name
         self.address = self.__add_protocol(address)
