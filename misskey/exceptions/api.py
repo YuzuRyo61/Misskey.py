@@ -16,9 +16,12 @@ class MisskeyAPIException(Exception):
         self.code = code
         self.message = message
 
+    def __str__(self):
+        return f"{self.code}({self.id}): {self.message}"
+
     @classmethod
     def from_dict(cls, data: dict):
-        if data.keys() not in ["error"]:
+        if "error" not in data.keys():
             raise TypeError("Not in the form of an error response")
         return cls(
             id=data["error"].get("id", str(uuid.UUID(int=0))),

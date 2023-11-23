@@ -44,7 +44,7 @@ class Misskey(object):
         address.rstrip("/")
         return address
 
-    def __api_request(self, *, endpoint: str, params: dict = None) -> Any:
+    def _api_request(self, *, endpoint: str, params: dict = None) -> Any:
         if params is None:
             params = {}
         else:
