@@ -23,6 +23,8 @@ class MisskeyAPIException(Exception):
     def from_dict(cls, data: dict):
         if "error" not in data.keys():
             raise TypeError("Not in the form of an error response")
+        elif type(data["error"]) is not dict:
+            raise TypeError("key 'error' is not dict")
         return cls(
             id=data["error"].get("id", str(uuid.UUID(int=0))),
             code=data["error"].get("code", "UNKNOWN"),

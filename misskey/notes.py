@@ -1,4 +1,4 @@
-from .base import Misskey as Base
+from .sync_base import Misskey as Base
 
 
 class Misskey(Base):
