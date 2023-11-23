@@ -1,1 +1,1 @@
-from .miauth import MiAuth
+from .miauth import AsyncMiAuth

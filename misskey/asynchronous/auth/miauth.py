@@ -7,11 +7,11 @@ from misskey.schemas import (
 from misskey.auth.miauth_base import MiAuthBase
 
 __all__ = (
-    "MiAuth",
+    "AsyncMiAuth",
 )
 
 
-class MiAuth(MiAuthBase):
+class AsyncMiAuth(MiAuthBase):
     session: aiohttp.ClientSession
 
     def __init__(
