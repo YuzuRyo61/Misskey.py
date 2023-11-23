@@ -2,7 +2,7 @@ import uuid
 from urllib.parse import urlencode
 from typing import Optional, List, Union
 
-from ..enum import MisskeyPermission
+from ..enum import MisskeyPermissionEnum
 from ..schemas import MiAuthResult
 
 
@@ -34,7 +34,7 @@ class MiAuthBase(object):
         name: str,
         icon: Optional[str] = None,
         callback: Optional[str] = None,
-        permission: Optional[Union[List[str], List[MisskeyPermission]]] = None,
+        permission: Optional[Union[List[str], List[MisskeyPermissionEnum]]] = None,
     ):
         self.name = name
         self.address = self.__add_protocol(address)
@@ -48,7 +48,7 @@ class MiAuthBase(object):
         if permission is not None:
             perm = []
             for p in permission:
-                if type(p) is MisskeyPermission:
+                if type(p) is MisskeyPermissionEnum:
                     perm.append(p.value)
                 elif type(p) is str:
                     perm.append(p)

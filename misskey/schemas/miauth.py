@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import Optional
 
-from marshmallow import Schema, fields, post_load
+from marshmallow import Schema, fields, post_load, INCLUDE
 
 from .user import (
     MisskeyUserSchema,
@@ -30,3 +30,6 @@ class MiAuthResultSchema(Schema):
     @post_load()
     def load_schema(self, data, **kwargs):
         return MiAuthResult(**data)
+
+    class Meta:
+        unknown = INCLUDE

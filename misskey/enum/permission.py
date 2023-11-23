@@ -2,11 +2,11 @@ from typing import List
 from enum import Enum
 
 __all__ = (
-    "MisskeyPermission",
+    "MisskeyPermissionEnum",
 )
 
 
-class MisskeyPermission(Enum):
+class MisskeyPermissionEnum(Enum):
     READ_ACCOUNT = "read:account"
     WRITE_ACCOUNT = "write:account"
     READ_BLOCKS = "read:blocks"

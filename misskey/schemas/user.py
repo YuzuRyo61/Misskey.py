@@ -2,7 +2,7 @@ import datetime
 from dataclasses import dataclass
 from typing import Optional
 
-from marshmallow import Schema, fields
+from marshmallow import Schema, fields, INCLUDE
 
 __all__ = (
     "MisskeyUser",
@@ -25,4 +25,4 @@ class MisskeyUserSchema(Schema):
     host = fields.String()
 
     class Meta:
-        strict = True
+        unknown = INCLUDE
