@@ -1,7 +1,7 @@
 __all__ = (
-    "MisskeyNetworkException",
+    "MisskeyNetworkError",
 )
 
 
-class MisskeyNetworkException(Exception):
+class MisskeyNetworkError(Exception):
     pass

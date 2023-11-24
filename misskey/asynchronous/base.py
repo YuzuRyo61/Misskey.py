@@ -6,8 +6,8 @@ import aiohttp
 
 from misskey.base import BaseMisskey
 from misskey.exceptions import (
-    MisskeyAPIException,
-    MisskeyNetworkException,
+    MisskeyAPIError,
+    MisskeyNetworkError,
     MisskeyResponseError,
 )
 
@@ -48,10 +48,10 @@ class AsyncMisskey(BaseMisskey):
                 if response_data.ok:
                     return response
                 else:
-                    raise MisskeyAPIException.from_dict(response)
+                    raise MisskeyAPIError.from_dict(response)
         except json.JSONDecodeError:
             raise MisskeyResponseError("JSON decode error")
         except aiohttp.ContentTypeError as e:
-            raise MisskeyNetworkException(f"Content-Type error: ${e}")
+            raise MisskeyNetworkError(f"Content-Type error: ${e}")
         except aiohttp.ClientError as e:
-            raise MisskeyNetworkException(f"Could not complete request: {e}")
+            raise MisskeyNetworkError(f"Could not complete request: {e}")

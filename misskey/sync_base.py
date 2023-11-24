@@ -4,9 +4,9 @@ from typing import Optional, Any
 
 from .base import BaseMisskey
 from .exceptions import (
-    MisskeyNetworkException,
+    MisskeyNetworkError,
     MisskeyIllegalArgumentError,
-    MisskeyAPIException,
+    MisskeyAPIError,
     MisskeyResponseError
 )
 
@@ -48,7 +48,7 @@ class Misskey(BaseMisskey):
             response_object = self.session.post(
                 url=self.address + endpoint, json=params)
         except Exception as e:
-            raise MisskeyNetworkException(f"Could not complete request: {e}")
+            raise MisskeyNetworkError(f"Could not complete request: {e}")
 
         if response_object is None:
             raise MisskeyIllegalArgumentError("Illegal response")
@@ -59,6 +59,6 @@ class Misskey(BaseMisskey):
             if response_object.ok:
                 return response
             else:
-                raise MisskeyAPIException.from_dict(response)
+                raise MisskeyAPIError.from_dict(response)
         except requests.exceptions.JSONDecodeError:
             raise MisskeyResponseError("JSON decode error")

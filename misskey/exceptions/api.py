@@ -1,11 +1,11 @@
 import uuid
 
 __all__ = (
-    "MisskeyAPIException",
+    "MisskeyAPIError",
 )
 
 
-class MisskeyAPIException(Exception):
+class MisskeyAPIError(Exception):
     id: str
     code: str
     message: str

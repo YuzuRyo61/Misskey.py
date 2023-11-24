@@ -1,10 +1,14 @@
 from .api import (
-    MisskeyAPIException,
+    MisskeyAPIError,
 )
 from .network import (
-    MisskeyNetworkException,
+    MisskeyNetworkError,
 )
-from .error import (
-    MisskeyResponseError,
-    MisskeyIllegalArgumentError,
-)
+
+
+class MisskeyIllegalArgumentError(Exception):
+    pass
+
+
+class MisskeyResponseError(Exception):
+    pass
