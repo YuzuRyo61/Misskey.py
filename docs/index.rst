@@ -1,16 +1,18 @@
-.. Misskey.py documentation master file, created by
-   sphinx-quickstart on Fri Nov  3 12:45:49 2023.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Misskey.py
+==========
 
-Welcome to Misskey.py's documentation!
-======================================
+Introduction
+------------
+Welcome to the official documentation of Misskey.py.
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+`Misskey`_ is a distributed social networking software compliant with ActivityPub. This library defines classes and other functions that can access its API.
 
+.. _Misskey: https://misskey-hub.net
 
+Usage
+-----
+
+WIP (Misskey.py v5 is now in development)
 
 Indices and tables
 ==================
