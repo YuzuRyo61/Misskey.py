@@ -11,6 +11,10 @@ from misskey.exceptions import (
     MisskeyResponseError,
 )
 
+__all__ = (
+    "AsyncMisskey",
+)
+
 
 class AsyncMisskey(BaseMisskey):
     session: aiohttp.ClientSession
@@ -44,6 +48,10 @@ class AsyncMisskey(BaseMisskey):
                 headers={"Content-Type": "application/json"},
                 json=params,
             ) as response_data:
+                if response_data.ok and response_data.status == 204:
+                    # response is ok, but body is empty
+                    return
+
                 response = await response_data.json()
                 if response_data.ok:
                     return response
