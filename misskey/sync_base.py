@@ -45,6 +45,7 @@ class Misskey(BaseMisskey):
             params["i"] = self.token
 
         try:
+            # TODO: Compatible to GET method
             response_object = self.session.post(
                 url=self.address + endpoint, json=params)
         except Exception as e:
