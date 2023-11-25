@@ -72,7 +72,7 @@ class Misskey(Base):
             self._api_request(endpoint="/api/notes/create", params=payload))
 
     def notes_delete(self, *, note_id: str) -> None:
-        payload = MisskeyNotesDeleteSchema().dump({
-            "note_id": note_id,
-        })
+        payload = {
+            "noteId": note_id,
+        }
         self._api_request(endpoint="/api/notes/delete", params=payload)

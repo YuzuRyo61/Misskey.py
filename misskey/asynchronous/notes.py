@@ -12,7 +12,6 @@ from misskey.schemas import (
 )
 from misskey.schemas.arguments import (
     MisskeyNotesCreateSchema,
-    MisskeyNotesDeleteSchema,
 )
 from misskey.dict import (
     PollCreateDict,
@@ -76,7 +75,7 @@ class AsyncMisskey(Base):
                                     params=payload))
 
     async def notes_delete(self, *, note_id: str) -> None:
-        payload = MisskeyNotesDeleteSchema().dump({
-            "note_id": note_id,
-        })
+        payload = {
+            "noteId": note_id,
+        }
         await self._api_request(endpoint="/api/notes/delete", params=payload)
