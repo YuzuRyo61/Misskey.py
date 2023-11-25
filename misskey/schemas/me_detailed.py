@@ -87,9 +87,9 @@ class MeDetailed:
     # TODO: Add other MeDetailed properties as well
 
     @classmethod
-    def from_dict(cls, env: dict):
+    def from_dict(cls, data: dict):
         return cls(**{
-            k: v for k, v in env.items()
+            k: v for k, v in data.items()
             if k in inspect.signature(cls).parameters
         })
 
