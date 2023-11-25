@@ -54,6 +54,11 @@ class Misskey(BaseMisskey):
             raise MisskeyIllegalArgumentError("Illegal response")
 
         try:
+            if (response_object.ok and
+               response_object.status_code == requests.codes.no_content):
+                # response is ok, but body is empty
+                return
+
             response = response_object.json()
 
             if response_object.ok:

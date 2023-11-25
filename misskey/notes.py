@@ -7,6 +7,7 @@ from .schemas import (
 )
 from .schemas.arguments import (
     MisskeyNotesCreateSchema,
+    MisskeyNotesDeleteSchema,
 )
 from .enum import (
     MisskeyNoteVisibilityEnum,
@@ -69,3 +70,9 @@ class Misskey(Base):
 
         return MisskeyCreatedNoteSchema().load(
             self._api_request(endpoint="/api/notes/create", params=payload))
+
+    def notes_delete(self, *, note_id: str) -> None:
+        payload = MisskeyNotesDeleteSchema().dump({
+            "note_id": note_id,
+        })
+        self._api_request(endpoint="/api/notes/delete", params=payload)
