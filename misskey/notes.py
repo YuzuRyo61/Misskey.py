@@ -7,7 +7,6 @@ from .schemas import (
 )
 from .schemas.arguments import (
     MisskeyNotesCreateSchema,
-    MisskeyNotesDeleteSchema,
 )
 from .enum import (
     MisskeyNoteVisibilityEnum,
