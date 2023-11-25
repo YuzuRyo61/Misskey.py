@@ -10,3 +10,9 @@ from .me_detailed import (
     MeDetailed,
     MeDetailedSchema,
 )
+from .notes import (
+    MisskeyCreatedNote,
+    MisskeyCreatedNoteSchema,
+    MisskeyNote,
+    MisskeyNoteSchema,
+)

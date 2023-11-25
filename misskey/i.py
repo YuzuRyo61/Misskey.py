@@ -4,6 +4,10 @@ from .schemas import (
     MeDetailedSchema,
 )
 
+__all__ = (
+    "Misskey",
+)
+
 
 class Misskey(Base):
     def i(self) -> MeDetailed:
