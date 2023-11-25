@@ -27,11 +27,9 @@ class MeDetailed:
     username: str
     online_status: MisskeyOnlineStatusEnum
     created_at: datetime.datetime
-    updated_at: datetime.datetime
     last_fetched_at: datetime.datetime
     is_locked: bool
     is_silenced: bool
-    is_limited: bool
     is_suspended: bool
     followers_count: int
     following_count: int
@@ -64,6 +62,7 @@ class MeDetailed:
     name: Optional[str] = None
     avatar_url: Optional[str] = None
     avatar_blurhash: Optional[str] = None
+    updated_at: Optional[datetime.datetime] = None
     is_bot: bool = False
     is_cat: bool = False
     url: Optional[str] = None
@@ -101,7 +100,8 @@ class MeDetailedSchema(Schema):
     host = fields.String(allow_none=True)
     name = fields.String(allow_none=True)
     avatar_url = fields.String(data_key="avatarUrl")
-    avatar_blurhash = fields.String(data_key="avatarBlurhash")
+    avatar_blurhash = fields.String(
+        data_key="avatarBlurhash", required=True, allow_none=True)
     is_bot = fields.Boolean(data_key="isBot")
     is_cat = fields.Boolean(data_key="isCat")
     online_status = fields.Enum(
@@ -112,22 +112,28 @@ class MeDetailedSchema(Schema):
     moved_to = fields.String(allow_none=True)
     also_known_as = fields.String(allow_none=True)
     created_at = fields.DateTime("iso", data_key="createdAt", required=True)
-    updated_at = fields.DateTime("iso", data_key="updatedAt", required=True)
+    updated_at = fields.DateTime(
+        "iso", data_key="updatedAt", required=True, allow_none=True)
     last_fetched_at = fields.DateTime(
         "iso", data_key="lastFetchedAt", allow_none=True)
-    banner_url = fields.String(data_key="bannerUrl")
-    banner_blurhash = fields.String(data_key="bannerBlurhash")
+    banner_url = fields.Url(
+        data_key="bannerUrl", required=True, allow_none=True)
+    banner_blurhash = fields.String(
+        required=True, data_key="bannerBlurhash", allow_none=True)
     is_locked = fields.Boolean(data_key="isLocked", required=True)
     is_silenced = fields.Boolean(data_key="isSilenced", required=True)
-    is_limited = fields.Boolean(data_key="isLimited", required=True)
-    description = fields.String()
-    location = fields.String()
-    birthday = fields.Date()
-    lang = fields.String()
+    description = fields.String(required=True, allow_none=True)
+    location = fields.String(
+        required=True, allow_none=True)
+    birthday = fields.Date(
+        required=True, allow_none=True)
+    lang = fields.String(
+        required=True, allow_none=True)
     followers_count = fields.Integer(data_key="followersCount")
     following_count = fields.Integer(data_key="followingCount")
     notes_count = fields.Integer(data_key="notesCount")
-    pinned_page_id = fields.String(data_key="pinnedPageId")
+    pinned_page_id = fields.String(
+        data_key="pinnedPageId", required=True, allow_none=True)
     public_reactions = fields.Boolean(data_key="publicReactions")
     ff_visibility = fields.Enum(
         MisskeyFFVisibilityEnum, data_key="ffVisibility",
