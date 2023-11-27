@@ -16,13 +16,13 @@ from .role import (
 )
 
 __all__ = (
-    "MeDetailed",
-    "MeDetailedSchema",
+    "MisskeyMeDetailed",
+    "MisskeyMeDetailedSchema",
 )
 
 
 @dataclass
-class MeDetailed:
+class MisskeyMeDetailed:
     id: str
     username: str
     online_status: MisskeyOnlineStatusEnum
@@ -94,7 +94,7 @@ class MeDetailed:
         })
 
 
-class MeDetailedSchema(Schema):
+class MisskeyMeDetailedSchema(Schema):
     id = fields.String(required=True)
     username = fields.String(required=True)
     host = fields.String(allow_none=True)
@@ -199,7 +199,7 @@ class MeDetailedSchema(Schema):
     # noinspection PyUnusedLocal
     @post_load()
     def load_schema(self, data, **kwargs):
-        return MeDetailed.from_dict(data)
+        return MisskeyMeDetailed.from_dict(data)
 
     class Meta:
         unknown = INCLUDE

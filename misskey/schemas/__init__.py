@@ -7,8 +7,8 @@ from .miauth import (
     MiAuthResultSchema,
 )
 from .me_detailed import (
-    MeDetailed,
-    MeDetailedSchema,
+    MisskeyMeDetailed,
+    MisskeyMeDetailedSchema,
 )
 from .notes import (
     MisskeyCreatedNote,

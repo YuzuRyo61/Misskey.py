@@ -1,7 +1,7 @@
 from .base import AsyncMisskey as Base
 from misskey.schemas import (
-    MeDetailed,
-    MeDetailedSchema
+    MisskeyMeDetailed,
+    MisskeyMeDetailedSchema
 )
 
 __all__ = (
@@ -10,6 +10,6 @@ __all__ = (
 
 
 class AsyncMisskey(Base):
-    async def i(self) -> MeDetailed:
-        return MeDetailedSchema().load(
+    async def i(self) -> MisskeyMeDetailed:
+        return MisskeyMeDetailedSchema().load(
             await self._api_request(endpoint="/api/i"))
