@@ -10,6 +10,9 @@ from misskey.exceptions import (
     MisskeyNetworkError,
     MisskeyResponseError,
 )
+from misskey.enum import (
+    MisskeyHttpMethodEnum,
+)
 
 __all__ = (
     "AsyncMisskey",
@@ -30,6 +33,7 @@ class AsyncMisskey(BaseMisskey):
 
     async def _api_request(
         self, *,
+        method: MisskeyHttpMethodEnum = MisskeyHttpMethodEnum.POST,
         endpoint: str,
         params: Optional[dict] = None,
         **kwargs
@@ -43,11 +47,20 @@ class AsyncMisskey(BaseMisskey):
             params["i"] = self.token
 
         try:
-            async with self.session.post(
-                self.address + endpoint,
-                headers={"Content-Type": "application/json"},
-                json=params,
-            ) as response_data:
+            if method == MisskeyHttpMethodEnum.POST:
+                context = self.session.post(
+                    self.address + endpoint,
+                    headers={"Content-Type": "application/json"},
+                    json=params,
+                )
+            elif method == MisskeyHttpMethodEnum.GET:
+                context = self.session.post(
+                    self.address + endpoint,
+                    headers={"Content-Type": "application/json"},
+                )
+            else:
+                raise NotImplementedError()
+            async with context as response_data:
                 if response_data.ok and response_data.status == 204:
                     # response is ok, but body is empty
                     return

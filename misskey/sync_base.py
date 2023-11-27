@@ -9,6 +9,7 @@ from .exceptions import (
     MisskeyAPIError,
     MisskeyResponseError
 )
+from .enum import MisskeyHttpMethodEnum
 
 __all__ = (
     "Misskey",
@@ -32,6 +33,7 @@ class Misskey(BaseMisskey):
 
     def _api_request(
         self, *,
+        method: MisskeyHttpMethodEnum = MisskeyHttpMethodEnum.POST,
         endpoint: str,
         params: Optional[dict] = None,
         **kwargs
@@ -45,24 +47,29 @@ class Misskey(BaseMisskey):
             params["i"] = self.token
 
         try:
-            # TODO: Compatible to GET method
-            response_object = self.session.post(
-                url=self.address + endpoint, json=params)
+            if method == MisskeyHttpMethodEnum.GET:
+                context = self.session.get(
+                    url=self.address + endpoint)
+            elif method == MisskeyHttpMethodEnum.POST:
+                context = self.session.post(
+                    url=self.address + endpoint, json=params)
+            else:
+                raise NotImplementedError()
         except Exception as e:
             raise MisskeyNetworkError(f"Could not complete request: {e}")
 
-        if response_object is None:
+        if context is None:
             raise MisskeyIllegalArgumentError("Illegal response")
 
         try:
-            if (response_object.ok and
-               response_object.status_code == requests.codes.no_content):
+            if (context.ok and
+               context.status_code == requests.codes.no_content):
                 # response is ok, but body is empty
                 return
 
-            response = response_object.json()
+            response = context.json()
 
-            if response_object.ok:
+            if context.ok:
                 return response
             else:
                 raise MisskeyAPIError.from_dict(response)
