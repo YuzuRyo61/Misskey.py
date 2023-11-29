@@ -4,12 +4,13 @@ from typing import Optional, List, Union
 
 from misskey.schemas import (
     UserDetailed,
-    # UserDetailedSchema,
+    UserDetailedSchema,
     MeDetailed,
+    MeDetailedSchema,
 )
 
 from misskey.schemas.arguments import (
-    NotesCreatePollSchema,
+    UsersShowSchema,
 )
 from misskey.exceptions import MisskeyResponseError
 
@@ -39,15 +40,24 @@ class Misskey(Base):
             payload_dict["username"] = username
             payload_dict["host"] = host
 
-        payload = NotesCreatePollSchema().dump(payload_dict)
+        payload = UsersShowSchema().dump(payload_dict)
         response = self._api_request(
             endpoint="/api/users/show", params=payload)
 
-        if type(response) is list:
-            # TODO: Return user information in list format
-            pass
-        elif type(response) is dict:
-            # TODO: Allow to return standalone user information
-            pass
+        if type(response) is dict:
+            # TODO: Maybe there's a better way to identify them.
+            if "avatarId" in response:
+                return MeDetailedSchema().load(response)
+            else:
+                return UserDetailedSchema().load(response)
+        elif type(response) is list:
+            # TODO: Maybe there's a better way to identify them.
+            return_data = []
+            for res in response:
+                if "avatarId" in response:
+                    return_data.append(MeDetailedSchema().load(res))
+                else:
+                    return_data.append(UserDetailedSchema().load(res))
+            return return_data
         else:
             raise MisskeyResponseError("Illegal response type received")
