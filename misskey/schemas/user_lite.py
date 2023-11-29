@@ -5,20 +5,20 @@ from typing import Optional
 from marshmallow import Schema, fields, INCLUDE
 
 __all__ = (
-    "MisskeyUser",
-    "MisskeyUserSchema",
+    "MisskeyUserLite",
+    "MisskeyUserLiteSchema",
 )
 
 
 @dataclass
-class MisskeyUser:
+class MisskeyUserLite:
     id: str
     created_at: datetime.datetime
     username: str
     host: Optional[str] = None
 
 
-class MisskeyUserSchema(Schema):
+class MisskeyUserLiteSchema(Schema):
     id = fields.String(required=True)
     created_at = fields.DateTime(data_key="createdAt", required=True)
     username = fields.String(required=True)

@@ -11,4 +11,5 @@ __all__ = (
 
 class Misskey(Base):
     def i(self) -> MisskeyMeDetailed:
-        return MisskeyMeDetailedSchema().load(self._api_request(endpoint="/api/i"))
+        return MisskeyMeDetailedSchema().load(
+            self._api_request(endpoint="/api/i"))

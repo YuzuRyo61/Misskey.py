@@ -3,8 +3,8 @@ from .sync_base import Misskey as Base
 from typing import Optional, List, Union
 
 from misskey.schemas import (
-    MisskeyUser,
-    # MisskeyUserSchema,
+    MisskeyUserDetailed,
+    # MisskeyUserDetailedSchema,
     MisskeyMeDetailed,
 )
 
@@ -26,9 +26,9 @@ class Misskey(Base):
         username: Optional[str] = None,
         host: Optional[str] = None,
     ) -> Union[
-        MisskeyUser,
+        MisskeyUserDetailed,
         MisskeyMeDetailed,
-        List[Union[MisskeyUser, MisskeyMeDetailed]]
+        List[Union[MisskeyUserDetailed, MisskeyMeDetailed]]
     ]:
         payload_dict = {}
         if user_id is not None:

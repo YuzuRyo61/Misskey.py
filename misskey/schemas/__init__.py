@@ -1,6 +1,6 @@
-from .user import (
-    MisskeyUser,
-    MisskeyUserSchema,
+from .user_detailed import (
+    MisskeyUserDetailed,
+    MisskeyUserDetailedSchema,
 )
 from .miauth import (
     MiAuthResult,
@@ -19,4 +19,8 @@ from .notes import (
 from .meta import (
     MisskeyMeta,
     MisskeyMetaSchema,
+)
+from .user_lite import (
+    MisskeyUserLiteSchema,
+    MisskeyUserLite,
 )
