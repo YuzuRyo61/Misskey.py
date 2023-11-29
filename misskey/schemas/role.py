@@ -4,13 +4,13 @@ from typing import Optional
 from marshmallow import Schema, fields, post_load, INCLUDE
 
 __all__ = (
-    "MisskeyRole",
-    "MisskeyRoleSchema",
+    "Role",
+    "RoleSchema",
 )
 
 
 @dataclass
-class MisskeyRole:
+class Role:
     id: str
     name: str
     description: str
@@ -21,7 +21,7 @@ class MisskeyRole:
     icon_url: Optional[str] = None
 
 
-class MisskeyRoleSchema(Schema):
+class RoleSchema(Schema):
     id = fields.String(required=True)
     name = fields.String(required=True)
     color = fields.String(required=True, allow_none=True)
@@ -37,7 +37,7 @@ class MisskeyRoleSchema(Schema):
     # noinspection PyUnusedLocal
     @post_load()
     def load_schema(self, data, **kwargs):
-        return MisskeyRole(**data)
+        return Role(**data)
 
     class Meta:
         unknown = INCLUDE

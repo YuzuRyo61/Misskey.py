@@ -5,13 +5,13 @@ from typing import List
 from marshmallow import Schema, fields, post_load, INCLUDE
 
 __all__ = (
-    "MisskeyMeta",
-    "MisskeyMetaSchema",
+    "Meta",
+    "MetaSchema",
 )
 
 
 @dataclass
-class MisskeyMeta:
+class Meta:
     maintainer_name: str
     maintainer_email: str
     version: str
@@ -30,7 +30,7 @@ class MisskeyMeta:
         })
 
 
-class MisskeyMetaSchema(Schema):
+class MetaSchema(Schema):
     maintainer_name = fields.String(
         required=True, allow_none=True, data_key="maintainerName")
     maintainer_email = fields.String(
@@ -108,7 +108,7 @@ class MisskeyMetaSchema(Schema):
     # noinspection PyUnusedLocal
     @post_load()
     def load_schema(self, data, **kwargs):
-        return MisskeyMeta.from_dict(data)
+        return Meta.from_dict(data)
 
     class Meta:
         unknown = INCLUDE

@@ -3,13 +3,13 @@ from .sync_base import Misskey as Base
 from typing import Optional, List, Union
 
 from misskey.schemas import (
-    MisskeyUserDetailed,
-    # MisskeyUserDetailedSchema,
-    MisskeyMeDetailed,
+    UserDetailed,
+    # UserDetailedSchema,
+    MeDetailed,
 )
 
 from misskey.schemas.arguments import (
-    MisskeyNotesCreatePollSchema,
+    NotesCreatePollSchema,
 )
 from misskey.exceptions import MisskeyResponseError
 
@@ -26,9 +26,9 @@ class Misskey(Base):
         username: Optional[str] = None,
         host: Optional[str] = None,
     ) -> Union[
-        MisskeyUserDetailed,
-        MisskeyMeDetailed,
-        List[Union[MisskeyUserDetailed, MisskeyMeDetailed]]
+        UserDetailed,
+        MeDetailed,
+        List[Union[UserDetailed, MeDetailed]]
     ]:
         payload_dict = {}
         if user_id is not None:
@@ -39,7 +39,7 @@ class Misskey(Base):
             payload_dict["username"] = username
             payload_dict["host"] = host
 
-        payload = MisskeyNotesCreatePollSchema().dump(payload_dict)
+        payload = NotesCreatePollSchema().dump(payload_dict)
         response = self._api_request(
             endpoint="/api/users/show", params=payload)
 

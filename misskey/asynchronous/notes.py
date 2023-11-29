@@ -7,11 +7,11 @@ from misskey.enum import (
     MisskeyReactionAcceptanceEnum,
 )
 from misskey.schemas import (
-    MisskeyCreatedNote,
-    MisskeyCreatedNoteSchema,
+    CreatedNote,
+    CreatedNoteSchema,
 )
 from misskey.schemas.arguments import (
-    MisskeyNotesCreateSchema,
+    NotesCreateSchema,
 )
 from misskey.dict import (
     PollCreateDict,
@@ -43,7 +43,7 @@ class AsyncMisskey(Base):
         media_ids: Optional[List[str]] = None,
         poll: Optional[PollCreateDict] = None,
         **kwargs,
-    ) -> MisskeyCreatedNote:
+    ) -> CreatedNote:
         payload_dict = {
             "visibility": visibility,
             "cw": cw,
@@ -68,9 +68,9 @@ class AsyncMisskey(Base):
 
         payload_dict.update(kwargs)
 
-        payload = MisskeyNotesCreateSchema().dump(payload_dict)
+        payload = NotesCreateSchema().dump(payload_dict)
 
-        return MisskeyCreatedNoteSchema().load(
+        return CreatedNoteSchema().load(
             await self._api_request(endpoint="/api/notes/create",
                                     params=payload))
 

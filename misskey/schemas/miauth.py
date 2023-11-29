@@ -4,8 +4,8 @@ from typing import Optional
 from marshmallow import Schema, fields, post_load, INCLUDE
 
 from .user_detailed import (
-    MisskeyUserDetailedSchema,
-    MisskeyUserDetailed,
+    UserDetailedSchema,
+    UserDetailed,
 )
 
 __all__ = (
@@ -18,13 +18,13 @@ __all__ = (
 class MiAuthResult:
     ok: bool
     token: Optional[str] = None
-    user: Optional[MisskeyUserDetailed] = None
+    user: Optional[UserDetailed] = None
 
 
 class MiAuthResultSchema(Schema):
     ok = fields.Bool(required=True)
     token = fields.String(required=False)
-    user = fields.Nested(MisskeyUserDetailedSchema(), required=False)
+    user = fields.Nested(UserDetailedSchema(), required=False)
 
     # noinspection PyUnusedLocal
     @post_load()

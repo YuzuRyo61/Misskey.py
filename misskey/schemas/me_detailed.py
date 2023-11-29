@@ -11,18 +11,18 @@ from misskey.enum import (
     MisskeyTwoFactorBackupCodesStockEnum,
 )
 from .role import (
-    MisskeyRole,
-    MisskeyRoleSchema,
+    Role,
+    RoleSchema,
 )
 
 __all__ = (
-    "MisskeyMeDetailed",
-    "MisskeyMeDetailedSchema",
+    "MeDetailed",
+    "MeDetailedSchema",
 )
 
 
 @dataclass
-class MisskeyMeDetailed:
+class MeDetailed:
     id: str
     username: str
     online_status: MisskeyOnlineStatusEnum
@@ -81,7 +81,7 @@ class MisskeyMeDetailed:
     memo: Optional[str] = None
     email: Optional[str] = None
     email_verified: Optional[bool] = None
-    roles: List[MisskeyRole] = dc_field(default_factory=list)
+    roles: List[Role] = dc_field(default_factory=list)
     # noinspection SpellCheckingInspection
     notification_recieve_config: dict = dc_field(default_factory=dict)
     # TODO: Add other MeDetailed properties as well
@@ -94,7 +94,7 @@ class MisskeyMeDetailed:
         })
 
 
-class MisskeyMeDetailedSchema(Schema):
+class MeDetailedSchema(Schema):
     id = fields.String(required=True)
     username = fields.String(required=True)
     host = fields.String(allow_none=True)
@@ -148,7 +148,7 @@ class MisskeyMeDetailedSchema(Schema):
     email = fields.String(allow_none=True)
     email_verified = fields.String(
         data_key="emailVerified", allow_none=True)
-    roles = fields.List(fields.Nested(MisskeyRoleSchema()))
+    roles = fields.List(fields.Nested(RoleSchema()))
     # noinspection SpellCheckingInspection
     notification_recieve_config = fields.Dict(
         required=True,
@@ -199,7 +199,7 @@ class MisskeyMeDetailedSchema(Schema):
     # noinspection PyUnusedLocal
     @post_load()
     def load_schema(self, data, **kwargs):
-        return MisskeyMeDetailed.from_dict(data)
+        return MeDetailed.from_dict(data)
 
     class Meta:
         unknown = INCLUDE

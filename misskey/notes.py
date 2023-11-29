@@ -2,11 +2,11 @@ from typing import List, Optional
 
 from .sync_base import Misskey as Base
 from .schemas import (
-    MisskeyCreatedNoteSchema,
-    MisskeyCreatedNote,
+    CreatedNoteSchema,
+    CreatedNote,
 )
 from .schemas.arguments import (
-    MisskeyNotesCreateSchema,
+    NotesCreateSchema,
 )
 from .enum import (
     MisskeyNoteVisibilityEnum,
@@ -40,7 +40,7 @@ class Misskey(Base):
         media_ids: Optional[List[str]] = None,
         poll: Optional[PollCreateDict] = None,
         **kwargs,
-    ) -> MisskeyCreatedNote:
+    ) -> CreatedNote:
         payload_dict = {
             "visibility": visibility,
             "cw": cw,
@@ -65,9 +65,9 @@ class Misskey(Base):
 
         payload_dict.update(kwargs)
 
-        payload = MisskeyNotesCreateSchema().dump(payload_dict)
+        payload = NotesCreateSchema().dump(payload_dict)
 
-        return MisskeyCreatedNoteSchema().load(
+        return CreatedNoteSchema().load(
             self._api_request(endpoint="/api/notes/create", params=payload))
 
     def notes_delete(self, *, note_id: str) -> None:

@@ -1,26 +1,26 @@
 from .user_detailed import (
-    MisskeyUserDetailed,
-    MisskeyUserDetailedSchema,
+    UserDetailed,
+    UserDetailedSchema,
 )
 from .miauth import (
     MiAuthResult,
     MiAuthResultSchema,
 )
 from .me_detailed import (
-    MisskeyMeDetailed,
-    MisskeyMeDetailedSchema,
+    MeDetailed,
+    MeDetailedSchema,
 )
 from .notes import (
-    MisskeyCreatedNote,
-    MisskeyCreatedNoteSchema,
-    MisskeyNote,
-    MisskeyNoteSchema,
+    CreatedNote,
+    CreatedNoteSchema,
+    Note,
+    NoteSchema,
 )
 from .meta import (
-    MisskeyMeta,
-    MisskeyMetaSchema,
+    Meta,
+    MetaSchema,
 )
 from .user_lite import (
-    MisskeyUserLiteSchema,
-    MisskeyUserLite,
+    UserLiteSchema,
+    UserLite,
 )

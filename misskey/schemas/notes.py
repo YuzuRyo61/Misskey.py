@@ -13,15 +13,15 @@ from misskey.enum import (
 )
 
 __all__ = (
-    "MisskeyCreatedNote",
-    "MisskeyCreatedNoteSchema",
-    "MisskeyNote",
-    "MisskeyNoteSchema",
+    "CreatedNote",
+    "CreatedNoteSchema",
+    "Note",
+    "NoteSchema",
 )
 
 
 @dataclass
-class MisskeyNote:
+class Note:
     id: str
     created_at: datetime.datetime
     visibility: MisskeyNoteVisibilityEnum
@@ -33,8 +33,8 @@ class MisskeyNote:
     user_id: Optional[str] = None
     reply_id: Optional[str] = None
     renote_id: Optional[str] = None
-    reply: Optional[MisskeyNote] = None
-    renote: Optional[MisskeyNote] = None
+    reply: Optional[Note] = None
+    renote: Optional[Note] = None
     is_hidden: Optional[bool] = None
     mentions: Optional[List[str]] = None
     visible_user_ids: Optional[List[str]] = None
@@ -55,12 +55,12 @@ class MisskeyNote:
 
 
 @dataclass
-class MisskeyCreatedNote:
-    created_note: MisskeyNote
+class CreatedNote:
+    created_note: Note
 
 
 # noinspection PyTypeChecker
-class MisskeyNoteSchema(Schema):
+class NoteSchema(Schema):
     id = fields.String(required=True)
     created_at = fields.DateTime("iso", required=True, data_key="createdAt")
     deleted_at = fields.DateTime("iso", allow_none=True, data_key="deletedAt")
@@ -70,9 +70,9 @@ class MisskeyNoteSchema(Schema):
     reply_id = fields.String(allow_none=True, data_key="replyId")
     renote_id = fields.String(allow_none=True, data_key="renoteId")
     reply = fields.Nested(
-        lambda: MisskeyNoteSchema(exclude=("reply",)), allow_none=True)
+        lambda: NoteSchema(exclude=("reply",)), allow_none=True)
     renote = fields.Nested(
-        lambda: MisskeyNoteSchema(exclude=("renote",)), allow_none=True)
+        lambda: NoteSchema(exclude=("renote",)), allow_none=True)
     is_hidden = fields.Boolean(data_key="isHidden")
     visibility = fields.Enum(
         MisskeyNoteVisibilityEnum, by_value=True, required=True)
@@ -101,17 +101,17 @@ class MisskeyNoteSchema(Schema):
     # noinspection PyUnusedLocal
     @post_load()
     def load_schema(self, data, **kwargs):
-        return MisskeyNote.from_dict(data)
+        return Note.from_dict(data)
 
     class Meta:
         unknown = INCLUDE
 
 
-class MisskeyCreatedNoteSchema(Schema):
+class CreatedNoteSchema(Schema):
     created_note = fields.Nested(
-        MisskeyNoteSchema(), required=True, data_key="createdNote")
+        NoteSchema(), required=True, data_key="createdNote")
 
     # noinspection PyUnusedLocal
     @post_load()
     def load_schema(self, data, **kwargs):
-        return MisskeyCreatedNote(**data)
+        return CreatedNote(**data)
