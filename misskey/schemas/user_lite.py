@@ -13,16 +13,16 @@ __all__ = (
 @dataclass
 class MisskeyUserLite:
     id: str
-    created_at: datetime.datetime
     username: str
     host: Optional[str] = None
+    name: Optional[str] = None
 
 
 class MisskeyUserLiteSchema(Schema):
     id = fields.String(required=True)
-    created_at = fields.DateTime(data_key="createdAt", required=True)
     username = fields.String(required=True)
     host = fields.String()
+    name = fields.String(allow_none=True)
 
     class Meta:
         unknown = INCLUDE
