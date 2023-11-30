@@ -24,3 +24,7 @@ from .user_lite import (
     UserLiteSchema,
     UserLite,
 )
+from .announcements import (
+    Announcements,
+    AnnouncementsSchema,
+)

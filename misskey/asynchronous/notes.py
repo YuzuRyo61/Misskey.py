@@ -11,7 +11,7 @@ from misskey.schemas import (
     CreatedNoteSchema,
 )
 from misskey.schemas.arguments import (
-    NotesCreateSchema,
+    NotesCreateArgumentsSchema,
 )
 from misskey.dict import (
     PollCreateDict,
@@ -68,7 +68,7 @@ class AsyncMisskey(Base):
 
         payload_dict.update(kwargs)
 
-        payload = NotesCreateSchema().dump(payload_dict)
+        payload = NotesCreateArgumentsSchema().dump(payload_dict)
 
         return CreatedNoteSchema().load(
             await self._api_request(endpoint="/api/notes/create",

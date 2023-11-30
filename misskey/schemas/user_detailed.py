@@ -1,6 +1,6 @@
 import inspect
 import datetime
-from dataclasses import dataclass
+from dataclasses import dataclass, field as dc_field
 from typing import Optional
 
 from marshmallow import Schema, fields, post_load, INCLUDE
@@ -18,12 +18,20 @@ class UserDetailed:
     username: str
     host: Optional[str] = None
 
+    _extra: dict = dc_field(default_factory=dict)
+    # TODO: Misskey API documentation information is out of date
+
     @classmethod
     def from_dict(cls, data: dict):
-        return cls(**{
+        payload = {
             k: v for k, v in data.items()
             if k in inspect.signature(cls).parameters
-        })
+        }
+        payload["_extra"] = {
+            k: v for k, v in data.items()
+            if k not in inspect.signature(cls).parameters
+        }
+        return cls(**payload)
 
 
 class UserDetailedSchema(Schema):

@@ -1,5 +1,5 @@
 import inspect
-from dataclasses import dataclass
+from dataclasses import dataclass, field as dc_field
 from typing import List
 
 from marshmallow import Schema, fields, post_load, INCLUDE
@@ -22,12 +22,19 @@ class Meta:
     langs: List[str]
     # TODO: Add properties based in MisskeyMetaSchema
 
+    _extra: dict = dc_field(default_factory=dict)
+
     @classmethod
     def from_dict(cls, data: dict):
-        return cls(**{
+        payload = {
             k: v for k, v in data.items()
             if k in inspect.signature(cls).parameters
-        })
+        }
+        payload["_extra"] = {
+            k: v for k, v in data.items()
+            if k not in inspect.signature(cls).parameters
+        }
+        return cls(**payload)
 
 
 class MetaSchema(Schema):

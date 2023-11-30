@@ -3,7 +3,7 @@ from __future__ import annotations
 import datetime
 import inspect
 from typing import Optional, List
-from dataclasses import dataclass
+from dataclasses import dataclass, field as dc_field
 
 from marshmallow import Schema, fields, post_load, INCLUDE
 
@@ -46,12 +46,19 @@ class Note:
     uri: Optional[str] = None
     url: Optional[str] = None
 
+    _extra: dict = dc_field(default_factory=dict)
+
     @classmethod
     def from_dict(cls, data: dict):
-        return cls(**{
+        payload = {
             k: v for k, v in data.items()
             if k in inspect.signature(cls).parameters
-        })
+        }
+        payload["_extra"] = {
+            k: v for k, v in data.items()
+            if k not in inspect.signature(cls).parameters
+        }
+        return cls(**payload)
 
 
 @dataclass
