@@ -58,12 +58,6 @@ class MetaSchema(Schema):
         required=True, allow_none=True, data_key="defaultLightTheme")
     disable_registration = fields.Boolean(
         required=True, data_key="disableRegistration")
-    # TODO: Incorrect schema in official API documentation
-    cache_remote_files = fields.Boolean(
-        required=True, data_key="cacheRemoteFiles")
-    # TODO: Not exists? (May exist in the official API documentation)
-    cache_remote_sensitive_files = fields.Boolean(
-        required=True, data_key="cacheRemoteSensitiveFiles")
     email_required_for_signup = fields.Boolean(
         required=True, data_key="emailRequiredForSignup")
     enable_hcaptcha = fields.Boolean(required=True, data_key="enableHcaptcha")
@@ -79,11 +73,6 @@ class MetaSchema(Schema):
         required=True, allow_none=True, data_key="turnstileSiteKey")
     sw_publickey = fields.String(
         required=True, allow_none=True, data_key="swPublickey")
-    # TODO: Incorrect schema in official API documentation
-    mascot_image_url = fields.String(
-        required=True, data_key="mascotImageUrl")
-    # TODO: Incorrect schema in official API documentation
-    banner_url = fields.String(required=True, data_key="bannerUrl")
     server_error_image_url = fields.String(
         required=True, allow_none=True, data_key="serverErrorImageUrl")
     info_image_url = fields.String(
@@ -97,16 +86,11 @@ class MetaSchema(Schema):
     # ads = fields.List(...  # TODO: TBD
     notes_per_one_ad = fields.Integer(
         required=True, default=0, data_key="notesPerOneAd")
-    # TODO: Incorrect schema in official API documentation
-    require_setup = fields.Boolean(required=True, data_key="requireSetup")
     enable_email = fields.Boolean(required=True, data_key="enableEmail")
     enable_service_worker = fields.Boolean(
         required=True, data_key="enableServiceWorker")
     translator_available = fields.Boolean(
         required=True, data_key="translatorAvailable")
-    # TODO: Incorrect schema in official API documentation
-    proxy_account_name = fields.String(
-        required=True, allow_none=True, data_key="proxyAccountName")
     media_proxy = fields.String(
         required=True, data_key="mediaProxy")
     # features = fields.Nested(...  # TODO: TBD
