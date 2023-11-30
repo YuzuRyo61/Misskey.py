@@ -28,11 +28,13 @@ Installation
 Misskey.py can be obtained using pip:
 
 .. code-block::
+
     pip install Misskey.py
 
 Use the ``async`` extra if you want to use the asynchronous processing version of the class using aiohttp:
 
 .. code-block::
+
     pip install Misskey.py[async]
 
 Usage
