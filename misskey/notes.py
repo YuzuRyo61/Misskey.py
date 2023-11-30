@@ -6,7 +6,7 @@ from .schemas import (
     CreatedNote,
 )
 from .schemas.arguments import (
-    NotesCreateSchema,
+    NotesCreateArgumentsSchema,
 )
 from .enum import (
     MisskeyNoteVisibilityEnum,
@@ -65,7 +65,7 @@ class Misskey(Base):
 
         payload_dict.update(kwargs)
 
-        payload = NotesCreateSchema().dump(payload_dict)
+        payload = NotesCreateArgumentsSchema().dump(payload_dict)
 
         return CreatedNoteSchema().load(
             self._api_request(endpoint="/api/notes/create", params=payload))

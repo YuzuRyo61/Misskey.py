@@ -1,11 +1,11 @@
 from marshmallow import Schema, fields
 
 __all__ = (
-    "UsersShowSchema",
+    "UsersShowArgumentsSchema",
 )
 
 
-class UsersShowSchema(Schema):
+class UsersShowArgumentsSchema(Schema):
     user_id = fields.String(data_key="userId")
     user_ids = fields.List(fields.String(), data_key="userIds")
     username = fields.String()

@@ -85,13 +85,19 @@ class MeDetailed:
     # noinspection SpellCheckingInspection
     notification_recieve_config: dict = dc_field(default_factory=dict)
     # TODO: Add other MeDetailed properties as well
+    _extra: dict = dc_field(default_factory=dict)
 
     @classmethod
     def from_dict(cls, data: dict):
-        return cls(**{
+        payload = {
             k: v for k, v in data.items()
             if k in inspect.signature(cls).parameters
-        })
+        }
+        payload["_extra"] = {
+            k: v for k, v in data.items()
+            if k not in inspect.signature(cls).parameters
+        }
+        return cls(**payload)
 
 
 class MeDetailedSchema(Schema):

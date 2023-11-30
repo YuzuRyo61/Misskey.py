@@ -10,7 +10,7 @@ from misskey.schemas import (
 )
 
 from misskey.schemas.arguments import (
-    UsersShowSchema,
+    UsersShowArgumentsSchema,
 )
 from misskey.exceptions import MisskeyResponseError
 
@@ -40,7 +40,7 @@ class Misskey(Base):
             payload_dict["username"] = username
             payload_dict["host"] = host
 
-        payload = UsersShowSchema().dump(payload_dict)
+        payload = UsersShowArgumentsSchema().dump(payload_dict)
         response = self._api_request(
             endpoint="/api/users/show", params=payload)
 

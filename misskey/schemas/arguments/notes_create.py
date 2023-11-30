@@ -6,19 +6,19 @@ from misskey.enum import (
 )
 
 __all__ = (
-    "NotesCreatePollSchema",
-    "NotesCreateSchema",
+    "NotesCreatePollArgumentsSchema",
+    "NotesCreateArgumentsSchema",
 )
 
 
-class NotesCreatePollSchema(Schema):
+class NotesCreatePollArgumentsSchema(Schema):
     choices = fields.List(fields.String(), required=True)
     multiple = fields.Boolean(allow_none=True)
     expires_at = fields.DateTime("iso")
     expired_after = fields.Integer()
 
 
-class NotesCreateSchema(Schema):
+class NotesCreateArgumentsSchema(Schema):
     visibility = fields.Enum(
         MisskeyNoteVisibilityEnum,
         by_value=True,
@@ -45,4 +45,4 @@ class NotesCreateSchema(Schema):
     text = fields.String(allow_none=True)
     file_ids = fields.List(fields.String(), data_key="fileIds")
     media_ids = fields.List(fields.String(), data_key="mediaIds")
-    poll = fields.Nested(NotesCreatePollSchema(), allow_none=True)
+    poll = fields.Nested(NotesCreatePollArgumentsSchema(), allow_none=True)
