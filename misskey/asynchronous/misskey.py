@@ -1,5 +1,6 @@
 from .i import AsyncMisskey as MeAsyncMisskey
 from .notes import AsyncMisskey as NotesAsyncMisskey
+from .meta import AsyncMisskey as MetaAsyncMisskey
 
 __all__ = (
     "AsyncMisskey",
@@ -9,6 +10,7 @@ __all__ = (
 class AsyncMisskey(
     MeAsyncMisskey,
     NotesAsyncMisskey,
+    MetaAsyncMisskey,
 ):
     """
     This class allows asynchronous processing and manipulation
