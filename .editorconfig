@@ -10,6 +10,3 @@ trim_trailing_whitespace = true
 
 [{*.yml,*.yaml}]
 indent_size = 2
-
-[*.rst]
-indent_size = 3

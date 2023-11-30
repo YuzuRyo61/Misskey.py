@@ -13,13 +13,15 @@ Features
 - Each method defines a data class based on the Misskey API documentation
 - In addition to synchronous processing with requests, asynchronous processing with aiohttp is also supported
 
+Notice
+======
+
+A new Misskey.py is currently under development.
+
+Therefore, it is subject to change from what is described in the README.
+
 Installation
 ============
-
-.. warning::
-    A new Misskey.py is currently under development.
-
-    Therefore, it is subject to change from what is described in the README.
 
 **Python 3.8 or later required**
 
@@ -40,6 +42,7 @@ Synchronization
 ---------------
 
 .. code-block:: python
+
    from pprint import pprint
    from misskey import Misskey
 
@@ -50,6 +53,7 @@ Asynchronous
 ------------
 
 .. code-block:: python
+
    import asyncio
    from pprint import pprint
 
@@ -72,6 +76,7 @@ License
 MIT License
 
 .. code-block::
+
    MIT License
 
    Copyright (c) 2019 YuzuRyo61
