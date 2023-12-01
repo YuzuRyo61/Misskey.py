@@ -75,3 +75,25 @@ class Misskey(Base):
             "noteId": note_id,
         }
         self._api_request(endpoint="/api/notes/delete", params=payload)
+
+    def notes_reactions_create(
+        self, *,
+        note_id: str,
+        reaction: str,
+    ) -> None:
+        payload = {
+            "noteId": note_id,
+            "reaction": reaction,
+        }
+        self._api_request(
+            endpoint="/api/notes/reactions/create", params=payload)
+
+    def notes_reactions_delete(
+        self, *,
+        note_id: str,
+    ) -> None:
+        payload = {
+            "noteId": note_id,
+        }
+        self._api_request(
+            endpoint="/api/notes/reactions/delete", params=payload)
