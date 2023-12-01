@@ -4,6 +4,8 @@ from .sync_base import Misskey as Base
 from .schemas import (
     CreatedNoteSchema,
     CreatedNote,
+    Note,
+    NoteSchema,
 )
 from .schemas.arguments import (
     NotesCreateArgumentsSchema,
@@ -69,6 +71,13 @@ class Misskey(Base):
 
         return CreatedNoteSchema().load(
             self._api_request(endpoint="/api/notes/create", params=payload))
+
+    def notes_show(self, *, note_id: str) -> Note:
+        payload = {
+            "noteId": note_id,
+        }
+        return NoteSchema().load(
+            self._api_request(endpoint="/api/notes/show", params=payload))
 
     def notes_delete(self, *, note_id: str) -> None:
         payload = {
