@@ -11,3 +11,6 @@ from .announcements import (
 from .users import (
     UsersArgumentsSchema,
 )
+from .notes_timeline import (
+    NotesLocalTimelineArgumentsSchema,
+)

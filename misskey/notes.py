@@ -1,3 +1,4 @@
+import datetime
 from typing import List, Optional
 
 from .sync_base import Misskey as Base
@@ -9,6 +10,7 @@ from .schemas import (
 )
 from .schemas.arguments import (
     NotesCreateArgumentsSchema,
+    NotesLocalTimelineArgumentsSchema,
 )
 from .enum import (
     VisibilityEnum,
@@ -106,3 +108,41 @@ class Misskey(Base):
         }
         self._api_request(
             endpoint="/api/notes/reactions/delete", params=payload)
+
+    def notes_local_timeline(
+        self, *,
+        with_files: bool = False,
+        with_renotes: bool = False,
+        with_replies: bool = False,
+        exclude_nsfw: bool = False,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        # TODO: API is int, so convert
+        since_date: Optional[datetime.datetime] = None,
+        # TODO: API is int, so convert
+        until_date: Optional[datetime.datetime] = None,
+    ) -> List[Note]:
+        payload_dict = {
+            "with_files": with_files,
+            "with_renotes": with_renotes,
+            "with_replies": with_replies,
+            "exclude_nsfw": exclude_nsfw,
+            "limit": limit,
+        }
+        if since_id is not None:
+            payload_dict["since_id"] = since_id
+        if until_id is not None:
+            payload_dict["until_id"] = until_id
+        if since_date is not None:
+            payload_dict["since_date"] = since_date
+        if until_date is not None:
+            payload_dict["until_date"] = until_date
+
+        payload = NotesLocalTimelineArgumentsSchema().dump(payload_dict)
+
+        return NoteSchema().load(
+            self._api_request(
+                endpoint="/api/notes/local-timeline", params=payload),
+            many=True,
+        )
