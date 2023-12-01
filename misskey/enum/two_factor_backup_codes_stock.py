@@ -1,11 +1,11 @@
 from enum import Enum
 
 __all__ = (
-    "MisskeyTwoFactorBackupCodesStockEnum",
+    "TwoFactorBackupCodesStockEnum",
 )
 
 
-class MisskeyTwoFactorBackupCodesStockEnum(Enum):
+class TwoFactorBackupCodesStockEnum(Enum):
     FULL = "full"
     PARTIAL = "partial"
     NONE = "none"

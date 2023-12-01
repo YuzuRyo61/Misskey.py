@@ -1,11 +1,11 @@
 from enum import Enum
 
 __all__ = (
-    "MisskeyReactionAcceptanceEnum",
+    "ReactionAcceptanceEnum",
 )
 
 
-class MisskeyReactionAcceptanceEnum(Enum):
+class ReactionAcceptanceEnum(Enum):
     NULL = None
     LIKE_ONLY = "likeOnly"
     LIKE_ONLY_FOR_REMOTE = "likeOnlyForRemote"

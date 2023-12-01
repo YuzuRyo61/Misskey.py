@@ -1,11 +1,11 @@
 from enum import Enum
 
 __all__ = (
-    "MisskeyOnlineStatusEnum",
+    "OnlineStatusEnum",
 )
 
 
-class MisskeyOnlineStatusEnum(Enum):
+class OnlineStatusEnum(Enum):
     UNKNOWN = "unknown"
     ONLINE = "online"
     ACTIVE = "active"

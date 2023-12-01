@@ -8,8 +8,8 @@ from dataclasses import dataclass, field as dc_field
 from marshmallow import Schema, fields, post_load, INCLUDE
 
 from misskey.enum import (
-    MisskeyNoteVisibilityEnum,
-    MisskeyReactionAcceptanceEnum,
+    VisibilityEnum,
+    ReactionAcceptanceEnum,
 )
 
 __all__ = (
@@ -24,7 +24,7 @@ __all__ = (
 class Note:
     id: str
     created_at: datetime.datetime
-    visibility: MisskeyNoteVisibilityEnum
+    visibility: VisibilityEnum
     renote_count: int
     replies_count: int
     deleted_at: Optional[datetime.datetime] = None
@@ -42,7 +42,7 @@ class Note:
     tags: Optional[List[str]] = None
     channel_id: Optional[str] = None
     local_only: Optional[bool] = None
-    reaction_acceptance: Optional[MisskeyReactionAcceptanceEnum] = None
+    reaction_acceptance: Optional[ReactionAcceptanceEnum] = None
     uri: Optional[str] = None
     url: Optional[str] = None
 
@@ -82,7 +82,7 @@ class NoteSchema(Schema):
         lambda: NoteSchema(exclude=("renote",)), allow_none=True)
     is_hidden = fields.Boolean(data_key="isHidden")
     visibility = fields.Enum(
-        MisskeyNoteVisibilityEnum, by_value=True, required=True)
+        VisibilityEnum, by_value=True, required=True)
     mentions = fields.List(fields.String())
     visible_user_ids = fields.List(fields.String(), data_key="visibleUserIds")
     file_ids = fields.List(fields.String(), data_key="fileIds")
@@ -93,7 +93,7 @@ class NoteSchema(Schema):
     # channel = fields.Nested(...  # TODO: TBD
     local_only = fields.Boolean(data_key="localOnly")
     reaction_acceptance = fields.Enum(
-        MisskeyReactionAcceptanceEnum,
+        ReactionAcceptanceEnum,
         required=True, data_key="reactionAcceptance", allow_none=True)
     # reactions = fields.Nested(...  # TODO: TBD
     renote_count = fields.Integer(required=True, data_key="renoteCount")

@@ -1,10 +1,10 @@
 from enum import Enum
 
 __all__ = (
-    "MisskeyHttpMethodEnum",
+    "HttpMethodEnum",
 )
 
 
-class MisskeyHttpMethodEnum(Enum):
+class HttpMethodEnum(Enum):
     GET = "get"
     POST = "post"

@@ -1,8 +1,8 @@
 from marshmallow import Schema, fields
 
 from misskey.enum import (
-    MisskeyNoteVisibilityEnum,
-    MisskeyReactionAcceptanceEnum,
+    VisibilityEnum,
+    ReactionAcceptanceEnum,
 )
 
 __all__ = (
@@ -20,16 +20,16 @@ class NotesCreatePollArgumentsSchema(Schema):
 
 class NotesCreateArgumentsSchema(Schema):
     visibility = fields.Enum(
-        MisskeyNoteVisibilityEnum,
+        VisibilityEnum,
         by_value=True,
-        default=MisskeyNoteVisibilityEnum.PUBLIC)
+        default=VisibilityEnum.PUBLIC)
     visible_user_ids = fields.List(fields.String(), data_key="visibleUserIds")
     cw = fields.String(allow_none=True)
     local_only = fields.Boolean(default=False, data_key="localOnly")
     reaction_acceptance = fields.Enum(
-        MisskeyReactionAcceptanceEnum,
+        ReactionAcceptanceEnum,
         by_value=True,
-        default=MisskeyReactionAcceptanceEnum.NULL)
+        default=ReactionAcceptanceEnum.NULL)
     no_extract_mentions = fields.Boolean(
         default=False, data_key="noExtractMentions")
     no_extract_hashtags = fields.Boolean(

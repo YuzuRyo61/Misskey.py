@@ -1,11 +1,11 @@
 from enum import Enum
 
 __all__ = (
-    "MisskeyNoteVisibilityEnum",
+    "VisibilityEnum",
 )
 
 
-class MisskeyNoteVisibilityEnum(Enum):
+class VisibilityEnum(Enum):
     PUBLIC = "public"
     HOME = "home"
     FOLLOWERS = "followers"

@@ -6,9 +6,9 @@ from typing import Optional, List
 from marshmallow import Schema, fields, post_load, INCLUDE
 
 from misskey.enum import (
-    MisskeyOnlineStatusEnum,
-    MisskeyFFVisibilityEnum,
-    MisskeyTwoFactorBackupCodesStockEnum,
+    OnlineStatusEnum,
+    FFVisibilityEnum,
+    TwoFactorBackupCodesStockEnum,
 )
 from .role import (
     Role,
@@ -25,7 +25,7 @@ __all__ = (
 class MeDetailed:
     id: str
     username: str
-    online_status: MisskeyOnlineStatusEnum
+    online_status: OnlineStatusEnum
     created_at: datetime.datetime
     last_fetched_at: datetime.datetime
     is_locked: bool
@@ -35,7 +35,7 @@ class MeDetailed:
     following_count: int
     notes_count: int
     public_reactions: bool
-    ff_visibility: MisskeyOnlineStatusEnum
+    ff_visibility: OnlineStatusEnum
     is_moderator: bool
     is_admin: bool
     inject_featured_note: bool
@@ -111,7 +111,7 @@ class MeDetailedSchema(Schema):
     is_bot = fields.Boolean(data_key="isBot")
     is_cat = fields.Boolean(data_key="isCat")
     online_status = fields.Enum(
-        MisskeyOnlineStatusEnum, data_key="onlineStatus",
+        OnlineStatusEnum, data_key="onlineStatus",
         by_value=True)
     url = fields.Url(allow_none=True)
     uri = fields.Url(allow_none=True)
@@ -142,7 +142,7 @@ class MeDetailedSchema(Schema):
         data_key="pinnedPageId", required=True, allow_none=True)
     public_reactions = fields.Boolean(data_key="publicReactions")
     ff_visibility = fields.Enum(
-        MisskeyFFVisibilityEnum, data_key="ffVisibility",
+        FFVisibilityEnum, data_key="ffVisibility",
         by_value=True)
     two_factor_enabled = fields.Boolean(
         required=True, data_key="twoFactorEnabled", default=False)
@@ -160,7 +160,7 @@ class MeDetailedSchema(Schema):
         required=True,
         data_key="notificationRecieveConfig")
     two_factor_backup_codes_stock = fields.Enum(
-        MisskeyTwoFactorBackupCodesStockEnum,
+        TwoFactorBackupCodesStockEnum,
         data_key="twoFactorBackupCodesStock",
         required=True, by_value=True)
     is_explorable = fields.Boolean(data_key="isExplorable", required=True)

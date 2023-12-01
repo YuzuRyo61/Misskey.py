@@ -2,11 +2,11 @@ from enum import Enum
 
 
 __all__ = (
-    "MisskeyFFVisibilityEnum",
+    "FFVisibilityEnum",
 )
 
 
-class MisskeyFFVisibilityEnum(Enum):
+class FFVisibilityEnum(Enum):
     PUBLIC = "public"
     FOLLOWERS = "followers"
     PRIVATE = "private"

@@ -11,7 +11,7 @@ from misskey.exceptions import (
     MisskeyResponseError,
 )
 from misskey.enum import (
-    MisskeyHttpMethodEnum,
+    HttpMethodEnum,
 )
 
 __all__ = (
@@ -33,7 +33,7 @@ class AsyncMisskey(BaseMisskey):
 
     async def _api_request(
         self, *,
-        method: MisskeyHttpMethodEnum = MisskeyHttpMethodEnum.POST,
+        method: HttpMethodEnum = HttpMethodEnum.POST,
         endpoint: str,
         params: Optional[dict] = None,
         **kwargs
@@ -47,13 +47,13 @@ class AsyncMisskey(BaseMisskey):
             params["i"] = self.token
 
         try:
-            if method == MisskeyHttpMethodEnum.POST:
+            if method == HttpMethodEnum.POST:
                 context = self.session.post(
                     self.address + endpoint,
                     headers={"Content-Type": "application/json"},
                     json=params,
                 )
-            elif method == MisskeyHttpMethodEnum.GET:
+            elif method == HttpMethodEnum.GET:
                 context = self.session.post(
                     self.address + endpoint,
                     headers={"Content-Type": "application/json"},

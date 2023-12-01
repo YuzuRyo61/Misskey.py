@@ -9,8 +9,8 @@ from .schemas.arguments import (
     NotesCreateArgumentsSchema,
 )
 from .enum import (
-    MisskeyNoteVisibilityEnum,
-    MisskeyReactionAcceptanceEnum,
+    VisibilityEnum,
+    ReactionAcceptanceEnum,
 )
 from .dict import PollCreateDict
 
@@ -22,13 +22,13 @@ __all__ = (
 class Misskey(Base):
     def notes_create(
         self, *,
-        visibility: MisskeyNoteVisibilityEnum =
-        MisskeyNoteVisibilityEnum.PUBLIC,
+        visibility: VisibilityEnum =
+        VisibilityEnum.PUBLIC,
         visible_user_ids: Optional[List[str]] = None,
         cw: Optional[str] = None,
         local_only: bool = False,
-        reaction_acceptance: MisskeyReactionAcceptanceEnum =
-        MisskeyReactionAcceptanceEnum.NULL,
+        reaction_acceptance: ReactionAcceptanceEnum =
+        ReactionAcceptanceEnum.NULL,
         no_extract_mentions: bool = False,
         no_extract_hashtags: bool = False,
         no_extract_emojis: bool = False,

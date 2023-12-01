@@ -9,7 +9,7 @@ from .exceptions import (
     MisskeyAPIError,
     MisskeyResponseError
 )
-from .enum import MisskeyHttpMethodEnum
+from .enum import HttpMethodEnum
 
 __all__ = (
     "Misskey",
@@ -33,7 +33,7 @@ class Misskey(BaseMisskey):
 
     def _api_request(
         self, *,
-        method: MisskeyHttpMethodEnum = MisskeyHttpMethodEnum.POST,
+        method: HttpMethodEnum = HttpMethodEnum.POST,
         endpoint: str,
         params: Optional[dict] = None,
         **kwargs
@@ -47,10 +47,10 @@ class Misskey(BaseMisskey):
             params["i"] = self.token
 
         try:
-            if method == MisskeyHttpMethodEnum.GET:
+            if method == HttpMethodEnum.GET:
                 context = self.session.get(
                     url=self.address + endpoint)
-            elif method == MisskeyHttpMethodEnum.POST:
+            elif method == HttpMethodEnum.POST:
                 context = self.session.post(
                     url=self.address + endpoint, json=params)
             else:
