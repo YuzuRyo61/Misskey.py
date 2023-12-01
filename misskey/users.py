@@ -8,9 +8,14 @@ from misskey.schemas import (
     MeDetailed,
     MeDetailedSchema,
 )
-
+from misskey.enum import (
+    UsersSortEnum,
+    UsersStateEnum,
+    UsersOriginEnum,
+)
 from misskey.schemas.arguments import (
     UsersShowArgumentsSchema,
+    UsersArgumentsSchema,
 )
 from misskey.exceptions import MisskeyResponseError
 
@@ -20,6 +25,40 @@ __all__ = (
 
 
 class Misskey(Base):
+    def users(
+        self, *,
+        limit: int = 10,
+        offset: int = 0,
+        sort: Optional[UsersSortEnum] = None,
+        state: Optional[UsersStateEnum] = None,
+        origin: UsersOriginEnum = UsersOriginEnum.LOCAL,
+        hostname: Optional[str] = None,
+    ) -> List[Union[UserDetailed, MeDetailed]]:
+        payload_dict = {
+            "limit": limit,
+            "offset": offset,
+            "hostname": hostname,
+        }
+        if sort is not None:
+            payload_dict["sort"] = sort
+        if state is not None:
+            payload_dict["state"] = state
+        if origin is not None:
+            payload_dict["origin"] = origin
+
+        payload = UsersArgumentsSchema().dump(payload_dict)
+        response = self._api_request(
+            endpoint="/api/users", params=payload)
+
+        # TODO: Maybe there's a better way to identify them.
+        return_data = []
+        for res in response:
+            if "avatarId" in response:
+                return_data.append(MeDetailedSchema().load(res))
+            else:
+                return_data.append(UserDetailedSchema().load(res))
+        return return_data
+
     def users_show(
         self, *,
         user_id: Optional[str] = None,

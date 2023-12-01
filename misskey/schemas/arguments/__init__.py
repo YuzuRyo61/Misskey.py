@@ -8,3 +8,6 @@ from .users_show import (
 from .announcements import (
     AnnouncementsArgumentsSchema,
 )
+from .users import (
+    UsersArgumentsSchema,
+)
