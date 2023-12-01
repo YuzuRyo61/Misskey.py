@@ -10,5 +10,3 @@ class UsersShowArgumentsSchema(Schema):
     user_ids = fields.List(fields.String(), data_key="userIds")
     username = fields.String()
     host = fields.String(allow_none=True)
-
-    # TODO: validate
