@@ -134,10 +134,10 @@ class Misskey(Base):
             payload_dict["since_id"] = since_id
         if until_id is not None:
             payload_dict["until_id"] = until_id
-        if since_date is not None:
-            payload_dict["since_date"] = since_date
-        if until_date is not None:
-            payload_dict["until_date"] = until_date
+        # if since_date is not None:
+        #     payload_dict["since_date"] = since_date
+        # if until_date is not None:
+        #     payload_dict["until_date"] = until_date
 
         payload = NotesLocalTimelineArgumentsSchema().dump(payload_dict)
 
