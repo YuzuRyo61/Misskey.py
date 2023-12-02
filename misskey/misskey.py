@@ -2,6 +2,7 @@ from .notes import Misskey as NotesMisskey
 from .i import Misskey as MeMisskey
 from .meta import Misskey as MetaMisskey
 from .users import Misskey as UsersMisskey
+from .drive import Misskey as DriveMisskey
 from .misc import Misskey as MiscMisskey
 
 __all__ = (
@@ -14,6 +15,7 @@ class Misskey(
     MeMisskey,
     MetaMisskey,
     UsersMisskey,
+    DriveMisskey,
     MiscMisskey,
 ):
     pass
