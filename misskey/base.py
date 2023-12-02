@@ -1,3 +1,5 @@
+from urllib.parse import urlparse
+
 from typing import Optional, Any
 
 __all__ = (
@@ -21,18 +23,27 @@ class BaseMisskey(object):
         address: str,
         token: Optional[str] = None,
     ):
-        self.address = self._add_protocol(address)
+        self.address = self._address_parse(address)
 
         self.token = token
 
     @staticmethod
-    def _add_protocol(address: str) -> str:
-        if (not address.startswith("http://") and not
-           address.startswith("https://")):
-            address = "https://" + address
+    def _address_parse(address: str) -> str:
+        parsed_address = urlparse(address)
+        if parsed_address.scheme == "":
+            parsed_address = urlparse(f"https://{address}")
 
-        address.rstrip("/")
-        return address
+        if (parsed_address.scheme != "http" and
+           parsed_address.scheme != "https"):
+            raise ValueError(
+                f'Address protocol does not support "{parsed_address.scheme}"')
+
+        return parsed_address._replace(
+            path="",
+            params="",
+            query="",
+            fragment="",
+        ).geturl().rstrip("/")
 
     def _api_request(
         self, *,
