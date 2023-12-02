@@ -1,0 +1,67 @@
+# Misskey.py documentation i18n file
+# Copyright (C) 2019-2023 YuzuRyo61
+# This file is distributed under the same license as the Misskey.py package.
+# YuzuRyo61 <yuzuryo61@yuzulia.work>, 2023.
+
+# TODO: 試験中のため変更される場合があります
+
+msgid ""
+msgstr ""
+"Project-Id-Version: Misskey.py \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-02 00:04+0900\n"
+"PO-Revision-Date: 2023-12-02 00:08+0900\n"
+"Last-Translator: YuzuRyo61 <yuzuryo61@yuzulia.work>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.13.1\n"
+
+#: ../../index.rst:2
+msgid "Misskey.py"
+msgstr "Misskey.py"
+
+#: ../../index.rst:5
+msgid "Introduction"
+msgstr "はじめに"
+
+#: ../../index.rst:6
+msgid "Welcome to the official documentation of Misskey.py."
+msgstr "Misskey.pyの公式ドキュメントへようこそ。"
+
+#: ../../index.rst:8
+msgid ""
+"`Misskey`_ is a distributed social networking software compliant with "
+"ActivityPub. This library defines classes and other functions that can "
+"access its API."
+msgstr ""
+"`Misskey`_ はActivityPubに対応した分散型のソーシャルネットワーキングソフトウェアです。"
+"このライブラリはAPIにアクセスするためのクラスや他の関数を定義しています。"
+
+#: ../../index.rst:13
+msgid "Usage"
+msgstr "使い方"
+
+#: ../../index.rst:15
+msgid "WIP (Misskey.py v5 is now in development)"
+msgstr "WIP (Misskey.py v5は現在開発中です)"
+
+#: ../../index.rst:18
+msgid "Indices and tables"
+msgstr "Indices and tables"
+
+#: ../../index.rst:20
+msgid ":ref:`genindex`"
+msgstr ":ref:`genindex`"
+
+#: ../../index.rst:21
+msgid ":ref:`modindex`"
+msgstr ":ref:`modindex`"
+
+#: ../../index.rst:22
+msgid ":ref:`search`"
+msgstr ":ref:`search`"
+
