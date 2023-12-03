@@ -1,5 +1,5 @@
 # GitHub Workflows
-.github/workflows/*.yaml @YuzuRyo61
+.github/workflows/ @YuzuRyo61
 
 # Project root files
 /.gitignore @YuzuRyo61
