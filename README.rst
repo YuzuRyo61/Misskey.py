@@ -23,7 +23,7 @@ Therefore, it is subject to change from what is described in the README.
 Installation
 ============
 
-**Python 3.8 or later required**
+**Python 3.9 or later required**
 
 Misskey.py can be obtained using pip:
 
