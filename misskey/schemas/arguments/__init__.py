@@ -1,7 +1,3 @@
-"""
-TODO: Eliminate dependence to stop because maybe you don't need to use it.
-"""
-
 from .notes_create import (
     NotesCreateArgumentsSchema,
     NotesCreatePollArgumentsSchema,
