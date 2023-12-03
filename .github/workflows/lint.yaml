@@ -6,16 +6,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install poetry
+        run: |
+          pipx install poetry
+      - run: poetry --version
       - uses: actions/setup-python@v4
         with:
           python-version: '3.12'
           cache: 'poetry'
-      - name: Install pipx
-        run: |
-          python3 -m pip install --user pipx
-      - name: Install poetry
-        run: |
-          pipx install poetry
       - name: Install project dependencies
         run: |
           poetry install --sync --with=main,dev
