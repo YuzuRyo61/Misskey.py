@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from .sync_base import Misskey as Base
 from .schemas import (
@@ -14,6 +14,19 @@ __all__ = (
 class Misskey(Base):
     def drive(self):
         # TODO
+        # TODO: Add return type
+        raise NotImplementedError()
+
+    def drive_files(
+        self, *,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        folder_id: Optional[str] = None,
+        type: Optional[str] = None,
+        sort,  # TODO: Define enum
+    ) -> List[DriveFile]:
+        # TODO
         raise NotImplementedError()
 
     def drive_files_create(
@@ -26,6 +39,18 @@ class Misskey(Base):
         force: bool = False,
     ) -> DriveFile:
         # TODO: This API has a special behavior, so process it accordingly.
+        raise NotImplementedError()
+
+    def drive_files_upload_from_url(
+        self, *,
+        url: str,
+        folder_id: Optional[str] = None,
+        is_sensitive: bool = False,
+        comment: Optional[str] = None,
+        marker: Optional[str] = None,
+        force: bool = False,
+    ) -> None:
+        # TODO
         raise NotImplementedError()
 
     def drive_files_show(
@@ -46,7 +71,7 @@ class Misskey(Base):
     def drive_files_delete(
         self, *,
         file_id: str,
-    ):
+    ) -> None:
         payload = {
             "fileId": file_id,
         }
@@ -61,6 +86,38 @@ class Misskey(Base):
         name: Optional[str] = None,
         is_sensitive: Optional[bool] = None,
         comment: Optional[bool] = None,
-    ):
+    ) -> DriveFile:
+        # TODO
+        raise NotImplementedError()
+
+    def drive_files_find(
+        self, *,
+        name: str,
+        folder_id: Optional[str] = None,
+    ) -> List[DriveFile]:
+        # TODO
+        raise NotImplementedError()
+
+    def drive_files_find_by_hash(
+        self, *,
+        md5: str,
+    ) -> List[DriveFile]:
+        # TODO
+        raise NotImplementedError()
+
+    def drive_files_check_existence(
+        self, *,
+        md5: str,
+    ) -> bool:
+        # TODO
+        raise NotImplementedError()
+
+    def drive_files_attached_notes(
+        self, *,
+        file_id: str,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        limit: int = 10,
+    ) -> List[DriveFile]:
         # TODO
         raise NotImplementedError()
