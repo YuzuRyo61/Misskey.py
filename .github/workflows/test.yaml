@@ -1,0 +1,33 @@
+name: Unit Test
+on:
+  pull_request:
+    types: [opened, reopened]
+  push:
+    branches:
+      - 'main'
+  schedule:
+    - cron: '0 3 * * *'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        pyver: ['3.9', '3.10', '3.11', '3.12']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.pyver }}
+          cache: 'poetry'
+      - name: Install pipx
+        run: |
+          python3 -m pip install --user pipx
+      - name: Install poetry
+        run: |
+          pipx install poetry
+      - name: Install project dependencies
+        run: |
+          poetry install --sync --with=main,async,test
+      - name: Run test
+        run: |
+          poetry run pytest
