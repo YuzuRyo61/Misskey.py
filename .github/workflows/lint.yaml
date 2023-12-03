@@ -2,21 +2,20 @@ name: Lint
 on:
   push:
 jobs:
-  flake8:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - name: Install poetry
         run: |
           pipx install poetry
-      - run: poetry --version
       - uses: actions/setup-python@v4
         with:
           python-version: '3.12'
           cache: 'poetry'
       - name: Install project dependencies
         run: |
-          poetry install --sync --with=main,dev
+          poetry install --sync --only=main,dev
       - name: Run lint
         run: |
           poetry run flake8
