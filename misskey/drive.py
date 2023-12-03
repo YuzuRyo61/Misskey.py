@@ -12,6 +12,10 @@ __all__ = (
 
 
 class Misskey(Base):
+    def drive(self):
+        # TODO
+        raise NotImplementedError()
+
     def drive_files_create(
         self, *,
         file,
@@ -22,7 +26,7 @@ class Misskey(Base):
         force: bool = False,
     ) -> DriveFile:
         # TODO: This API has a special behavior, so process it accordingly.
-        pass
+        raise NotImplementedError()
 
     def drive_files_show(
         self, *,
@@ -59,4 +63,4 @@ class Misskey(Base):
         comment: Optional[bool] = None,
     ):
         # TODO
-        pass
+        raise NotImplementedError()
