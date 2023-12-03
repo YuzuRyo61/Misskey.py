@@ -12,22 +12,23 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        pyver: ['3.9', '3.10', '3.11', '3.12']
+        pyver:
+          - '3.9'
+          - '3.10'
+          - '3.11'
+          - '3.12'
     steps:
       - uses: actions/checkout@v4
+      - name: Install poetry
+        run: |
+          pipx install poetry
       - uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.pyver }}
           cache: 'poetry'
-      - name: Install pipx
-        run: |
-          python3 -m pip install --user pipx
-      - name: Install poetry
-        run: |
-          pipx install poetry
       - name: Install project dependencies
         run: |
-          poetry install --sync --with=main,async,test
+          poetry install --sync --only=main,test
       - name: Run test
         run: |
           poetry run pytest
