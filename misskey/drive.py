@@ -12,6 +12,18 @@ __all__ = (
 
 
 class Misskey(Base):
+    def drive_files_create(
+        self, *,
+        file,
+        folder_id: Optional[str] = None,
+        name: Optional[str] = None,
+        comment: Optional[str] = None,
+        is_sensitive: bool = False,
+        force: bool = False,
+    ) -> DriveFile:
+        # TODO: This API has a special behavior, so process it accordingly.
+        pass
+
     def drive_files_show(
         self, *,
         file_id: Optional[str] = None,
@@ -26,3 +38,25 @@ class Misskey(Base):
         return DriveFileSchema().load(
             self._api_request(
                 endpoint="/api/drive/files/show", params=payload))
+
+    def drive_files_delete(
+        self, *,
+        file_id: str,
+    ):
+        payload = {
+            "fileId": file_id,
+        }
+        self._api_request(
+            endpoint="/api/drive/files/delete", params=payload)
+
+    def drive_files_update(
+        self, *,
+        file_id: str,
+        # TODO: Think about how you want to null
+        folder_id: Optional[str] = None,
+        name: Optional[str] = None,
+        is_sensitive: Optional[bool] = None,
+        comment: Optional[bool] = None,
+    ):
+        # TODO
+        pass
