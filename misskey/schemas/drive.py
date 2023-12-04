@@ -6,9 +6,44 @@ from typing import Optional
 from marshmallow import Schema, fields, post_load, INCLUDE
 
 __all__ = (
+    "Drive",
+    "DriveSchema",
     "DriveFile",
     "DriveFileSchema",
 )
+
+
+@dataclass
+class Drive:
+    capacity: int
+    usage: int
+
+    _extra: dict = dc_field(default_factory=dict)
+
+    @classmethod
+    def from_dict(cls, data: dict):
+        payload = {
+            k: v for k, v in data.items()
+            if k in inspect.signature(cls).parameters
+        }
+        payload["_extra"] = {
+            k: v for k, v in data.items()
+            if k not in inspect.signature(cls).parameters
+        }
+        return cls(**payload)
+
+
+class DriveSchema(Schema):
+    capacity = fields.Integer(required=True)
+    usage = fields.Integer(required=True)
+
+    # noinspection PyUnusedLocal
+    @post_load()
+    def load_schema(self, data: dict, **kwargs):
+        return Drive.from_dict(data)
+
+    class Meta:
+        unknown = INCLUDE
 
 
 @dataclass

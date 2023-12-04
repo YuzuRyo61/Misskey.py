@@ -29,6 +29,8 @@ from .announcements import (
     AnnouncementsSchema,
 )
 from .drive import (
+    Drive,
+    DriveSchema,
     DriveFile,
     DriveFileSchema,
 )

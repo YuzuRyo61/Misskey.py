@@ -2,6 +2,8 @@ from typing import Optional, List
 
 from .sync_base import Misskey as Base
 from .schemas import (
+    Drive,
+    DriveSchema,
     DriveFile,
     DriveFileSchema,
 )
@@ -12,10 +14,8 @@ __all__ = (
 
 
 class Misskey(Base):
-    def drive(self):
-        # TODO
-        # TODO: Add return type
-        raise NotImplementedError()
+    def drive(self) -> Drive:
+        return DriveSchema().load(self._api_request(endpoint="/api/drive"))
 
     def drive_files(
         self, *,
