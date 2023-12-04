@@ -7,6 +7,9 @@ from .schemas import (
     DriveFile,
     DriveFileSchema,
 )
+from .enum import (
+    DriveFilesSortEnum,
+)
 
 __all__ = (
     "Misskey",
@@ -24,7 +27,7 @@ class Misskey(Base):
         until_id: Optional[str] = None,
         folder_id: Optional[str] = None,
         type: Optional[str] = None,
-        sort,  # TODO: Define enum
+        sort: Optional[DriveFilesSortEnum] = None,
     ) -> List[DriveFile]:
         # TODO
         raise NotImplementedError()
