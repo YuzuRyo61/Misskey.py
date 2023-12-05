@@ -15,17 +15,25 @@ class BaseMisskey(object):
     Since it is defined as a base class, this class does not operate by itself.
     """
 
-    address: str
-    token: Optional[str] = None
+    _address: str
+    _token: Optional[str] = None
+
+    @property
+    def address(self) -> str:
+        return self._address
+
+    @property
+    def token(self) -> Optional[str]:
+        return self._token
 
     def __init__(
         self, *,
         address: str,
         token: Optional[str] = None,
     ):
-        self.address = self._address_parse(address)
+        self._address = self._address_parse(address)
 
-        self.token = token
+        self._token = token
 
     @staticmethod
     def _address_parse(address: str) -> str:
