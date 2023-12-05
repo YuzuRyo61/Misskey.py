@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 
 from .sync_base import Misskey as Base
 from .schemas import AnnouncementsSchema, Announcements
@@ -10,6 +10,9 @@ __all__ = (
 
 
 class Misskey(Base):
+    def endpoints(self) -> List[str]:
+        return self._api_request(endpoint="/api/endpoints")
+
     def announcements(
         self, *,
         limit: int = 10,
