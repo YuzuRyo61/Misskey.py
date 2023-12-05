@@ -42,3 +42,14 @@ def test_base_init_raise_not_supported_protocol():
         BaseMisskey(
             address="ssh://misskey.example.com/",
         )
+
+
+def test_base_init_token_is_same():
+    """
+    The assigned 'token' must be the same.
+    """
+    mk = BaseMisskey(
+        address="https://misskey.example.com",
+        token="abcdef1234567890",
+    )
+    assert mk.token == "abcdef1234567890"
