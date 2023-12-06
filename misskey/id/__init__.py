@@ -1,1 +1,1 @@
-from .aid import MisskeyAID
+from .aid import AID

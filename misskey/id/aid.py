@@ -7,7 +7,7 @@ import numpy as np
 from .base import MisskeyID
 
 __all__ = (
-    "MisskeyAID",
+    "AID",
     "AID_REGEXP",
 )
 
@@ -16,7 +16,7 @@ TIME2000_UTC = datetime.datetime(2000, 1, 1, 0, 0, 0, 0, datetime.timezone.utc)
 AID_REGEXP = re.compile(r"^[0-9a-z]{10}", flags=re.I)
 
 
-class MisskeyAID(MisskeyID):
+class AID(MisskeyID):
     aid_counter: int = int.from_bytes(
         secrets.token_bytes(2), byteorder="big")  # Static
 
@@ -37,11 +37,11 @@ class MisskeyAID(MisskeyID):
 
     @staticmethod
     def get_noise() -> str:
-        return np.base_repr(MisskeyAID.aid_counter, 36).zfill(2)[-2:].lower()
+        return np.base_repr(AID.aid_counter, 36).zfill(2)[-2:].lower()
 
     @classmethod
     def generate(cls, *, t: datetime.datetime):
-        MisskeyAID.aid_counter += 1
+        AID.aid_counter += 1
         return cls(cls.get_time(t=t) + cls.get_noise())
 
     def to_date(self) -> datetime.datetime:
