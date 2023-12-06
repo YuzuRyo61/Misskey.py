@@ -1,3 +1,5 @@
+import datetime
+
 from .sync_base import Misskey as Base
 
 from typing import Optional, List, Union
@@ -7,6 +9,8 @@ from misskey.schemas import (
     UserDetailedSchema,
     MeDetailed,
     MeDetailedSchema,
+    Note,
+    NoteSchema,
 )
 from misskey.enum import (
     UsersSortEnum,
@@ -100,3 +104,20 @@ class Misskey(Base):
             return return_data
         else:
             raise MisskeyResponseError("Illegal response type received")
+
+    def users_notes(
+        self, *,
+        user_id: str,
+        with_replies: bool = False,
+        with_renotes: bool = False,
+        with_channel_notes: bool = False,
+        limit: int = 10,
+        since_id: Optional[str] = None,
+        until_id: Optional[str] = None,
+        # TODO: How to process a date specification
+        since_date: Optional[datetime.datetime] = None,
+        until_date: Optional[datetime.datetime] = None,
+        with_files: bool = False,
+        exclude_nsfw: bool = False,
+    ) -> List[Note]:
+        pass
