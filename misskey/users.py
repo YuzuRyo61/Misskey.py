@@ -120,4 +120,4 @@ class Misskey(Base):
         with_files: bool = False,
         exclude_nsfw: bool = False,
     ) -> List[Note]:
-        pass
+        raise NotImplementedError()
