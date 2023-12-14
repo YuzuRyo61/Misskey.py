@@ -1,5 +1,6 @@
 [tool.poetry]
 name = "Misskey.py"
+# TODO: Make versions directly readable from source files to avoid discrepancies
 version = "5.0.0.a1"
 description = "The Misskey API library for Python. Misskey is made by syuilo."
 license = "MIT"
